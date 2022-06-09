@@ -469,34 +469,34 @@ class EvaluasiEdit extends Evaluasi
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_evaluasi->setVisibility();
         $this->tanggal->setVisibility();
+        $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
-        $this->idd_wilayah->setVisibility();
-        $this->file_01->setVisibility();
-        $this->file_02->setVisibility();
-        $this->file_03->setVisibility();
-        $this->file_04->setVisibility();
-        $this->file_05->setVisibility();
-        $this->file_06->setVisibility();
-        $this->file_07->setVisibility();
-        $this->file_08->setVisibility();
-        $this->file_09->setVisibility();
-        $this->file_10->setVisibility();
-        $this->file_11->setVisibility();
-        $this->file_12->setVisibility();
-        $this->file_13->setVisibility();
-        $this->file_14->setVisibility();
-        $this->file_15->setVisibility();
-        $this->file_16->setVisibility();
-        $this->file_17->setVisibility();
-        $this->file_18->setVisibility();
-        $this->file_19->setVisibility();
-        $this->file_20->setVisibility();
-        $this->file_21->setVisibility();
-        $this->file_22->setVisibility();
-        $this->file_23->setVisibility();
-        $this->file_24->setVisibility();
+        $this->surat_pengantar->setVisibility();
+        $this->rpjmd->setVisibility();
+        $this->rkpk->setVisibility();
+        $this->skd_rkuappas->setVisibility();
+        $this->kua->setVisibility();
+        $this->ppas->setVisibility();
+        $this->skd_rqanun->setVisibility();
+        $this->nota_keuangan->setVisibility();
+        $this->pengantar_nota->setVisibility();
+        $this->risalah_sidang->setVisibility();
+        $this->bap_apbk->setVisibility();
+        $this->rq_apbk->setVisibility();
+        $this->rp_penjabaran->setVisibility();
+        $this->jadwal_proses->setVisibility();
+        $this->sinkron_kebijakan->setVisibility();
+        $this->konsistensi_program->setVisibility();
+        $this->alokasi_pendidikan->setVisibility();
+        $this->alokasi_kesehatan->setVisibility();
+        $this->alokasi_belanja->setVisibility();
+        $this->bak_kegiatan->setVisibility();
+        $this->softcopy_rka->setVisibility();
+        $this->otsus->setVisibility();
+        $this->qanun_perbup->setVisibility();
+        $this->tindak_apbkp->setVisibility();
         $this->status->setVisibility();
         $this->idd_user->setVisibility();
         $this->hideFieldsForAddEdit();
@@ -513,9 +513,9 @@ class EvaluasiEdit extends Evaluasi
         }
 
         // Set up lookup cache
+        $this->setupLookupOptions($this->idd_wilayah);
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
-        $this->setupLookupOptions($this->idd_wilayah);
         $this->setupLookupOptions($this->idd_user);
 
         // Check modal
@@ -675,36 +675,78 @@ class EvaluasiEdit extends Evaluasi
     protected function getUploadFiles()
     {
         global $CurrentForm, $Language;
-        $this->file_01->Upload->Index = $CurrentForm->Index;
-        $this->file_01->Upload->uploadFile();
-        $this->file_01->CurrentValue = $this->file_01->Upload->FileName;
-        $this->file_02->Upload->Index = $CurrentForm->Index;
-        $this->file_02->Upload->uploadFile();
-        $this->file_02->CurrentValue = $this->file_02->Upload->FileName;
-        $this->file_03->Upload->Index = $CurrentForm->Index;
-        $this->file_03->Upload->uploadFile();
-        $this->file_03->CurrentValue = $this->file_03->Upload->FileName;
-        $this->file_04->Upload->Index = $CurrentForm->Index;
-        $this->file_04->Upload->uploadFile();
-        $this->file_04->CurrentValue = $this->file_04->Upload->FileName;
-        $this->file_05->Upload->Index = $CurrentForm->Index;
-        $this->file_05->Upload->uploadFile();
-        $this->file_05->CurrentValue = $this->file_05->Upload->FileName;
-        $this->file_06->Upload->Index = $CurrentForm->Index;
-        $this->file_06->Upload->uploadFile();
-        $this->file_06->CurrentValue = $this->file_06->Upload->FileName;
-        $this->file_07->Upload->Index = $CurrentForm->Index;
-        $this->file_07->Upload->uploadFile();
-        $this->file_07->CurrentValue = $this->file_07->Upload->FileName;
-        $this->file_08->Upload->Index = $CurrentForm->Index;
-        $this->file_08->Upload->uploadFile();
-        $this->file_08->CurrentValue = $this->file_08->Upload->FileName;
-        $this->file_09->Upload->Index = $CurrentForm->Index;
-        $this->file_09->Upload->uploadFile();
-        $this->file_09->CurrentValue = $this->file_09->Upload->FileName;
-        $this->file_10->Upload->Index = $CurrentForm->Index;
-        $this->file_10->Upload->uploadFile();
-        $this->file_10->CurrentValue = $this->file_10->Upload->FileName;
+        $this->surat_pengantar->Upload->Index = $CurrentForm->Index;
+        $this->surat_pengantar->Upload->uploadFile();
+        $this->surat_pengantar->CurrentValue = $this->surat_pengantar->Upload->FileName;
+        $this->rpjmd->Upload->Index = $CurrentForm->Index;
+        $this->rpjmd->Upload->uploadFile();
+        $this->rpjmd->CurrentValue = $this->rpjmd->Upload->FileName;
+        $this->rkpk->Upload->Index = $CurrentForm->Index;
+        $this->rkpk->Upload->uploadFile();
+        $this->rkpk->CurrentValue = $this->rkpk->Upload->FileName;
+        $this->skd_rkuappas->Upload->Index = $CurrentForm->Index;
+        $this->skd_rkuappas->Upload->uploadFile();
+        $this->skd_rkuappas->CurrentValue = $this->skd_rkuappas->Upload->FileName;
+        $this->kua->Upload->Index = $CurrentForm->Index;
+        $this->kua->Upload->uploadFile();
+        $this->kua->CurrentValue = $this->kua->Upload->FileName;
+        $this->ppas->Upload->Index = $CurrentForm->Index;
+        $this->ppas->Upload->uploadFile();
+        $this->ppas->CurrentValue = $this->ppas->Upload->FileName;
+        $this->skd_rqanun->Upload->Index = $CurrentForm->Index;
+        $this->skd_rqanun->Upload->uploadFile();
+        $this->skd_rqanun->CurrentValue = $this->skd_rqanun->Upload->FileName;
+        $this->nota_keuangan->Upload->Index = $CurrentForm->Index;
+        $this->nota_keuangan->Upload->uploadFile();
+        $this->nota_keuangan->CurrentValue = $this->nota_keuangan->Upload->FileName;
+        $this->pengantar_nota->Upload->Index = $CurrentForm->Index;
+        $this->pengantar_nota->Upload->uploadFile();
+        $this->pengantar_nota->CurrentValue = $this->pengantar_nota->Upload->FileName;
+        $this->risalah_sidang->Upload->Index = $CurrentForm->Index;
+        $this->risalah_sidang->Upload->uploadFile();
+        $this->risalah_sidang->CurrentValue = $this->risalah_sidang->Upload->FileName;
+        $this->bap_apbk->Upload->Index = $CurrentForm->Index;
+        $this->bap_apbk->Upload->uploadFile();
+        $this->bap_apbk->CurrentValue = $this->bap_apbk->Upload->FileName;
+        $this->rq_apbk->Upload->Index = $CurrentForm->Index;
+        $this->rq_apbk->Upload->uploadFile();
+        $this->rq_apbk->CurrentValue = $this->rq_apbk->Upload->FileName;
+        $this->rp_penjabaran->Upload->Index = $CurrentForm->Index;
+        $this->rp_penjabaran->Upload->uploadFile();
+        $this->rp_penjabaran->CurrentValue = $this->rp_penjabaran->Upload->FileName;
+        $this->jadwal_proses->Upload->Index = $CurrentForm->Index;
+        $this->jadwal_proses->Upload->uploadFile();
+        $this->jadwal_proses->CurrentValue = $this->jadwal_proses->Upload->FileName;
+        $this->sinkron_kebijakan->Upload->Index = $CurrentForm->Index;
+        $this->sinkron_kebijakan->Upload->uploadFile();
+        $this->sinkron_kebijakan->CurrentValue = $this->sinkron_kebijakan->Upload->FileName;
+        $this->konsistensi_program->Upload->Index = $CurrentForm->Index;
+        $this->konsistensi_program->Upload->uploadFile();
+        $this->konsistensi_program->CurrentValue = $this->konsistensi_program->Upload->FileName;
+        $this->alokasi_pendidikan->Upload->Index = $CurrentForm->Index;
+        $this->alokasi_pendidikan->Upload->uploadFile();
+        $this->alokasi_pendidikan->CurrentValue = $this->alokasi_pendidikan->Upload->FileName;
+        $this->alokasi_kesehatan->Upload->Index = $CurrentForm->Index;
+        $this->alokasi_kesehatan->Upload->uploadFile();
+        $this->alokasi_kesehatan->CurrentValue = $this->alokasi_kesehatan->Upload->FileName;
+        $this->alokasi_belanja->Upload->Index = $CurrentForm->Index;
+        $this->alokasi_belanja->Upload->uploadFile();
+        $this->alokasi_belanja->CurrentValue = $this->alokasi_belanja->Upload->FileName;
+        $this->bak_kegiatan->Upload->Index = $CurrentForm->Index;
+        $this->bak_kegiatan->Upload->uploadFile();
+        $this->bak_kegiatan->CurrentValue = $this->bak_kegiatan->Upload->FileName;
+        $this->softcopy_rka->Upload->Index = $CurrentForm->Index;
+        $this->softcopy_rka->Upload->uploadFile();
+        $this->softcopy_rka->CurrentValue = $this->softcopy_rka->Upload->FileName;
+        $this->otsus->Upload->Index = $CurrentForm->Index;
+        $this->otsus->Upload->uploadFile();
+        $this->otsus->CurrentValue = $this->otsus->Upload->FileName;
+        $this->qanun_perbup->Upload->Index = $CurrentForm->Index;
+        $this->qanun_perbup->Upload->uploadFile();
+        $this->qanun_perbup->CurrentValue = $this->qanun_perbup->Upload->FileName;
+        $this->tindak_apbkp->Upload->Index = $CurrentForm->Index;
+        $this->tindak_apbkp->Upload->uploadFile();
+        $this->tindak_apbkp->CurrentValue = $this->tindak_apbkp->Upload->FileName;
     }
 
     // Load form values
@@ -728,6 +770,16 @@ class EvaluasiEdit extends Evaluasi
                 $this->tanggal->setFormValue($val);
             }
             $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
+        }
+
+        // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
+        $val = $CurrentForm->hasValue("idd_wilayah") ? $CurrentForm->getValue("idd_wilayah") : $CurrentForm->getValue("x_idd_wilayah");
+        if (!$this->idd_wilayah->IsDetailKey) {
+            if (IsApi() && $val === null) {
+                $this->idd_wilayah->Visible = false; // Disable update for API request
+            } else {
+                $this->idd_wilayah->setFormValue($val);
+            }
         }
 
         // Check field name 'kd_satker' first before field var 'x_kd_satker'
@@ -760,156 +812,6 @@ class EvaluasiEdit extends Evaluasi
             }
         }
 
-        // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
-        $val = $CurrentForm->hasValue("idd_wilayah") ? $CurrentForm->getValue("idd_wilayah") : $CurrentForm->getValue("x_idd_wilayah");
-        if (!$this->idd_wilayah->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_wilayah->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_wilayah->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_11' first before field var 'x_file_11'
-        $val = $CurrentForm->hasValue("file_11") ? $CurrentForm->getValue("file_11") : $CurrentForm->getValue("x_file_11");
-        if (!$this->file_11->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_11->Visible = false; // Disable update for API request
-            } else {
-                $this->file_11->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_12' first before field var 'x_file_12'
-        $val = $CurrentForm->hasValue("file_12") ? $CurrentForm->getValue("file_12") : $CurrentForm->getValue("x_file_12");
-        if (!$this->file_12->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_12->Visible = false; // Disable update for API request
-            } else {
-                $this->file_12->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_13' first before field var 'x_file_13'
-        $val = $CurrentForm->hasValue("file_13") ? $CurrentForm->getValue("file_13") : $CurrentForm->getValue("x_file_13");
-        if (!$this->file_13->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_13->Visible = false; // Disable update for API request
-            } else {
-                $this->file_13->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_14' first before field var 'x_file_14'
-        $val = $CurrentForm->hasValue("file_14") ? $CurrentForm->getValue("file_14") : $CurrentForm->getValue("x_file_14");
-        if (!$this->file_14->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_14->Visible = false; // Disable update for API request
-            } else {
-                $this->file_14->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_15' first before field var 'x_file_15'
-        $val = $CurrentForm->hasValue("file_15") ? $CurrentForm->getValue("file_15") : $CurrentForm->getValue("x_file_15");
-        if (!$this->file_15->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_15->Visible = false; // Disable update for API request
-            } else {
-                $this->file_15->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_16' first before field var 'x_file_16'
-        $val = $CurrentForm->hasValue("file_16") ? $CurrentForm->getValue("file_16") : $CurrentForm->getValue("x_file_16");
-        if (!$this->file_16->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_16->Visible = false; // Disable update for API request
-            } else {
-                $this->file_16->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_17' first before field var 'x_file_17'
-        $val = $CurrentForm->hasValue("file_17") ? $CurrentForm->getValue("file_17") : $CurrentForm->getValue("x_file_17");
-        if (!$this->file_17->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_17->Visible = false; // Disable update for API request
-            } else {
-                $this->file_17->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_18' first before field var 'x_file_18'
-        $val = $CurrentForm->hasValue("file_18") ? $CurrentForm->getValue("file_18") : $CurrentForm->getValue("x_file_18");
-        if (!$this->file_18->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_18->Visible = false; // Disable update for API request
-            } else {
-                $this->file_18->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_19' first before field var 'x_file_19'
-        $val = $CurrentForm->hasValue("file_19") ? $CurrentForm->getValue("file_19") : $CurrentForm->getValue("x_file_19");
-        if (!$this->file_19->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_19->Visible = false; // Disable update for API request
-            } else {
-                $this->file_19->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_20' first before field var 'x_file_20'
-        $val = $CurrentForm->hasValue("file_20") ? $CurrentForm->getValue("file_20") : $CurrentForm->getValue("x_file_20");
-        if (!$this->file_20->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_20->Visible = false; // Disable update for API request
-            } else {
-                $this->file_20->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_21' first before field var 'x_file_21'
-        $val = $CurrentForm->hasValue("file_21") ? $CurrentForm->getValue("file_21") : $CurrentForm->getValue("x_file_21");
-        if (!$this->file_21->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_21->Visible = false; // Disable update for API request
-            } else {
-                $this->file_21->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_22' first before field var 'x_file_22'
-        $val = $CurrentForm->hasValue("file_22") ? $CurrentForm->getValue("file_22") : $CurrentForm->getValue("x_file_22");
-        if (!$this->file_22->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_22->Visible = false; // Disable update for API request
-            } else {
-                $this->file_22->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_23' first before field var 'x_file_23'
-        $val = $CurrentForm->hasValue("file_23") ? $CurrentForm->getValue("file_23") : $CurrentForm->getValue("x_file_23");
-        if (!$this->file_23->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_23->Visible = false; // Disable update for API request
-            } else {
-                $this->file_23->setFormValue($val);
-            }
-        }
-
-        // Check field name 'file_24' first before field var 'x_file_24'
-        $val = $CurrentForm->hasValue("file_24") ? $CurrentForm->getValue("file_24") : $CurrentForm->getValue("x_file_24");
-        if (!$this->file_24->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_24->Visible = false; // Disable update for API request
-            } else {
-                $this->file_24->setFormValue($val);
-            }
-        }
-
         // Check field name 'status' first before field var 'x_status'
         $val = $CurrentForm->hasValue("status") ? $CurrentForm->getValue("status") : $CurrentForm->getValue("x_status");
         if (!$this->status->IsDetailKey) {
@@ -939,24 +841,10 @@ class EvaluasiEdit extends Evaluasi
         $this->idd_evaluasi->CurrentValue = $this->idd_evaluasi->FormValue;
         $this->tanggal->CurrentValue = $this->tanggal->FormValue;
         $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
+        $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
         $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
         $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
-        $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
-        $this->file_11->CurrentValue = $this->file_11->FormValue;
-        $this->file_12->CurrentValue = $this->file_12->FormValue;
-        $this->file_13->CurrentValue = $this->file_13->FormValue;
-        $this->file_14->CurrentValue = $this->file_14->FormValue;
-        $this->file_15->CurrentValue = $this->file_15->FormValue;
-        $this->file_16->CurrentValue = $this->file_16->FormValue;
-        $this->file_17->CurrentValue = $this->file_17->FormValue;
-        $this->file_18->CurrentValue = $this->file_18->FormValue;
-        $this->file_19->CurrentValue = $this->file_19->FormValue;
-        $this->file_20->CurrentValue = $this->file_20->FormValue;
-        $this->file_21->CurrentValue = $this->file_21->FormValue;
-        $this->file_22->CurrentValue = $this->file_22->FormValue;
-        $this->file_23->CurrentValue = $this->file_23->FormValue;
-        $this->file_24->CurrentValue = $this->file_24->FormValue;
         $this->status->CurrentValue = $this->status->FormValue;
         $this->idd_user->CurrentValue = $this->idd_user->FormValue;
     }
@@ -1019,44 +907,58 @@ class EvaluasiEdit extends Evaluasi
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
+        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
-        $this->file_01->Upload->DbValue = $row['file_01'];
-        $this->file_01->setDbValue($this->file_01->Upload->DbValue);
-        $this->file_02->Upload->DbValue = $row['file_02'];
-        $this->file_02->setDbValue($this->file_02->Upload->DbValue);
-        $this->file_03->Upload->DbValue = $row['file_03'];
-        $this->file_03->setDbValue($this->file_03->Upload->DbValue);
-        $this->file_04->Upload->DbValue = $row['file_04'];
-        $this->file_04->setDbValue($this->file_04->Upload->DbValue);
-        $this->file_05->Upload->DbValue = $row['file_05'];
-        $this->file_05->setDbValue($this->file_05->Upload->DbValue);
-        $this->file_06->Upload->DbValue = $row['file_06'];
-        $this->file_06->setDbValue($this->file_06->Upload->DbValue);
-        $this->file_07->Upload->DbValue = $row['file_07'];
-        $this->file_07->setDbValue($this->file_07->Upload->DbValue);
-        $this->file_08->Upload->DbValue = $row['file_08'];
-        $this->file_08->setDbValue($this->file_08->Upload->DbValue);
-        $this->file_09->Upload->DbValue = $row['file_09'];
-        $this->file_09->setDbValue($this->file_09->Upload->DbValue);
-        $this->file_10->Upload->DbValue = $row['file_10'];
-        $this->file_10->setDbValue($this->file_10->Upload->DbValue);
-        $this->file_11->setDbValue($row['file_11']);
-        $this->file_12->setDbValue($row['file_12']);
-        $this->file_13->setDbValue($row['file_13']);
-        $this->file_14->setDbValue($row['file_14']);
-        $this->file_15->setDbValue($row['file_15']);
-        $this->file_16->setDbValue($row['file_16']);
-        $this->file_17->setDbValue($row['file_17']);
-        $this->file_18->setDbValue($row['file_18']);
-        $this->file_19->setDbValue($row['file_19']);
-        $this->file_20->setDbValue($row['file_20']);
-        $this->file_21->setDbValue($row['file_21']);
-        $this->file_22->setDbValue($row['file_22']);
-        $this->file_23->setDbValue($row['file_23']);
-        $this->file_24->setDbValue($row['file_24']);
+        $this->surat_pengantar->Upload->DbValue = $row['surat_pengantar'];
+        $this->surat_pengantar->setDbValue($this->surat_pengantar->Upload->DbValue);
+        $this->rpjmd->Upload->DbValue = $row['rpjmd'];
+        $this->rpjmd->setDbValue($this->rpjmd->Upload->DbValue);
+        $this->rkpk->Upload->DbValue = $row['rkpk'];
+        $this->rkpk->setDbValue($this->rkpk->Upload->DbValue);
+        $this->skd_rkuappas->Upload->DbValue = $row['skd_rkuappas'];
+        $this->skd_rkuappas->setDbValue($this->skd_rkuappas->Upload->DbValue);
+        $this->kua->Upload->DbValue = $row['kua'];
+        $this->kua->setDbValue($this->kua->Upload->DbValue);
+        $this->ppas->Upload->DbValue = $row['ppas'];
+        $this->ppas->setDbValue($this->ppas->Upload->DbValue);
+        $this->skd_rqanun->Upload->DbValue = $row['skd_rqanun'];
+        $this->skd_rqanun->setDbValue($this->skd_rqanun->Upload->DbValue);
+        $this->nota_keuangan->Upload->DbValue = $row['nota_keuangan'];
+        $this->nota_keuangan->setDbValue($this->nota_keuangan->Upload->DbValue);
+        $this->pengantar_nota->Upload->DbValue = $row['pengantar_nota'];
+        $this->pengantar_nota->setDbValue($this->pengantar_nota->Upload->DbValue);
+        $this->risalah_sidang->Upload->DbValue = $row['risalah_sidang'];
+        $this->risalah_sidang->setDbValue($this->risalah_sidang->Upload->DbValue);
+        $this->bap_apbk->Upload->DbValue = $row['bap_apbk'];
+        $this->bap_apbk->setDbValue($this->bap_apbk->Upload->DbValue);
+        $this->rq_apbk->Upload->DbValue = $row['rq_apbk'];
+        $this->rq_apbk->setDbValue($this->rq_apbk->Upload->DbValue);
+        $this->rp_penjabaran->Upload->DbValue = $row['rp_penjabaran'];
+        $this->rp_penjabaran->setDbValue($this->rp_penjabaran->Upload->DbValue);
+        $this->jadwal_proses->Upload->DbValue = $row['jadwal_proses'];
+        $this->jadwal_proses->setDbValue($this->jadwal_proses->Upload->DbValue);
+        $this->sinkron_kebijakan->Upload->DbValue = $row['sinkron_kebijakan'];
+        $this->sinkron_kebijakan->setDbValue($this->sinkron_kebijakan->Upload->DbValue);
+        $this->konsistensi_program->Upload->DbValue = $row['konsistensi_program'];
+        $this->konsistensi_program->setDbValue($this->konsistensi_program->Upload->DbValue);
+        $this->alokasi_pendidikan->Upload->DbValue = $row['alokasi_pendidikan'];
+        $this->alokasi_pendidikan->setDbValue($this->alokasi_pendidikan->Upload->DbValue);
+        $this->alokasi_kesehatan->Upload->DbValue = $row['alokasi_kesehatan'];
+        $this->alokasi_kesehatan->setDbValue($this->alokasi_kesehatan->Upload->DbValue);
+        $this->alokasi_belanja->Upload->DbValue = $row['alokasi_belanja'];
+        $this->alokasi_belanja->setDbValue($this->alokasi_belanja->Upload->DbValue);
+        $this->bak_kegiatan->Upload->DbValue = $row['bak_kegiatan'];
+        $this->bak_kegiatan->setDbValue($this->bak_kegiatan->Upload->DbValue);
+        $this->softcopy_rka->Upload->DbValue = $row['softcopy_rka'];
+        $this->softcopy_rka->setDbValue($this->softcopy_rka->Upload->DbValue);
+        $this->otsus->Upload->DbValue = $row['otsus'];
+        $this->otsus->setDbValue($this->otsus->Upload->DbValue);
+        $this->qanun_perbup->Upload->DbValue = $row['qanun_perbup'];
+        $this->qanun_perbup->setDbValue($this->qanun_perbup->Upload->DbValue);
+        $this->tindak_apbkp->Upload->DbValue = $row['tindak_apbkp'];
+        $this->tindak_apbkp->setDbValue($this->tindak_apbkp->Upload->DbValue);
         $this->status->setDbValue($row['status']);
         $this->idd_user->setDbValue($row['idd_user']);
     }
@@ -1067,34 +969,34 @@ class EvaluasiEdit extends Evaluasi
         $row = [];
         $row['idd_evaluasi'] = null;
         $row['tanggal'] = null;
+        $row['idd_wilayah'] = null;
         $row['kd_satker'] = null;
         $row['idd_tahapan'] = null;
         $row['tahun_anggaran'] = null;
-        $row['idd_wilayah'] = null;
-        $row['file_01'] = null;
-        $row['file_02'] = null;
-        $row['file_03'] = null;
-        $row['file_04'] = null;
-        $row['file_05'] = null;
-        $row['file_06'] = null;
-        $row['file_07'] = null;
-        $row['file_08'] = null;
-        $row['file_09'] = null;
-        $row['file_10'] = null;
-        $row['file_11'] = null;
-        $row['file_12'] = null;
-        $row['file_13'] = null;
-        $row['file_14'] = null;
-        $row['file_15'] = null;
-        $row['file_16'] = null;
-        $row['file_17'] = null;
-        $row['file_18'] = null;
-        $row['file_19'] = null;
-        $row['file_20'] = null;
-        $row['file_21'] = null;
-        $row['file_22'] = null;
-        $row['file_23'] = null;
-        $row['file_24'] = null;
+        $row['surat_pengantar'] = null;
+        $row['rpjmd'] = null;
+        $row['rkpk'] = null;
+        $row['skd_rkuappas'] = null;
+        $row['kua'] = null;
+        $row['ppas'] = null;
+        $row['skd_rqanun'] = null;
+        $row['nota_keuangan'] = null;
+        $row['pengantar_nota'] = null;
+        $row['risalah_sidang'] = null;
+        $row['bap_apbk'] = null;
+        $row['rq_apbk'] = null;
+        $row['rp_penjabaran'] = null;
+        $row['jadwal_proses'] = null;
+        $row['sinkron_kebijakan'] = null;
+        $row['konsistensi_program'] = null;
+        $row['alokasi_pendidikan'] = null;
+        $row['alokasi_kesehatan'] = null;
+        $row['alokasi_belanja'] = null;
+        $row['bak_kegiatan'] = null;
+        $row['softcopy_rka'] = null;
+        $row['otsus'] = null;
+        $row['qanun_perbup'] = null;
+        $row['tindak_apbkp'] = null;
         $row['status'] = null;
         $row['idd_user'] = null;
         return $row;
@@ -1132,61 +1034,61 @@ class EvaluasiEdit extends Evaluasi
 
         // tanggal
 
+        // idd_wilayah
+
         // kd_satker
 
         // idd_tahapan
 
         // tahun_anggaran
 
-        // idd_wilayah
+        // surat_pengantar
 
-        // file_01
+        // rpjmd
 
-        // file_02
+        // rkpk
 
-        // file_03
+        // skd_rkuappas
 
-        // file_04
+        // kua
 
-        // file_05
+        // ppas
 
-        // file_06
+        // skd_rqanun
 
-        // file_07
+        // nota_keuangan
 
-        // file_08
+        // pengantar_nota
 
-        // file_09
+        // risalah_sidang
 
-        // file_10
+        // bap_apbk
 
-        // file_11
+        // rq_apbk
 
-        // file_12
+        // rp_penjabaran
 
-        // file_13
+        // jadwal_proses
 
-        // file_14
+        // sinkron_kebijakan
 
-        // file_15
+        // konsistensi_program
 
-        // file_16
+        // alokasi_pendidikan
 
-        // file_17
+        // alokasi_kesehatan
 
-        // file_18
+        // alokasi_belanja
 
-        // file_19
+        // bak_kegiatan
 
-        // file_20
+        // softcopy_rka
 
-        // file_21
+        // otsus
 
-        // file_22
+        // qanun_perbup
 
-        // file_23
-
-        // file_24
+        // tindak_apbkp
 
         // status
 
@@ -1200,6 +1102,27 @@ class EvaluasiEdit extends Evaluasi
             $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
             $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
             $this->tanggal->ViewCustomAttributes = "";
+
+            // idd_wilayah
+            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
+                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
+                    } else {
+                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_wilayah->ViewValue = null;
+            }
+            $this->idd_wilayah->ViewCustomAttributes = "";
 
             // kd_satker
             $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -1251,162 +1174,197 @@ class EvaluasiEdit extends Evaluasi
             }
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
-            // idd_wilayah
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
-                    } else {
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-                    }
-                }
+            // surat_pengantar
+            if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+                $this->surat_pengantar->ViewValue = $this->surat_pengantar->Upload->DbValue;
             } else {
-                $this->idd_wilayah->ViewValue = null;
+                $this->surat_pengantar->ViewValue = "";
             }
-            $this->idd_wilayah->ViewCustomAttributes = "";
+            $this->surat_pengantar->ViewCustomAttributes = "";
 
-            // file_01
-            if (!EmptyValue($this->file_01->Upload->DbValue)) {
-                $this->file_01->ViewValue = $this->file_01->Upload->DbValue;
+            // rpjmd
+            if (!EmptyValue($this->rpjmd->Upload->DbValue)) {
+                $this->rpjmd->ViewValue = $this->rpjmd->Upload->DbValue;
             } else {
-                $this->file_01->ViewValue = "";
+                $this->rpjmd->ViewValue = "";
             }
-            $this->file_01->ViewCustomAttributes = "";
+            $this->rpjmd->ViewCustomAttributes = "";
 
-            // file_02
-            if (!EmptyValue($this->file_02->Upload->DbValue)) {
-                $this->file_02->ViewValue = $this->file_02->Upload->DbValue;
+            // rkpk
+            if (!EmptyValue($this->rkpk->Upload->DbValue)) {
+                $this->rkpk->ViewValue = $this->rkpk->Upload->DbValue;
             } else {
-                $this->file_02->ViewValue = "";
+                $this->rkpk->ViewValue = "";
             }
-            $this->file_02->ViewCustomAttributes = "";
+            $this->rkpk->ViewCustomAttributes = "";
 
-            // file_03
-            if (!EmptyValue($this->file_03->Upload->DbValue)) {
-                $this->file_03->ViewValue = $this->file_03->Upload->DbValue;
+            // skd_rkuappas
+            if (!EmptyValue($this->skd_rkuappas->Upload->DbValue)) {
+                $this->skd_rkuappas->ViewValue = $this->skd_rkuappas->Upload->DbValue;
             } else {
-                $this->file_03->ViewValue = "";
+                $this->skd_rkuappas->ViewValue = "";
             }
-            $this->file_03->ViewCustomAttributes = "";
+            $this->skd_rkuappas->ViewCustomAttributes = "";
 
-            // file_04
-            if (!EmptyValue($this->file_04->Upload->DbValue)) {
-                $this->file_04->ViewValue = $this->file_04->Upload->DbValue;
+            // kua
+            if (!EmptyValue($this->kua->Upload->DbValue)) {
+                $this->kua->ViewValue = $this->kua->Upload->DbValue;
             } else {
-                $this->file_04->ViewValue = "";
+                $this->kua->ViewValue = "";
             }
-            $this->file_04->ViewCustomAttributes = "";
+            $this->kua->ViewCustomAttributes = "";
 
-            // file_05
-            if (!EmptyValue($this->file_05->Upload->DbValue)) {
-                $this->file_05->ViewValue = $this->file_05->Upload->DbValue;
+            // ppas
+            if (!EmptyValue($this->ppas->Upload->DbValue)) {
+                $this->ppas->ViewValue = $this->ppas->Upload->DbValue;
             } else {
-                $this->file_05->ViewValue = "";
+                $this->ppas->ViewValue = "";
             }
-            $this->file_05->ViewCustomAttributes = "";
+            $this->ppas->ViewCustomAttributes = "";
 
-            // file_06
-            if (!EmptyValue($this->file_06->Upload->DbValue)) {
-                $this->file_06->ViewValue = $this->file_06->Upload->DbValue;
+            // skd_rqanun
+            if (!EmptyValue($this->skd_rqanun->Upload->DbValue)) {
+                $this->skd_rqanun->ViewValue = $this->skd_rqanun->Upload->DbValue;
             } else {
-                $this->file_06->ViewValue = "";
+                $this->skd_rqanun->ViewValue = "";
             }
-            $this->file_06->ViewCustomAttributes = "";
+            $this->skd_rqanun->ViewCustomAttributes = "";
 
-            // file_07
-            if (!EmptyValue($this->file_07->Upload->DbValue)) {
-                $this->file_07->ViewValue = $this->file_07->Upload->DbValue;
+            // nota_keuangan
+            if (!EmptyValue($this->nota_keuangan->Upload->DbValue)) {
+                $this->nota_keuangan->ViewValue = $this->nota_keuangan->Upload->DbValue;
             } else {
-                $this->file_07->ViewValue = "";
+                $this->nota_keuangan->ViewValue = "";
             }
-            $this->file_07->ViewCustomAttributes = "";
+            $this->nota_keuangan->ViewCustomAttributes = "";
 
-            // file_08
-            if (!EmptyValue($this->file_08->Upload->DbValue)) {
-                $this->file_08->ViewValue = $this->file_08->Upload->DbValue;
+            // pengantar_nota
+            if (!EmptyValue($this->pengantar_nota->Upload->DbValue)) {
+                $this->pengantar_nota->ViewValue = $this->pengantar_nota->Upload->DbValue;
             } else {
-                $this->file_08->ViewValue = "";
+                $this->pengantar_nota->ViewValue = "";
             }
-            $this->file_08->ViewCustomAttributes = "";
+            $this->pengantar_nota->ViewCustomAttributes = "";
 
-            // file_09
-            if (!EmptyValue($this->file_09->Upload->DbValue)) {
-                $this->file_09->ViewValue = $this->file_09->Upload->DbValue;
+            // risalah_sidang
+            if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+                $this->risalah_sidang->ViewValue = $this->risalah_sidang->Upload->DbValue;
             } else {
-                $this->file_09->ViewValue = "";
+                $this->risalah_sidang->ViewValue = "";
             }
-            $this->file_09->ViewCustomAttributes = "";
+            $this->risalah_sidang->ViewCustomAttributes = "";
 
-            // file_10
-            if (!EmptyValue($this->file_10->Upload->DbValue)) {
-                $this->file_10->ViewValue = $this->file_10->Upload->DbValue;
+            // bap_apbk
+            if (!EmptyValue($this->bap_apbk->Upload->DbValue)) {
+                $this->bap_apbk->ViewValue = $this->bap_apbk->Upload->DbValue;
             } else {
-                $this->file_10->ViewValue = "";
+                $this->bap_apbk->ViewValue = "";
             }
-            $this->file_10->ViewCustomAttributes = "";
+            $this->bap_apbk->ViewCustomAttributes = "";
 
-            // file_11
-            $this->file_11->ViewValue = $this->file_11->CurrentValue;
-            $this->file_11->ViewCustomAttributes = "";
+            // rq_apbk
+            if (!EmptyValue($this->rq_apbk->Upload->DbValue)) {
+                $this->rq_apbk->ViewValue = $this->rq_apbk->Upload->DbValue;
+            } else {
+                $this->rq_apbk->ViewValue = "";
+            }
+            $this->rq_apbk->ViewCustomAttributes = "";
 
-            // file_12
-            $this->file_12->ViewValue = $this->file_12->CurrentValue;
-            $this->file_12->ViewCustomAttributes = "";
+            // rp_penjabaran
+            if (!EmptyValue($this->rp_penjabaran->Upload->DbValue)) {
+                $this->rp_penjabaran->ViewValue = $this->rp_penjabaran->Upload->DbValue;
+            } else {
+                $this->rp_penjabaran->ViewValue = "";
+            }
+            $this->rp_penjabaran->ViewCustomAttributes = "";
 
-            // file_13
-            $this->file_13->ViewValue = $this->file_13->CurrentValue;
-            $this->file_13->ViewCustomAttributes = "";
+            // jadwal_proses
+            if (!EmptyValue($this->jadwal_proses->Upload->DbValue)) {
+                $this->jadwal_proses->ViewValue = $this->jadwal_proses->Upload->DbValue;
+            } else {
+                $this->jadwal_proses->ViewValue = "";
+            }
+            $this->jadwal_proses->ViewCustomAttributes = "";
 
-            // file_14
-            $this->file_14->ViewValue = $this->file_14->CurrentValue;
-            $this->file_14->ViewCustomAttributes = "";
+            // sinkron_kebijakan
+            if (!EmptyValue($this->sinkron_kebijakan->Upload->DbValue)) {
+                $this->sinkron_kebijakan->ViewValue = $this->sinkron_kebijakan->Upload->DbValue;
+            } else {
+                $this->sinkron_kebijakan->ViewValue = "";
+            }
+            $this->sinkron_kebijakan->ViewCustomAttributes = "";
 
-            // file_15
-            $this->file_15->ViewValue = $this->file_15->CurrentValue;
-            $this->file_15->ViewCustomAttributes = "";
+            // konsistensi_program
+            if (!EmptyValue($this->konsistensi_program->Upload->DbValue)) {
+                $this->konsistensi_program->ViewValue = $this->konsistensi_program->Upload->DbValue;
+            } else {
+                $this->konsistensi_program->ViewValue = "";
+            }
+            $this->konsistensi_program->ViewCustomAttributes = "";
 
-            // file_16
-            $this->file_16->ViewValue = $this->file_16->CurrentValue;
-            $this->file_16->ViewCustomAttributes = "";
+            // alokasi_pendidikan
+            if (!EmptyValue($this->alokasi_pendidikan->Upload->DbValue)) {
+                $this->alokasi_pendidikan->ViewValue = $this->alokasi_pendidikan->Upload->DbValue;
+            } else {
+                $this->alokasi_pendidikan->ViewValue = "";
+            }
+            $this->alokasi_pendidikan->ViewCustomAttributes = "";
 
-            // file_17
-            $this->file_17->ViewValue = $this->file_17->CurrentValue;
-            $this->file_17->ViewCustomAttributes = "";
+            // alokasi_kesehatan
+            if (!EmptyValue($this->alokasi_kesehatan->Upload->DbValue)) {
+                $this->alokasi_kesehatan->ViewValue = $this->alokasi_kesehatan->Upload->DbValue;
+            } else {
+                $this->alokasi_kesehatan->ViewValue = "";
+            }
+            $this->alokasi_kesehatan->ViewCustomAttributes = "";
 
-            // file_18
-            $this->file_18->ViewValue = $this->file_18->CurrentValue;
-            $this->file_18->ViewCustomAttributes = "";
+            // alokasi_belanja
+            if (!EmptyValue($this->alokasi_belanja->Upload->DbValue)) {
+                $this->alokasi_belanja->ViewValue = $this->alokasi_belanja->Upload->DbValue;
+            } else {
+                $this->alokasi_belanja->ViewValue = "";
+            }
+            $this->alokasi_belanja->ViewCustomAttributes = "";
 
-            // file_19
-            $this->file_19->ViewValue = $this->file_19->CurrentValue;
-            $this->file_19->ViewCustomAttributes = "";
+            // bak_kegiatan
+            if (!EmptyValue($this->bak_kegiatan->Upload->DbValue)) {
+                $this->bak_kegiatan->ViewValue = $this->bak_kegiatan->Upload->DbValue;
+            } else {
+                $this->bak_kegiatan->ViewValue = "";
+            }
+            $this->bak_kegiatan->ViewCustomAttributes = "";
 
-            // file_20
-            $this->file_20->ViewValue = $this->file_20->CurrentValue;
-            $this->file_20->ViewCustomAttributes = "";
+            // softcopy_rka
+            if (!EmptyValue($this->softcopy_rka->Upload->DbValue)) {
+                $this->softcopy_rka->ViewValue = $this->softcopy_rka->Upload->DbValue;
+            } else {
+                $this->softcopy_rka->ViewValue = "";
+            }
+            $this->softcopy_rka->ViewCustomAttributes = "";
 
-            // file_21
-            $this->file_21->ViewValue = $this->file_21->CurrentValue;
-            $this->file_21->ViewCustomAttributes = "";
+            // otsus
+            if (!EmptyValue($this->otsus->Upload->DbValue)) {
+                $this->otsus->ViewValue = $this->otsus->Upload->DbValue;
+            } else {
+                $this->otsus->ViewValue = "";
+            }
+            $this->otsus->ViewCustomAttributes = "";
 
-            // file_22
-            $this->file_22->ViewValue = $this->file_22->CurrentValue;
-            $this->file_22->ViewCustomAttributes = "";
+            // qanun_perbup
+            if (!EmptyValue($this->qanun_perbup->Upload->DbValue)) {
+                $this->qanun_perbup->ViewValue = $this->qanun_perbup->Upload->DbValue;
+            } else {
+                $this->qanun_perbup->ViewValue = "";
+            }
+            $this->qanun_perbup->ViewCustomAttributes = "";
 
-            // file_23
-            $this->file_23->ViewValue = $this->file_23->CurrentValue;
-            $this->file_23->ViewCustomAttributes = "";
-
-            // file_24
-            $this->file_24->ViewValue = $this->file_24->CurrentValue;
-            $this->file_24->ViewCustomAttributes = "";
+            // tindak_apbkp
+            if (!EmptyValue($this->tindak_apbkp->Upload->DbValue)) {
+                $this->tindak_apbkp->ViewValue = $this->tindak_apbkp->Upload->DbValue;
+            } else {
+                $this->tindak_apbkp->ViewValue = "";
+            }
+            $this->tindak_apbkp->ViewCustomAttributes = "";
 
             // status
             if (strval($this->status->CurrentValue) != "") {
@@ -1447,6 +1405,11 @@ class EvaluasiEdit extends Evaluasi
             $this->tanggal->HrefValue = "";
             $this->tanggal->TooltipValue = "";
 
+            // idd_wilayah
+            $this->idd_wilayah->LinkCustomAttributes = "";
+            $this->idd_wilayah->HrefValue = "";
+            $this->idd_wilayah->TooltipValue = "";
+
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
             $this->kd_satker->HrefValue = "";
@@ -1462,140 +1425,149 @@ class EvaluasiEdit extends Evaluasi
             $this->tahun_anggaran->HrefValue = "";
             $this->tahun_anggaran->TooltipValue = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
+            // surat_pengantar
+            $this->surat_pengantar->LinkCustomAttributes = "";
+            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
+            $this->surat_pengantar->TooltipValue = "";
 
-            // file_01
-            $this->file_01->LinkCustomAttributes = "";
-            $this->file_01->HrefValue = "";
-            $this->file_01->ExportHrefValue = $this->file_01->UploadPath . $this->file_01->Upload->DbValue;
-            $this->file_01->TooltipValue = "";
+            // rpjmd
+            $this->rpjmd->LinkCustomAttributes = "";
+            $this->rpjmd->HrefValue = "";
+            $this->rpjmd->ExportHrefValue = $this->rpjmd->UploadPath . $this->rpjmd->Upload->DbValue;
+            $this->rpjmd->TooltipValue = "";
 
-            // file_02
-            $this->file_02->LinkCustomAttributes = "";
-            $this->file_02->HrefValue = "";
-            $this->file_02->ExportHrefValue = $this->file_02->UploadPath . $this->file_02->Upload->DbValue;
-            $this->file_02->TooltipValue = "";
+            // rkpk
+            $this->rkpk->LinkCustomAttributes = "";
+            $this->rkpk->HrefValue = "";
+            $this->rkpk->ExportHrefValue = $this->rkpk->UploadPath . $this->rkpk->Upload->DbValue;
+            $this->rkpk->TooltipValue = "";
 
-            // file_03
-            $this->file_03->LinkCustomAttributes = "";
-            $this->file_03->HrefValue = "";
-            $this->file_03->ExportHrefValue = $this->file_03->UploadPath . $this->file_03->Upload->DbValue;
-            $this->file_03->TooltipValue = "";
+            // skd_rkuappas
+            $this->skd_rkuappas->LinkCustomAttributes = "";
+            $this->skd_rkuappas->HrefValue = "";
+            $this->skd_rkuappas->ExportHrefValue = $this->skd_rkuappas->UploadPath . $this->skd_rkuappas->Upload->DbValue;
+            $this->skd_rkuappas->TooltipValue = "";
 
-            // file_04
-            $this->file_04->LinkCustomAttributes = "";
-            $this->file_04->HrefValue = "";
-            $this->file_04->ExportHrefValue = $this->file_04->UploadPath . $this->file_04->Upload->DbValue;
-            $this->file_04->TooltipValue = "";
+            // kua
+            $this->kua->LinkCustomAttributes = "";
+            $this->kua->HrefValue = "";
+            $this->kua->ExportHrefValue = $this->kua->UploadPath . $this->kua->Upload->DbValue;
+            $this->kua->TooltipValue = "";
 
-            // file_05
-            $this->file_05->LinkCustomAttributes = "";
-            $this->file_05->HrefValue = "";
-            $this->file_05->ExportHrefValue = $this->file_05->UploadPath . $this->file_05->Upload->DbValue;
-            $this->file_05->TooltipValue = "";
+            // ppas
+            $this->ppas->LinkCustomAttributes = "";
+            $this->ppas->HrefValue = "";
+            $this->ppas->ExportHrefValue = $this->ppas->UploadPath . $this->ppas->Upload->DbValue;
+            $this->ppas->TooltipValue = "";
 
-            // file_06
-            $this->file_06->LinkCustomAttributes = "";
-            $this->file_06->HrefValue = "";
-            $this->file_06->ExportHrefValue = $this->file_06->UploadPath . $this->file_06->Upload->DbValue;
-            $this->file_06->TooltipValue = "";
+            // skd_rqanun
+            $this->skd_rqanun->LinkCustomAttributes = "";
+            $this->skd_rqanun->HrefValue = "";
+            $this->skd_rqanun->ExportHrefValue = $this->skd_rqanun->UploadPath . $this->skd_rqanun->Upload->DbValue;
+            $this->skd_rqanun->TooltipValue = "";
 
-            // file_07
-            $this->file_07->LinkCustomAttributes = "";
-            $this->file_07->HrefValue = "";
-            $this->file_07->ExportHrefValue = $this->file_07->UploadPath . $this->file_07->Upload->DbValue;
-            $this->file_07->TooltipValue = "";
+            // nota_keuangan
+            $this->nota_keuangan->LinkCustomAttributes = "";
+            $this->nota_keuangan->HrefValue = "";
+            $this->nota_keuangan->ExportHrefValue = $this->nota_keuangan->UploadPath . $this->nota_keuangan->Upload->DbValue;
+            $this->nota_keuangan->TooltipValue = "";
 
-            // file_08
-            $this->file_08->LinkCustomAttributes = "";
-            $this->file_08->HrefValue = "";
-            $this->file_08->ExportHrefValue = $this->file_08->UploadPath . $this->file_08->Upload->DbValue;
-            $this->file_08->TooltipValue = "";
+            // pengantar_nota
+            $this->pengantar_nota->LinkCustomAttributes = "";
+            $this->pengantar_nota->HrefValue = "";
+            $this->pengantar_nota->ExportHrefValue = $this->pengantar_nota->UploadPath . $this->pengantar_nota->Upload->DbValue;
+            $this->pengantar_nota->TooltipValue = "";
 
-            // file_09
-            $this->file_09->LinkCustomAttributes = "";
-            $this->file_09->HrefValue = "";
-            $this->file_09->ExportHrefValue = $this->file_09->UploadPath . $this->file_09->Upload->DbValue;
-            $this->file_09->TooltipValue = "";
+            // risalah_sidang
+            $this->risalah_sidang->LinkCustomAttributes = "";
+            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
+            $this->risalah_sidang->TooltipValue = "";
 
-            // file_10
-            $this->file_10->LinkCustomAttributes = "";
-            $this->file_10->HrefValue = "";
-            $this->file_10->ExportHrefValue = $this->file_10->UploadPath . $this->file_10->Upload->DbValue;
-            $this->file_10->TooltipValue = "";
+            // bap_apbk
+            $this->bap_apbk->LinkCustomAttributes = "";
+            $this->bap_apbk->HrefValue = "";
+            $this->bap_apbk->ExportHrefValue = $this->bap_apbk->UploadPath . $this->bap_apbk->Upload->DbValue;
+            $this->bap_apbk->TooltipValue = "";
 
-            // file_11
-            $this->file_11->LinkCustomAttributes = "";
-            $this->file_11->HrefValue = "";
-            $this->file_11->TooltipValue = "";
+            // rq_apbk
+            $this->rq_apbk->LinkCustomAttributes = "";
+            $this->rq_apbk->HrefValue = "";
+            $this->rq_apbk->ExportHrefValue = $this->rq_apbk->UploadPath . $this->rq_apbk->Upload->DbValue;
+            $this->rq_apbk->TooltipValue = "";
 
-            // file_12
-            $this->file_12->LinkCustomAttributes = "";
-            $this->file_12->HrefValue = "";
-            $this->file_12->TooltipValue = "";
+            // rp_penjabaran
+            $this->rp_penjabaran->LinkCustomAttributes = "";
+            $this->rp_penjabaran->HrefValue = "";
+            $this->rp_penjabaran->ExportHrefValue = $this->rp_penjabaran->UploadPath . $this->rp_penjabaran->Upload->DbValue;
+            $this->rp_penjabaran->TooltipValue = "";
 
-            // file_13
-            $this->file_13->LinkCustomAttributes = "";
-            $this->file_13->HrefValue = "";
-            $this->file_13->TooltipValue = "";
+            // jadwal_proses
+            $this->jadwal_proses->LinkCustomAttributes = "";
+            $this->jadwal_proses->HrefValue = "";
+            $this->jadwal_proses->ExportHrefValue = $this->jadwal_proses->UploadPath . $this->jadwal_proses->Upload->DbValue;
+            $this->jadwal_proses->TooltipValue = "";
 
-            // file_14
-            $this->file_14->LinkCustomAttributes = "";
-            $this->file_14->HrefValue = "";
-            $this->file_14->TooltipValue = "";
+            // sinkron_kebijakan
+            $this->sinkron_kebijakan->LinkCustomAttributes = "";
+            $this->sinkron_kebijakan->HrefValue = "";
+            $this->sinkron_kebijakan->ExportHrefValue = $this->sinkron_kebijakan->UploadPath . $this->sinkron_kebijakan->Upload->DbValue;
+            $this->sinkron_kebijakan->TooltipValue = "";
 
-            // file_15
-            $this->file_15->LinkCustomAttributes = "";
-            $this->file_15->HrefValue = "";
-            $this->file_15->TooltipValue = "";
+            // konsistensi_program
+            $this->konsistensi_program->LinkCustomAttributes = "";
+            $this->konsistensi_program->HrefValue = "";
+            $this->konsistensi_program->ExportHrefValue = $this->konsistensi_program->UploadPath . $this->konsistensi_program->Upload->DbValue;
+            $this->konsistensi_program->TooltipValue = "";
 
-            // file_16
-            $this->file_16->LinkCustomAttributes = "";
-            $this->file_16->HrefValue = "";
-            $this->file_16->TooltipValue = "";
+            // alokasi_pendidikan
+            $this->alokasi_pendidikan->LinkCustomAttributes = "";
+            $this->alokasi_pendidikan->HrefValue = "";
+            $this->alokasi_pendidikan->ExportHrefValue = $this->alokasi_pendidikan->UploadPath . $this->alokasi_pendidikan->Upload->DbValue;
+            $this->alokasi_pendidikan->TooltipValue = "";
 
-            // file_17
-            $this->file_17->LinkCustomAttributes = "";
-            $this->file_17->HrefValue = "";
-            $this->file_17->TooltipValue = "";
+            // alokasi_kesehatan
+            $this->alokasi_kesehatan->LinkCustomAttributes = "";
+            $this->alokasi_kesehatan->HrefValue = "";
+            $this->alokasi_kesehatan->ExportHrefValue = $this->alokasi_kesehatan->UploadPath . $this->alokasi_kesehatan->Upload->DbValue;
+            $this->alokasi_kesehatan->TooltipValue = "";
 
-            // file_18
-            $this->file_18->LinkCustomAttributes = "";
-            $this->file_18->HrefValue = "";
-            $this->file_18->TooltipValue = "";
+            // alokasi_belanja
+            $this->alokasi_belanja->LinkCustomAttributes = "";
+            $this->alokasi_belanja->HrefValue = "";
+            $this->alokasi_belanja->ExportHrefValue = $this->alokasi_belanja->UploadPath . $this->alokasi_belanja->Upload->DbValue;
+            $this->alokasi_belanja->TooltipValue = "";
 
-            // file_19
-            $this->file_19->LinkCustomAttributes = "";
-            $this->file_19->HrefValue = "";
-            $this->file_19->TooltipValue = "";
+            // bak_kegiatan
+            $this->bak_kegiatan->LinkCustomAttributes = "";
+            $this->bak_kegiatan->HrefValue = "";
+            $this->bak_kegiatan->ExportHrefValue = $this->bak_kegiatan->UploadPath . $this->bak_kegiatan->Upload->DbValue;
+            $this->bak_kegiatan->TooltipValue = "";
 
-            // file_20
-            $this->file_20->LinkCustomAttributes = "";
-            $this->file_20->HrefValue = "";
-            $this->file_20->TooltipValue = "";
+            // softcopy_rka
+            $this->softcopy_rka->LinkCustomAttributes = "";
+            $this->softcopy_rka->HrefValue = "";
+            $this->softcopy_rka->ExportHrefValue = $this->softcopy_rka->UploadPath . $this->softcopy_rka->Upload->DbValue;
+            $this->softcopy_rka->TooltipValue = "";
 
-            // file_21
-            $this->file_21->LinkCustomAttributes = "";
-            $this->file_21->HrefValue = "";
-            $this->file_21->TooltipValue = "";
+            // otsus
+            $this->otsus->LinkCustomAttributes = "";
+            $this->otsus->HrefValue = "";
+            $this->otsus->ExportHrefValue = $this->otsus->UploadPath . $this->otsus->Upload->DbValue;
+            $this->otsus->TooltipValue = "";
 
-            // file_22
-            $this->file_22->LinkCustomAttributes = "";
-            $this->file_22->HrefValue = "";
-            $this->file_22->TooltipValue = "";
+            // qanun_perbup
+            $this->qanun_perbup->LinkCustomAttributes = "";
+            $this->qanun_perbup->HrefValue = "";
+            $this->qanun_perbup->ExportHrefValue = $this->qanun_perbup->UploadPath . $this->qanun_perbup->Upload->DbValue;
+            $this->qanun_perbup->TooltipValue = "";
 
-            // file_23
-            $this->file_23->LinkCustomAttributes = "";
-            $this->file_23->HrefValue = "";
-            $this->file_23->TooltipValue = "";
-
-            // file_24
-            $this->file_24->LinkCustomAttributes = "";
-            $this->file_24->HrefValue = "";
-            $this->file_24->TooltipValue = "";
+            // tindak_apbkp
+            $this->tindak_apbkp->LinkCustomAttributes = "";
+            $this->tindak_apbkp->HrefValue = "";
+            $this->tindak_apbkp->ExportHrefValue = $this->tindak_apbkp->UploadPath . $this->tindak_apbkp->Upload->DbValue;
+            $this->tindak_apbkp->TooltipValue = "";
 
             // status
             $this->status->LinkCustomAttributes = "";
@@ -1618,6 +1590,31 @@ class EvaluasiEdit extends Evaluasi
             $this->tanggal->EditCustomAttributes = "";
             $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
             $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
+
+            // idd_wilayah
+            $this->idd_wilayah->EditAttrs["class"] = "form-control";
+            $this->idd_wilayah->EditCustomAttributes = "";
+            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
+            } else {
+                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
+            }
+            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
+                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
+            } else { // Lookup from database
+                if ($curVal == "") {
+                    $filterWrk = "0=1";
+                } else {
+                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
+                }
+                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                $arwrk = $rswrk;
+                $this->idd_wilayah->EditValue = $arwrk;
+            }
+            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
 
             // kd_satker
             $this->kd_satker->EditAttrs["class"] = "form-control";
@@ -1675,306 +1672,365 @@ class EvaluasiEdit extends Evaluasi
             $this->tahun_anggaran->EditValue = $this->tahun_anggaran->options(true);
             $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
 
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
+            // surat_pengantar
+            $this->surat_pengantar->EditAttrs["class"] = "form-control";
+            $this->surat_pengantar->EditCustomAttributes = "";
+            if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+                $this->surat_pengantar->EditValue = $this->surat_pengantar->Upload->DbValue;
             } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
+                $this->surat_pengantar->EditValue = "";
             }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
-
-            // file_01
-            $this->file_01->EditAttrs["class"] = "form-control";
-            $this->file_01->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_01->Upload->DbValue)) {
-                $this->file_01->EditValue = $this->file_01->Upload->DbValue;
-            } else {
-                $this->file_01->EditValue = "";
-            }
-            if (!EmptyValue($this->file_01->CurrentValue)) {
-                $this->file_01->Upload->FileName = $this->file_01->CurrentValue;
+            if (!EmptyValue($this->surat_pengantar->CurrentValue)) {
+                $this->surat_pengantar->Upload->FileName = $this->surat_pengantar->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_01);
+                RenderUploadField($this->surat_pengantar);
             }
 
-            // file_02
-            $this->file_02->EditAttrs["class"] = "form-control";
-            $this->file_02->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_02->Upload->DbValue)) {
-                $this->file_02->EditValue = $this->file_02->Upload->DbValue;
+            // rpjmd
+            $this->rpjmd->EditAttrs["class"] = "form-control";
+            $this->rpjmd->EditCustomAttributes = "";
+            if (!EmptyValue($this->rpjmd->Upload->DbValue)) {
+                $this->rpjmd->EditValue = $this->rpjmd->Upload->DbValue;
             } else {
-                $this->file_02->EditValue = "";
+                $this->rpjmd->EditValue = "";
             }
-            if (!EmptyValue($this->file_02->CurrentValue)) {
-                $this->file_02->Upload->FileName = $this->file_02->CurrentValue;
+            if (!EmptyValue($this->rpjmd->CurrentValue)) {
+                $this->rpjmd->Upload->FileName = $this->rpjmd->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_02);
+                RenderUploadField($this->rpjmd);
             }
 
-            // file_03
-            $this->file_03->EditAttrs["class"] = "form-control";
-            $this->file_03->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_03->Upload->DbValue)) {
-                $this->file_03->EditValue = $this->file_03->Upload->DbValue;
+            // rkpk
+            $this->rkpk->EditAttrs["class"] = "form-control";
+            $this->rkpk->EditCustomAttributes = "";
+            if (!EmptyValue($this->rkpk->Upload->DbValue)) {
+                $this->rkpk->EditValue = $this->rkpk->Upload->DbValue;
             } else {
-                $this->file_03->EditValue = "";
+                $this->rkpk->EditValue = "";
             }
-            if (!EmptyValue($this->file_03->CurrentValue)) {
-                $this->file_03->Upload->FileName = $this->file_03->CurrentValue;
+            if (!EmptyValue($this->rkpk->CurrentValue)) {
+                $this->rkpk->Upload->FileName = $this->rkpk->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_03);
+                RenderUploadField($this->rkpk);
             }
 
-            // file_04
-            $this->file_04->EditAttrs["class"] = "form-control";
-            $this->file_04->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_04->Upload->DbValue)) {
-                $this->file_04->EditValue = $this->file_04->Upload->DbValue;
+            // skd_rkuappas
+            $this->skd_rkuappas->EditAttrs["class"] = "form-control";
+            $this->skd_rkuappas->EditCustomAttributes = "";
+            if (!EmptyValue($this->skd_rkuappas->Upload->DbValue)) {
+                $this->skd_rkuappas->EditValue = $this->skd_rkuappas->Upload->DbValue;
             } else {
-                $this->file_04->EditValue = "";
+                $this->skd_rkuappas->EditValue = "";
             }
-            if (!EmptyValue($this->file_04->CurrentValue)) {
-                $this->file_04->Upload->FileName = $this->file_04->CurrentValue;
+            if (!EmptyValue($this->skd_rkuappas->CurrentValue)) {
+                $this->skd_rkuappas->Upload->FileName = $this->skd_rkuappas->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_04);
+                RenderUploadField($this->skd_rkuappas);
             }
 
-            // file_05
-            $this->file_05->EditAttrs["class"] = "form-control";
-            $this->file_05->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_05->Upload->DbValue)) {
-                $this->file_05->EditValue = $this->file_05->Upload->DbValue;
+            // kua
+            $this->kua->EditAttrs["class"] = "form-control";
+            $this->kua->EditCustomAttributes = "";
+            if (!EmptyValue($this->kua->Upload->DbValue)) {
+                $this->kua->EditValue = $this->kua->Upload->DbValue;
             } else {
-                $this->file_05->EditValue = "";
+                $this->kua->EditValue = "";
             }
-            if (!EmptyValue($this->file_05->CurrentValue)) {
-                $this->file_05->Upload->FileName = $this->file_05->CurrentValue;
+            if (!EmptyValue($this->kua->CurrentValue)) {
+                $this->kua->Upload->FileName = $this->kua->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_05);
+                RenderUploadField($this->kua);
             }
 
-            // file_06
-            $this->file_06->EditAttrs["class"] = "form-control";
-            $this->file_06->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_06->Upload->DbValue)) {
-                $this->file_06->EditValue = $this->file_06->Upload->DbValue;
+            // ppas
+            $this->ppas->EditAttrs["class"] = "form-control";
+            $this->ppas->EditCustomAttributes = "";
+            if (!EmptyValue($this->ppas->Upload->DbValue)) {
+                $this->ppas->EditValue = $this->ppas->Upload->DbValue;
             } else {
-                $this->file_06->EditValue = "";
+                $this->ppas->EditValue = "";
             }
-            if (!EmptyValue($this->file_06->CurrentValue)) {
-                $this->file_06->Upload->FileName = $this->file_06->CurrentValue;
+            if (!EmptyValue($this->ppas->CurrentValue)) {
+                $this->ppas->Upload->FileName = $this->ppas->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_06);
+                RenderUploadField($this->ppas);
             }
 
-            // file_07
-            $this->file_07->EditAttrs["class"] = "form-control";
-            $this->file_07->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_07->Upload->DbValue)) {
-                $this->file_07->EditValue = $this->file_07->Upload->DbValue;
+            // skd_rqanun
+            $this->skd_rqanun->EditAttrs["class"] = "form-control";
+            $this->skd_rqanun->EditCustomAttributes = "";
+            if (!EmptyValue($this->skd_rqanun->Upload->DbValue)) {
+                $this->skd_rqanun->EditValue = $this->skd_rqanun->Upload->DbValue;
             } else {
-                $this->file_07->EditValue = "";
+                $this->skd_rqanun->EditValue = "";
             }
-            if (!EmptyValue($this->file_07->CurrentValue)) {
-                $this->file_07->Upload->FileName = $this->file_07->CurrentValue;
+            if (!EmptyValue($this->skd_rqanun->CurrentValue)) {
+                $this->skd_rqanun->Upload->FileName = $this->skd_rqanun->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_07);
+                RenderUploadField($this->skd_rqanun);
             }
 
-            // file_08
-            $this->file_08->EditAttrs["class"] = "form-control";
-            $this->file_08->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_08->Upload->DbValue)) {
-                $this->file_08->EditValue = $this->file_08->Upload->DbValue;
+            // nota_keuangan
+            $this->nota_keuangan->EditAttrs["class"] = "form-control";
+            $this->nota_keuangan->EditCustomAttributes = "";
+            if (!EmptyValue($this->nota_keuangan->Upload->DbValue)) {
+                $this->nota_keuangan->EditValue = $this->nota_keuangan->Upload->DbValue;
             } else {
-                $this->file_08->EditValue = "";
+                $this->nota_keuangan->EditValue = "";
             }
-            if (!EmptyValue($this->file_08->CurrentValue)) {
-                $this->file_08->Upload->FileName = $this->file_08->CurrentValue;
+            if (!EmptyValue($this->nota_keuangan->CurrentValue)) {
+                $this->nota_keuangan->Upload->FileName = $this->nota_keuangan->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_08);
+                RenderUploadField($this->nota_keuangan);
             }
 
-            // file_09
-            $this->file_09->EditAttrs["class"] = "form-control";
-            $this->file_09->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_09->Upload->DbValue)) {
-                $this->file_09->EditValue = $this->file_09->Upload->DbValue;
+            // pengantar_nota
+            $this->pengantar_nota->EditAttrs["class"] = "form-control";
+            $this->pengantar_nota->EditCustomAttributes = "";
+            if (!EmptyValue($this->pengantar_nota->Upload->DbValue)) {
+                $this->pengantar_nota->EditValue = $this->pengantar_nota->Upload->DbValue;
             } else {
-                $this->file_09->EditValue = "";
+                $this->pengantar_nota->EditValue = "";
             }
-            if (!EmptyValue($this->file_09->CurrentValue)) {
-                $this->file_09->Upload->FileName = $this->file_09->CurrentValue;
+            if (!EmptyValue($this->pengantar_nota->CurrentValue)) {
+                $this->pengantar_nota->Upload->FileName = $this->pengantar_nota->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_09);
+                RenderUploadField($this->pengantar_nota);
             }
 
-            // file_10
-            $this->file_10->EditAttrs["class"] = "form-control";
-            $this->file_10->EditCustomAttributes = "";
-            if (!EmptyValue($this->file_10->Upload->DbValue)) {
-                $this->file_10->EditValue = $this->file_10->Upload->DbValue;
+            // risalah_sidang
+            $this->risalah_sidang->EditAttrs["class"] = "form-control";
+            $this->risalah_sidang->EditCustomAttributes = "";
+            if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+                $this->risalah_sidang->EditValue = $this->risalah_sidang->Upload->DbValue;
             } else {
-                $this->file_10->EditValue = "";
+                $this->risalah_sidang->EditValue = "";
             }
-            if (!EmptyValue($this->file_10->CurrentValue)) {
-                $this->file_10->Upload->FileName = $this->file_10->CurrentValue;
+            if (!EmptyValue($this->risalah_sidang->CurrentValue)) {
+                $this->risalah_sidang->Upload->FileName = $this->risalah_sidang->CurrentValue;
             }
             if ($this->isShow()) {
-                RenderUploadField($this->file_10);
+                RenderUploadField($this->risalah_sidang);
             }
 
-            // file_11
-            $this->file_11->EditAttrs["class"] = "form-control";
-            $this->file_11->EditCustomAttributes = "";
-            if (!$this->file_11->Raw) {
-                $this->file_11->CurrentValue = HtmlDecode($this->file_11->CurrentValue);
+            // bap_apbk
+            $this->bap_apbk->EditAttrs["class"] = "form-control";
+            $this->bap_apbk->EditCustomAttributes = "";
+            if (!EmptyValue($this->bap_apbk->Upload->DbValue)) {
+                $this->bap_apbk->EditValue = $this->bap_apbk->Upload->DbValue;
+            } else {
+                $this->bap_apbk->EditValue = "";
             }
-            $this->file_11->EditValue = HtmlEncode($this->file_11->CurrentValue);
-            $this->file_11->PlaceHolder = RemoveHtml($this->file_11->caption());
+            if (!EmptyValue($this->bap_apbk->CurrentValue)) {
+                $this->bap_apbk->Upload->FileName = $this->bap_apbk->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->bap_apbk);
+            }
 
-            // file_12
-            $this->file_12->EditAttrs["class"] = "form-control";
-            $this->file_12->EditCustomAttributes = "";
-            if (!$this->file_12->Raw) {
-                $this->file_12->CurrentValue = HtmlDecode($this->file_12->CurrentValue);
+            // rq_apbk
+            $this->rq_apbk->EditAttrs["class"] = "form-control";
+            $this->rq_apbk->EditCustomAttributes = "";
+            if (!EmptyValue($this->rq_apbk->Upload->DbValue)) {
+                $this->rq_apbk->EditValue = $this->rq_apbk->Upload->DbValue;
+            } else {
+                $this->rq_apbk->EditValue = "";
             }
-            $this->file_12->EditValue = HtmlEncode($this->file_12->CurrentValue);
-            $this->file_12->PlaceHolder = RemoveHtml($this->file_12->caption());
+            if (!EmptyValue($this->rq_apbk->CurrentValue)) {
+                $this->rq_apbk->Upload->FileName = $this->rq_apbk->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->rq_apbk);
+            }
 
-            // file_13
-            $this->file_13->EditAttrs["class"] = "form-control";
-            $this->file_13->EditCustomAttributes = "";
-            if (!$this->file_13->Raw) {
-                $this->file_13->CurrentValue = HtmlDecode($this->file_13->CurrentValue);
+            // rp_penjabaran
+            $this->rp_penjabaran->EditAttrs["class"] = "form-control";
+            $this->rp_penjabaran->EditCustomAttributes = "";
+            if (!EmptyValue($this->rp_penjabaran->Upload->DbValue)) {
+                $this->rp_penjabaran->EditValue = $this->rp_penjabaran->Upload->DbValue;
+            } else {
+                $this->rp_penjabaran->EditValue = "";
             }
-            $this->file_13->EditValue = HtmlEncode($this->file_13->CurrentValue);
-            $this->file_13->PlaceHolder = RemoveHtml($this->file_13->caption());
+            if (!EmptyValue($this->rp_penjabaran->CurrentValue)) {
+                $this->rp_penjabaran->Upload->FileName = $this->rp_penjabaran->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->rp_penjabaran);
+            }
 
-            // file_14
-            $this->file_14->EditAttrs["class"] = "form-control";
-            $this->file_14->EditCustomAttributes = "";
-            if (!$this->file_14->Raw) {
-                $this->file_14->CurrentValue = HtmlDecode($this->file_14->CurrentValue);
+            // jadwal_proses
+            $this->jadwal_proses->EditAttrs["class"] = "form-control";
+            $this->jadwal_proses->EditCustomAttributes = "";
+            if (!EmptyValue($this->jadwal_proses->Upload->DbValue)) {
+                $this->jadwal_proses->EditValue = $this->jadwal_proses->Upload->DbValue;
+            } else {
+                $this->jadwal_proses->EditValue = "";
             }
-            $this->file_14->EditValue = HtmlEncode($this->file_14->CurrentValue);
-            $this->file_14->PlaceHolder = RemoveHtml($this->file_14->caption());
+            if (!EmptyValue($this->jadwal_proses->CurrentValue)) {
+                $this->jadwal_proses->Upload->FileName = $this->jadwal_proses->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->jadwal_proses);
+            }
 
-            // file_15
-            $this->file_15->EditAttrs["class"] = "form-control";
-            $this->file_15->EditCustomAttributes = "";
-            if (!$this->file_15->Raw) {
-                $this->file_15->CurrentValue = HtmlDecode($this->file_15->CurrentValue);
+            // sinkron_kebijakan
+            $this->sinkron_kebijakan->EditAttrs["class"] = "form-control";
+            $this->sinkron_kebijakan->EditCustomAttributes = "";
+            if (!EmptyValue($this->sinkron_kebijakan->Upload->DbValue)) {
+                $this->sinkron_kebijakan->EditValue = $this->sinkron_kebijakan->Upload->DbValue;
+            } else {
+                $this->sinkron_kebijakan->EditValue = "";
             }
-            $this->file_15->EditValue = HtmlEncode($this->file_15->CurrentValue);
-            $this->file_15->PlaceHolder = RemoveHtml($this->file_15->caption());
+            if (!EmptyValue($this->sinkron_kebijakan->CurrentValue)) {
+                $this->sinkron_kebijakan->Upload->FileName = $this->sinkron_kebijakan->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->sinkron_kebijakan);
+            }
 
-            // file_16
-            $this->file_16->EditAttrs["class"] = "form-control";
-            $this->file_16->EditCustomAttributes = "";
-            if (!$this->file_16->Raw) {
-                $this->file_16->CurrentValue = HtmlDecode($this->file_16->CurrentValue);
+            // konsistensi_program
+            $this->konsistensi_program->EditAttrs["class"] = "form-control";
+            $this->konsistensi_program->EditCustomAttributes = "";
+            if (!EmptyValue($this->konsistensi_program->Upload->DbValue)) {
+                $this->konsistensi_program->EditValue = $this->konsistensi_program->Upload->DbValue;
+            } else {
+                $this->konsistensi_program->EditValue = "";
             }
-            $this->file_16->EditValue = HtmlEncode($this->file_16->CurrentValue);
-            $this->file_16->PlaceHolder = RemoveHtml($this->file_16->caption());
+            if (!EmptyValue($this->konsistensi_program->CurrentValue)) {
+                $this->konsistensi_program->Upload->FileName = $this->konsistensi_program->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->konsistensi_program);
+            }
 
-            // file_17
-            $this->file_17->EditAttrs["class"] = "form-control";
-            $this->file_17->EditCustomAttributes = "";
-            if (!$this->file_17->Raw) {
-                $this->file_17->CurrentValue = HtmlDecode($this->file_17->CurrentValue);
+            // alokasi_pendidikan
+            $this->alokasi_pendidikan->EditAttrs["class"] = "form-control";
+            $this->alokasi_pendidikan->EditCustomAttributes = "";
+            if (!EmptyValue($this->alokasi_pendidikan->Upload->DbValue)) {
+                $this->alokasi_pendidikan->EditValue = $this->alokasi_pendidikan->Upload->DbValue;
+            } else {
+                $this->alokasi_pendidikan->EditValue = "";
             }
-            $this->file_17->EditValue = HtmlEncode($this->file_17->CurrentValue);
-            $this->file_17->PlaceHolder = RemoveHtml($this->file_17->caption());
+            if (!EmptyValue($this->alokasi_pendidikan->CurrentValue)) {
+                $this->alokasi_pendidikan->Upload->FileName = $this->alokasi_pendidikan->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->alokasi_pendidikan);
+            }
 
-            // file_18
-            $this->file_18->EditAttrs["class"] = "form-control";
-            $this->file_18->EditCustomAttributes = "";
-            if (!$this->file_18->Raw) {
-                $this->file_18->CurrentValue = HtmlDecode($this->file_18->CurrentValue);
+            // alokasi_kesehatan
+            $this->alokasi_kesehatan->EditAttrs["class"] = "form-control";
+            $this->alokasi_kesehatan->EditCustomAttributes = "";
+            if (!EmptyValue($this->alokasi_kesehatan->Upload->DbValue)) {
+                $this->alokasi_kesehatan->EditValue = $this->alokasi_kesehatan->Upload->DbValue;
+            } else {
+                $this->alokasi_kesehatan->EditValue = "";
             }
-            $this->file_18->EditValue = HtmlEncode($this->file_18->CurrentValue);
-            $this->file_18->PlaceHolder = RemoveHtml($this->file_18->caption());
+            if (!EmptyValue($this->alokasi_kesehatan->CurrentValue)) {
+                $this->alokasi_kesehatan->Upload->FileName = $this->alokasi_kesehatan->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->alokasi_kesehatan);
+            }
 
-            // file_19
-            $this->file_19->EditAttrs["class"] = "form-control";
-            $this->file_19->EditCustomAttributes = "";
-            if (!$this->file_19->Raw) {
-                $this->file_19->CurrentValue = HtmlDecode($this->file_19->CurrentValue);
+            // alokasi_belanja
+            $this->alokasi_belanja->EditAttrs["class"] = "form-control";
+            $this->alokasi_belanja->EditCustomAttributes = "";
+            if (!EmptyValue($this->alokasi_belanja->Upload->DbValue)) {
+                $this->alokasi_belanja->EditValue = $this->alokasi_belanja->Upload->DbValue;
+            } else {
+                $this->alokasi_belanja->EditValue = "";
             }
-            $this->file_19->EditValue = HtmlEncode($this->file_19->CurrentValue);
-            $this->file_19->PlaceHolder = RemoveHtml($this->file_19->caption());
+            if (!EmptyValue($this->alokasi_belanja->CurrentValue)) {
+                $this->alokasi_belanja->Upload->FileName = $this->alokasi_belanja->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->alokasi_belanja);
+            }
 
-            // file_20
-            $this->file_20->EditAttrs["class"] = "form-control";
-            $this->file_20->EditCustomAttributes = "";
-            if (!$this->file_20->Raw) {
-                $this->file_20->CurrentValue = HtmlDecode($this->file_20->CurrentValue);
+            // bak_kegiatan
+            $this->bak_kegiatan->EditAttrs["class"] = "form-control";
+            $this->bak_kegiatan->EditCustomAttributes = "";
+            if (!EmptyValue($this->bak_kegiatan->Upload->DbValue)) {
+                $this->bak_kegiatan->EditValue = $this->bak_kegiatan->Upload->DbValue;
+            } else {
+                $this->bak_kegiatan->EditValue = "";
             }
-            $this->file_20->EditValue = HtmlEncode($this->file_20->CurrentValue);
-            $this->file_20->PlaceHolder = RemoveHtml($this->file_20->caption());
+            if (!EmptyValue($this->bak_kegiatan->CurrentValue)) {
+                $this->bak_kegiatan->Upload->FileName = $this->bak_kegiatan->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->bak_kegiatan);
+            }
 
-            // file_21
-            $this->file_21->EditAttrs["class"] = "form-control";
-            $this->file_21->EditCustomAttributes = "";
-            if (!$this->file_21->Raw) {
-                $this->file_21->CurrentValue = HtmlDecode($this->file_21->CurrentValue);
+            // softcopy_rka
+            $this->softcopy_rka->EditAttrs["class"] = "form-control";
+            $this->softcopy_rka->EditCustomAttributes = "";
+            if (!EmptyValue($this->softcopy_rka->Upload->DbValue)) {
+                $this->softcopy_rka->EditValue = $this->softcopy_rka->Upload->DbValue;
+            } else {
+                $this->softcopy_rka->EditValue = "";
             }
-            $this->file_21->EditValue = HtmlEncode($this->file_21->CurrentValue);
-            $this->file_21->PlaceHolder = RemoveHtml($this->file_21->caption());
+            if (!EmptyValue($this->softcopy_rka->CurrentValue)) {
+                $this->softcopy_rka->Upload->FileName = $this->softcopy_rka->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->softcopy_rka);
+            }
 
-            // file_22
-            $this->file_22->EditAttrs["class"] = "form-control";
-            $this->file_22->EditCustomAttributes = "";
-            if (!$this->file_22->Raw) {
-                $this->file_22->CurrentValue = HtmlDecode($this->file_22->CurrentValue);
+            // otsus
+            $this->otsus->EditAttrs["class"] = "form-control";
+            $this->otsus->EditCustomAttributes = "";
+            if (!EmptyValue($this->otsus->Upload->DbValue)) {
+                $this->otsus->EditValue = $this->otsus->Upload->DbValue;
+            } else {
+                $this->otsus->EditValue = "";
             }
-            $this->file_22->EditValue = HtmlEncode($this->file_22->CurrentValue);
-            $this->file_22->PlaceHolder = RemoveHtml($this->file_22->caption());
+            if (!EmptyValue($this->otsus->CurrentValue)) {
+                $this->otsus->Upload->FileName = $this->otsus->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->otsus);
+            }
 
-            // file_23
-            $this->file_23->EditAttrs["class"] = "form-control";
-            $this->file_23->EditCustomAttributes = "";
-            if (!$this->file_23->Raw) {
-                $this->file_23->CurrentValue = HtmlDecode($this->file_23->CurrentValue);
+            // qanun_perbup
+            $this->qanun_perbup->EditAttrs["class"] = "form-control";
+            $this->qanun_perbup->EditCustomAttributes = "";
+            if (!EmptyValue($this->qanun_perbup->Upload->DbValue)) {
+                $this->qanun_perbup->EditValue = $this->qanun_perbup->Upload->DbValue;
+            } else {
+                $this->qanun_perbup->EditValue = "";
             }
-            $this->file_23->EditValue = HtmlEncode($this->file_23->CurrentValue);
-            $this->file_23->PlaceHolder = RemoveHtml($this->file_23->caption());
+            if (!EmptyValue($this->qanun_perbup->CurrentValue)) {
+                $this->qanun_perbup->Upload->FileName = $this->qanun_perbup->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->qanun_perbup);
+            }
 
-            // file_24
-            $this->file_24->EditAttrs["class"] = "form-control";
-            $this->file_24->EditCustomAttributes = "";
-            if (!$this->file_24->Raw) {
-                $this->file_24->CurrentValue = HtmlDecode($this->file_24->CurrentValue);
+            // tindak_apbkp
+            $this->tindak_apbkp->EditAttrs["class"] = "form-control";
+            $this->tindak_apbkp->EditCustomAttributes = "";
+            if (!EmptyValue($this->tindak_apbkp->Upload->DbValue)) {
+                $this->tindak_apbkp->EditValue = $this->tindak_apbkp->Upload->DbValue;
+            } else {
+                $this->tindak_apbkp->EditValue = "";
             }
-            $this->file_24->EditValue = HtmlEncode($this->file_24->CurrentValue);
-            $this->file_24->PlaceHolder = RemoveHtml($this->file_24->caption());
+            if (!EmptyValue($this->tindak_apbkp->CurrentValue)) {
+                $this->tindak_apbkp->Upload->FileName = $this->tindak_apbkp->CurrentValue;
+            }
+            if ($this->isShow()) {
+                RenderUploadField($this->tindak_apbkp);
+            }
 
             // status
             $this->status->EditAttrs["class"] = "form-control";
@@ -2040,6 +2096,10 @@ class EvaluasiEdit extends Evaluasi
             $this->tanggal->LinkCustomAttributes = "";
             $this->tanggal->HrefValue = "";
 
+            // idd_wilayah
+            $this->idd_wilayah->LinkCustomAttributes = "";
+            $this->idd_wilayah->HrefValue = "";
+
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
             $this->kd_satker->HrefValue = "";
@@ -2052,115 +2112,125 @@ class EvaluasiEdit extends Evaluasi
             $this->tahun_anggaran->LinkCustomAttributes = "";
             $this->tahun_anggaran->HrefValue = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
+            // surat_pengantar
+            $this->surat_pengantar->LinkCustomAttributes = "";
+            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
 
-            // file_01
-            $this->file_01->LinkCustomAttributes = "";
-            $this->file_01->HrefValue = "";
-            $this->file_01->ExportHrefValue = $this->file_01->UploadPath . $this->file_01->Upload->DbValue;
+            // rpjmd
+            $this->rpjmd->LinkCustomAttributes = "";
+            $this->rpjmd->HrefValue = "";
+            $this->rpjmd->ExportHrefValue = $this->rpjmd->UploadPath . $this->rpjmd->Upload->DbValue;
 
-            // file_02
-            $this->file_02->LinkCustomAttributes = "";
-            $this->file_02->HrefValue = "";
-            $this->file_02->ExportHrefValue = $this->file_02->UploadPath . $this->file_02->Upload->DbValue;
+            // rkpk
+            $this->rkpk->LinkCustomAttributes = "";
+            $this->rkpk->HrefValue = "";
+            $this->rkpk->ExportHrefValue = $this->rkpk->UploadPath . $this->rkpk->Upload->DbValue;
 
-            // file_03
-            $this->file_03->LinkCustomAttributes = "";
-            $this->file_03->HrefValue = "";
-            $this->file_03->ExportHrefValue = $this->file_03->UploadPath . $this->file_03->Upload->DbValue;
+            // skd_rkuappas
+            $this->skd_rkuappas->LinkCustomAttributes = "";
+            $this->skd_rkuappas->HrefValue = "";
+            $this->skd_rkuappas->ExportHrefValue = $this->skd_rkuappas->UploadPath . $this->skd_rkuappas->Upload->DbValue;
 
-            // file_04
-            $this->file_04->LinkCustomAttributes = "";
-            $this->file_04->HrefValue = "";
-            $this->file_04->ExportHrefValue = $this->file_04->UploadPath . $this->file_04->Upload->DbValue;
+            // kua
+            $this->kua->LinkCustomAttributes = "";
+            $this->kua->HrefValue = "";
+            $this->kua->ExportHrefValue = $this->kua->UploadPath . $this->kua->Upload->DbValue;
 
-            // file_05
-            $this->file_05->LinkCustomAttributes = "";
-            $this->file_05->HrefValue = "";
-            $this->file_05->ExportHrefValue = $this->file_05->UploadPath . $this->file_05->Upload->DbValue;
+            // ppas
+            $this->ppas->LinkCustomAttributes = "";
+            $this->ppas->HrefValue = "";
+            $this->ppas->ExportHrefValue = $this->ppas->UploadPath . $this->ppas->Upload->DbValue;
 
-            // file_06
-            $this->file_06->LinkCustomAttributes = "";
-            $this->file_06->HrefValue = "";
-            $this->file_06->ExportHrefValue = $this->file_06->UploadPath . $this->file_06->Upload->DbValue;
+            // skd_rqanun
+            $this->skd_rqanun->LinkCustomAttributes = "";
+            $this->skd_rqanun->HrefValue = "";
+            $this->skd_rqanun->ExportHrefValue = $this->skd_rqanun->UploadPath . $this->skd_rqanun->Upload->DbValue;
 
-            // file_07
-            $this->file_07->LinkCustomAttributes = "";
-            $this->file_07->HrefValue = "";
-            $this->file_07->ExportHrefValue = $this->file_07->UploadPath . $this->file_07->Upload->DbValue;
+            // nota_keuangan
+            $this->nota_keuangan->LinkCustomAttributes = "";
+            $this->nota_keuangan->HrefValue = "";
+            $this->nota_keuangan->ExportHrefValue = $this->nota_keuangan->UploadPath . $this->nota_keuangan->Upload->DbValue;
 
-            // file_08
-            $this->file_08->LinkCustomAttributes = "";
-            $this->file_08->HrefValue = "";
-            $this->file_08->ExportHrefValue = $this->file_08->UploadPath . $this->file_08->Upload->DbValue;
+            // pengantar_nota
+            $this->pengantar_nota->LinkCustomAttributes = "";
+            $this->pengantar_nota->HrefValue = "";
+            $this->pengantar_nota->ExportHrefValue = $this->pengantar_nota->UploadPath . $this->pengantar_nota->Upload->DbValue;
 
-            // file_09
-            $this->file_09->LinkCustomAttributes = "";
-            $this->file_09->HrefValue = "";
-            $this->file_09->ExportHrefValue = $this->file_09->UploadPath . $this->file_09->Upload->DbValue;
+            // risalah_sidang
+            $this->risalah_sidang->LinkCustomAttributes = "";
+            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
 
-            // file_10
-            $this->file_10->LinkCustomAttributes = "";
-            $this->file_10->HrefValue = "";
-            $this->file_10->ExportHrefValue = $this->file_10->UploadPath . $this->file_10->Upload->DbValue;
+            // bap_apbk
+            $this->bap_apbk->LinkCustomAttributes = "";
+            $this->bap_apbk->HrefValue = "";
+            $this->bap_apbk->ExportHrefValue = $this->bap_apbk->UploadPath . $this->bap_apbk->Upload->DbValue;
 
-            // file_11
-            $this->file_11->LinkCustomAttributes = "";
-            $this->file_11->HrefValue = "";
+            // rq_apbk
+            $this->rq_apbk->LinkCustomAttributes = "";
+            $this->rq_apbk->HrefValue = "";
+            $this->rq_apbk->ExportHrefValue = $this->rq_apbk->UploadPath . $this->rq_apbk->Upload->DbValue;
 
-            // file_12
-            $this->file_12->LinkCustomAttributes = "";
-            $this->file_12->HrefValue = "";
+            // rp_penjabaran
+            $this->rp_penjabaran->LinkCustomAttributes = "";
+            $this->rp_penjabaran->HrefValue = "";
+            $this->rp_penjabaran->ExportHrefValue = $this->rp_penjabaran->UploadPath . $this->rp_penjabaran->Upload->DbValue;
 
-            // file_13
-            $this->file_13->LinkCustomAttributes = "";
-            $this->file_13->HrefValue = "";
+            // jadwal_proses
+            $this->jadwal_proses->LinkCustomAttributes = "";
+            $this->jadwal_proses->HrefValue = "";
+            $this->jadwal_proses->ExportHrefValue = $this->jadwal_proses->UploadPath . $this->jadwal_proses->Upload->DbValue;
 
-            // file_14
-            $this->file_14->LinkCustomAttributes = "";
-            $this->file_14->HrefValue = "";
+            // sinkron_kebijakan
+            $this->sinkron_kebijakan->LinkCustomAttributes = "";
+            $this->sinkron_kebijakan->HrefValue = "";
+            $this->sinkron_kebijakan->ExportHrefValue = $this->sinkron_kebijakan->UploadPath . $this->sinkron_kebijakan->Upload->DbValue;
 
-            // file_15
-            $this->file_15->LinkCustomAttributes = "";
-            $this->file_15->HrefValue = "";
+            // konsistensi_program
+            $this->konsistensi_program->LinkCustomAttributes = "";
+            $this->konsistensi_program->HrefValue = "";
+            $this->konsistensi_program->ExportHrefValue = $this->konsistensi_program->UploadPath . $this->konsistensi_program->Upload->DbValue;
 
-            // file_16
-            $this->file_16->LinkCustomAttributes = "";
-            $this->file_16->HrefValue = "";
+            // alokasi_pendidikan
+            $this->alokasi_pendidikan->LinkCustomAttributes = "";
+            $this->alokasi_pendidikan->HrefValue = "";
+            $this->alokasi_pendidikan->ExportHrefValue = $this->alokasi_pendidikan->UploadPath . $this->alokasi_pendidikan->Upload->DbValue;
 
-            // file_17
-            $this->file_17->LinkCustomAttributes = "";
-            $this->file_17->HrefValue = "";
+            // alokasi_kesehatan
+            $this->alokasi_kesehatan->LinkCustomAttributes = "";
+            $this->alokasi_kesehatan->HrefValue = "";
+            $this->alokasi_kesehatan->ExportHrefValue = $this->alokasi_kesehatan->UploadPath . $this->alokasi_kesehatan->Upload->DbValue;
 
-            // file_18
-            $this->file_18->LinkCustomAttributes = "";
-            $this->file_18->HrefValue = "";
+            // alokasi_belanja
+            $this->alokasi_belanja->LinkCustomAttributes = "";
+            $this->alokasi_belanja->HrefValue = "";
+            $this->alokasi_belanja->ExportHrefValue = $this->alokasi_belanja->UploadPath . $this->alokasi_belanja->Upload->DbValue;
 
-            // file_19
-            $this->file_19->LinkCustomAttributes = "";
-            $this->file_19->HrefValue = "";
+            // bak_kegiatan
+            $this->bak_kegiatan->LinkCustomAttributes = "";
+            $this->bak_kegiatan->HrefValue = "";
+            $this->bak_kegiatan->ExportHrefValue = $this->bak_kegiatan->UploadPath . $this->bak_kegiatan->Upload->DbValue;
 
-            // file_20
-            $this->file_20->LinkCustomAttributes = "";
-            $this->file_20->HrefValue = "";
+            // softcopy_rka
+            $this->softcopy_rka->LinkCustomAttributes = "";
+            $this->softcopy_rka->HrefValue = "";
+            $this->softcopy_rka->ExportHrefValue = $this->softcopy_rka->UploadPath . $this->softcopy_rka->Upload->DbValue;
 
-            // file_21
-            $this->file_21->LinkCustomAttributes = "";
-            $this->file_21->HrefValue = "";
+            // otsus
+            $this->otsus->LinkCustomAttributes = "";
+            $this->otsus->HrefValue = "";
+            $this->otsus->ExportHrefValue = $this->otsus->UploadPath . $this->otsus->Upload->DbValue;
 
-            // file_22
-            $this->file_22->LinkCustomAttributes = "";
-            $this->file_22->HrefValue = "";
+            // qanun_perbup
+            $this->qanun_perbup->LinkCustomAttributes = "";
+            $this->qanun_perbup->HrefValue = "";
+            $this->qanun_perbup->ExportHrefValue = $this->qanun_perbup->UploadPath . $this->qanun_perbup->Upload->DbValue;
 
-            // file_23
-            $this->file_23->LinkCustomAttributes = "";
-            $this->file_23->HrefValue = "";
-
-            // file_24
-            $this->file_24->LinkCustomAttributes = "";
-            $this->file_24->HrefValue = "";
+            // tindak_apbkp
+            $this->tindak_apbkp->LinkCustomAttributes = "";
+            $this->tindak_apbkp->HrefValue = "";
+            $this->tindak_apbkp->ExportHrefValue = $this->tindak_apbkp->UploadPath . $this->tindak_apbkp->Upload->DbValue;
 
             // status
             $this->status->LinkCustomAttributes = "";
@@ -2202,6 +2272,11 @@ class EvaluasiEdit extends Evaluasi
         if (!CheckDate($this->tanggal->FormValue)) {
             $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
         }
+        if ($this->idd_wilayah->Required) {
+            if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
+                $this->idd_wilayah->addErrorMessage(str_replace("%s", $this->idd_wilayah->caption(), $this->idd_wilayah->RequiredErrorMessage));
+            }
+        }
         if ($this->kd_satker->Required) {
             if (!$this->kd_satker->IsDetailKey && EmptyValue($this->kd_satker->FormValue)) {
                 $this->kd_satker->addErrorMessage(str_replace("%s", $this->kd_satker->caption(), $this->kd_satker->RequiredErrorMessage));
@@ -2217,129 +2292,124 @@ class EvaluasiEdit extends Evaluasi
                 $this->tahun_anggaran->addErrorMessage(str_replace("%s", $this->tahun_anggaran->caption(), $this->tahun_anggaran->RequiredErrorMessage));
             }
         }
-        if ($this->idd_wilayah->Required) {
-            if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
-                $this->idd_wilayah->addErrorMessage(str_replace("%s", $this->idd_wilayah->caption(), $this->idd_wilayah->RequiredErrorMessage));
+        if ($this->surat_pengantar->Required) {
+            if ($this->surat_pengantar->Upload->FileName == "" && !$this->surat_pengantar->Upload->KeepFile) {
+                $this->surat_pengantar->addErrorMessage(str_replace("%s", $this->surat_pengantar->caption(), $this->surat_pengantar->RequiredErrorMessage));
             }
         }
-        if ($this->file_01->Required) {
-            if ($this->file_01->Upload->FileName == "" && !$this->file_01->Upload->KeepFile) {
-                $this->file_01->addErrorMessage(str_replace("%s", $this->file_01->caption(), $this->file_01->RequiredErrorMessage));
+        if ($this->rpjmd->Required) {
+            if ($this->rpjmd->Upload->FileName == "" && !$this->rpjmd->Upload->KeepFile) {
+                $this->rpjmd->addErrorMessage(str_replace("%s", $this->rpjmd->caption(), $this->rpjmd->RequiredErrorMessage));
             }
         }
-        if ($this->file_02->Required) {
-            if ($this->file_02->Upload->FileName == "" && !$this->file_02->Upload->KeepFile) {
-                $this->file_02->addErrorMessage(str_replace("%s", $this->file_02->caption(), $this->file_02->RequiredErrorMessage));
+        if ($this->rkpk->Required) {
+            if ($this->rkpk->Upload->FileName == "" && !$this->rkpk->Upload->KeepFile) {
+                $this->rkpk->addErrorMessage(str_replace("%s", $this->rkpk->caption(), $this->rkpk->RequiredErrorMessage));
             }
         }
-        if ($this->file_03->Required) {
-            if ($this->file_03->Upload->FileName == "" && !$this->file_03->Upload->KeepFile) {
-                $this->file_03->addErrorMessage(str_replace("%s", $this->file_03->caption(), $this->file_03->RequiredErrorMessage));
+        if ($this->skd_rkuappas->Required) {
+            if ($this->skd_rkuappas->Upload->FileName == "" && !$this->skd_rkuappas->Upload->KeepFile) {
+                $this->skd_rkuappas->addErrorMessage(str_replace("%s", $this->skd_rkuappas->caption(), $this->skd_rkuappas->RequiredErrorMessage));
             }
         }
-        if ($this->file_04->Required) {
-            if ($this->file_04->Upload->FileName == "" && !$this->file_04->Upload->KeepFile) {
-                $this->file_04->addErrorMessage(str_replace("%s", $this->file_04->caption(), $this->file_04->RequiredErrorMessage));
+        if ($this->kua->Required) {
+            if ($this->kua->Upload->FileName == "" && !$this->kua->Upload->KeepFile) {
+                $this->kua->addErrorMessage(str_replace("%s", $this->kua->caption(), $this->kua->RequiredErrorMessage));
             }
         }
-        if ($this->file_05->Required) {
-            if ($this->file_05->Upload->FileName == "" && !$this->file_05->Upload->KeepFile) {
-                $this->file_05->addErrorMessage(str_replace("%s", $this->file_05->caption(), $this->file_05->RequiredErrorMessage));
+        if ($this->ppas->Required) {
+            if ($this->ppas->Upload->FileName == "" && !$this->ppas->Upload->KeepFile) {
+                $this->ppas->addErrorMessage(str_replace("%s", $this->ppas->caption(), $this->ppas->RequiredErrorMessage));
             }
         }
-        if ($this->file_06->Required) {
-            if ($this->file_06->Upload->FileName == "" && !$this->file_06->Upload->KeepFile) {
-                $this->file_06->addErrorMessage(str_replace("%s", $this->file_06->caption(), $this->file_06->RequiredErrorMessage));
+        if ($this->skd_rqanun->Required) {
+            if ($this->skd_rqanun->Upload->FileName == "" && !$this->skd_rqanun->Upload->KeepFile) {
+                $this->skd_rqanun->addErrorMessage(str_replace("%s", $this->skd_rqanun->caption(), $this->skd_rqanun->RequiredErrorMessage));
             }
         }
-        if ($this->file_07->Required) {
-            if ($this->file_07->Upload->FileName == "" && !$this->file_07->Upload->KeepFile) {
-                $this->file_07->addErrorMessage(str_replace("%s", $this->file_07->caption(), $this->file_07->RequiredErrorMessage));
+        if ($this->nota_keuangan->Required) {
+            if ($this->nota_keuangan->Upload->FileName == "" && !$this->nota_keuangan->Upload->KeepFile) {
+                $this->nota_keuangan->addErrorMessage(str_replace("%s", $this->nota_keuangan->caption(), $this->nota_keuangan->RequiredErrorMessage));
             }
         }
-        if ($this->file_08->Required) {
-            if ($this->file_08->Upload->FileName == "" && !$this->file_08->Upload->KeepFile) {
-                $this->file_08->addErrorMessage(str_replace("%s", $this->file_08->caption(), $this->file_08->RequiredErrorMessage));
+        if ($this->pengantar_nota->Required) {
+            if ($this->pengantar_nota->Upload->FileName == "" && !$this->pengantar_nota->Upload->KeepFile) {
+                $this->pengantar_nota->addErrorMessage(str_replace("%s", $this->pengantar_nota->caption(), $this->pengantar_nota->RequiredErrorMessage));
             }
         }
-        if ($this->file_09->Required) {
-            if ($this->file_09->Upload->FileName == "" && !$this->file_09->Upload->KeepFile) {
-                $this->file_09->addErrorMessage(str_replace("%s", $this->file_09->caption(), $this->file_09->RequiredErrorMessage));
+        if ($this->risalah_sidang->Required) {
+            if ($this->risalah_sidang->Upload->FileName == "" && !$this->risalah_sidang->Upload->KeepFile) {
+                $this->risalah_sidang->addErrorMessage(str_replace("%s", $this->risalah_sidang->caption(), $this->risalah_sidang->RequiredErrorMessage));
             }
         }
-        if ($this->file_10->Required) {
-            if ($this->file_10->Upload->FileName == "" && !$this->file_10->Upload->KeepFile) {
-                $this->file_10->addErrorMessage(str_replace("%s", $this->file_10->caption(), $this->file_10->RequiredErrorMessage));
+        if ($this->bap_apbk->Required) {
+            if ($this->bap_apbk->Upload->FileName == "" && !$this->bap_apbk->Upload->KeepFile) {
+                $this->bap_apbk->addErrorMessage(str_replace("%s", $this->bap_apbk->caption(), $this->bap_apbk->RequiredErrorMessage));
             }
         }
-        if ($this->file_11->Required) {
-            if (!$this->file_11->IsDetailKey && EmptyValue($this->file_11->FormValue)) {
-                $this->file_11->addErrorMessage(str_replace("%s", $this->file_11->caption(), $this->file_11->RequiredErrorMessage));
+        if ($this->rq_apbk->Required) {
+            if ($this->rq_apbk->Upload->FileName == "" && !$this->rq_apbk->Upload->KeepFile) {
+                $this->rq_apbk->addErrorMessage(str_replace("%s", $this->rq_apbk->caption(), $this->rq_apbk->RequiredErrorMessage));
             }
         }
-        if ($this->file_12->Required) {
-            if (!$this->file_12->IsDetailKey && EmptyValue($this->file_12->FormValue)) {
-                $this->file_12->addErrorMessage(str_replace("%s", $this->file_12->caption(), $this->file_12->RequiredErrorMessage));
+        if ($this->rp_penjabaran->Required) {
+            if ($this->rp_penjabaran->Upload->FileName == "" && !$this->rp_penjabaran->Upload->KeepFile) {
+                $this->rp_penjabaran->addErrorMessage(str_replace("%s", $this->rp_penjabaran->caption(), $this->rp_penjabaran->RequiredErrorMessage));
             }
         }
-        if ($this->file_13->Required) {
-            if (!$this->file_13->IsDetailKey && EmptyValue($this->file_13->FormValue)) {
-                $this->file_13->addErrorMessage(str_replace("%s", $this->file_13->caption(), $this->file_13->RequiredErrorMessage));
+        if ($this->jadwal_proses->Required) {
+            if ($this->jadwal_proses->Upload->FileName == "" && !$this->jadwal_proses->Upload->KeepFile) {
+                $this->jadwal_proses->addErrorMessage(str_replace("%s", $this->jadwal_proses->caption(), $this->jadwal_proses->RequiredErrorMessage));
             }
         }
-        if ($this->file_14->Required) {
-            if (!$this->file_14->IsDetailKey && EmptyValue($this->file_14->FormValue)) {
-                $this->file_14->addErrorMessage(str_replace("%s", $this->file_14->caption(), $this->file_14->RequiredErrorMessage));
+        if ($this->sinkron_kebijakan->Required) {
+            if ($this->sinkron_kebijakan->Upload->FileName == "" && !$this->sinkron_kebijakan->Upload->KeepFile) {
+                $this->sinkron_kebijakan->addErrorMessage(str_replace("%s", $this->sinkron_kebijakan->caption(), $this->sinkron_kebijakan->RequiredErrorMessage));
             }
         }
-        if ($this->file_15->Required) {
-            if (!$this->file_15->IsDetailKey && EmptyValue($this->file_15->FormValue)) {
-                $this->file_15->addErrorMessage(str_replace("%s", $this->file_15->caption(), $this->file_15->RequiredErrorMessage));
+        if ($this->konsistensi_program->Required) {
+            if ($this->konsistensi_program->Upload->FileName == "" && !$this->konsistensi_program->Upload->KeepFile) {
+                $this->konsistensi_program->addErrorMessage(str_replace("%s", $this->konsistensi_program->caption(), $this->konsistensi_program->RequiredErrorMessage));
             }
         }
-        if ($this->file_16->Required) {
-            if (!$this->file_16->IsDetailKey && EmptyValue($this->file_16->FormValue)) {
-                $this->file_16->addErrorMessage(str_replace("%s", $this->file_16->caption(), $this->file_16->RequiredErrorMessage));
+        if ($this->alokasi_pendidikan->Required) {
+            if ($this->alokasi_pendidikan->Upload->FileName == "" && !$this->alokasi_pendidikan->Upload->KeepFile) {
+                $this->alokasi_pendidikan->addErrorMessage(str_replace("%s", $this->alokasi_pendidikan->caption(), $this->alokasi_pendidikan->RequiredErrorMessage));
             }
         }
-        if ($this->file_17->Required) {
-            if (!$this->file_17->IsDetailKey && EmptyValue($this->file_17->FormValue)) {
-                $this->file_17->addErrorMessage(str_replace("%s", $this->file_17->caption(), $this->file_17->RequiredErrorMessage));
+        if ($this->alokasi_kesehatan->Required) {
+            if ($this->alokasi_kesehatan->Upload->FileName == "" && !$this->alokasi_kesehatan->Upload->KeepFile) {
+                $this->alokasi_kesehatan->addErrorMessage(str_replace("%s", $this->alokasi_kesehatan->caption(), $this->alokasi_kesehatan->RequiredErrorMessage));
             }
         }
-        if ($this->file_18->Required) {
-            if (!$this->file_18->IsDetailKey && EmptyValue($this->file_18->FormValue)) {
-                $this->file_18->addErrorMessage(str_replace("%s", $this->file_18->caption(), $this->file_18->RequiredErrorMessage));
+        if ($this->alokasi_belanja->Required) {
+            if ($this->alokasi_belanja->Upload->FileName == "" && !$this->alokasi_belanja->Upload->KeepFile) {
+                $this->alokasi_belanja->addErrorMessage(str_replace("%s", $this->alokasi_belanja->caption(), $this->alokasi_belanja->RequiredErrorMessage));
             }
         }
-        if ($this->file_19->Required) {
-            if (!$this->file_19->IsDetailKey && EmptyValue($this->file_19->FormValue)) {
-                $this->file_19->addErrorMessage(str_replace("%s", $this->file_19->caption(), $this->file_19->RequiredErrorMessage));
+        if ($this->bak_kegiatan->Required) {
+            if ($this->bak_kegiatan->Upload->FileName == "" && !$this->bak_kegiatan->Upload->KeepFile) {
+                $this->bak_kegiatan->addErrorMessage(str_replace("%s", $this->bak_kegiatan->caption(), $this->bak_kegiatan->RequiredErrorMessage));
             }
         }
-        if ($this->file_20->Required) {
-            if (!$this->file_20->IsDetailKey && EmptyValue($this->file_20->FormValue)) {
-                $this->file_20->addErrorMessage(str_replace("%s", $this->file_20->caption(), $this->file_20->RequiredErrorMessage));
+        if ($this->softcopy_rka->Required) {
+            if ($this->softcopy_rka->Upload->FileName == "" && !$this->softcopy_rka->Upload->KeepFile) {
+                $this->softcopy_rka->addErrorMessage(str_replace("%s", $this->softcopy_rka->caption(), $this->softcopy_rka->RequiredErrorMessage));
             }
         }
-        if ($this->file_21->Required) {
-            if (!$this->file_21->IsDetailKey && EmptyValue($this->file_21->FormValue)) {
-                $this->file_21->addErrorMessage(str_replace("%s", $this->file_21->caption(), $this->file_21->RequiredErrorMessage));
+        if ($this->otsus->Required) {
+            if ($this->otsus->Upload->FileName == "" && !$this->otsus->Upload->KeepFile) {
+                $this->otsus->addErrorMessage(str_replace("%s", $this->otsus->caption(), $this->otsus->RequiredErrorMessage));
             }
         }
-        if ($this->file_22->Required) {
-            if (!$this->file_22->IsDetailKey && EmptyValue($this->file_22->FormValue)) {
-                $this->file_22->addErrorMessage(str_replace("%s", $this->file_22->caption(), $this->file_22->RequiredErrorMessage));
+        if ($this->qanun_perbup->Required) {
+            if ($this->qanun_perbup->Upload->FileName == "" && !$this->qanun_perbup->Upload->KeepFile) {
+                $this->qanun_perbup->addErrorMessage(str_replace("%s", $this->qanun_perbup->caption(), $this->qanun_perbup->RequiredErrorMessage));
             }
         }
-        if ($this->file_23->Required) {
-            if (!$this->file_23->IsDetailKey && EmptyValue($this->file_23->FormValue)) {
-                $this->file_23->addErrorMessage(str_replace("%s", $this->file_23->caption(), $this->file_23->RequiredErrorMessage));
-            }
-        }
-        if ($this->file_24->Required) {
-            if (!$this->file_24->IsDetailKey && EmptyValue($this->file_24->FormValue)) {
-                $this->file_24->addErrorMessage(str_replace("%s", $this->file_24->caption(), $this->file_24->RequiredErrorMessage));
+        if ($this->tindak_apbkp->Required) {
+            if ($this->tindak_apbkp->Upload->FileName == "" && !$this->tindak_apbkp->Upload->KeepFile) {
+                $this->tindak_apbkp->addErrorMessage(str_replace("%s", $this->tindak_apbkp->caption(), $this->tindak_apbkp->RequiredErrorMessage));
             }
         }
         if ($this->status->Required) {
@@ -2387,6 +2457,9 @@ class EvaluasiEdit extends Evaluasi
             // tanggal
             $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), $this->tanggal->ReadOnly);
 
+            // idd_wilayah
+            $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, $this->idd_wilayah->ReadOnly);
+
             // kd_satker
             $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", $this->kd_satker->ReadOnly);
 
@@ -2396,165 +2469,260 @@ class EvaluasiEdit extends Evaluasi
             // tahun_anggaran
             $this->tahun_anggaran->setDbValueDef($rsnew, $this->tahun_anggaran->CurrentValue, "", $this->tahun_anggaran->ReadOnly);
 
-            // idd_wilayah
-            $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, $this->idd_wilayah->ReadOnly);
-
-            // file_01
-            if ($this->file_01->Visible && !$this->file_01->ReadOnly && !$this->file_01->Upload->KeepFile) {
-                $this->file_01->Upload->DbValue = $rsold['file_01']; // Get original value
-                if ($this->file_01->Upload->FileName == "") {
-                    $rsnew['file_01'] = null;
+            // surat_pengantar
+            if ($this->surat_pengantar->Visible && !$this->surat_pengantar->ReadOnly && !$this->surat_pengantar->Upload->KeepFile) {
+                $this->surat_pengantar->Upload->DbValue = $rsold['surat_pengantar']; // Get original value
+                if ($this->surat_pengantar->Upload->FileName == "") {
+                    $rsnew['surat_pengantar'] = null;
                 } else {
-                    $rsnew['file_01'] = $this->file_01->Upload->FileName;
+                    $rsnew['surat_pengantar'] = $this->surat_pengantar->Upload->FileName;
                 }
             }
 
-            // file_02
-            if ($this->file_02->Visible && !$this->file_02->ReadOnly && !$this->file_02->Upload->KeepFile) {
-                $this->file_02->Upload->DbValue = $rsold['file_02']; // Get original value
-                if ($this->file_02->Upload->FileName == "") {
-                    $rsnew['file_02'] = null;
+            // rpjmd
+            if ($this->rpjmd->Visible && !$this->rpjmd->ReadOnly && !$this->rpjmd->Upload->KeepFile) {
+                $this->rpjmd->Upload->DbValue = $rsold['rpjmd']; // Get original value
+                if ($this->rpjmd->Upload->FileName == "") {
+                    $rsnew['rpjmd'] = null;
                 } else {
-                    $rsnew['file_02'] = $this->file_02->Upload->FileName;
+                    $rsnew['rpjmd'] = $this->rpjmd->Upload->FileName;
                 }
             }
 
-            // file_03
-            if ($this->file_03->Visible && !$this->file_03->ReadOnly && !$this->file_03->Upload->KeepFile) {
-                $this->file_03->Upload->DbValue = $rsold['file_03']; // Get original value
-                if ($this->file_03->Upload->FileName == "") {
-                    $rsnew['file_03'] = null;
+            // rkpk
+            if ($this->rkpk->Visible && !$this->rkpk->ReadOnly && !$this->rkpk->Upload->KeepFile) {
+                $this->rkpk->Upload->DbValue = $rsold['rkpk']; // Get original value
+                if ($this->rkpk->Upload->FileName == "") {
+                    $rsnew['rkpk'] = null;
                 } else {
-                    $rsnew['file_03'] = $this->file_03->Upload->FileName;
+                    $rsnew['rkpk'] = $this->rkpk->Upload->FileName;
                 }
             }
 
-            // file_04
-            if ($this->file_04->Visible && !$this->file_04->ReadOnly && !$this->file_04->Upload->KeepFile) {
-                $this->file_04->Upload->DbValue = $rsold['file_04']; // Get original value
-                if ($this->file_04->Upload->FileName == "") {
-                    $rsnew['file_04'] = null;
+            // skd_rkuappas
+            if ($this->skd_rkuappas->Visible && !$this->skd_rkuappas->ReadOnly && !$this->skd_rkuappas->Upload->KeepFile) {
+                $this->skd_rkuappas->Upload->DbValue = $rsold['skd_rkuappas']; // Get original value
+                if ($this->skd_rkuappas->Upload->FileName == "") {
+                    $rsnew['skd_rkuappas'] = null;
                 } else {
-                    $rsnew['file_04'] = $this->file_04->Upload->FileName;
+                    $rsnew['skd_rkuappas'] = $this->skd_rkuappas->Upload->FileName;
                 }
             }
 
-            // file_05
-            if ($this->file_05->Visible && !$this->file_05->ReadOnly && !$this->file_05->Upload->KeepFile) {
-                $this->file_05->Upload->DbValue = $rsold['file_05']; // Get original value
-                if ($this->file_05->Upload->FileName == "") {
-                    $rsnew['file_05'] = null;
+            // kua
+            if ($this->kua->Visible && !$this->kua->ReadOnly && !$this->kua->Upload->KeepFile) {
+                $this->kua->Upload->DbValue = $rsold['kua']; // Get original value
+                if ($this->kua->Upload->FileName == "") {
+                    $rsnew['kua'] = null;
                 } else {
-                    $rsnew['file_05'] = $this->file_05->Upload->FileName;
+                    $rsnew['kua'] = $this->kua->Upload->FileName;
                 }
             }
 
-            // file_06
-            if ($this->file_06->Visible && !$this->file_06->ReadOnly && !$this->file_06->Upload->KeepFile) {
-                $this->file_06->Upload->DbValue = $rsold['file_06']; // Get original value
-                if ($this->file_06->Upload->FileName == "") {
-                    $rsnew['file_06'] = null;
+            // ppas
+            if ($this->ppas->Visible && !$this->ppas->ReadOnly && !$this->ppas->Upload->KeepFile) {
+                $this->ppas->Upload->DbValue = $rsold['ppas']; // Get original value
+                if ($this->ppas->Upload->FileName == "") {
+                    $rsnew['ppas'] = null;
                 } else {
-                    $rsnew['file_06'] = $this->file_06->Upload->FileName;
+                    $rsnew['ppas'] = $this->ppas->Upload->FileName;
                 }
             }
 
-            // file_07
-            if ($this->file_07->Visible && !$this->file_07->ReadOnly && !$this->file_07->Upload->KeepFile) {
-                $this->file_07->Upload->DbValue = $rsold['file_07']; // Get original value
-                if ($this->file_07->Upload->FileName == "") {
-                    $rsnew['file_07'] = null;
+            // skd_rqanun
+            if ($this->skd_rqanun->Visible && !$this->skd_rqanun->ReadOnly && !$this->skd_rqanun->Upload->KeepFile) {
+                $this->skd_rqanun->Upload->DbValue = $rsold['skd_rqanun']; // Get original value
+                if ($this->skd_rqanun->Upload->FileName == "") {
+                    $rsnew['skd_rqanun'] = null;
                 } else {
-                    $rsnew['file_07'] = $this->file_07->Upload->FileName;
+                    $rsnew['skd_rqanun'] = $this->skd_rqanun->Upload->FileName;
                 }
             }
 
-            // file_08
-            if ($this->file_08->Visible && !$this->file_08->ReadOnly && !$this->file_08->Upload->KeepFile) {
-                $this->file_08->Upload->DbValue = $rsold['file_08']; // Get original value
-                if ($this->file_08->Upload->FileName == "") {
-                    $rsnew['file_08'] = null;
+            // nota_keuangan
+            if ($this->nota_keuangan->Visible && !$this->nota_keuangan->ReadOnly && !$this->nota_keuangan->Upload->KeepFile) {
+                $this->nota_keuangan->Upload->DbValue = $rsold['nota_keuangan']; // Get original value
+                if ($this->nota_keuangan->Upload->FileName == "") {
+                    $rsnew['nota_keuangan'] = null;
                 } else {
-                    $rsnew['file_08'] = $this->file_08->Upload->FileName;
+                    $rsnew['nota_keuangan'] = $this->nota_keuangan->Upload->FileName;
                 }
             }
 
-            // file_09
-            if ($this->file_09->Visible && !$this->file_09->ReadOnly && !$this->file_09->Upload->KeepFile) {
-                $this->file_09->Upload->DbValue = $rsold['file_09']; // Get original value
-                if ($this->file_09->Upload->FileName == "") {
-                    $rsnew['file_09'] = null;
+            // pengantar_nota
+            if ($this->pengantar_nota->Visible && !$this->pengantar_nota->ReadOnly && !$this->pengantar_nota->Upload->KeepFile) {
+                $this->pengantar_nota->Upload->DbValue = $rsold['pengantar_nota']; // Get original value
+                if ($this->pengantar_nota->Upload->FileName == "") {
+                    $rsnew['pengantar_nota'] = null;
                 } else {
-                    $rsnew['file_09'] = $this->file_09->Upload->FileName;
+                    $rsnew['pengantar_nota'] = $this->pengantar_nota->Upload->FileName;
                 }
             }
 
-            // file_10
-            if ($this->file_10->Visible && !$this->file_10->ReadOnly && !$this->file_10->Upload->KeepFile) {
-                $this->file_10->Upload->DbValue = $rsold['file_10']; // Get original value
-                if ($this->file_10->Upload->FileName == "") {
-                    $rsnew['file_10'] = null;
+            // risalah_sidang
+            if ($this->risalah_sidang->Visible && !$this->risalah_sidang->ReadOnly && !$this->risalah_sidang->Upload->KeepFile) {
+                $this->risalah_sidang->Upload->DbValue = $rsold['risalah_sidang']; // Get original value
+                if ($this->risalah_sidang->Upload->FileName == "") {
+                    $rsnew['risalah_sidang'] = null;
                 } else {
-                    $rsnew['file_10'] = $this->file_10->Upload->FileName;
+                    $rsnew['risalah_sidang'] = $this->risalah_sidang->Upload->FileName;
                 }
             }
 
-            // file_11
-            $this->file_11->setDbValueDef($rsnew, $this->file_11->CurrentValue, "", $this->file_11->ReadOnly);
+            // bap_apbk
+            if ($this->bap_apbk->Visible && !$this->bap_apbk->ReadOnly && !$this->bap_apbk->Upload->KeepFile) {
+                $this->bap_apbk->Upload->DbValue = $rsold['bap_apbk']; // Get original value
+                if ($this->bap_apbk->Upload->FileName == "") {
+                    $rsnew['bap_apbk'] = null;
+                } else {
+                    $rsnew['bap_apbk'] = $this->bap_apbk->Upload->FileName;
+                }
+            }
 
-            // file_12
-            $this->file_12->setDbValueDef($rsnew, $this->file_12->CurrentValue, "", $this->file_12->ReadOnly);
+            // rq_apbk
+            if ($this->rq_apbk->Visible && !$this->rq_apbk->ReadOnly && !$this->rq_apbk->Upload->KeepFile) {
+                $this->rq_apbk->Upload->DbValue = $rsold['rq_apbk']; // Get original value
+                if ($this->rq_apbk->Upload->FileName == "") {
+                    $rsnew['rq_apbk'] = null;
+                } else {
+                    $rsnew['rq_apbk'] = $this->rq_apbk->Upload->FileName;
+                }
+            }
 
-            // file_13
-            $this->file_13->setDbValueDef($rsnew, $this->file_13->CurrentValue, "", $this->file_13->ReadOnly);
+            // rp_penjabaran
+            if ($this->rp_penjabaran->Visible && !$this->rp_penjabaran->ReadOnly && !$this->rp_penjabaran->Upload->KeepFile) {
+                $this->rp_penjabaran->Upload->DbValue = $rsold['rp_penjabaran']; // Get original value
+                if ($this->rp_penjabaran->Upload->FileName == "") {
+                    $rsnew['rp_penjabaran'] = null;
+                } else {
+                    $rsnew['rp_penjabaran'] = $this->rp_penjabaran->Upload->FileName;
+                }
+            }
 
-            // file_14
-            $this->file_14->setDbValueDef($rsnew, $this->file_14->CurrentValue, "", $this->file_14->ReadOnly);
+            // jadwal_proses
+            if ($this->jadwal_proses->Visible && !$this->jadwal_proses->ReadOnly && !$this->jadwal_proses->Upload->KeepFile) {
+                $this->jadwal_proses->Upload->DbValue = $rsold['jadwal_proses']; // Get original value
+                if ($this->jadwal_proses->Upload->FileName == "") {
+                    $rsnew['jadwal_proses'] = null;
+                } else {
+                    $rsnew['jadwal_proses'] = $this->jadwal_proses->Upload->FileName;
+                }
+            }
 
-            // file_15
-            $this->file_15->setDbValueDef($rsnew, $this->file_15->CurrentValue, "", $this->file_15->ReadOnly);
+            // sinkron_kebijakan
+            if ($this->sinkron_kebijakan->Visible && !$this->sinkron_kebijakan->ReadOnly && !$this->sinkron_kebijakan->Upload->KeepFile) {
+                $this->sinkron_kebijakan->Upload->DbValue = $rsold['sinkron_kebijakan']; // Get original value
+                if ($this->sinkron_kebijakan->Upload->FileName == "") {
+                    $rsnew['sinkron_kebijakan'] = null;
+                } else {
+                    $rsnew['sinkron_kebijakan'] = $this->sinkron_kebijakan->Upload->FileName;
+                }
+            }
 
-            // file_16
-            $this->file_16->setDbValueDef($rsnew, $this->file_16->CurrentValue, "", $this->file_16->ReadOnly);
+            // konsistensi_program
+            if ($this->konsistensi_program->Visible && !$this->konsistensi_program->ReadOnly && !$this->konsistensi_program->Upload->KeepFile) {
+                $this->konsistensi_program->Upload->DbValue = $rsold['konsistensi_program']; // Get original value
+                if ($this->konsistensi_program->Upload->FileName == "") {
+                    $rsnew['konsistensi_program'] = null;
+                } else {
+                    $rsnew['konsistensi_program'] = $this->konsistensi_program->Upload->FileName;
+                }
+            }
 
-            // file_17
-            $this->file_17->setDbValueDef($rsnew, $this->file_17->CurrentValue, "", $this->file_17->ReadOnly);
+            // alokasi_pendidikan
+            if ($this->alokasi_pendidikan->Visible && !$this->alokasi_pendidikan->ReadOnly && !$this->alokasi_pendidikan->Upload->KeepFile) {
+                $this->alokasi_pendidikan->Upload->DbValue = $rsold['alokasi_pendidikan']; // Get original value
+                if ($this->alokasi_pendidikan->Upload->FileName == "") {
+                    $rsnew['alokasi_pendidikan'] = null;
+                } else {
+                    $rsnew['alokasi_pendidikan'] = $this->alokasi_pendidikan->Upload->FileName;
+                }
+            }
 
-            // file_18
-            $this->file_18->setDbValueDef($rsnew, $this->file_18->CurrentValue, "", $this->file_18->ReadOnly);
+            // alokasi_kesehatan
+            if ($this->alokasi_kesehatan->Visible && !$this->alokasi_kesehatan->ReadOnly && !$this->alokasi_kesehatan->Upload->KeepFile) {
+                $this->alokasi_kesehatan->Upload->DbValue = $rsold['alokasi_kesehatan']; // Get original value
+                if ($this->alokasi_kesehatan->Upload->FileName == "") {
+                    $rsnew['alokasi_kesehatan'] = null;
+                } else {
+                    $rsnew['alokasi_kesehatan'] = $this->alokasi_kesehatan->Upload->FileName;
+                }
+            }
 
-            // file_19
-            $this->file_19->setDbValueDef($rsnew, $this->file_19->CurrentValue, "", $this->file_19->ReadOnly);
+            // alokasi_belanja
+            if ($this->alokasi_belanja->Visible && !$this->alokasi_belanja->ReadOnly && !$this->alokasi_belanja->Upload->KeepFile) {
+                $this->alokasi_belanja->Upload->DbValue = $rsold['alokasi_belanja']; // Get original value
+                if ($this->alokasi_belanja->Upload->FileName == "") {
+                    $rsnew['alokasi_belanja'] = null;
+                } else {
+                    $rsnew['alokasi_belanja'] = $this->alokasi_belanja->Upload->FileName;
+                }
+            }
 
-            // file_20
-            $this->file_20->setDbValueDef($rsnew, $this->file_20->CurrentValue, "", $this->file_20->ReadOnly);
+            // bak_kegiatan
+            if ($this->bak_kegiatan->Visible && !$this->bak_kegiatan->ReadOnly && !$this->bak_kegiatan->Upload->KeepFile) {
+                $this->bak_kegiatan->Upload->DbValue = $rsold['bak_kegiatan']; // Get original value
+                if ($this->bak_kegiatan->Upload->FileName == "") {
+                    $rsnew['bak_kegiatan'] = null;
+                } else {
+                    $rsnew['bak_kegiatan'] = $this->bak_kegiatan->Upload->FileName;
+                }
+            }
 
-            // file_21
-            $this->file_21->setDbValueDef($rsnew, $this->file_21->CurrentValue, "", $this->file_21->ReadOnly);
+            // softcopy_rka
+            if ($this->softcopy_rka->Visible && !$this->softcopy_rka->ReadOnly && !$this->softcopy_rka->Upload->KeepFile) {
+                $this->softcopy_rka->Upload->DbValue = $rsold['softcopy_rka']; // Get original value
+                if ($this->softcopy_rka->Upload->FileName == "") {
+                    $rsnew['softcopy_rka'] = null;
+                } else {
+                    $rsnew['softcopy_rka'] = $this->softcopy_rka->Upload->FileName;
+                }
+            }
 
-            // file_22
-            $this->file_22->setDbValueDef($rsnew, $this->file_22->CurrentValue, "", $this->file_22->ReadOnly);
+            // otsus
+            if ($this->otsus->Visible && !$this->otsus->ReadOnly && !$this->otsus->Upload->KeepFile) {
+                $this->otsus->Upload->DbValue = $rsold['otsus']; // Get original value
+                if ($this->otsus->Upload->FileName == "") {
+                    $rsnew['otsus'] = null;
+                } else {
+                    $rsnew['otsus'] = $this->otsus->Upload->FileName;
+                }
+            }
 
-            // file_23
-            $this->file_23->setDbValueDef($rsnew, $this->file_23->CurrentValue, "", $this->file_23->ReadOnly);
+            // qanun_perbup
+            if ($this->qanun_perbup->Visible && !$this->qanun_perbup->ReadOnly && !$this->qanun_perbup->Upload->KeepFile) {
+                $this->qanun_perbup->Upload->DbValue = $rsold['qanun_perbup']; // Get original value
+                if ($this->qanun_perbup->Upload->FileName == "") {
+                    $rsnew['qanun_perbup'] = null;
+                } else {
+                    $rsnew['qanun_perbup'] = $this->qanun_perbup->Upload->FileName;
+                }
+            }
 
-            // file_24
-            $this->file_24->setDbValueDef($rsnew, $this->file_24->CurrentValue, "", $this->file_24->ReadOnly);
+            // tindak_apbkp
+            if ($this->tindak_apbkp->Visible && !$this->tindak_apbkp->ReadOnly && !$this->tindak_apbkp->Upload->KeepFile) {
+                $this->tindak_apbkp->Upload->DbValue = $rsold['tindak_apbkp']; // Get original value
+                if ($this->tindak_apbkp->Upload->FileName == "") {
+                    $rsnew['tindak_apbkp'] = null;
+                } else {
+                    $rsnew['tindak_apbkp'] = $this->tindak_apbkp->Upload->FileName;
+                }
+            }
 
             // status
             $this->status->setDbValueDef($rsnew, $this->status->CurrentValue, 0, $this->status->ReadOnly);
 
             // idd_user
             $this->idd_user->setDbValueDef($rsnew, $this->idd_user->CurrentValue, 0, $this->idd_user->ReadOnly);
-            if ($this->file_01->Visible && !$this->file_01->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_01->Upload->DbValue) ? [] : [$this->file_01->htmlDecode($this->file_01->Upload->DbValue)];
-                if (!EmptyValue($this->file_01->Upload->FileName)) {
-                    $newFiles = [$this->file_01->Upload->FileName];
+            if ($this->surat_pengantar->Visible && !$this->surat_pengantar->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->surat_pengantar->Upload->DbValue) ? [] : [$this->surat_pengantar->htmlDecode($this->surat_pengantar->Upload->DbValue)];
+                if (!EmptyValue($this->surat_pengantar->Upload->FileName)) {
+                    $newFiles = [$this->surat_pengantar->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_01, $this->file_01->Upload->Index);
+                            $tempPath = UploadTempPath($this->surat_pengantar, $this->surat_pengantar->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2571,10 +2739,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_01->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->surat_pengantar->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_01->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_01->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->surat_pengantar->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->surat_pengantar->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2582,20 +2750,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_01->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_01->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_01->setDbValueDef($rsnew, $this->file_01->Upload->FileName, "", $this->file_01->ReadOnly);
+                    $this->surat_pengantar->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->surat_pengantar->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->surat_pengantar->setDbValueDef($rsnew, $this->surat_pengantar->Upload->FileName, "", $this->surat_pengantar->ReadOnly);
                 }
             }
-            if ($this->file_02->Visible && !$this->file_02->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_02->Upload->DbValue) ? [] : [$this->file_02->htmlDecode($this->file_02->Upload->DbValue)];
-                if (!EmptyValue($this->file_02->Upload->FileName)) {
-                    $newFiles = [$this->file_02->Upload->FileName];
+            if ($this->rpjmd->Visible && !$this->rpjmd->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->rpjmd->Upload->DbValue) ? [] : [$this->rpjmd->htmlDecode($this->rpjmd->Upload->DbValue)];
+                if (!EmptyValue($this->rpjmd->Upload->FileName)) {
+                    $newFiles = [$this->rpjmd->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_02, $this->file_02->Upload->Index);
+                            $tempPath = UploadTempPath($this->rpjmd, $this->rpjmd->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2612,10 +2780,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_02->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->rpjmd->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_02->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_02->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->rpjmd->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->rpjmd->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2623,20 +2791,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_02->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_02->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_02->setDbValueDef($rsnew, $this->file_02->Upload->FileName, "", $this->file_02->ReadOnly);
+                    $this->rpjmd->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->rpjmd->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->rpjmd->setDbValueDef($rsnew, $this->rpjmd->Upload->FileName, "", $this->rpjmd->ReadOnly);
                 }
             }
-            if ($this->file_03->Visible && !$this->file_03->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_03->Upload->DbValue) ? [] : [$this->file_03->htmlDecode($this->file_03->Upload->DbValue)];
-                if (!EmptyValue($this->file_03->Upload->FileName)) {
-                    $newFiles = [$this->file_03->Upload->FileName];
+            if ($this->rkpk->Visible && !$this->rkpk->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->rkpk->Upload->DbValue) ? [] : [$this->rkpk->htmlDecode($this->rkpk->Upload->DbValue)];
+                if (!EmptyValue($this->rkpk->Upload->FileName)) {
+                    $newFiles = [$this->rkpk->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_03, $this->file_03->Upload->Index);
+                            $tempPath = UploadTempPath($this->rkpk, $this->rkpk->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2653,10 +2821,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_03->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->rkpk->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_03->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_03->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->rkpk->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->rkpk->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2664,20 +2832,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_03->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_03->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_03->setDbValueDef($rsnew, $this->file_03->Upload->FileName, "", $this->file_03->ReadOnly);
+                    $this->rkpk->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->rkpk->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->rkpk->setDbValueDef($rsnew, $this->rkpk->Upload->FileName, "", $this->rkpk->ReadOnly);
                 }
             }
-            if ($this->file_04->Visible && !$this->file_04->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_04->Upload->DbValue) ? [] : [$this->file_04->htmlDecode($this->file_04->Upload->DbValue)];
-                if (!EmptyValue($this->file_04->Upload->FileName)) {
-                    $newFiles = [$this->file_04->Upload->FileName];
+            if ($this->skd_rkuappas->Visible && !$this->skd_rkuappas->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->skd_rkuappas->Upload->DbValue) ? [] : [$this->skd_rkuappas->htmlDecode($this->skd_rkuappas->Upload->DbValue)];
+                if (!EmptyValue($this->skd_rkuappas->Upload->FileName)) {
+                    $newFiles = [$this->skd_rkuappas->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_04, $this->file_04->Upload->Index);
+                            $tempPath = UploadTempPath($this->skd_rkuappas, $this->skd_rkuappas->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2694,10 +2862,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_04->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->skd_rkuappas->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_04->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_04->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->skd_rkuappas->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->skd_rkuappas->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2705,20 +2873,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_04->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_04->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_04->setDbValueDef($rsnew, $this->file_04->Upload->FileName, "", $this->file_04->ReadOnly);
+                    $this->skd_rkuappas->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->skd_rkuappas->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->skd_rkuappas->setDbValueDef($rsnew, $this->skd_rkuappas->Upload->FileName, "", $this->skd_rkuappas->ReadOnly);
                 }
             }
-            if ($this->file_05->Visible && !$this->file_05->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_05->Upload->DbValue) ? [] : [$this->file_05->htmlDecode($this->file_05->Upload->DbValue)];
-                if (!EmptyValue($this->file_05->Upload->FileName)) {
-                    $newFiles = [$this->file_05->Upload->FileName];
+            if ($this->kua->Visible && !$this->kua->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->kua->Upload->DbValue) ? [] : [$this->kua->htmlDecode($this->kua->Upload->DbValue)];
+                if (!EmptyValue($this->kua->Upload->FileName)) {
+                    $newFiles = [$this->kua->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_05, $this->file_05->Upload->Index);
+                            $tempPath = UploadTempPath($this->kua, $this->kua->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2735,10 +2903,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_05->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->kua->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_05->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_05->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->kua->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->kua->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2746,20 +2914,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_05->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_05->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_05->setDbValueDef($rsnew, $this->file_05->Upload->FileName, "", $this->file_05->ReadOnly);
+                    $this->kua->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->kua->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->kua->setDbValueDef($rsnew, $this->kua->Upload->FileName, "", $this->kua->ReadOnly);
                 }
             }
-            if ($this->file_06->Visible && !$this->file_06->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_06->Upload->DbValue) ? [] : [$this->file_06->htmlDecode($this->file_06->Upload->DbValue)];
-                if (!EmptyValue($this->file_06->Upload->FileName)) {
-                    $newFiles = [$this->file_06->Upload->FileName];
+            if ($this->ppas->Visible && !$this->ppas->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->ppas->Upload->DbValue) ? [] : [$this->ppas->htmlDecode($this->ppas->Upload->DbValue)];
+                if (!EmptyValue($this->ppas->Upload->FileName)) {
+                    $newFiles = [$this->ppas->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_06, $this->file_06->Upload->Index);
+                            $tempPath = UploadTempPath($this->ppas, $this->ppas->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2776,10 +2944,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_06->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->ppas->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_06->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_06->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->ppas->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->ppas->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2787,20 +2955,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_06->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_06->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_06->setDbValueDef($rsnew, $this->file_06->Upload->FileName, "", $this->file_06->ReadOnly);
+                    $this->ppas->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->ppas->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->ppas->setDbValueDef($rsnew, $this->ppas->Upload->FileName, "", $this->ppas->ReadOnly);
                 }
             }
-            if ($this->file_07->Visible && !$this->file_07->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_07->Upload->DbValue) ? [] : [$this->file_07->htmlDecode($this->file_07->Upload->DbValue)];
-                if (!EmptyValue($this->file_07->Upload->FileName)) {
-                    $newFiles = [$this->file_07->Upload->FileName];
+            if ($this->skd_rqanun->Visible && !$this->skd_rqanun->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->skd_rqanun->Upload->DbValue) ? [] : [$this->skd_rqanun->htmlDecode($this->skd_rqanun->Upload->DbValue)];
+                if (!EmptyValue($this->skd_rqanun->Upload->FileName)) {
+                    $newFiles = [$this->skd_rqanun->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_07, $this->file_07->Upload->Index);
+                            $tempPath = UploadTempPath($this->skd_rqanun, $this->skd_rqanun->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2817,10 +2985,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_07->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->skd_rqanun->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_07->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_07->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->skd_rqanun->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->skd_rqanun->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2828,20 +2996,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_07->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_07->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_07->setDbValueDef($rsnew, $this->file_07->Upload->FileName, "", $this->file_07->ReadOnly);
+                    $this->skd_rqanun->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->skd_rqanun->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->skd_rqanun->setDbValueDef($rsnew, $this->skd_rqanun->Upload->FileName, "", $this->skd_rqanun->ReadOnly);
                 }
             }
-            if ($this->file_08->Visible && !$this->file_08->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_08->Upload->DbValue) ? [] : [$this->file_08->htmlDecode($this->file_08->Upload->DbValue)];
-                if (!EmptyValue($this->file_08->Upload->FileName)) {
-                    $newFiles = [$this->file_08->Upload->FileName];
+            if ($this->nota_keuangan->Visible && !$this->nota_keuangan->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->nota_keuangan->Upload->DbValue) ? [] : [$this->nota_keuangan->htmlDecode($this->nota_keuangan->Upload->DbValue)];
+                if (!EmptyValue($this->nota_keuangan->Upload->FileName)) {
+                    $newFiles = [$this->nota_keuangan->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_08, $this->file_08->Upload->Index);
+                            $tempPath = UploadTempPath($this->nota_keuangan, $this->nota_keuangan->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2858,10 +3026,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_08->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->nota_keuangan->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_08->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_08->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->nota_keuangan->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->nota_keuangan->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2869,20 +3037,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_08->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_08->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_08->setDbValueDef($rsnew, $this->file_08->Upload->FileName, "", $this->file_08->ReadOnly);
+                    $this->nota_keuangan->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->nota_keuangan->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->nota_keuangan->setDbValueDef($rsnew, $this->nota_keuangan->Upload->FileName, "", $this->nota_keuangan->ReadOnly);
                 }
             }
-            if ($this->file_09->Visible && !$this->file_09->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_09->Upload->DbValue) ? [] : [$this->file_09->htmlDecode($this->file_09->Upload->DbValue)];
-                if (!EmptyValue($this->file_09->Upload->FileName)) {
-                    $newFiles = [$this->file_09->Upload->FileName];
+            if ($this->pengantar_nota->Visible && !$this->pengantar_nota->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->pengantar_nota->Upload->DbValue) ? [] : [$this->pengantar_nota->htmlDecode($this->pengantar_nota->Upload->DbValue)];
+                if (!EmptyValue($this->pengantar_nota->Upload->FileName)) {
+                    $newFiles = [$this->pengantar_nota->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_09, $this->file_09->Upload->Index);
+                            $tempPath = UploadTempPath($this->pengantar_nota, $this->pengantar_nota->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2899,10 +3067,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_09->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->pengantar_nota->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_09->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_09->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->pengantar_nota->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->pengantar_nota->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2910,20 +3078,20 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_09->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_09->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_09->setDbValueDef($rsnew, $this->file_09->Upload->FileName, "", $this->file_09->ReadOnly);
+                    $this->pengantar_nota->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->pengantar_nota->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->pengantar_nota->setDbValueDef($rsnew, $this->pengantar_nota->Upload->FileName, "", $this->pengantar_nota->ReadOnly);
                 }
             }
-            if ($this->file_10->Visible && !$this->file_10->Upload->KeepFile) {
-                $oldFiles = EmptyValue($this->file_10->Upload->DbValue) ? [] : [$this->file_10->htmlDecode($this->file_10->Upload->DbValue)];
-                if (!EmptyValue($this->file_10->Upload->FileName)) {
-                    $newFiles = [$this->file_10->Upload->FileName];
+            if ($this->risalah_sidang->Visible && !$this->risalah_sidang->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->risalah_sidang->Upload->DbValue) ? [] : [$this->risalah_sidang->htmlDecode($this->risalah_sidang->Upload->DbValue)];
+                if (!EmptyValue($this->risalah_sidang->Upload->FileName)) {
+                    $newFiles = [$this->risalah_sidang->Upload->FileName];
                     $NewFileCount = count($newFiles);
                     for ($i = 0; $i < $NewFileCount; $i++) {
                         if ($newFiles[$i] != "") {
                             $file = $newFiles[$i];
-                            $tempPath = UploadTempPath($this->file_10, $this->file_10->Upload->Index);
+                            $tempPath = UploadTempPath($this->risalah_sidang, $this->risalah_sidang->Upload->Index);
                             if (file_exists($tempPath . $file)) {
                                 if (Config("DELETE_UPLOADED_FILES")) {
                                     $oldFileFound = false;
@@ -2940,10 +3108,10 @@ class EvaluasiEdit extends Evaluasi
                                         continue;
                                     }
                                 }
-                                $file1 = UniqueFilename($this->file_10->physicalUploadPath(), $file); // Get new file name
+                                $file1 = UniqueFilename($this->risalah_sidang->physicalUploadPath(), $file); // Get new file name
                                 if ($file1 != $file) { // Rename temp file
-                                    while (file_exists($tempPath . $file1) || file_exists($this->file_10->physicalUploadPath() . $file1)) { // Make sure no file name clash
-                                        $file1 = UniqueFilename([$this->file_10->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    while (file_exists($tempPath . $file1) || file_exists($this->risalah_sidang->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->risalah_sidang->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
                                     }
                                     rename($tempPath . $file, $tempPath . $file1);
                                     $newFiles[$i] = $file1;
@@ -2951,9 +3119,583 @@ class EvaluasiEdit extends Evaluasi
                             }
                         }
                     }
-                    $this->file_10->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
-                    $this->file_10->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->file_10->setDbValueDef($rsnew, $this->file_10->Upload->FileName, "", $this->file_10->ReadOnly);
+                    $this->risalah_sidang->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->risalah_sidang->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->risalah_sidang->setDbValueDef($rsnew, $this->risalah_sidang->Upload->FileName, "", $this->risalah_sidang->ReadOnly);
+                }
+            }
+            if ($this->bap_apbk->Visible && !$this->bap_apbk->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->bap_apbk->Upload->DbValue) ? [] : [$this->bap_apbk->htmlDecode($this->bap_apbk->Upload->DbValue)];
+                if (!EmptyValue($this->bap_apbk->Upload->FileName)) {
+                    $newFiles = [$this->bap_apbk->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->bap_apbk, $this->bap_apbk->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->bap_apbk->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->bap_apbk->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->bap_apbk->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->bap_apbk->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->bap_apbk->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->bap_apbk->setDbValueDef($rsnew, $this->bap_apbk->Upload->FileName, "", $this->bap_apbk->ReadOnly);
+                }
+            }
+            if ($this->rq_apbk->Visible && !$this->rq_apbk->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->rq_apbk->Upload->DbValue) ? [] : [$this->rq_apbk->htmlDecode($this->rq_apbk->Upload->DbValue)];
+                if (!EmptyValue($this->rq_apbk->Upload->FileName)) {
+                    $newFiles = [$this->rq_apbk->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->rq_apbk, $this->rq_apbk->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->rq_apbk->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->rq_apbk->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->rq_apbk->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->rq_apbk->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->rq_apbk->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->rq_apbk->setDbValueDef($rsnew, $this->rq_apbk->Upload->FileName, "", $this->rq_apbk->ReadOnly);
+                }
+            }
+            if ($this->rp_penjabaran->Visible && !$this->rp_penjabaran->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->rp_penjabaran->Upload->DbValue) ? [] : [$this->rp_penjabaran->htmlDecode($this->rp_penjabaran->Upload->DbValue)];
+                if (!EmptyValue($this->rp_penjabaran->Upload->FileName)) {
+                    $newFiles = [$this->rp_penjabaran->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->rp_penjabaran, $this->rp_penjabaran->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->rp_penjabaran->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->rp_penjabaran->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->rp_penjabaran->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->rp_penjabaran->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->rp_penjabaran->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->rp_penjabaran->setDbValueDef($rsnew, $this->rp_penjabaran->Upload->FileName, "", $this->rp_penjabaran->ReadOnly);
+                }
+            }
+            if ($this->jadwal_proses->Visible && !$this->jadwal_proses->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->jadwal_proses->Upload->DbValue) ? [] : [$this->jadwal_proses->htmlDecode($this->jadwal_proses->Upload->DbValue)];
+                if (!EmptyValue($this->jadwal_proses->Upload->FileName)) {
+                    $newFiles = [$this->jadwal_proses->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->jadwal_proses, $this->jadwal_proses->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->jadwal_proses->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->jadwal_proses->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->jadwal_proses->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->jadwal_proses->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->jadwal_proses->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->jadwal_proses->setDbValueDef($rsnew, $this->jadwal_proses->Upload->FileName, "", $this->jadwal_proses->ReadOnly);
+                }
+            }
+            if ($this->sinkron_kebijakan->Visible && !$this->sinkron_kebijakan->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->sinkron_kebijakan->Upload->DbValue) ? [] : [$this->sinkron_kebijakan->htmlDecode($this->sinkron_kebijakan->Upload->DbValue)];
+                if (!EmptyValue($this->sinkron_kebijakan->Upload->FileName)) {
+                    $newFiles = [$this->sinkron_kebijakan->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->sinkron_kebijakan, $this->sinkron_kebijakan->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->sinkron_kebijakan->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->sinkron_kebijakan->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->sinkron_kebijakan->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->sinkron_kebijakan->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->sinkron_kebijakan->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->sinkron_kebijakan->setDbValueDef($rsnew, $this->sinkron_kebijakan->Upload->FileName, "", $this->sinkron_kebijakan->ReadOnly);
+                }
+            }
+            if ($this->konsistensi_program->Visible && !$this->konsistensi_program->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->konsistensi_program->Upload->DbValue) ? [] : [$this->konsistensi_program->htmlDecode($this->konsistensi_program->Upload->DbValue)];
+                if (!EmptyValue($this->konsistensi_program->Upload->FileName)) {
+                    $newFiles = [$this->konsistensi_program->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->konsistensi_program, $this->konsistensi_program->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->konsistensi_program->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->konsistensi_program->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->konsistensi_program->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->konsistensi_program->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->konsistensi_program->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->konsistensi_program->setDbValueDef($rsnew, $this->konsistensi_program->Upload->FileName, "", $this->konsistensi_program->ReadOnly);
+                }
+            }
+            if ($this->alokasi_pendidikan->Visible && !$this->alokasi_pendidikan->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->alokasi_pendidikan->Upload->DbValue) ? [] : [$this->alokasi_pendidikan->htmlDecode($this->alokasi_pendidikan->Upload->DbValue)];
+                if (!EmptyValue($this->alokasi_pendidikan->Upload->FileName)) {
+                    $newFiles = [$this->alokasi_pendidikan->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->alokasi_pendidikan, $this->alokasi_pendidikan->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->alokasi_pendidikan->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->alokasi_pendidikan->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->alokasi_pendidikan->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->alokasi_pendidikan->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->alokasi_pendidikan->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->alokasi_pendidikan->setDbValueDef($rsnew, $this->alokasi_pendidikan->Upload->FileName, "", $this->alokasi_pendidikan->ReadOnly);
+                }
+            }
+            if ($this->alokasi_kesehatan->Visible && !$this->alokasi_kesehatan->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->alokasi_kesehatan->Upload->DbValue) ? [] : [$this->alokasi_kesehatan->htmlDecode($this->alokasi_kesehatan->Upload->DbValue)];
+                if (!EmptyValue($this->alokasi_kesehatan->Upload->FileName)) {
+                    $newFiles = [$this->alokasi_kesehatan->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->alokasi_kesehatan, $this->alokasi_kesehatan->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->alokasi_kesehatan->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->alokasi_kesehatan->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->alokasi_kesehatan->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->alokasi_kesehatan->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->alokasi_kesehatan->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->alokasi_kesehatan->setDbValueDef($rsnew, $this->alokasi_kesehatan->Upload->FileName, "", $this->alokasi_kesehatan->ReadOnly);
+                }
+            }
+            if ($this->alokasi_belanja->Visible && !$this->alokasi_belanja->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->alokasi_belanja->Upload->DbValue) ? [] : [$this->alokasi_belanja->htmlDecode($this->alokasi_belanja->Upload->DbValue)];
+                if (!EmptyValue($this->alokasi_belanja->Upload->FileName)) {
+                    $newFiles = [$this->alokasi_belanja->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->alokasi_belanja, $this->alokasi_belanja->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->alokasi_belanja->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->alokasi_belanja->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->alokasi_belanja->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->alokasi_belanja->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->alokasi_belanja->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->alokasi_belanja->setDbValueDef($rsnew, $this->alokasi_belanja->Upload->FileName, "", $this->alokasi_belanja->ReadOnly);
+                }
+            }
+            if ($this->bak_kegiatan->Visible && !$this->bak_kegiatan->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->bak_kegiatan->Upload->DbValue) ? [] : [$this->bak_kegiatan->htmlDecode($this->bak_kegiatan->Upload->DbValue)];
+                if (!EmptyValue($this->bak_kegiatan->Upload->FileName)) {
+                    $newFiles = [$this->bak_kegiatan->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->bak_kegiatan, $this->bak_kegiatan->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->bak_kegiatan->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->bak_kegiatan->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->bak_kegiatan->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->bak_kegiatan->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->bak_kegiatan->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->bak_kegiatan->setDbValueDef($rsnew, $this->bak_kegiatan->Upload->FileName, "", $this->bak_kegiatan->ReadOnly);
+                }
+            }
+            if ($this->softcopy_rka->Visible && !$this->softcopy_rka->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->softcopy_rka->Upload->DbValue) ? [] : [$this->softcopy_rka->htmlDecode($this->softcopy_rka->Upload->DbValue)];
+                if (!EmptyValue($this->softcopy_rka->Upload->FileName)) {
+                    $newFiles = [$this->softcopy_rka->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->softcopy_rka, $this->softcopy_rka->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->softcopy_rka->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->softcopy_rka->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->softcopy_rka->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->softcopy_rka->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->softcopy_rka->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->softcopy_rka->setDbValueDef($rsnew, $this->softcopy_rka->Upload->FileName, "", $this->softcopy_rka->ReadOnly);
+                }
+            }
+            if ($this->otsus->Visible && !$this->otsus->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->otsus->Upload->DbValue) ? [] : [$this->otsus->htmlDecode($this->otsus->Upload->DbValue)];
+                if (!EmptyValue($this->otsus->Upload->FileName)) {
+                    $newFiles = [$this->otsus->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->otsus, $this->otsus->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->otsus->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->otsus->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->otsus->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->otsus->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->otsus->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->otsus->setDbValueDef($rsnew, $this->otsus->Upload->FileName, "", $this->otsus->ReadOnly);
+                }
+            }
+            if ($this->qanun_perbup->Visible && !$this->qanun_perbup->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->qanun_perbup->Upload->DbValue) ? [] : [$this->qanun_perbup->htmlDecode($this->qanun_perbup->Upload->DbValue)];
+                if (!EmptyValue($this->qanun_perbup->Upload->FileName)) {
+                    $newFiles = [$this->qanun_perbup->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->qanun_perbup, $this->qanun_perbup->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->qanun_perbup->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->qanun_perbup->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->qanun_perbup->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->qanun_perbup->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->qanun_perbup->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->qanun_perbup->setDbValueDef($rsnew, $this->qanun_perbup->Upload->FileName, "", $this->qanun_perbup->ReadOnly);
+                }
+            }
+            if ($this->tindak_apbkp->Visible && !$this->tindak_apbkp->Upload->KeepFile) {
+                $oldFiles = EmptyValue($this->tindak_apbkp->Upload->DbValue) ? [] : [$this->tindak_apbkp->htmlDecode($this->tindak_apbkp->Upload->DbValue)];
+                if (!EmptyValue($this->tindak_apbkp->Upload->FileName)) {
+                    $newFiles = [$this->tindak_apbkp->Upload->FileName];
+                    $NewFileCount = count($newFiles);
+                    for ($i = 0; $i < $NewFileCount; $i++) {
+                        if ($newFiles[$i] != "") {
+                            $file = $newFiles[$i];
+                            $tempPath = UploadTempPath($this->tindak_apbkp, $this->tindak_apbkp->Upload->Index);
+                            if (file_exists($tempPath . $file)) {
+                                if (Config("DELETE_UPLOADED_FILES")) {
+                                    $oldFileFound = false;
+                                    $oldFileCount = count($oldFiles);
+                                    for ($j = 0; $j < $oldFileCount; $j++) {
+                                        $oldFile = $oldFiles[$j];
+                                        if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                            array_splice($oldFiles, $j, 1);
+                                            $oldFileFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($oldFileFound) { // No need to check if file exists further
+                                        continue;
+                                    }
+                                }
+                                $file1 = UniqueFilename($this->tindak_apbkp->physicalUploadPath(), $file); // Get new file name
+                                if ($file1 != $file) { // Rename temp file
+                                    while (file_exists($tempPath . $file1) || file_exists($this->tindak_apbkp->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                        $file1 = UniqueFilename([$this->tindak_apbkp->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                    }
+                                    rename($tempPath . $file, $tempPath . $file1);
+                                    $newFiles[$i] = $file1;
+                                }
+                            }
+                        }
+                    }
+                    $this->tindak_apbkp->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                    $this->tindak_apbkp->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                    $this->tindak_apbkp->setDbValueDef($rsnew, $this->tindak_apbkp->Upload->FileName, "", $this->tindak_apbkp->ReadOnly);
                 }
             }
 
@@ -2970,20 +3712,20 @@ class EvaluasiEdit extends Evaluasi
                     $editRow = true; // No field to update
                 }
                 if ($editRow) {
-                    if ($this->file_01->Visible && !$this->file_01->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_01->Upload->DbValue) ? [] : [$this->file_01->htmlDecode($this->file_01->Upload->DbValue)];
-                        if (!EmptyValue($this->file_01->Upload->FileName)) {
-                            $newFiles = [$this->file_01->Upload->FileName];
-                            $newFiles2 = [$this->file_01->htmlDecode($rsnew['file_01'])];
+                    if ($this->surat_pengantar->Visible && !$this->surat_pengantar->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->surat_pengantar->Upload->DbValue) ? [] : [$this->surat_pengantar->htmlDecode($this->surat_pengantar->Upload->DbValue)];
+                        if (!EmptyValue($this->surat_pengantar->Upload->FileName)) {
+                            $newFiles = [$this->surat_pengantar->Upload->FileName];
+                            $newFiles2 = [$this->surat_pengantar->htmlDecode($rsnew['surat_pengantar'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_01, $this->file_01->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->surat_pengantar, $this->surat_pengantar->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_01->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->surat_pengantar->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -2996,25 +3738,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_01->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->surat_pengantar->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_02->Visible && !$this->file_02->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_02->Upload->DbValue) ? [] : [$this->file_02->htmlDecode($this->file_02->Upload->DbValue)];
-                        if (!EmptyValue($this->file_02->Upload->FileName)) {
-                            $newFiles = [$this->file_02->Upload->FileName];
-                            $newFiles2 = [$this->file_02->htmlDecode($rsnew['file_02'])];
+                    if ($this->rpjmd->Visible && !$this->rpjmd->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->rpjmd->Upload->DbValue) ? [] : [$this->rpjmd->htmlDecode($this->rpjmd->Upload->DbValue)];
+                        if (!EmptyValue($this->rpjmd->Upload->FileName)) {
+                            $newFiles = [$this->rpjmd->Upload->FileName];
+                            $newFiles2 = [$this->rpjmd->htmlDecode($rsnew['rpjmd'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_02, $this->file_02->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->rpjmd, $this->rpjmd->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_02->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->rpjmd->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3027,25 +3769,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_02->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->rpjmd->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_03->Visible && !$this->file_03->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_03->Upload->DbValue) ? [] : [$this->file_03->htmlDecode($this->file_03->Upload->DbValue)];
-                        if (!EmptyValue($this->file_03->Upload->FileName)) {
-                            $newFiles = [$this->file_03->Upload->FileName];
-                            $newFiles2 = [$this->file_03->htmlDecode($rsnew['file_03'])];
+                    if ($this->rkpk->Visible && !$this->rkpk->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->rkpk->Upload->DbValue) ? [] : [$this->rkpk->htmlDecode($this->rkpk->Upload->DbValue)];
+                        if (!EmptyValue($this->rkpk->Upload->FileName)) {
+                            $newFiles = [$this->rkpk->Upload->FileName];
+                            $newFiles2 = [$this->rkpk->htmlDecode($rsnew['rkpk'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_03, $this->file_03->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->rkpk, $this->rkpk->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_03->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->rkpk->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3058,25 +3800,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_03->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->rkpk->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_04->Visible && !$this->file_04->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_04->Upload->DbValue) ? [] : [$this->file_04->htmlDecode($this->file_04->Upload->DbValue)];
-                        if (!EmptyValue($this->file_04->Upload->FileName)) {
-                            $newFiles = [$this->file_04->Upload->FileName];
-                            $newFiles2 = [$this->file_04->htmlDecode($rsnew['file_04'])];
+                    if ($this->skd_rkuappas->Visible && !$this->skd_rkuappas->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->skd_rkuappas->Upload->DbValue) ? [] : [$this->skd_rkuappas->htmlDecode($this->skd_rkuappas->Upload->DbValue)];
+                        if (!EmptyValue($this->skd_rkuappas->Upload->FileName)) {
+                            $newFiles = [$this->skd_rkuappas->Upload->FileName];
+                            $newFiles2 = [$this->skd_rkuappas->htmlDecode($rsnew['skd_rkuappas'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_04, $this->file_04->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->skd_rkuappas, $this->skd_rkuappas->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_04->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->skd_rkuappas->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3089,25 +3831,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_04->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->skd_rkuappas->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_05->Visible && !$this->file_05->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_05->Upload->DbValue) ? [] : [$this->file_05->htmlDecode($this->file_05->Upload->DbValue)];
-                        if (!EmptyValue($this->file_05->Upload->FileName)) {
-                            $newFiles = [$this->file_05->Upload->FileName];
-                            $newFiles2 = [$this->file_05->htmlDecode($rsnew['file_05'])];
+                    if ($this->kua->Visible && !$this->kua->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->kua->Upload->DbValue) ? [] : [$this->kua->htmlDecode($this->kua->Upload->DbValue)];
+                        if (!EmptyValue($this->kua->Upload->FileName)) {
+                            $newFiles = [$this->kua->Upload->FileName];
+                            $newFiles2 = [$this->kua->htmlDecode($rsnew['kua'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_05, $this->file_05->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->kua, $this->kua->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_05->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->kua->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3120,25 +3862,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_05->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->kua->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_06->Visible && !$this->file_06->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_06->Upload->DbValue) ? [] : [$this->file_06->htmlDecode($this->file_06->Upload->DbValue)];
-                        if (!EmptyValue($this->file_06->Upload->FileName)) {
-                            $newFiles = [$this->file_06->Upload->FileName];
-                            $newFiles2 = [$this->file_06->htmlDecode($rsnew['file_06'])];
+                    if ($this->ppas->Visible && !$this->ppas->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->ppas->Upload->DbValue) ? [] : [$this->ppas->htmlDecode($this->ppas->Upload->DbValue)];
+                        if (!EmptyValue($this->ppas->Upload->FileName)) {
+                            $newFiles = [$this->ppas->Upload->FileName];
+                            $newFiles2 = [$this->ppas->htmlDecode($rsnew['ppas'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_06, $this->file_06->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->ppas, $this->ppas->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_06->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->ppas->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3151,25 +3893,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_06->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->ppas->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_07->Visible && !$this->file_07->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_07->Upload->DbValue) ? [] : [$this->file_07->htmlDecode($this->file_07->Upload->DbValue)];
-                        if (!EmptyValue($this->file_07->Upload->FileName)) {
-                            $newFiles = [$this->file_07->Upload->FileName];
-                            $newFiles2 = [$this->file_07->htmlDecode($rsnew['file_07'])];
+                    if ($this->skd_rqanun->Visible && !$this->skd_rqanun->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->skd_rqanun->Upload->DbValue) ? [] : [$this->skd_rqanun->htmlDecode($this->skd_rqanun->Upload->DbValue)];
+                        if (!EmptyValue($this->skd_rqanun->Upload->FileName)) {
+                            $newFiles = [$this->skd_rqanun->Upload->FileName];
+                            $newFiles2 = [$this->skd_rqanun->htmlDecode($rsnew['skd_rqanun'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_07, $this->file_07->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->skd_rqanun, $this->skd_rqanun->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_07->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->skd_rqanun->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3182,25 +3924,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_07->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->skd_rqanun->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_08->Visible && !$this->file_08->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_08->Upload->DbValue) ? [] : [$this->file_08->htmlDecode($this->file_08->Upload->DbValue)];
-                        if (!EmptyValue($this->file_08->Upload->FileName)) {
-                            $newFiles = [$this->file_08->Upload->FileName];
-                            $newFiles2 = [$this->file_08->htmlDecode($rsnew['file_08'])];
+                    if ($this->nota_keuangan->Visible && !$this->nota_keuangan->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->nota_keuangan->Upload->DbValue) ? [] : [$this->nota_keuangan->htmlDecode($this->nota_keuangan->Upload->DbValue)];
+                        if (!EmptyValue($this->nota_keuangan->Upload->FileName)) {
+                            $newFiles = [$this->nota_keuangan->Upload->FileName];
+                            $newFiles2 = [$this->nota_keuangan->htmlDecode($rsnew['nota_keuangan'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_08, $this->file_08->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->nota_keuangan, $this->nota_keuangan->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_08->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->nota_keuangan->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3213,25 +3955,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_08->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->nota_keuangan->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_09->Visible && !$this->file_09->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_09->Upload->DbValue) ? [] : [$this->file_09->htmlDecode($this->file_09->Upload->DbValue)];
-                        if (!EmptyValue($this->file_09->Upload->FileName)) {
-                            $newFiles = [$this->file_09->Upload->FileName];
-                            $newFiles2 = [$this->file_09->htmlDecode($rsnew['file_09'])];
+                    if ($this->pengantar_nota->Visible && !$this->pengantar_nota->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->pengantar_nota->Upload->DbValue) ? [] : [$this->pengantar_nota->htmlDecode($this->pengantar_nota->Upload->DbValue)];
+                        if (!EmptyValue($this->pengantar_nota->Upload->FileName)) {
+                            $newFiles = [$this->pengantar_nota->Upload->FileName];
+                            $newFiles2 = [$this->pengantar_nota->htmlDecode($rsnew['pengantar_nota'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_09, $this->file_09->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->pengantar_nota, $this->pengantar_nota->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_09->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->pengantar_nota->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3244,25 +3986,25 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_09->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->pengantar_nota->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
                     }
-                    if ($this->file_10->Visible && !$this->file_10->Upload->KeepFile) {
-                        $oldFiles = EmptyValue($this->file_10->Upload->DbValue) ? [] : [$this->file_10->htmlDecode($this->file_10->Upload->DbValue)];
-                        if (!EmptyValue($this->file_10->Upload->FileName)) {
-                            $newFiles = [$this->file_10->Upload->FileName];
-                            $newFiles2 = [$this->file_10->htmlDecode($rsnew['file_10'])];
+                    if ($this->risalah_sidang->Visible && !$this->risalah_sidang->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->risalah_sidang->Upload->DbValue) ? [] : [$this->risalah_sidang->htmlDecode($this->risalah_sidang->Upload->DbValue)];
+                        if (!EmptyValue($this->risalah_sidang->Upload->FileName)) {
+                            $newFiles = [$this->risalah_sidang->Upload->FileName];
+                            $newFiles2 = [$this->risalah_sidang->htmlDecode($rsnew['risalah_sidang'])];
                             $newFileCount = count($newFiles);
                             for ($i = 0; $i < $newFileCount; $i++) {
                                 if ($newFiles[$i] != "") {
-                                    $file = UploadTempPath($this->file_10, $this->file_10->Upload->Index) . $newFiles[$i];
+                                    $file = UploadTempPath($this->risalah_sidang, $this->risalah_sidang->Upload->Index) . $newFiles[$i];
                                     if (file_exists($file)) {
                                         if (@$newFiles2[$i] != "") { // Use correct file name
                                             $newFiles[$i] = $newFiles2[$i];
                                         }
-                                        if (!$this->file_10->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        if (!$this->risalah_sidang->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
                                             $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
                                             return false;
                                         }
@@ -3275,7 +4017,441 @@ class EvaluasiEdit extends Evaluasi
                         if (Config("DELETE_UPLOADED_FILES")) {
                             foreach ($oldFiles as $oldFile) {
                                 if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
-                                    @unlink($this->file_10->oldPhysicalUploadPath() . $oldFile);
+                                    @unlink($this->risalah_sidang->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->bap_apbk->Visible && !$this->bap_apbk->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->bap_apbk->Upload->DbValue) ? [] : [$this->bap_apbk->htmlDecode($this->bap_apbk->Upload->DbValue)];
+                        if (!EmptyValue($this->bap_apbk->Upload->FileName)) {
+                            $newFiles = [$this->bap_apbk->Upload->FileName];
+                            $newFiles2 = [$this->bap_apbk->htmlDecode($rsnew['bap_apbk'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->bap_apbk, $this->bap_apbk->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->bap_apbk->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->bap_apbk->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->rq_apbk->Visible && !$this->rq_apbk->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->rq_apbk->Upload->DbValue) ? [] : [$this->rq_apbk->htmlDecode($this->rq_apbk->Upload->DbValue)];
+                        if (!EmptyValue($this->rq_apbk->Upload->FileName)) {
+                            $newFiles = [$this->rq_apbk->Upload->FileName];
+                            $newFiles2 = [$this->rq_apbk->htmlDecode($rsnew['rq_apbk'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->rq_apbk, $this->rq_apbk->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->rq_apbk->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->rq_apbk->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->rp_penjabaran->Visible && !$this->rp_penjabaran->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->rp_penjabaran->Upload->DbValue) ? [] : [$this->rp_penjabaran->htmlDecode($this->rp_penjabaran->Upload->DbValue)];
+                        if (!EmptyValue($this->rp_penjabaran->Upload->FileName)) {
+                            $newFiles = [$this->rp_penjabaran->Upload->FileName];
+                            $newFiles2 = [$this->rp_penjabaran->htmlDecode($rsnew['rp_penjabaran'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->rp_penjabaran, $this->rp_penjabaran->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->rp_penjabaran->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->rp_penjabaran->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->jadwal_proses->Visible && !$this->jadwal_proses->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->jadwal_proses->Upload->DbValue) ? [] : [$this->jadwal_proses->htmlDecode($this->jadwal_proses->Upload->DbValue)];
+                        if (!EmptyValue($this->jadwal_proses->Upload->FileName)) {
+                            $newFiles = [$this->jadwal_proses->Upload->FileName];
+                            $newFiles2 = [$this->jadwal_proses->htmlDecode($rsnew['jadwal_proses'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->jadwal_proses, $this->jadwal_proses->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->jadwal_proses->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->jadwal_proses->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->sinkron_kebijakan->Visible && !$this->sinkron_kebijakan->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->sinkron_kebijakan->Upload->DbValue) ? [] : [$this->sinkron_kebijakan->htmlDecode($this->sinkron_kebijakan->Upload->DbValue)];
+                        if (!EmptyValue($this->sinkron_kebijakan->Upload->FileName)) {
+                            $newFiles = [$this->sinkron_kebijakan->Upload->FileName];
+                            $newFiles2 = [$this->sinkron_kebijakan->htmlDecode($rsnew['sinkron_kebijakan'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->sinkron_kebijakan, $this->sinkron_kebijakan->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->sinkron_kebijakan->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->sinkron_kebijakan->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->konsistensi_program->Visible && !$this->konsistensi_program->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->konsistensi_program->Upload->DbValue) ? [] : [$this->konsistensi_program->htmlDecode($this->konsistensi_program->Upload->DbValue)];
+                        if (!EmptyValue($this->konsistensi_program->Upload->FileName)) {
+                            $newFiles = [$this->konsistensi_program->Upload->FileName];
+                            $newFiles2 = [$this->konsistensi_program->htmlDecode($rsnew['konsistensi_program'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->konsistensi_program, $this->konsistensi_program->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->konsistensi_program->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->konsistensi_program->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->alokasi_pendidikan->Visible && !$this->alokasi_pendidikan->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->alokasi_pendidikan->Upload->DbValue) ? [] : [$this->alokasi_pendidikan->htmlDecode($this->alokasi_pendidikan->Upload->DbValue)];
+                        if (!EmptyValue($this->alokasi_pendidikan->Upload->FileName)) {
+                            $newFiles = [$this->alokasi_pendidikan->Upload->FileName];
+                            $newFiles2 = [$this->alokasi_pendidikan->htmlDecode($rsnew['alokasi_pendidikan'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->alokasi_pendidikan, $this->alokasi_pendidikan->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->alokasi_pendidikan->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->alokasi_pendidikan->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->alokasi_kesehatan->Visible && !$this->alokasi_kesehatan->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->alokasi_kesehatan->Upload->DbValue) ? [] : [$this->alokasi_kesehatan->htmlDecode($this->alokasi_kesehatan->Upload->DbValue)];
+                        if (!EmptyValue($this->alokasi_kesehatan->Upload->FileName)) {
+                            $newFiles = [$this->alokasi_kesehatan->Upload->FileName];
+                            $newFiles2 = [$this->alokasi_kesehatan->htmlDecode($rsnew['alokasi_kesehatan'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->alokasi_kesehatan, $this->alokasi_kesehatan->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->alokasi_kesehatan->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->alokasi_kesehatan->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->alokasi_belanja->Visible && !$this->alokasi_belanja->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->alokasi_belanja->Upload->DbValue) ? [] : [$this->alokasi_belanja->htmlDecode($this->alokasi_belanja->Upload->DbValue)];
+                        if (!EmptyValue($this->alokasi_belanja->Upload->FileName)) {
+                            $newFiles = [$this->alokasi_belanja->Upload->FileName];
+                            $newFiles2 = [$this->alokasi_belanja->htmlDecode($rsnew['alokasi_belanja'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->alokasi_belanja, $this->alokasi_belanja->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->alokasi_belanja->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->alokasi_belanja->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->bak_kegiatan->Visible && !$this->bak_kegiatan->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->bak_kegiatan->Upload->DbValue) ? [] : [$this->bak_kegiatan->htmlDecode($this->bak_kegiatan->Upload->DbValue)];
+                        if (!EmptyValue($this->bak_kegiatan->Upload->FileName)) {
+                            $newFiles = [$this->bak_kegiatan->Upload->FileName];
+                            $newFiles2 = [$this->bak_kegiatan->htmlDecode($rsnew['bak_kegiatan'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->bak_kegiatan, $this->bak_kegiatan->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->bak_kegiatan->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->bak_kegiatan->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->softcopy_rka->Visible && !$this->softcopy_rka->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->softcopy_rka->Upload->DbValue) ? [] : [$this->softcopy_rka->htmlDecode($this->softcopy_rka->Upload->DbValue)];
+                        if (!EmptyValue($this->softcopy_rka->Upload->FileName)) {
+                            $newFiles = [$this->softcopy_rka->Upload->FileName];
+                            $newFiles2 = [$this->softcopy_rka->htmlDecode($rsnew['softcopy_rka'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->softcopy_rka, $this->softcopy_rka->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->softcopy_rka->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->softcopy_rka->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->otsus->Visible && !$this->otsus->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->otsus->Upload->DbValue) ? [] : [$this->otsus->htmlDecode($this->otsus->Upload->DbValue)];
+                        if (!EmptyValue($this->otsus->Upload->FileName)) {
+                            $newFiles = [$this->otsus->Upload->FileName];
+                            $newFiles2 = [$this->otsus->htmlDecode($rsnew['otsus'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->otsus, $this->otsus->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->otsus->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->otsus->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->qanun_perbup->Visible && !$this->qanun_perbup->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->qanun_perbup->Upload->DbValue) ? [] : [$this->qanun_perbup->htmlDecode($this->qanun_perbup->Upload->DbValue)];
+                        if (!EmptyValue($this->qanun_perbup->Upload->FileName)) {
+                            $newFiles = [$this->qanun_perbup->Upload->FileName];
+                            $newFiles2 = [$this->qanun_perbup->htmlDecode($rsnew['qanun_perbup'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->qanun_perbup, $this->qanun_perbup->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->qanun_perbup->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->qanun_perbup->oldPhysicalUploadPath() . $oldFile);
+                                }
+                            }
+                        }
+                    }
+                    if ($this->tindak_apbkp->Visible && !$this->tindak_apbkp->Upload->KeepFile) {
+                        $oldFiles = EmptyValue($this->tindak_apbkp->Upload->DbValue) ? [] : [$this->tindak_apbkp->htmlDecode($this->tindak_apbkp->Upload->DbValue)];
+                        if (!EmptyValue($this->tindak_apbkp->Upload->FileName)) {
+                            $newFiles = [$this->tindak_apbkp->Upload->FileName];
+                            $newFiles2 = [$this->tindak_apbkp->htmlDecode($rsnew['tindak_apbkp'])];
+                            $newFileCount = count($newFiles);
+                            for ($i = 0; $i < $newFileCount; $i++) {
+                                if ($newFiles[$i] != "") {
+                                    $file = UploadTempPath($this->tindak_apbkp, $this->tindak_apbkp->Upload->Index) . $newFiles[$i];
+                                    if (file_exists($file)) {
+                                        if (@$newFiles2[$i] != "") { // Use correct file name
+                                            $newFiles[$i] = $newFiles2[$i];
+                                        }
+                                        if (!$this->tindak_apbkp->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                            $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $newFiles = [];
+                        }
+                        if (Config("DELETE_UPLOADED_FILES")) {
+                            foreach ($oldFiles as $oldFile) {
+                                if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                    @unlink($this->tindak_apbkp->oldPhysicalUploadPath() . $oldFile);
                                 }
                             }
                         }
@@ -3301,35 +4477,77 @@ class EvaluasiEdit extends Evaluasi
 
         // Clean upload path if any
         if ($editRow) {
-            // file_01
-            CleanUploadTempPath($this->file_01, $this->file_01->Upload->Index);
+            // surat_pengantar
+            CleanUploadTempPath($this->surat_pengantar, $this->surat_pengantar->Upload->Index);
 
-            // file_02
-            CleanUploadTempPath($this->file_02, $this->file_02->Upload->Index);
+            // rpjmd
+            CleanUploadTempPath($this->rpjmd, $this->rpjmd->Upload->Index);
 
-            // file_03
-            CleanUploadTempPath($this->file_03, $this->file_03->Upload->Index);
+            // rkpk
+            CleanUploadTempPath($this->rkpk, $this->rkpk->Upload->Index);
 
-            // file_04
-            CleanUploadTempPath($this->file_04, $this->file_04->Upload->Index);
+            // skd_rkuappas
+            CleanUploadTempPath($this->skd_rkuappas, $this->skd_rkuappas->Upload->Index);
 
-            // file_05
-            CleanUploadTempPath($this->file_05, $this->file_05->Upload->Index);
+            // kua
+            CleanUploadTempPath($this->kua, $this->kua->Upload->Index);
 
-            // file_06
-            CleanUploadTempPath($this->file_06, $this->file_06->Upload->Index);
+            // ppas
+            CleanUploadTempPath($this->ppas, $this->ppas->Upload->Index);
 
-            // file_07
-            CleanUploadTempPath($this->file_07, $this->file_07->Upload->Index);
+            // skd_rqanun
+            CleanUploadTempPath($this->skd_rqanun, $this->skd_rqanun->Upload->Index);
 
-            // file_08
-            CleanUploadTempPath($this->file_08, $this->file_08->Upload->Index);
+            // nota_keuangan
+            CleanUploadTempPath($this->nota_keuangan, $this->nota_keuangan->Upload->Index);
 
-            // file_09
-            CleanUploadTempPath($this->file_09, $this->file_09->Upload->Index);
+            // pengantar_nota
+            CleanUploadTempPath($this->pengantar_nota, $this->pengantar_nota->Upload->Index);
 
-            // file_10
-            CleanUploadTempPath($this->file_10, $this->file_10->Upload->Index);
+            // risalah_sidang
+            CleanUploadTempPath($this->risalah_sidang, $this->risalah_sidang->Upload->Index);
+
+            // bap_apbk
+            CleanUploadTempPath($this->bap_apbk, $this->bap_apbk->Upload->Index);
+
+            // rq_apbk
+            CleanUploadTempPath($this->rq_apbk, $this->rq_apbk->Upload->Index);
+
+            // rp_penjabaran
+            CleanUploadTempPath($this->rp_penjabaran, $this->rp_penjabaran->Upload->Index);
+
+            // jadwal_proses
+            CleanUploadTempPath($this->jadwal_proses, $this->jadwal_proses->Upload->Index);
+
+            // sinkron_kebijakan
+            CleanUploadTempPath($this->sinkron_kebijakan, $this->sinkron_kebijakan->Upload->Index);
+
+            // konsistensi_program
+            CleanUploadTempPath($this->konsistensi_program, $this->konsistensi_program->Upload->Index);
+
+            // alokasi_pendidikan
+            CleanUploadTempPath($this->alokasi_pendidikan, $this->alokasi_pendidikan->Upload->Index);
+
+            // alokasi_kesehatan
+            CleanUploadTempPath($this->alokasi_kesehatan, $this->alokasi_kesehatan->Upload->Index);
+
+            // alokasi_belanja
+            CleanUploadTempPath($this->alokasi_belanja, $this->alokasi_belanja->Upload->Index);
+
+            // bak_kegiatan
+            CleanUploadTempPath($this->bak_kegiatan, $this->bak_kegiatan->Upload->Index);
+
+            // softcopy_rka
+            CleanUploadTempPath($this->softcopy_rka, $this->softcopy_rka->Upload->Index);
+
+            // otsus
+            CleanUploadTempPath($this->otsus, $this->otsus->Upload->Index);
+
+            // qanun_perbup
+            CleanUploadTempPath($this->qanun_perbup, $this->qanun_perbup->Upload->Index);
+
+            // tindak_apbkp
+            CleanUploadTempPath($this->tindak_apbkp, $this->tindak_apbkp->Upload->Index);
         }
 
         // Write JSON for API request
@@ -3374,13 +4592,13 @@ class EvaluasiEdit extends Evaluasi
 
             // Set up lookup SQL and connection
             switch ($fld->FieldVar) {
+                case "x_idd_wilayah":
+                    break;
                 case "x_kd_satker":
                     break;
                 case "x_idd_tahapan":
                     break;
                 case "x_tahun_anggaran":
-                    break;
-                case "x_idd_wilayah":
                     break;
                 case "x_status":
                     break;

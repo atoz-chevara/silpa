@@ -930,7 +930,15 @@ class SatkersAdd extends Satkers
 
             // no_telepon
             $this->no_telepon->LinkCustomAttributes = "";
-            $this->no_telepon->HrefValue = "";
+            if (!EmptyValue($this->no_telepon->CurrentValue)) {
+                $this->no_telepon->HrefValue = "https://wa.me/" . (!empty($this->no_telepon->ViewValue) && !is_array($this->no_telepon->ViewValue) ? RemoveHtml($this->no_telepon->ViewValue) : $this->no_telepon->CurrentValue) . "?text=Assalamu'alaikum"; // Add prefix/suffix
+                $this->no_telepon->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->no_telepon->HrefValue = FullUrl($this->no_telepon->HrefValue, "href");
+                }
+            } else {
+                $this->no_telepon->HrefValue = "";
+            }
             $this->no_telepon->TooltipValue = "";
         } elseif ($this->RowType == ROWTYPE_ADD) {
             // kode_pemda
@@ -1040,7 +1048,15 @@ class SatkersAdd extends Satkers
 
             // no_telepon
             $this->no_telepon->LinkCustomAttributes = "";
-            $this->no_telepon->HrefValue = "";
+            if (!EmptyValue($this->no_telepon->CurrentValue)) {
+                $this->no_telepon->HrefValue = "https://wa.me/" . (!empty($this->no_telepon->EditValue) && !is_array($this->no_telepon->EditValue) ? RemoveHtml($this->no_telepon->EditValue) : $this->no_telepon->CurrentValue) . "?text=Assalamu'alaikum"; // Add prefix/suffix
+                $this->no_telepon->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->no_telepon->HrefValue = FullUrl($this->no_telepon->HrefValue, "href");
+                }
+            } else {
+                $this->no_telepon->HrefValue = "";
+            }
         }
         if ($this->RowType == ROWTYPE_ADD || $this->RowType == ROWTYPE_EDIT || $this->RowType == ROWTYPE_SEARCH) { // Add/Edit/Search row
             $this->setupFieldTitles();

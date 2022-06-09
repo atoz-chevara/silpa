@@ -261,7 +261,8 @@ $Page->showMessage();
         <td data-name="file_13" <?= $Page->file_13->cellAttributes() ?>>
 <span id="el_rapbk_file_13">
 <span<?= $Page->file_13->viewAttributes() ?>>
-<?= $Page->file_13->getViewValue() ?></span>
+<?= GetFileViewTag($Page->file_13, $Page->file_13->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>

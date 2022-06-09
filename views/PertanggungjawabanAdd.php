@@ -21,36 +21,27 @@ loadjs.ready("head", function () {
         ew.vars.tables.pertanggungjawaban = currentTable;
     fpertanggungjawabanadd.addFields([
         ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
+        ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null], fields.idd_wilayah.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
-        ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null, ew.Validators.integer], fields.idd_tahapan.isInvalid],
+        ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
         ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
-        ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null, ew.Validators.integer], fields.idd_wilayah.isInvalid],
-        ["file_01", [fields.file_01.visible && fields.file_01.required ? ew.Validators.required(fields.file_01.caption) : null], fields.file_01.isInvalid],
-        ["file_02", [fields.file_02.visible && fields.file_02.required ? ew.Validators.required(fields.file_02.caption) : null], fields.file_02.isInvalid],
-        ["file_03", [fields.file_03.visible && fields.file_03.required ? ew.Validators.required(fields.file_03.caption) : null], fields.file_03.isInvalid],
-        ["file_04", [fields.file_04.visible && fields.file_04.required ? ew.Validators.required(fields.file_04.caption) : null], fields.file_04.isInvalid],
-        ["file_05", [fields.file_05.visible && fields.file_05.required ? ew.Validators.required(fields.file_05.caption) : null], fields.file_05.isInvalid],
-        ["file_06", [fields.file_06.visible && fields.file_06.required ? ew.Validators.required(fields.file_06.caption) : null], fields.file_06.isInvalid],
-        ["file_07", [fields.file_07.visible && fields.file_07.required ? ew.Validators.required(fields.file_07.caption) : null], fields.file_07.isInvalid],
-        ["file_08", [fields.file_08.visible && fields.file_08.required ? ew.Validators.required(fields.file_08.caption) : null], fields.file_08.isInvalid],
-        ["file_09", [fields.file_09.visible && fields.file_09.required ? ew.Validators.required(fields.file_09.caption) : null], fields.file_09.isInvalid],
-        ["file_10", [fields.file_10.visible && fields.file_10.required ? ew.Validators.required(fields.file_10.caption) : null], fields.file_10.isInvalid],
-        ["file_11", [fields.file_11.visible && fields.file_11.required ? ew.Validators.required(fields.file_11.caption) : null], fields.file_11.isInvalid],
-        ["file_12", [fields.file_12.visible && fields.file_12.required ? ew.Validators.required(fields.file_12.caption) : null], fields.file_12.isInvalid],
-        ["file_13", [fields.file_13.visible && fields.file_13.required ? ew.Validators.required(fields.file_13.caption) : null], fields.file_13.isInvalid],
-        ["file_14", [fields.file_14.visible && fields.file_14.required ? ew.Validators.required(fields.file_14.caption) : null], fields.file_14.isInvalid],
-        ["file_15", [fields.file_15.visible && fields.file_15.required ? ew.Validators.required(fields.file_15.caption) : null], fields.file_15.isInvalid],
-        ["file_16", [fields.file_16.visible && fields.file_16.required ? ew.Validators.required(fields.file_16.caption) : null], fields.file_16.isInvalid],
-        ["file_17", [fields.file_17.visible && fields.file_17.required ? ew.Validators.required(fields.file_17.caption) : null], fields.file_17.isInvalid],
-        ["file_18", [fields.file_18.visible && fields.file_18.required ? ew.Validators.required(fields.file_18.caption) : null], fields.file_18.isInvalid],
-        ["file_19", [fields.file_19.visible && fields.file_19.required ? ew.Validators.required(fields.file_19.caption) : null], fields.file_19.isInvalid],
-        ["file_20", [fields.file_20.visible && fields.file_20.required ? ew.Validators.required(fields.file_20.caption) : null], fields.file_20.isInvalid],
-        ["file_21", [fields.file_21.visible && fields.file_21.required ? ew.Validators.required(fields.file_21.caption) : null], fields.file_21.isInvalid],
-        ["file_22", [fields.file_22.visible && fields.file_22.required ? ew.Validators.required(fields.file_22.caption) : null], fields.file_22.isInvalid],
-        ["file_23", [fields.file_23.visible && fields.file_23.required ? ew.Validators.required(fields.file_23.caption) : null], fields.file_23.isInvalid],
-        ["file_24", [fields.file_24.visible && fields.file_24.required ? ew.Validators.required(fields.file_24.caption) : null], fields.file_24.isInvalid],
-        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null, ew.Validators.integer], fields.status.isInvalid],
-        ["idd_user", [fields.idd_user.visible && fields.idd_user.required ? ew.Validators.required(fields.idd_user.caption) : null, ew.Validators.integer], fields.idd_user.isInvalid]
+        ["surat_pengantar", [fields.surat_pengantar.visible && fields.surat_pengantar.required ? ew.Validators.fileRequired(fields.surat_pengantar.caption) : null], fields.surat_pengantar.isInvalid],
+        ["skd_rqanunpert", [fields.skd_rqanunpert.visible && fields.skd_rqanunpert.required ? ew.Validators.fileRequired(fields.skd_rqanunpert.caption) : null], fields.skd_rqanunpert.isInvalid],
+        ["rq_apbkpert", [fields.rq_apbkpert.visible && fields.rq_apbkpert.required ? ew.Validators.fileRequired(fields.rq_apbkpert.caption) : null], fields.rq_apbkpert.isInvalid],
+        ["bap_apbkpert", [fields.bap_apbkpert.visible && fields.bap_apbkpert.required ? ew.Validators.fileRequired(fields.bap_apbkpert.caption) : null], fields.bap_apbkpert.isInvalid],
+        ["risalah_sidang", [fields.risalah_sidang.visible && fields.risalah_sidang.required ? ew.Validators.fileRequired(fields.risalah_sidang.caption) : null], fields.risalah_sidang.isInvalid],
+        ["absen_peserta", [fields.absen_peserta.visible && fields.absen_peserta.required ? ew.Validators.fileRequired(fields.absen_peserta.caption) : null], fields.absen_peserta.isInvalid],
+        ["neraca", [fields.neraca.visible && fields.neraca.required ? ew.Validators.fileRequired(fields.neraca.caption) : null], fields.neraca.isInvalid],
+        ["lra", [fields.lra.visible && fields.lra.required ? ew.Validators.fileRequired(fields.lra.caption) : null], fields.lra.isInvalid],
+        ["calk", [fields.calk.visible && fields.calk.required ? ew.Validators.fileRequired(fields.calk.caption) : null], fields.calk.isInvalid],
+        ["lo", [fields.lo.visible && fields.lo.required ? ew.Validators.fileRequired(fields.lo.caption) : null], fields.lo.isInvalid],
+        ["lpe", [fields.lpe.visible && fields.lpe.required ? ew.Validators.fileRequired(fields.lpe.caption) : null], fields.lpe.isInvalid],
+        ["lpsal", [fields.lpsal.visible && fields.lpsal.required ? ew.Validators.fileRequired(fields.lpsal.caption) : null], fields.lpsal.isInvalid],
+        ["lak", [fields.lak.visible && fields.lak.required ? ew.Validators.fileRequired(fields.lak.caption) : null], fields.lak.isInvalid],
+        ["laporan_pemeriksaan", [fields.laporan_pemeriksaan.visible && fields.laporan_pemeriksaan.required ? ew.Validators.fileRequired(fields.laporan_pemeriksaan.caption) : null], fields.laporan_pemeriksaan.isInvalid],
+        ["softcopy_rqanun", [fields.softcopy_rqanun.visible && fields.softcopy_rqanun.required ? ew.Validators.fileRequired(fields.softcopy_rqanun.caption) : null], fields.softcopy_rqanun.isInvalid],
+        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid],
+        ["idd_user", [fields.idd_user.visible && fields.idd_user.required ? ew.Validators.required(fields.idd_user.caption) : null], fields.idd_user.isInvalid]
     ]);
 
     // Set invalid fields
@@ -117,6 +108,12 @@ loadjs.ready("head", function () {
     fpertanggungjawabanadd.validateRequired = <?= Config("CLIENT_VALIDATE") ? "true" : "false" ?>;
 
     // Dynamic selection lists
+    fpertanggungjawabanadd.lists.idd_wilayah = <?= $Page->idd_wilayah->toClientList($Page) ?>;
+    fpertanggungjawabanadd.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
+    fpertanggungjawabanadd.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
+    fpertanggungjawabanadd.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
+    fpertanggungjawabanadd.lists.status = <?= $Page->status->toClientList($Page) ?>;
+    fpertanggungjawabanadd.lists.idd_user = <?= $Page->idd_user->toClientList($Page) ?>;
     loadjs.done("fpertanggungjawabanadd");
 });
 </script>
@@ -158,14 +155,68 @@ loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
 </div></div>
     </div>
 <?php } ?>
+<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
+    <div id="r_idd_wilayah" class="form-group row">
+        <label id="elh_pertanggungjawaban_idd_wilayah" for="x_idd_wilayah" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_wilayah->caption() ?><?= $Page->idd_wilayah->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_wilayah->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_idd_wilayah">
+    <select
+        id="x_idd_wilayah"
+        name="x_idd_wilayah"
+        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_idd_wilayah"
+        data-table="pertanggungjawaban"
+        data-field="x_idd_wilayah"
+        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
+        <?= $Page->idd_wilayah->editAttributes() ?>>
+        <?= $Page->idd_wilayah->selectOptionListHtml("x_idd_wilayah") ?>
+    </select>
+    <?= $Page->idd_wilayah->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
+<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x_idd_wilayah") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_wilayah']"),
+        options = { name: "x_idd_wilayah", selectId: "pertanggungjawaban_x_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+</div></div>
+    </div>
+<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <div id="r_kd_satker" class="form-group row">
         <label id="elh_pertanggungjawaban_kd_satker" for="x_kd_satker" class="<?= $Page->LeftColumnClass ?>"><?= $Page->kd_satker->caption() ?><?= $Page->kd_satker->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->kd_satker->cellAttributes() ?>>
 <span id="el_pertanggungjawaban_kd_satker">
-<input type="<?= $Page->kd_satker->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_kd_satker" name="x_kd_satker" id="x_kd_satker" size="30" maxlength="100" placeholder="<?= HtmlEncode($Page->kd_satker->getPlaceHolder()) ?>" value="<?= $Page->kd_satker->EditValue ?>"<?= $Page->kd_satker->editAttributes() ?> aria-describedby="x_kd_satker_help">
-<?= $Page->kd_satker->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->kd_satker->getErrorMessage() ?></div>
+    <select
+        id="x_kd_satker"
+        name="x_kd_satker"
+        class="form-control ew-select<?= $Page->kd_satker->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_kd_satker"
+        data-table="pertanggungjawaban"
+        data-field="x_kd_satker"
+        data-value-separator="<?= $Page->kd_satker->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->kd_satker->getPlaceHolder()) ?>"
+        <?= $Page->kd_satker->editAttributes() ?>>
+        <?= $Page->kd_satker->selectOptionListHtml("x_kd_satker") ?>
+    </select>
+    <?= $Page->kd_satker->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->kd_satker->getErrorMessage() ?></div>
+<?= $Page->kd_satker->Lookup->getParamTag($Page, "p_x_kd_satker") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_kd_satker']"),
+        options = { name: "x_kd_satker", selectId: "pertanggungjawaban_x_kd_satker", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.kd_satker.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
@@ -175,9 +226,30 @@ loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
         <label id="elh_pertanggungjawaban_idd_tahapan" for="x_idd_tahapan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_tahapan->caption() ?><?= $Page->idd_tahapan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_tahapan->cellAttributes() ?>>
 <span id="el_pertanggungjawaban_idd_tahapan">
-<input type="<?= $Page->idd_tahapan->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_idd_tahapan" name="x_idd_tahapan" id="x_idd_tahapan" size="30" placeholder="<?= HtmlEncode($Page->idd_tahapan->getPlaceHolder()) ?>" value="<?= $Page->idd_tahapan->EditValue ?>"<?= $Page->idd_tahapan->editAttributes() ?> aria-describedby="x_idd_tahapan_help">
-<?= $Page->idd_tahapan->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->idd_tahapan->getErrorMessage() ?></div>
+    <select
+        id="x_idd_tahapan"
+        name="x_idd_tahapan"
+        class="form-control ew-select<?= $Page->idd_tahapan->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_idd_tahapan"
+        data-table="pertanggungjawaban"
+        data-field="x_idd_tahapan"
+        data-value-separator="<?= $Page->idd_tahapan->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->idd_tahapan->getPlaceHolder()) ?>"
+        <?= $Page->idd_tahapan->editAttributes() ?>>
+        <?= $Page->idd_tahapan->selectOptionListHtml("x_idd_tahapan") ?>
+    </select>
+    <?= $Page->idd_tahapan->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->idd_tahapan->getErrorMessage() ?></div>
+<?= $Page->idd_tahapan->Lookup->getParamTag($Page, "p_x_idd_tahapan") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_tahapan']"),
+        options = { name: "x_idd_tahapan", selectId: "pertanggungjawaban_x_idd_tahapan", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_tahapan.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
@@ -187,309 +259,405 @@ loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
         <label id="elh_pertanggungjawaban_tahun_anggaran" for="x_tahun_anggaran" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tahun_anggaran->caption() ?><?= $Page->tahun_anggaran->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tahun_anggaran->cellAttributes() ?>>
 <span id="el_pertanggungjawaban_tahun_anggaran">
-<input type="<?= $Page->tahun_anggaran->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tahun_anggaran" name="x_tahun_anggaran" id="x_tahun_anggaran" size="30" maxlength="100" placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>" value="<?= $Page->tahun_anggaran->EditValue ?>"<?= $Page->tahun_anggaran->editAttributes() ?> aria-describedby="x_tahun_anggaran_help">
-<?= $Page->tahun_anggaran->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+    <select
+        id="x_tahun_anggaran"
+        name="x_tahun_anggaran"
+        class="form-control ew-select<?= $Page->tahun_anggaran->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_tahun_anggaran"
+        data-table="pertanggungjawaban"
+        data-field="x_tahun_anggaran"
+        data-value-separator="<?= $Page->tahun_anggaran->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>"
+        <?= $Page->tahun_anggaran->editAttributes() ?>>
+        <?= $Page->tahun_anggaran->selectOptionListHtml("x_tahun_anggaran") ?>
+    </select>
+    <?= $Page->tahun_anggaran->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+<?= $Page->tahun_anggaran->Lookup->getParamTag($Page, "p_x_tahun_anggaran") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_tahun_anggaran']"),
+        options = { name: "x_tahun_anggaran", selectId: "pertanggungjawaban_x_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.tahun_anggaran.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-    <div id="r_idd_wilayah" class="form-group row">
-        <label id="elh_pertanggungjawaban_idd_wilayah" for="x_idd_wilayah" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_wilayah->caption() ?><?= $Page->idd_wilayah->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_idd_wilayah">
-<input type="<?= $Page->idd_wilayah->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_idd_wilayah" name="x_idd_wilayah" id="x_idd_wilayah" size="30" placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>" value="<?= $Page->idd_wilayah->EditValue ?>"<?= $Page->idd_wilayah->editAttributes() ?> aria-describedby="x_idd_wilayah_help">
-<?= $Page->idd_wilayah->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
+<?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
+    <div id="r_surat_pengantar" class="form-group row">
+        <label id="elh_pertanggungjawaban_surat_pengantar" class="<?= $Page->LeftColumnClass ?>"><?= $Page->surat_pengantar->caption() ?><?= $Page->surat_pengantar->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->surat_pengantar->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_surat_pengantar">
+<div id="fd_x_surat_pengantar">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->surat_pengantar->title() ?>" data-table="pertanggungjawaban" data-field="x_surat_pengantar" name="x_surat_pengantar" id="x_surat_pengantar" lang="<?= CurrentLanguageID() ?>"<?= $Page->surat_pengantar->editAttributes() ?><?= ($Page->surat_pengantar->ReadOnly || $Page->surat_pengantar->Disabled) ? " disabled" : "" ?> aria-describedby="x_surat_pengantar_help">
+        <label class="custom-file-label ew-file-label" for="x_surat_pengantar"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->surat_pengantar->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->surat_pengantar->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_surat_pengantar" id= "fn_x_surat_pengantar" value="<?= $Page->surat_pengantar->Upload->FileName ?>">
+<input type="hidden" name="fa_x_surat_pengantar" id= "fa_x_surat_pengantar" value="0">
+<input type="hidden" name="fs_x_surat_pengantar" id= "fs_x_surat_pengantar" value="200">
+<input type="hidden" name="fx_x_surat_pengantar" id= "fx_x_surat_pengantar" value="<?= $Page->surat_pengantar->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_surat_pengantar" id= "fm_x_surat_pengantar" value="<?= $Page->surat_pengantar->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_surat_pengantar" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_01->Visible) { // file_01 ?>
-    <div id="r_file_01" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_01" for="x_file_01" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_01->caption() ?><?= $Page->file_01->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_01->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_01">
-<input type="<?= $Page->file_01->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_01" name="x_file_01" id="x_file_01" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_01->getPlaceHolder()) ?>" value="<?= $Page->file_01->EditValue ?>"<?= $Page->file_01->editAttributes() ?> aria-describedby="x_file_01_help">
-<?= $Page->file_01->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_01->getErrorMessage() ?></div>
+<?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
+    <div id="r_skd_rqanunpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_skd_rqanunpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->skd_rqanunpert->caption() ?><?= $Page->skd_rqanunpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->skd_rqanunpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_skd_rqanunpert">
+<div id="fd_x_skd_rqanunpert">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->skd_rqanunpert->title() ?>" data-table="pertanggungjawaban" data-field="x_skd_rqanunpert" name="x_skd_rqanunpert" id="x_skd_rqanunpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->skd_rqanunpert->editAttributes() ?><?= ($Page->skd_rqanunpert->ReadOnly || $Page->skd_rqanunpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_skd_rqanunpert_help">
+        <label class="custom-file-label ew-file-label" for="x_skd_rqanunpert"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->skd_rqanunpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->skd_rqanunpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_skd_rqanunpert" id= "fn_x_skd_rqanunpert" value="<?= $Page->skd_rqanunpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_skd_rqanunpert" id= "fa_x_skd_rqanunpert" value="0">
+<input type="hidden" name="fs_x_skd_rqanunpert" id= "fs_x_skd_rqanunpert" value="200">
+<input type="hidden" name="fx_x_skd_rqanunpert" id= "fx_x_skd_rqanunpert" value="<?= $Page->skd_rqanunpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_skd_rqanunpert" id= "fm_x_skd_rqanunpert" value="<?= $Page->skd_rqanunpert->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_skd_rqanunpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_02->Visible) { // file_02 ?>
-    <div id="r_file_02" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_02" for="x_file_02" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_02->caption() ?><?= $Page->file_02->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_02->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_02">
-<input type="<?= $Page->file_02->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_02" name="x_file_02" id="x_file_02" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_02->getPlaceHolder()) ?>" value="<?= $Page->file_02->EditValue ?>"<?= $Page->file_02->editAttributes() ?> aria-describedby="x_file_02_help">
-<?= $Page->file_02->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_02->getErrorMessage() ?></div>
+<?php if ($Page->rq_apbkpert->Visible) { // rq_apbkpert ?>
+    <div id="r_rq_apbkpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_rq_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rq_apbkpert->caption() ?><?= $Page->rq_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rq_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_rq_apbkpert">
+<div id="fd_x_rq_apbkpert">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->rq_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rq_apbkpert" name="x_rq_apbkpert" id="x_rq_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rq_apbkpert->editAttributes() ?><?= ($Page->rq_apbkpert->ReadOnly || $Page->rq_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rq_apbkpert_help">
+        <label class="custom-file-label ew-file-label" for="x_rq_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->rq_apbkpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->rq_apbkpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_rq_apbkpert" id= "fn_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_rq_apbkpert" id= "fa_x_rq_apbkpert" value="0">
+<input type="hidden" name="fs_x_rq_apbkpert" id= "fs_x_rq_apbkpert" value="200">
+<input type="hidden" name="fx_x_rq_apbkpert" id= "fx_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_rq_apbkpert" id= "fm_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_rq_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_03->Visible) { // file_03 ?>
-    <div id="r_file_03" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_03" for="x_file_03" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_03->caption() ?><?= $Page->file_03->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_03->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_03">
-<input type="<?= $Page->file_03->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_03" name="x_file_03" id="x_file_03" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_03->getPlaceHolder()) ?>" value="<?= $Page->file_03->EditValue ?>"<?= $Page->file_03->editAttributes() ?> aria-describedby="x_file_03_help">
-<?= $Page->file_03->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_03->getErrorMessage() ?></div>
+<?php if ($Page->bap_apbkpert->Visible) { // bap_apbkpert ?>
+    <div id="r_bap_apbkpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_bap_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->bap_apbkpert->caption() ?><?= $Page->bap_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->bap_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_bap_apbkpert">
+<div id="fd_x_bap_apbkpert">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->bap_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_bap_apbkpert" name="x_bap_apbkpert" id="x_bap_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->bap_apbkpert->editAttributes() ?><?= ($Page->bap_apbkpert->ReadOnly || $Page->bap_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_bap_apbkpert_help">
+        <label class="custom-file-label ew-file-label" for="x_bap_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->bap_apbkpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->bap_apbkpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_bap_apbkpert" id= "fn_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_bap_apbkpert" id= "fa_x_bap_apbkpert" value="0">
+<input type="hidden" name="fs_x_bap_apbkpert" id= "fs_x_bap_apbkpert" value="200">
+<input type="hidden" name="fx_x_bap_apbkpert" id= "fx_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_bap_apbkpert" id= "fm_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_bap_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_04->Visible) { // file_04 ?>
-    <div id="r_file_04" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_04" for="x_file_04" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_04->caption() ?><?= $Page->file_04->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_04->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_04">
-<input type="<?= $Page->file_04->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_04" name="x_file_04" id="x_file_04" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_04->getPlaceHolder()) ?>" value="<?= $Page->file_04->EditValue ?>"<?= $Page->file_04->editAttributes() ?> aria-describedby="x_file_04_help">
-<?= $Page->file_04->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_04->getErrorMessage() ?></div>
+<?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
+    <div id="r_risalah_sidang" class="form-group row">
+        <label id="elh_pertanggungjawaban_risalah_sidang" class="<?= $Page->LeftColumnClass ?>"><?= $Page->risalah_sidang->caption() ?><?= $Page->risalah_sidang->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->risalah_sidang->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_risalah_sidang">
+<div id="fd_x_risalah_sidang">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->risalah_sidang->title() ?>" data-table="pertanggungjawaban" data-field="x_risalah_sidang" name="x_risalah_sidang" id="x_risalah_sidang" lang="<?= CurrentLanguageID() ?>"<?= $Page->risalah_sidang->editAttributes() ?><?= ($Page->risalah_sidang->ReadOnly || $Page->risalah_sidang->Disabled) ? " disabled" : "" ?> aria-describedby="x_risalah_sidang_help">
+        <label class="custom-file-label ew-file-label" for="x_risalah_sidang"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->risalah_sidang->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->risalah_sidang->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_risalah_sidang" id= "fn_x_risalah_sidang" value="<?= $Page->risalah_sidang->Upload->FileName ?>">
+<input type="hidden" name="fa_x_risalah_sidang" id= "fa_x_risalah_sidang" value="0">
+<input type="hidden" name="fs_x_risalah_sidang" id= "fs_x_risalah_sidang" value="200">
+<input type="hidden" name="fx_x_risalah_sidang" id= "fx_x_risalah_sidang" value="<?= $Page->risalah_sidang->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_risalah_sidang" id= "fm_x_risalah_sidang" value="<?= $Page->risalah_sidang->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_risalah_sidang" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_05->Visible) { // file_05 ?>
-    <div id="r_file_05" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_05" for="x_file_05" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_05->caption() ?><?= $Page->file_05->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_05->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_05">
-<input type="<?= $Page->file_05->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_05" name="x_file_05" id="x_file_05" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_05->getPlaceHolder()) ?>" value="<?= $Page->file_05->EditValue ?>"<?= $Page->file_05->editAttributes() ?> aria-describedby="x_file_05_help">
-<?= $Page->file_05->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_05->getErrorMessage() ?></div>
+<?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
+    <div id="r_absen_peserta" class="form-group row">
+        <label id="elh_pertanggungjawaban_absen_peserta" class="<?= $Page->LeftColumnClass ?>"><?= $Page->absen_peserta->caption() ?><?= $Page->absen_peserta->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->absen_peserta->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_absen_peserta">
+<div id="fd_x_absen_peserta">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->absen_peserta->title() ?>" data-table="pertanggungjawaban" data-field="x_absen_peserta" name="x_absen_peserta" id="x_absen_peserta" lang="<?= CurrentLanguageID() ?>"<?= $Page->absen_peserta->editAttributes() ?><?= ($Page->absen_peserta->ReadOnly || $Page->absen_peserta->Disabled) ? " disabled" : "" ?> aria-describedby="x_absen_peserta_help">
+        <label class="custom-file-label ew-file-label" for="x_absen_peserta"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->absen_peserta->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->absen_peserta->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_absen_peserta" id= "fn_x_absen_peserta" value="<?= $Page->absen_peserta->Upload->FileName ?>">
+<input type="hidden" name="fa_x_absen_peserta" id= "fa_x_absen_peserta" value="0">
+<input type="hidden" name="fs_x_absen_peserta" id= "fs_x_absen_peserta" value="200">
+<input type="hidden" name="fx_x_absen_peserta" id= "fx_x_absen_peserta" value="<?= $Page->absen_peserta->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_absen_peserta" id= "fm_x_absen_peserta" value="<?= $Page->absen_peserta->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_absen_peserta" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_06->Visible) { // file_06 ?>
-    <div id="r_file_06" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_06" for="x_file_06" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_06->caption() ?><?= $Page->file_06->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_06->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_06">
-<input type="<?= $Page->file_06->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_06" name="x_file_06" id="x_file_06" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_06->getPlaceHolder()) ?>" value="<?= $Page->file_06->EditValue ?>"<?= $Page->file_06->editAttributes() ?> aria-describedby="x_file_06_help">
-<?= $Page->file_06->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_06->getErrorMessage() ?></div>
+<?php if ($Page->neraca->Visible) { // neraca ?>
+    <div id="r_neraca" class="form-group row">
+        <label id="elh_pertanggungjawaban_neraca" class="<?= $Page->LeftColumnClass ?>"><?= $Page->neraca->caption() ?><?= $Page->neraca->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->neraca->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_neraca">
+<div id="fd_x_neraca">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->neraca->title() ?>" data-table="pertanggungjawaban" data-field="x_neraca" name="x_neraca" id="x_neraca" lang="<?= CurrentLanguageID() ?>"<?= $Page->neraca->editAttributes() ?><?= ($Page->neraca->ReadOnly || $Page->neraca->Disabled) ? " disabled" : "" ?> aria-describedby="x_neraca_help">
+        <label class="custom-file-label ew-file-label" for="x_neraca"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->neraca->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->neraca->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_neraca" id= "fn_x_neraca" value="<?= $Page->neraca->Upload->FileName ?>">
+<input type="hidden" name="fa_x_neraca" id= "fa_x_neraca" value="0">
+<input type="hidden" name="fs_x_neraca" id= "fs_x_neraca" value="200">
+<input type="hidden" name="fx_x_neraca" id= "fx_x_neraca" value="<?= $Page->neraca->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_neraca" id= "fm_x_neraca" value="<?= $Page->neraca->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_neraca" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_07->Visible) { // file_07 ?>
-    <div id="r_file_07" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_07" for="x_file_07" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_07->caption() ?><?= $Page->file_07->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_07->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_07">
-<input type="<?= $Page->file_07->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_07" name="x_file_07" id="x_file_07" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_07->getPlaceHolder()) ?>" value="<?= $Page->file_07->EditValue ?>"<?= $Page->file_07->editAttributes() ?> aria-describedby="x_file_07_help">
-<?= $Page->file_07->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_07->getErrorMessage() ?></div>
+<?php if ($Page->lra->Visible) { // lra ?>
+    <div id="r_lra" class="form-group row">
+        <label id="elh_pertanggungjawaban_lra" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lra->caption() ?><?= $Page->lra->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lra->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lra">
+<div id="fd_x_lra">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->lra->title() ?>" data-table="pertanggungjawaban" data-field="x_lra" name="x_lra" id="x_lra" lang="<?= CurrentLanguageID() ?>"<?= $Page->lra->editAttributes() ?><?= ($Page->lra->ReadOnly || $Page->lra->Disabled) ? " disabled" : "" ?> aria-describedby="x_lra_help">
+        <label class="custom-file-label ew-file-label" for="x_lra"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->lra->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->lra->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_lra" id= "fn_x_lra" value="<?= $Page->lra->Upload->FileName ?>">
+<input type="hidden" name="fa_x_lra" id= "fa_x_lra" value="0">
+<input type="hidden" name="fs_x_lra" id= "fs_x_lra" value="200">
+<input type="hidden" name="fx_x_lra" id= "fx_x_lra" value="<?= $Page->lra->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_lra" id= "fm_x_lra" value="<?= $Page->lra->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_lra" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_08->Visible) { // file_08 ?>
-    <div id="r_file_08" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_08" for="x_file_08" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_08->caption() ?><?= $Page->file_08->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_08->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_08">
-<input type="<?= $Page->file_08->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_08" name="x_file_08" id="x_file_08" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_08->getPlaceHolder()) ?>" value="<?= $Page->file_08->EditValue ?>"<?= $Page->file_08->editAttributes() ?> aria-describedby="x_file_08_help">
-<?= $Page->file_08->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_08->getErrorMessage() ?></div>
+<?php if ($Page->calk->Visible) { // calk ?>
+    <div id="r_calk" class="form-group row">
+        <label id="elh_pertanggungjawaban_calk" class="<?= $Page->LeftColumnClass ?>"><?= $Page->calk->caption() ?><?= $Page->calk->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->calk->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_calk">
+<div id="fd_x_calk">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->calk->title() ?>" data-table="pertanggungjawaban" data-field="x_calk" name="x_calk" id="x_calk" lang="<?= CurrentLanguageID() ?>"<?= $Page->calk->editAttributes() ?><?= ($Page->calk->ReadOnly || $Page->calk->Disabled) ? " disabled" : "" ?> aria-describedby="x_calk_help">
+        <label class="custom-file-label ew-file-label" for="x_calk"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->calk->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->calk->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_calk" id= "fn_x_calk" value="<?= $Page->calk->Upload->FileName ?>">
+<input type="hidden" name="fa_x_calk" id= "fa_x_calk" value="0">
+<input type="hidden" name="fs_x_calk" id= "fs_x_calk" value="200">
+<input type="hidden" name="fx_x_calk" id= "fx_x_calk" value="<?= $Page->calk->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_calk" id= "fm_x_calk" value="<?= $Page->calk->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_calk" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_09->Visible) { // file_09 ?>
-    <div id="r_file_09" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_09" for="x_file_09" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_09->caption() ?><?= $Page->file_09->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_09->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_09">
-<input type="<?= $Page->file_09->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_09" name="x_file_09" id="x_file_09" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_09->getPlaceHolder()) ?>" value="<?= $Page->file_09->EditValue ?>"<?= $Page->file_09->editAttributes() ?> aria-describedby="x_file_09_help">
-<?= $Page->file_09->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_09->getErrorMessage() ?></div>
+<?php if ($Page->lo->Visible) { // lo ?>
+    <div id="r_lo" class="form-group row">
+        <label id="elh_pertanggungjawaban_lo" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lo->caption() ?><?= $Page->lo->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lo->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lo">
+<div id="fd_x_lo">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->lo->title() ?>" data-table="pertanggungjawaban" data-field="x_lo" name="x_lo" id="x_lo" lang="<?= CurrentLanguageID() ?>"<?= $Page->lo->editAttributes() ?><?= ($Page->lo->ReadOnly || $Page->lo->Disabled) ? " disabled" : "" ?> aria-describedby="x_lo_help">
+        <label class="custom-file-label ew-file-label" for="x_lo"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->lo->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->lo->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_lo" id= "fn_x_lo" value="<?= $Page->lo->Upload->FileName ?>">
+<input type="hidden" name="fa_x_lo" id= "fa_x_lo" value="0">
+<input type="hidden" name="fs_x_lo" id= "fs_x_lo" value="200">
+<input type="hidden" name="fx_x_lo" id= "fx_x_lo" value="<?= $Page->lo->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_lo" id= "fm_x_lo" value="<?= $Page->lo->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_lo" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_10->Visible) { // file_10 ?>
-    <div id="r_file_10" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_10" for="x_file_10" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_10->caption() ?><?= $Page->file_10->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_10->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_10">
-<input type="<?= $Page->file_10->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_10" name="x_file_10" id="x_file_10" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_10->getPlaceHolder()) ?>" value="<?= $Page->file_10->EditValue ?>"<?= $Page->file_10->editAttributes() ?> aria-describedby="x_file_10_help">
-<?= $Page->file_10->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_10->getErrorMessage() ?></div>
+<?php if ($Page->lpe->Visible) { // lpe ?>
+    <div id="r_lpe" class="form-group row">
+        <label id="elh_pertanggungjawaban_lpe" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpe->caption() ?><?= $Page->lpe->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lpe->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lpe">
+<div id="fd_x_lpe">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->lpe->title() ?>" data-table="pertanggungjawaban" data-field="x_lpe" name="x_lpe" id="x_lpe" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpe->editAttributes() ?><?= ($Page->lpe->ReadOnly || $Page->lpe->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpe_help">
+        <label class="custom-file-label ew-file-label" for="x_lpe"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->lpe->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->lpe->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_lpe" id= "fn_x_lpe" value="<?= $Page->lpe->Upload->FileName ?>">
+<input type="hidden" name="fa_x_lpe" id= "fa_x_lpe" value="0">
+<input type="hidden" name="fs_x_lpe" id= "fs_x_lpe" value="200">
+<input type="hidden" name="fx_x_lpe" id= "fx_x_lpe" value="<?= $Page->lpe->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_lpe" id= "fm_x_lpe" value="<?= $Page->lpe->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_lpe" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_11->Visible) { // file_11 ?>
-    <div id="r_file_11" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_11" for="x_file_11" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_11->caption() ?><?= $Page->file_11->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_11->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_11">
-<input type="<?= $Page->file_11->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_11" name="x_file_11" id="x_file_11" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_11->getPlaceHolder()) ?>" value="<?= $Page->file_11->EditValue ?>"<?= $Page->file_11->editAttributes() ?> aria-describedby="x_file_11_help">
-<?= $Page->file_11->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_11->getErrorMessage() ?></div>
+<?php if ($Page->lpsal->Visible) { // lpsal ?>
+    <div id="r_lpsal" class="form-group row">
+        <label id="elh_pertanggungjawaban_lpsal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpsal->caption() ?><?= $Page->lpsal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lpsal->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lpsal">
+<div id="fd_x_lpsal">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->lpsal->title() ?>" data-table="pertanggungjawaban" data-field="x_lpsal" name="x_lpsal" id="x_lpsal" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpsal->editAttributes() ?><?= ($Page->lpsal->ReadOnly || $Page->lpsal->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpsal_help">
+        <label class="custom-file-label ew-file-label" for="x_lpsal"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->lpsal->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->lpsal->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_lpsal" id= "fn_x_lpsal" value="<?= $Page->lpsal->Upload->FileName ?>">
+<input type="hidden" name="fa_x_lpsal" id= "fa_x_lpsal" value="0">
+<input type="hidden" name="fs_x_lpsal" id= "fs_x_lpsal" value="200">
+<input type="hidden" name="fx_x_lpsal" id= "fx_x_lpsal" value="<?= $Page->lpsal->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_lpsal" id= "fm_x_lpsal" value="<?= $Page->lpsal->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_lpsal" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_12->Visible) { // file_12 ?>
-    <div id="r_file_12" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_12" for="x_file_12" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_12->caption() ?><?= $Page->file_12->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_12->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_12">
-<input type="<?= $Page->file_12->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_12" name="x_file_12" id="x_file_12" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_12->getPlaceHolder()) ?>" value="<?= $Page->file_12->EditValue ?>"<?= $Page->file_12->editAttributes() ?> aria-describedby="x_file_12_help">
-<?= $Page->file_12->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_12->getErrorMessage() ?></div>
+<?php if ($Page->lak->Visible) { // lak ?>
+    <div id="r_lak" class="form-group row">
+        <label id="elh_pertanggungjawaban_lak" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lak->caption() ?><?= $Page->lak->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lak->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lak">
+<div id="fd_x_lak">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->lak->title() ?>" data-table="pertanggungjawaban" data-field="x_lak" name="x_lak" id="x_lak" lang="<?= CurrentLanguageID() ?>"<?= $Page->lak->editAttributes() ?><?= ($Page->lak->ReadOnly || $Page->lak->Disabled) ? " disabled" : "" ?> aria-describedby="x_lak_help">
+        <label class="custom-file-label ew-file-label" for="x_lak"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->lak->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->lak->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_lak" id= "fn_x_lak" value="<?= $Page->lak->Upload->FileName ?>">
+<input type="hidden" name="fa_x_lak" id= "fa_x_lak" value="0">
+<input type="hidden" name="fs_x_lak" id= "fs_x_lak" value="200">
+<input type="hidden" name="fx_x_lak" id= "fx_x_lak" value="<?= $Page->lak->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_lak" id= "fm_x_lak" value="<?= $Page->lak->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_lak" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_13->Visible) { // file_13 ?>
-    <div id="r_file_13" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_13" for="x_file_13" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_13->caption() ?><?= $Page->file_13->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_13->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_13">
-<input type="<?= $Page->file_13->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_13" name="x_file_13" id="x_file_13" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_13->getPlaceHolder()) ?>" value="<?= $Page->file_13->EditValue ?>"<?= $Page->file_13->editAttributes() ?> aria-describedby="x_file_13_help">
-<?= $Page->file_13->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_13->getErrorMessage() ?></div>
+<?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
+    <div id="r_laporan_pemeriksaan" class="form-group row">
+        <label id="elh_pertanggungjawaban_laporan_pemeriksaan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->laporan_pemeriksaan->caption() ?><?= $Page->laporan_pemeriksaan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->laporan_pemeriksaan->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_laporan_pemeriksaan">
+<div id="fd_x_laporan_pemeriksaan">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->laporan_pemeriksaan->title() ?>" data-table="pertanggungjawaban" data-field="x_laporan_pemeriksaan" name="x_laporan_pemeriksaan" id="x_laporan_pemeriksaan" lang="<?= CurrentLanguageID() ?>"<?= $Page->laporan_pemeriksaan->editAttributes() ?><?= ($Page->laporan_pemeriksaan->ReadOnly || $Page->laporan_pemeriksaan->Disabled) ? " disabled" : "" ?> aria-describedby="x_laporan_pemeriksaan_help">
+        <label class="custom-file-label ew-file-label" for="x_laporan_pemeriksaan"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->laporan_pemeriksaan->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->laporan_pemeriksaan->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_laporan_pemeriksaan" id= "fn_x_laporan_pemeriksaan" value="<?= $Page->laporan_pemeriksaan->Upload->FileName ?>">
+<input type="hidden" name="fa_x_laporan_pemeriksaan" id= "fa_x_laporan_pemeriksaan" value="0">
+<input type="hidden" name="fs_x_laporan_pemeriksaan" id= "fs_x_laporan_pemeriksaan" value="200">
+<input type="hidden" name="fx_x_laporan_pemeriksaan" id= "fx_x_laporan_pemeriksaan" value="<?= $Page->laporan_pemeriksaan->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_laporan_pemeriksaan" id= "fm_x_laporan_pemeriksaan" value="<?= $Page->laporan_pemeriksaan->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_laporan_pemeriksaan" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->file_14->Visible) { // file_14 ?>
-    <div id="r_file_14" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_14" for="x_file_14" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_14->caption() ?><?= $Page->file_14->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_14->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_14">
-<input type="<?= $Page->file_14->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_14" name="x_file_14" id="x_file_14" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_14->getPlaceHolder()) ?>" value="<?= $Page->file_14->EditValue ?>"<?= $Page->file_14->editAttributes() ?> aria-describedby="x_file_14_help">
-<?= $Page->file_14->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_14->getErrorMessage() ?></div>
-</span>
-</div></div>
+<?php if ($Page->softcopy_rqanun->Visible) { // softcopy_rqanun ?>
+    <div id="r_softcopy_rqanun" class="form-group row">
+        <label id="elh_pertanggungjawaban_softcopy_rqanun" class="<?= $Page->LeftColumnClass ?>"><?= $Page->softcopy_rqanun->caption() ?><?= $Page->softcopy_rqanun->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->softcopy_rqanun->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_softcopy_rqanun">
+<div id="fd_x_softcopy_rqanun">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->softcopy_rqanun->title() ?>" data-table="pertanggungjawaban" data-field="x_softcopy_rqanun" name="x_softcopy_rqanun" id="x_softcopy_rqanun" lang="<?= CurrentLanguageID() ?>"<?= $Page->softcopy_rqanun->editAttributes() ?><?= ($Page->softcopy_rqanun->ReadOnly || $Page->softcopy_rqanun->Disabled) ? " disabled" : "" ?> aria-describedby="x_softcopy_rqanun_help">
+        <label class="custom-file-label ew-file-label" for="x_softcopy_rqanun"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
-<?php } ?>
-<?php if ($Page->file_15->Visible) { // file_15 ?>
-    <div id="r_file_15" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_15" for="x_file_15" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_15->caption() ?><?= $Page->file_15->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_15->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_15">
-<input type="<?= $Page->file_15->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_15" name="x_file_15" id="x_file_15" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_15->getPlaceHolder()) ?>" value="<?= $Page->file_15->EditValue ?>"<?= $Page->file_15->editAttributes() ?> aria-describedby="x_file_15_help">
-<?= $Page->file_15->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_15->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_16->Visible) { // file_16 ?>
-    <div id="r_file_16" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_16" for="x_file_16" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_16->caption() ?><?= $Page->file_16->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_16->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_16">
-<input type="<?= $Page->file_16->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_16" name="x_file_16" id="x_file_16" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_16->getPlaceHolder()) ?>" value="<?= $Page->file_16->EditValue ?>"<?= $Page->file_16->editAttributes() ?> aria-describedby="x_file_16_help">
-<?= $Page->file_16->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_16->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_17->Visible) { // file_17 ?>
-    <div id="r_file_17" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_17" for="x_file_17" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_17->caption() ?><?= $Page->file_17->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_17->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_17">
-<input type="<?= $Page->file_17->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_17" name="x_file_17" id="x_file_17" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_17->getPlaceHolder()) ?>" value="<?= $Page->file_17->EditValue ?>"<?= $Page->file_17->editAttributes() ?> aria-describedby="x_file_17_help">
-<?= $Page->file_17->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_17->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_18->Visible) { // file_18 ?>
-    <div id="r_file_18" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_18" for="x_file_18" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_18->caption() ?><?= $Page->file_18->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_18->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_18">
-<input type="<?= $Page->file_18->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_18" name="x_file_18" id="x_file_18" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_18->getPlaceHolder()) ?>" value="<?= $Page->file_18->EditValue ?>"<?= $Page->file_18->editAttributes() ?> aria-describedby="x_file_18_help">
-<?= $Page->file_18->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_18->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_19->Visible) { // file_19 ?>
-    <div id="r_file_19" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_19" for="x_file_19" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_19->caption() ?><?= $Page->file_19->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_19->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_19">
-<input type="<?= $Page->file_19->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_19" name="x_file_19" id="x_file_19" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_19->getPlaceHolder()) ?>" value="<?= $Page->file_19->EditValue ?>"<?= $Page->file_19->editAttributes() ?> aria-describedby="x_file_19_help">
-<?= $Page->file_19->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_19->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_20->Visible) { // file_20 ?>
-    <div id="r_file_20" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_20" for="x_file_20" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_20->caption() ?><?= $Page->file_20->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_20->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_20">
-<input type="<?= $Page->file_20->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_20" name="x_file_20" id="x_file_20" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_20->getPlaceHolder()) ?>" value="<?= $Page->file_20->EditValue ?>"<?= $Page->file_20->editAttributes() ?> aria-describedby="x_file_20_help">
-<?= $Page->file_20->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_20->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_21->Visible) { // file_21 ?>
-    <div id="r_file_21" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_21" for="x_file_21" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_21->caption() ?><?= $Page->file_21->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_21->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_21">
-<input type="<?= $Page->file_21->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_21" name="x_file_21" id="x_file_21" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_21->getPlaceHolder()) ?>" value="<?= $Page->file_21->EditValue ?>"<?= $Page->file_21->editAttributes() ?> aria-describedby="x_file_21_help">
-<?= $Page->file_21->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_21->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_22->Visible) { // file_22 ?>
-    <div id="r_file_22" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_22" for="x_file_22" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_22->caption() ?><?= $Page->file_22->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_22->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_22">
-<input type="<?= $Page->file_22->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_22" name="x_file_22" id="x_file_22" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_22->getPlaceHolder()) ?>" value="<?= $Page->file_22->EditValue ?>"<?= $Page->file_22->editAttributes() ?> aria-describedby="x_file_22_help">
-<?= $Page->file_22->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_22->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_23->Visible) { // file_23 ?>
-    <div id="r_file_23" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_23" for="x_file_23" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_23->caption() ?><?= $Page->file_23->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_23->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_23">
-<input type="<?= $Page->file_23->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_23" name="x_file_23" id="x_file_23" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_23->getPlaceHolder()) ?>" value="<?= $Page->file_23->EditValue ?>"<?= $Page->file_23->editAttributes() ?> aria-describedby="x_file_23_help">
-<?= $Page->file_23->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_23->getErrorMessage() ?></div>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->file_24->Visible) { // file_24 ?>
-    <div id="r_file_24" class="form-group row">
-        <label id="elh_pertanggungjawaban_file_24" for="x_file_24" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_24->caption() ?><?= $Page->file_24->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_24->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_24">
-<input type="<?= $Page->file_24->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_file_24" name="x_file_24" id="x_file_24" size="30" maxlength="200" placeholder="<?= HtmlEncode($Page->file_24->getPlaceHolder()) ?>" value="<?= $Page->file_24->EditValue ?>"<?= $Page->file_24->editAttributes() ?> aria-describedby="x_file_24_help">
-<?= $Page->file_24->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->file_24->getErrorMessage() ?></div>
+</div>
+<?= $Page->softcopy_rqanun->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->softcopy_rqanun->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_softcopy_rqanun" id= "fn_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->Upload->FileName ?>">
+<input type="hidden" name="fa_x_softcopy_rqanun" id= "fa_x_softcopy_rqanun" value="0">
+<input type="hidden" name="fs_x_softcopy_rqanun" id= "fs_x_softcopy_rqanun" value="200">
+<input type="hidden" name="fx_x_softcopy_rqanun" id= "fx_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_softcopy_rqanun" id= "fm_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_softcopy_rqanun" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
@@ -499,9 +667,30 @@ loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
         <label id="elh_pertanggungjawaban_status" for="x_status" class="<?= $Page->LeftColumnClass ?>"><?= $Page->status->caption() ?><?= $Page->status->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->status->cellAttributes() ?>>
 <span id="el_pertanggungjawaban_status">
-<input type="<?= $Page->status->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_status" name="x_status" id="x_status" size="30" placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>" value="<?= $Page->status->EditValue ?>"<?= $Page->status->editAttributes() ?> aria-describedby="x_status_help">
-<?= $Page->status->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+    <select
+        id="x_status"
+        name="x_status"
+        class="form-control ew-select<?= $Page->status->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_status"
+        data-table="pertanggungjawaban"
+        data-field="x_status"
+        data-value-separator="<?= $Page->status->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>"
+        <?= $Page->status->editAttributes() ?>>
+        <?= $Page->status->selectOptionListHtml("x_status") ?>
+    </select>
+    <?= $Page->status->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_status']"),
+        options = { name: "x_status", selectId: "pertanggungjawaban_x_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.data = ew.vars.tables.pertanggungjawaban.fields.status.lookupOptions;
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.status.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
@@ -510,11 +699,40 @@ loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
     <div id="r_idd_user" class="form-group row">
         <label id="elh_pertanggungjawaban_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_user->cellAttributes() ?>>
+<?php if (!$Security->isAdmin() && $Security->isLoggedIn() && !$Page->userIDAllow("add")) { // Non system admin ?>
 <span id="el_pertanggungjawaban_idd_user">
-<input type="<?= $Page->idd_user->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_idd_user" name="x_idd_user" id="x_idd_user" size="30" placeholder="<?= HtmlEncode($Page->idd_user->getPlaceHolder()) ?>" value="<?= $Page->idd_user->EditValue ?>"<?= $Page->idd_user->editAttributes() ?> aria-describedby="x_idd_user_help">
-<?= $Page->idd_user->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->idd_user->getErrorMessage() ?></div>
+<span<?= $Page->idd_user->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_user->getDisplayValue($Page->idd_user->EditValue))) ?>"></span>
 </span>
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
+<?php } else { ?>
+<span id="el_pertanggungjawaban_idd_user">
+    <select
+        id="x_idd_user"
+        name="x_idd_user"
+        class="form-control ew-select<?= $Page->idd_user->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban_x_idd_user"
+        data-table="pertanggungjawaban"
+        data-field="x_idd_user"
+        data-value-separator="<?= $Page->idd_user->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->idd_user->getPlaceHolder()) ?>"
+        <?= $Page->idd_user->editAttributes() ?>>
+        <?= $Page->idd_user->selectOptionListHtml("x_idd_user") ?>
+    </select>
+    <?= $Page->idd_user->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->idd_user->getErrorMessage() ?></div>
+<?= $Page->idd_user->Lookup->getParamTag($Page, "p_x_idd_user") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_user']"),
+        options = { name: "x_idd_user", selectId: "pertanggungjawaban_x_idd_user", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_user.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<?php } ?>
 </div></div>
     </div>
 <?php } ?>

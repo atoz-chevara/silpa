@@ -53,9 +53,6 @@ $Page->showMessage();
 <?php if ($Page->photo->Visible) { // photo ?>
         <th class="<?= $Page->photo->headerCellClass() ?>"><span id="elh_users_photo" class="users_photo"><?= $Page->photo->caption() ?></span></th>
 <?php } ?>
-<?php if ($Page->level->Visible) { // level ?>
-        <th class="<?= $Page->level->headerCellClass() ?>"><span id="elh_users_level" class="users_level"><?= $Page->level->caption() ?></span></th>
-<?php } ?>
     </tr>
     </thead>
     <tbody>
@@ -99,14 +96,6 @@ while (!$Page->Recordset->EOF) {
 <span>
 <?= GetFileViewTag($Page->photo, $Page->photo->getViewValue(), false) ?>
 </span>
-</span>
-</td>
-<?php } ?>
-<?php if ($Page->level->Visible) { // level ?>
-        <td <?= $Page->level->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_users_level" class="users_level">
-<span<?= $Page->level->viewAttributes() ?>>
-<?= $Page->level->getViewValue() ?></span>
 </span>
 </td>
 <?php } ?>

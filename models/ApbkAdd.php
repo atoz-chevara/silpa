@@ -704,8 +704,7 @@ class ApbkAdd extends Apbk
         $this->file_24->OldValue = $this->file_24->CurrentValue;
         $this->status->CurrentValue = null;
         $this->status->OldValue = $this->status->CurrentValue;
-        $this->idd_user->CurrentValue = null;
-        $this->idd_user->OldValue = $this->idd_user->CurrentValue;
+        $this->idd_user->CurrentValue = CurrentUserID();
     }
 
     // Load form values
@@ -1089,6 +1088,15 @@ class ApbkAdd extends Apbk
         if ($row) {
             $res = true;
             $this->loadRowValues($row); // Load row values
+        }
+
+        // Check if valid User ID
+        if ($res) {
+            $res = $this->showOptionLink("add");
+            if (!$res) {
+                $userIdMsg = DeniedMessage();
+                $this->setFailureMessage($userIdMsg);
+            }
         }
         return $res;
     }
@@ -1829,8 +1837,15 @@ class ApbkAdd extends Apbk
             // idd_user
             $this->idd_user->EditAttrs["class"] = "form-control";
             $this->idd_user->EditCustomAttributes = "";
-            $this->idd_user->EditValue = HtmlEncode($this->idd_user->CurrentValue);
-            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("add")) { // Non system admin
+                $this->idd_user->CurrentValue = CurrentUserID();
+                $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                $this->idd_user->EditValue = FormatNumber($this->idd_user->EditValue, 0, -2, -2, -2);
+                $this->idd_user->ViewCustomAttributes = "";
+            } else {
+                $this->idd_user->EditValue = HtmlEncode($this->idd_user->CurrentValue);
+                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+            }
 
             // Add refer script
 
@@ -2164,6 +2179,18 @@ class ApbkAdd extends Apbk
     protected function addRow($rsold = null)
     {
         global $Language, $Security;
+
+        // Check if valid User ID
+        $validUser = false;
+        if ($Security->currentUserID() != "" && !EmptyValue($this->idd_user->CurrentValue) && !$Security->isAdmin()) { // Non system admin
+            $validUser = $Security->isValidUserID($this->idd_user->CurrentValue);
+            if (!$validUser) {
+                $userIdMsg = str_replace("%c", CurrentUserID(), $Language->phrase("UnAuthorizedUserID"));
+                $userIdMsg = str_replace("%u", $this->idd_user->CurrentValue, $userIdMsg);
+                $this->setFailureMessage($userIdMsg);
+                return false;
+            }
+        }
         $conn = $this->getConnection();
 
         // Load db values from rsold
@@ -2302,6 +2329,16 @@ class ApbkAdd extends Apbk
             WriteJson(["success" => true, $this->TableVar => $row]);
         }
         return $addRow;
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb

@@ -575,7 +575,7 @@ class UsersList extends Users
         $this->_password->Visible = false;
         $this->_email->setVisibility();
         $this->photo->setVisibility();
-        $this->level->setVisibility();
+        $this->level->Visible = false;
         $this->hideFieldsForAddEdit();
 
         // Global Page Loading event (in userfn*.php)
@@ -1137,7 +1137,6 @@ class UsersList extends Users
             $this->updateSort($this->_username); // username
             $this->updateSort($this->_email); // email
             $this->updateSort($this->photo); // photo
-            $this->updateSort($this->level); // level
             $this->setStartRecordNumber(1); // Reset start position
         }
     }
@@ -1753,11 +1752,6 @@ class UsersList extends Users
                 $this->photo->LinkAttrs["data-rel"] = "users_x" . $this->RowCount . "_photo";
                 $this->photo->LinkAttrs->appendClass("ew-lightbox");
             }
-
-            // level
-            $this->level->LinkCustomAttributes = "";
-            $this->level->HrefValue = "";
-            $this->level->TooltipValue = "";
         }
 
         // Call Row Rendered event

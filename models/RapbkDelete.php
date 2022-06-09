@@ -422,7 +422,7 @@ class RapbkDelete extends Rapbk
         // Set up lookup cache
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
-        $this->setupLookupOptions($this->file_13);
+        $this->setupLookupOptions($this->tahun_anggaran);
         $this->setupLookupOptions($this->idd_user);
 
         // Set up Breadcrumb
@@ -438,6 +438,25 @@ class RapbkDelete extends Rapbk
 
         // Set up filter (WHERE Clause)
         $this->CurrentFilter = $filter;
+
+        // Check if valid User ID
+        $conn = $this->getConnection();
+        $sql = $this->getSql($this->CurrentFilter);
+        $rows = $conn->fetchAll($sql);
+        $res = true;
+        foreach ($rows as $row) {
+            $this->loadRowValues($row);
+            if (!$this->showOptionLink("delete")) {
+                $userIdMsg = $Language->phrase("NoDeletePermission");
+                $this->setFailureMessage($userIdMsg);
+                $res = false;
+                break;
+            }
+        }
+        if (!$res) {
+            $this->terminate("rapbklist"); // Return to list
+            return;
+        }
 
         // Get action
         if (IsApi()) {
@@ -602,7 +621,8 @@ class RapbkDelete extends Rapbk
         $this->file_11->setDbValue($this->file_11->Upload->DbValue);
         $this->file_12->Upload->DbValue = $row['file_12'];
         $this->file_12->setDbValue($this->file_12->Upload->DbValue);
-        $this->file_13->setDbValue($row['file_13']);
+        $this->file_13->Upload->DbValue = $row['file_13'];
+        $this->file_13->setDbValue($this->file_13->Upload->DbValue);
         $this->file_14->Upload->DbValue = $row['file_14'];
         $this->file_14->setDbValue($this->file_14->Upload->DbValue);
         $this->file_15->Upload->DbValue = $row['file_15'];
@@ -796,7 +816,24 @@ class RapbkDelete extends Rapbk
             $this->idd_tahapan->ViewCustomAttributes = "";
 
             // tahun_anggaran
-            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+            if ($curVal != "") {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+                if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                    $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                    } else {
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                    }
+                }
+            } else {
+                $this->tahun_anggaran->ViewValue = null;
+            }
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
             // idd_wilayah
@@ -901,23 +938,10 @@ class RapbkDelete extends Rapbk
             $this->file_12->ViewCustomAttributes = "";
 
             // file_13
-            $curVal = trim(strval($this->file_13->CurrentValue));
-            if ($curVal != "") {
-                $this->file_13->ViewValue = $this->file_13->lookupCacheOption($curVal);
-                if ($this->file_13->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
-                    $sqlWrk = $this->file_13->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->file_13->Lookup->renderViewRow($rswrk[0]);
-                        $this->file_13->ViewValue = $this->file_13->displayValue($arwrk);
-                    } else {
-                        $this->file_13->ViewValue = $this->file_13->CurrentValue;
-                    }
-                }
+            if (!EmptyValue($this->file_13->Upload->DbValue)) {
+                $this->file_13->ViewValue = $this->file_13->Upload->DbValue;
             } else {
-                $this->file_13->ViewValue = null;
+                $this->file_13->ViewValue = "";
             }
             $this->file_13->ViewCustomAttributes = "";
 
@@ -1010,8 +1034,11 @@ class RapbkDelete extends Rapbk
             $this->file_24->ViewCustomAttributes = "";
 
             // status
-            $this->status->ViewValue = $this->status->CurrentValue;
-            $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+            if (strval($this->status->CurrentValue) != "") {
+                $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+            } else {
+                $this->status->ViewValue = null;
+            }
             $this->status->ViewCustomAttributes = "";
 
             // idd_user
@@ -1140,6 +1167,7 @@ class RapbkDelete extends Rapbk
             // file_13
             $this->file_13->LinkCustomAttributes = "";
             $this->file_13->HrefValue = "";
+            $this->file_13->ExportHrefValue = $this->file_13->UploadPath . $this->file_13->Upload->DbValue;
             $this->file_13->TooltipValue = "";
 
             // file_14
@@ -1308,6 +1336,16 @@ class RapbkDelete extends Rapbk
         return $deleteRows;
     }
 
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
+    }
+
     // Set up Breadcrumb
     protected function setupBreadcrumb()
     {
@@ -1336,7 +1374,9 @@ class RapbkDelete extends Rapbk
                     break;
                 case "x_idd_tahapan":
                     break;
-                case "x_file_13":
+                case "x_tahun_anggaran":
+                    break;
+                case "x_status":
                     break;
                 case "x_idd_user":
                     break;

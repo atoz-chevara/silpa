@@ -240,7 +240,12 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
         <td data-name="no_telepon" <?= $Page->no_telepon->cellAttributes() ?>>
 <span id="el<?= $Page->RowCount ?>_evaluators_no_telepon">
 <span<?= $Page->no_telepon->viewAttributes() ?>>
-<?= $Page->no_telepon->getViewValue() ?></span>
+<?php if (!EmptyString($Page->no_telepon->getViewValue()) && $Page->no_telepon->linkAttributes() != "") { ?>
+<a<?= $Page->no_telepon->linkAttributes() ?>><?= $Page->no_telepon->getViewValue() ?></a>
+<?php } else { ?>
+<?= $Page->no_telepon->getViewValue() ?>
+<?php } ?>
+</span>
 </span>
 </td>
     <?php } ?>

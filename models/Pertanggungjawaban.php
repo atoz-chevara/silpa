@@ -30,34 +30,25 @@ class Pertanggungjawaban extends DbTable
     // Fields
     public $idd_evaluasi;
     public $tanggal;
+    public $idd_wilayah;
     public $kd_satker;
     public $idd_tahapan;
     public $tahun_anggaran;
-    public $idd_wilayah;
-    public $file_01;
-    public $file_02;
-    public $file_03;
-    public $file_04;
-    public $file_05;
-    public $file_06;
-    public $file_07;
-    public $file_08;
-    public $file_09;
-    public $file_10;
-    public $file_11;
-    public $file_12;
-    public $file_13;
-    public $file_14;
-    public $file_15;
-    public $file_16;
-    public $file_17;
-    public $file_18;
-    public $file_19;
-    public $file_20;
-    public $file_21;
-    public $file_22;
-    public $file_23;
-    public $file_24;
+    public $surat_pengantar;
+    public $skd_rqanunpert;
+    public $rq_apbkpert;
+    public $bap_apbkpert;
+    public $risalah_sidang;
+    public $absen_peserta;
+    public $neraca;
+    public $lra;
+    public $calk;
+    public $lo;
+    public $lpe;
+    public $lpsal;
+    public $lak;
+    public $laporan_pemeriksaan;
+    public $softcopy_rqanun;
     public $status;
     public $idd_user;
 
@@ -93,7 +84,6 @@ class Pertanggungjawaban extends DbTable
         $this->ShowMultipleDetails = false; // Show multiple details
         $this->GridAddRowCount = 5;
         $this->AllowAddDeleteRow = true; // Allow add/delete row
-        $this->UserIDAllowSecurity = Config("DEFAULT_USER_ID_ALLOW_SECURITY"); // Default User ID allowed permissions
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // idd_evaluasi
@@ -114,246 +104,205 @@ class Pertanggungjawaban extends DbTable
         $this->tanggal->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tanggal->Param, "CustomMsg");
         $this->Fields['tanggal'] = &$this->tanggal;
 
+        // idd_wilayah
+        $this->idd_wilayah = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_wilayah', 'idd_wilayah', '`idd_wilayah`', '`idd_wilayah`', 3, 100, -1, false, '`idd_wilayah`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->idd_wilayah->Nullable = false; // NOT NULL field
+        $this->idd_wilayah->Required = true; // Required field
+        $this->idd_wilayah->Sortable = true; // Allow sort
+        $this->idd_wilayah->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->idd_wilayah->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->idd_wilayah->Lookup = new Lookup('idd_wilayah', 'wilayah', false, 'idd_wilayah', ["nama_wilayah","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->idd_wilayah->Lookup = new Lookup('idd_wilayah', 'wilayah', false, 'idd_wilayah', ["nama_wilayah","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
+        $this->idd_wilayah->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
+        $this->idd_wilayah->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_wilayah->Param, "CustomMsg");
+        $this->Fields['idd_wilayah'] = &$this->idd_wilayah;
+
         // kd_satker
-        $this->kd_satker = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_kd_satker', 'kd_satker', '`kd_satker`', '`kd_satker`', 200, 100, -1, false, '`kd_satker`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->kd_satker = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_kd_satker', 'kd_satker', '`kd_satker`', '`kd_satker`', 200, 100, -1, false, '`kd_satker`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->kd_satker->Nullable = false; // NOT NULL field
         $this->kd_satker->Required = true; // Required field
         $this->kd_satker->Sortable = true; // Allow sort
+        $this->kd_satker->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->kd_satker->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->kd_satker->Lookup = new Lookup('kd_satker', 'satkers', false, 'kode_pemda', ["nama_satker","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->kd_satker->Lookup = new Lookup('kd_satker', 'satkers', false, 'kode_pemda', ["nama_satker","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
         $this->kd_satker->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->kd_satker->Param, "CustomMsg");
         $this->Fields['kd_satker'] = &$this->kd_satker;
 
         // idd_tahapan
-        $this->idd_tahapan = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_tahapan', 'idd_tahapan', '`idd_tahapan`', '`idd_tahapan`', 3, 100, -1, false, '`idd_tahapan`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->idd_tahapan = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_tahapan', 'idd_tahapan', '`idd_tahapan`', '`idd_tahapan`', 3, 100, -1, false, '`idd_tahapan`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->idd_tahapan->Nullable = false; // NOT NULL field
         $this->idd_tahapan->Required = true; // Required field
         $this->idd_tahapan->Sortable = true; // Allow sort
+        $this->idd_tahapan->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->idd_tahapan->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->idd_tahapan->Lookup = new Lookup('idd_tahapan', 'tahapan', false, 'idd_tahapan', ["nama_tahapan","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->idd_tahapan->Lookup = new Lookup('idd_tahapan', 'tahapan', false, 'idd_tahapan', ["nama_tahapan","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
         $this->idd_tahapan->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
         $this->idd_tahapan->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_tahapan->Param, "CustomMsg");
         $this->Fields['idd_tahapan'] = &$this->idd_tahapan;
 
         // tahun_anggaran
-        $this->tahun_anggaran = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->tahun_anggaran = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->tahun_anggaran->Nullable = false; // NOT NULL field
         $this->tahun_anggaran->Required = true; // Required field
         $this->tahun_anggaran->Sortable = true; // Allow sort
+        $this->tahun_anggaran->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->tahun_anggaran->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->tahun_anggaran->Lookup = new Lookup('tahun_anggaran', 'tahun', false, 'id_tahun', ["tahun","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->tahun_anggaran->Lookup = new Lookup('tahun_anggaran', 'tahun', false, 'id_tahun', ["tahun","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
         $this->tahun_anggaran->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tahun_anggaran->Param, "CustomMsg");
         $this->Fields['tahun_anggaran'] = &$this->tahun_anggaran;
 
-        // idd_wilayah
-        $this->idd_wilayah = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_wilayah', 'idd_wilayah', '`idd_wilayah`', '`idd_wilayah`', 3, 100, -1, false, '`idd_wilayah`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->idd_wilayah->Nullable = false; // NOT NULL field
-        $this->idd_wilayah->Required = true; // Required field
-        $this->idd_wilayah->Sortable = true; // Allow sort
-        $this->idd_wilayah->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
-        $this->idd_wilayah->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_wilayah->Param, "CustomMsg");
-        $this->Fields['idd_wilayah'] = &$this->idd_wilayah;
+        // surat_pengantar
+        $this->surat_pengantar = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_surat_pengantar', 'surat_pengantar', '`surat_pengantar`', '`surat_pengantar`', 200, 200, -1, true, '`surat_pengantar`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->surat_pengantar->Sortable = true; // Allow sort
+        $this->surat_pengantar->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->surat_pengantar->Param, "CustomMsg");
+        $this->Fields['surat_pengantar'] = &$this->surat_pengantar;
 
-        // file_01
-        $this->file_01 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_01', 'file_01', '`file_01`', '`file_01`', 200, 200, -1, false, '`file_01`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_01->Nullable = false; // NOT NULL field
-        $this->file_01->Required = true; // Required field
-        $this->file_01->Sortable = true; // Allow sort
-        $this->file_01->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_01->Param, "CustomMsg");
-        $this->Fields['file_01'] = &$this->file_01;
+        // skd_rqanunpert
+        $this->skd_rqanunpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_skd_rqanunpert', 'skd_rqanunpert', '`skd_rqanunpert`', '`skd_rqanunpert`', 200, 200, -1, true, '`skd_rqanunpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->skd_rqanunpert->Sortable = true; // Allow sort
+        $this->skd_rqanunpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->skd_rqanunpert->Param, "CustomMsg");
+        $this->Fields['skd_rqanunpert'] = &$this->skd_rqanunpert;
 
-        // file_02
-        $this->file_02 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_02', 'file_02', '`file_02`', '`file_02`', 200, 200, -1, false, '`file_02`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_02->Nullable = false; // NOT NULL field
-        $this->file_02->Required = true; // Required field
-        $this->file_02->Sortable = true; // Allow sort
-        $this->file_02->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_02->Param, "CustomMsg");
-        $this->Fields['file_02'] = &$this->file_02;
+        // rq_apbkpert
+        $this->rq_apbkpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_rq_apbkpert', 'rq_apbkpert', '`rq_apbkpert`', '`rq_apbkpert`', 200, 200, -1, true, '`rq_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->rq_apbkpert->Sortable = true; // Allow sort
+        $this->rq_apbkpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->rq_apbkpert->Param, "CustomMsg");
+        $this->Fields['rq_apbkpert'] = &$this->rq_apbkpert;
 
-        // file_03
-        $this->file_03 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_03', 'file_03', '`file_03`', '`file_03`', 200, 200, -1, false, '`file_03`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_03->Nullable = false; // NOT NULL field
-        $this->file_03->Required = true; // Required field
-        $this->file_03->Sortable = true; // Allow sort
-        $this->file_03->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_03->Param, "CustomMsg");
-        $this->Fields['file_03'] = &$this->file_03;
+        // bap_apbkpert
+        $this->bap_apbkpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_bap_apbkpert', 'bap_apbkpert', '`bap_apbkpert`', '`bap_apbkpert`', 200, 200, -1, true, '`bap_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->bap_apbkpert->Sortable = true; // Allow sort
+        $this->bap_apbkpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->bap_apbkpert->Param, "CustomMsg");
+        $this->Fields['bap_apbkpert'] = &$this->bap_apbkpert;
 
-        // file_04
-        $this->file_04 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_04', 'file_04', '`file_04`', '`file_04`', 200, 200, -1, false, '`file_04`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_04->Nullable = false; // NOT NULL field
-        $this->file_04->Required = true; // Required field
-        $this->file_04->Sortable = true; // Allow sort
-        $this->file_04->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_04->Param, "CustomMsg");
-        $this->Fields['file_04'] = &$this->file_04;
+        // risalah_sidang
+        $this->risalah_sidang = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_risalah_sidang', 'risalah_sidang', '`risalah_sidang`', '`risalah_sidang`', 200, 200, -1, true, '`risalah_sidang`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->risalah_sidang->Sortable = true; // Allow sort
+        $this->risalah_sidang->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->risalah_sidang->Param, "CustomMsg");
+        $this->Fields['risalah_sidang'] = &$this->risalah_sidang;
 
-        // file_05
-        $this->file_05 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_05', 'file_05', '`file_05`', '`file_05`', 200, 200, -1, false, '`file_05`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_05->Nullable = false; // NOT NULL field
-        $this->file_05->Required = true; // Required field
-        $this->file_05->Sortable = true; // Allow sort
-        $this->file_05->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_05->Param, "CustomMsg");
-        $this->Fields['file_05'] = &$this->file_05;
+        // absen_peserta
+        $this->absen_peserta = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_absen_peserta', 'absen_peserta', '`absen_peserta`', '`absen_peserta`', 200, 200, -1, true, '`absen_peserta`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->absen_peserta->Sortable = true; // Allow sort
+        $this->absen_peserta->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->absen_peserta->Param, "CustomMsg");
+        $this->Fields['absen_peserta'] = &$this->absen_peserta;
 
-        // file_06
-        $this->file_06 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_06', 'file_06', '`file_06`', '`file_06`', 200, 200, -1, false, '`file_06`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_06->Nullable = false; // NOT NULL field
-        $this->file_06->Required = true; // Required field
-        $this->file_06->Sortable = true; // Allow sort
-        $this->file_06->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_06->Param, "CustomMsg");
-        $this->Fields['file_06'] = &$this->file_06;
+        // neraca
+        $this->neraca = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_neraca', 'neraca', '`neraca`', '`neraca`', 200, 200, -1, true, '`neraca`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->neraca->Sortable = true; // Allow sort
+        $this->neraca->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->neraca->Param, "CustomMsg");
+        $this->Fields['neraca'] = &$this->neraca;
 
-        // file_07
-        $this->file_07 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_07', 'file_07', '`file_07`', '`file_07`', 200, 200, -1, false, '`file_07`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_07->Nullable = false; // NOT NULL field
-        $this->file_07->Required = true; // Required field
-        $this->file_07->Sortable = true; // Allow sort
-        $this->file_07->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_07->Param, "CustomMsg");
-        $this->Fields['file_07'] = &$this->file_07;
+        // lra
+        $this->lra = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lra', 'lra', '`lra`', '`lra`', 200, 200, -1, true, '`lra`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lra->Sortable = true; // Allow sort
+        $this->lra->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lra->Param, "CustomMsg");
+        $this->Fields['lra'] = &$this->lra;
 
-        // file_08
-        $this->file_08 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_08', 'file_08', '`file_08`', '`file_08`', 200, 200, -1, false, '`file_08`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_08->Nullable = false; // NOT NULL field
-        $this->file_08->Required = true; // Required field
-        $this->file_08->Sortable = true; // Allow sort
-        $this->file_08->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_08->Param, "CustomMsg");
-        $this->Fields['file_08'] = &$this->file_08;
+        // calk
+        $this->calk = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_calk', 'calk', '`calk`', '`calk`', 200, 200, -1, true, '`calk`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->calk->Sortable = true; // Allow sort
+        $this->calk->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->calk->Param, "CustomMsg");
+        $this->Fields['calk'] = &$this->calk;
 
-        // file_09
-        $this->file_09 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_09', 'file_09', '`file_09`', '`file_09`', 200, 200, -1, false, '`file_09`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_09->Nullable = false; // NOT NULL field
-        $this->file_09->Required = true; // Required field
-        $this->file_09->Sortable = true; // Allow sort
-        $this->file_09->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_09->Param, "CustomMsg");
-        $this->Fields['file_09'] = &$this->file_09;
+        // lo
+        $this->lo = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lo', 'lo', '`lo`', '`lo`', 200, 200, -1, true, '`lo`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lo->Sortable = true; // Allow sort
+        $this->lo->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lo->Param, "CustomMsg");
+        $this->Fields['lo'] = &$this->lo;
 
-        // file_10
-        $this->file_10 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_10', 'file_10', '`file_10`', '`file_10`', 200, 200, -1, false, '`file_10`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_10->Nullable = false; // NOT NULL field
-        $this->file_10->Required = true; // Required field
-        $this->file_10->Sortable = true; // Allow sort
-        $this->file_10->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_10->Param, "CustomMsg");
-        $this->Fields['file_10'] = &$this->file_10;
+        // lpe
+        $this->lpe = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lpe', 'lpe', '`lpe`', '`lpe`', 200, 200, -1, true, '`lpe`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lpe->Sortable = true; // Allow sort
+        $this->lpe->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lpe->Param, "CustomMsg");
+        $this->Fields['lpe'] = &$this->lpe;
 
-        // file_11
-        $this->file_11 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_11', 'file_11', '`file_11`', '`file_11`', 200, 200, -1, false, '`file_11`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_11->Nullable = false; // NOT NULL field
-        $this->file_11->Required = true; // Required field
-        $this->file_11->Sortable = true; // Allow sort
-        $this->file_11->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_11->Param, "CustomMsg");
-        $this->Fields['file_11'] = &$this->file_11;
+        // lpsal
+        $this->lpsal = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lpsal', 'lpsal', '`lpsal`', '`lpsal`', 200, 200, -1, true, '`lpsal`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lpsal->Sortable = true; // Allow sort
+        $this->lpsal->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lpsal->Param, "CustomMsg");
+        $this->Fields['lpsal'] = &$this->lpsal;
 
-        // file_12
-        $this->file_12 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_12', 'file_12', '`file_12`', '`file_12`', 200, 200, -1, false, '`file_12`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_12->Nullable = false; // NOT NULL field
-        $this->file_12->Required = true; // Required field
-        $this->file_12->Sortable = true; // Allow sort
-        $this->file_12->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_12->Param, "CustomMsg");
-        $this->Fields['file_12'] = &$this->file_12;
+        // lak
+        $this->lak = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lak', 'lak', '`lak`', '`lak`', 200, 200, -1, true, '`lak`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lak->Sortable = true; // Allow sort
+        $this->lak->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lak->Param, "CustomMsg");
+        $this->Fields['lak'] = &$this->lak;
 
-        // file_13
-        $this->file_13 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_13', 'file_13', '`file_13`', '`file_13`', 200, 200, -1, false, '`file_13`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_13->Nullable = false; // NOT NULL field
-        $this->file_13->Required = true; // Required field
-        $this->file_13->Sortable = true; // Allow sort
-        $this->file_13->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_13->Param, "CustomMsg");
-        $this->Fields['file_13'] = &$this->file_13;
+        // laporan_pemeriksaan
+        $this->laporan_pemeriksaan = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_laporan_pemeriksaan', 'laporan_pemeriksaan', '`laporan_pemeriksaan`', '`laporan_pemeriksaan`', 200, 200, -1, true, '`laporan_pemeriksaan`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->laporan_pemeriksaan->Sortable = true; // Allow sort
+        $this->laporan_pemeriksaan->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->laporan_pemeriksaan->Param, "CustomMsg");
+        $this->Fields['laporan_pemeriksaan'] = &$this->laporan_pemeriksaan;
 
-        // file_14
-        $this->file_14 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_14', 'file_14', '`file_14`', '`file_14`', 200, 200, -1, false, '`file_14`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_14->Nullable = false; // NOT NULL field
-        $this->file_14->Required = true; // Required field
-        $this->file_14->Sortable = true; // Allow sort
-        $this->file_14->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_14->Param, "CustomMsg");
-        $this->Fields['file_14'] = &$this->file_14;
-
-        // file_15
-        $this->file_15 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_15', 'file_15', '`file_15`', '`file_15`', 200, 200, -1, false, '`file_15`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_15->Nullable = false; // NOT NULL field
-        $this->file_15->Required = true; // Required field
-        $this->file_15->Sortable = true; // Allow sort
-        $this->file_15->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_15->Param, "CustomMsg");
-        $this->Fields['file_15'] = &$this->file_15;
-
-        // file_16
-        $this->file_16 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_16', 'file_16', '`file_16`', '`file_16`', 200, 200, -1, false, '`file_16`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_16->Nullable = false; // NOT NULL field
-        $this->file_16->Required = true; // Required field
-        $this->file_16->Sortable = true; // Allow sort
-        $this->file_16->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_16->Param, "CustomMsg");
-        $this->Fields['file_16'] = &$this->file_16;
-
-        // file_17
-        $this->file_17 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_17', 'file_17', '`file_17`', '`file_17`', 200, 200, -1, false, '`file_17`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_17->Nullable = false; // NOT NULL field
-        $this->file_17->Required = true; // Required field
-        $this->file_17->Sortable = true; // Allow sort
-        $this->file_17->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_17->Param, "CustomMsg");
-        $this->Fields['file_17'] = &$this->file_17;
-
-        // file_18
-        $this->file_18 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_18', 'file_18', '`file_18`', '`file_18`', 200, 200, -1, false, '`file_18`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_18->Nullable = false; // NOT NULL field
-        $this->file_18->Required = true; // Required field
-        $this->file_18->Sortable = true; // Allow sort
-        $this->file_18->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_18->Param, "CustomMsg");
-        $this->Fields['file_18'] = &$this->file_18;
-
-        // file_19
-        $this->file_19 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_19', 'file_19', '`file_19`', '`file_19`', 200, 200, -1, false, '`file_19`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_19->Nullable = false; // NOT NULL field
-        $this->file_19->Required = true; // Required field
-        $this->file_19->Sortable = true; // Allow sort
-        $this->file_19->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_19->Param, "CustomMsg");
-        $this->Fields['file_19'] = &$this->file_19;
-
-        // file_20
-        $this->file_20 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_20', 'file_20', '`file_20`', '`file_20`', 200, 200, -1, false, '`file_20`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_20->Nullable = false; // NOT NULL field
-        $this->file_20->Required = true; // Required field
-        $this->file_20->Sortable = true; // Allow sort
-        $this->file_20->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_20->Param, "CustomMsg");
-        $this->Fields['file_20'] = &$this->file_20;
-
-        // file_21
-        $this->file_21 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_21', 'file_21', '`file_21`', '`file_21`', 200, 200, -1, false, '`file_21`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_21->Nullable = false; // NOT NULL field
-        $this->file_21->Required = true; // Required field
-        $this->file_21->Sortable = true; // Allow sort
-        $this->file_21->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_21->Param, "CustomMsg");
-        $this->Fields['file_21'] = &$this->file_21;
-
-        // file_22
-        $this->file_22 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_22', 'file_22', '`file_22`', '`file_22`', 200, 200, -1, false, '`file_22`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_22->Nullable = false; // NOT NULL field
-        $this->file_22->Required = true; // Required field
-        $this->file_22->Sortable = true; // Allow sort
-        $this->file_22->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_22->Param, "CustomMsg");
-        $this->Fields['file_22'] = &$this->file_22;
-
-        // file_23
-        $this->file_23 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_23', 'file_23', '`file_23`', '`file_23`', 200, 200, -1, false, '`file_23`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_23->Nullable = false; // NOT NULL field
-        $this->file_23->Required = true; // Required field
-        $this->file_23->Sortable = true; // Allow sort
-        $this->file_23->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_23->Param, "CustomMsg");
-        $this->Fields['file_23'] = &$this->file_23;
-
-        // file_24
-        $this->file_24 = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_file_24', 'file_24', '`file_24`', '`file_24`', 200, 200, -1, false, '`file_24`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->file_24->Nullable = false; // NOT NULL field
-        $this->file_24->Required = true; // Required field
-        $this->file_24->Sortable = true; // Allow sort
-        $this->file_24->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_24->Param, "CustomMsg");
-        $this->Fields['file_24'] = &$this->file_24;
+        // softcopy_rqanun
+        $this->softcopy_rqanun = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_softcopy_rqanun', 'softcopy_rqanun', '`softcopy_rqanun`', '`softcopy_rqanun`', 200, 200, -1, true, '`softcopy_rqanun`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->softcopy_rqanun->Sortable = true; // Allow sort
+        $this->softcopy_rqanun->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->softcopy_rqanun->Param, "CustomMsg");
+        $this->Fields['softcopy_rqanun'] = &$this->softcopy_rqanun;
 
         // status
-        $this->status = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->status = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->status->Nullable = false; // NOT NULL field
         $this->status->Required = true; // Required field
         $this->status->Sortable = true; // Allow sort
+        $this->status->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->status->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
+        $this->status->OptionCount = 3;
         $this->status->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
         $this->status->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->status->Param, "CustomMsg");
         $this->Fields['status'] = &$this->status;
 
         // idd_user
-        $this->idd_user = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_user', 'idd_user', '`idd_user`', '`idd_user`', 3, 100, -1, false, '`idd_user`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->idd_user = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_user', 'idd_user', '`idd_user`', '`idd_user`', 3, 100, -1, false, '`idd_user`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->idd_user->Nullable = false; // NOT NULL field
         $this->idd_user->Required = true; // Required field
         $this->idd_user->Sortable = true; // Allow sort
+        $this->idd_user->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->idd_user->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->idd_user->Lookup = new Lookup('idd_user', 'users', false, 'idd_user', ["username","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->idd_user->Lookup = new Lookup('idd_user', 'users', false, 'idd_user', ["username","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
         $this->idd_user->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
         $this->idd_user->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_user->Param, "CustomMsg");
         $this->Fields['idd_user'] = &$this->idd_user;
@@ -493,6 +442,11 @@ class Pertanggungjawaban extends DbTable
     // Apply User ID filters
     public function applyUserIDFilters($filter)
     {
+        global $Security;
+        // Add User ID filter
+        if ($Security->currentUserID() != "" && !$Security->isAdmin()) { // Non system admin
+            $filter = $this->addUserIDFilter($filter);
+        }
         return $filter;
     }
 
@@ -772,34 +726,25 @@ class Pertanggungjawaban extends DbTable
         }
         $this->idd_evaluasi->DbValue = $row['idd_evaluasi'];
         $this->tanggal->DbValue = $row['tanggal'];
+        $this->idd_wilayah->DbValue = $row['idd_wilayah'];
         $this->kd_satker->DbValue = $row['kd_satker'];
         $this->idd_tahapan->DbValue = $row['idd_tahapan'];
         $this->tahun_anggaran->DbValue = $row['tahun_anggaran'];
-        $this->idd_wilayah->DbValue = $row['idd_wilayah'];
-        $this->file_01->DbValue = $row['file_01'];
-        $this->file_02->DbValue = $row['file_02'];
-        $this->file_03->DbValue = $row['file_03'];
-        $this->file_04->DbValue = $row['file_04'];
-        $this->file_05->DbValue = $row['file_05'];
-        $this->file_06->DbValue = $row['file_06'];
-        $this->file_07->DbValue = $row['file_07'];
-        $this->file_08->DbValue = $row['file_08'];
-        $this->file_09->DbValue = $row['file_09'];
-        $this->file_10->DbValue = $row['file_10'];
-        $this->file_11->DbValue = $row['file_11'];
-        $this->file_12->DbValue = $row['file_12'];
-        $this->file_13->DbValue = $row['file_13'];
-        $this->file_14->DbValue = $row['file_14'];
-        $this->file_15->DbValue = $row['file_15'];
-        $this->file_16->DbValue = $row['file_16'];
-        $this->file_17->DbValue = $row['file_17'];
-        $this->file_18->DbValue = $row['file_18'];
-        $this->file_19->DbValue = $row['file_19'];
-        $this->file_20->DbValue = $row['file_20'];
-        $this->file_21->DbValue = $row['file_21'];
-        $this->file_22->DbValue = $row['file_22'];
-        $this->file_23->DbValue = $row['file_23'];
-        $this->file_24->DbValue = $row['file_24'];
+        $this->surat_pengantar->Upload->DbValue = $row['surat_pengantar'];
+        $this->skd_rqanunpert->Upload->DbValue = $row['skd_rqanunpert'];
+        $this->rq_apbkpert->Upload->DbValue = $row['rq_apbkpert'];
+        $this->bap_apbkpert->Upload->DbValue = $row['bap_apbkpert'];
+        $this->risalah_sidang->Upload->DbValue = $row['risalah_sidang'];
+        $this->absen_peserta->Upload->DbValue = $row['absen_peserta'];
+        $this->neraca->Upload->DbValue = $row['neraca'];
+        $this->lra->Upload->DbValue = $row['lra'];
+        $this->calk->Upload->DbValue = $row['calk'];
+        $this->lo->Upload->DbValue = $row['lo'];
+        $this->lpe->Upload->DbValue = $row['lpe'];
+        $this->lpsal->Upload->DbValue = $row['lpsal'];
+        $this->lak->Upload->DbValue = $row['lak'];
+        $this->laporan_pemeriksaan->Upload->DbValue = $row['laporan_pemeriksaan'];
+        $this->softcopy_rqanun->Upload->DbValue = $row['softcopy_rqanun'];
         $this->status->DbValue = $row['status'];
         $this->idd_user->DbValue = $row['idd_user'];
     }
@@ -808,6 +753,96 @@ class Pertanggungjawaban extends DbTable
     public function deleteUploadedFiles($row)
     {
         $this->loadDbValues($row);
+        $oldFiles = EmptyValue($row['surat_pengantar']) ? [] : [$row['surat_pengantar']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->surat_pengantar->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->surat_pengantar->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['skd_rqanunpert']) ? [] : [$row['skd_rqanunpert']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->skd_rqanunpert->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->skd_rqanunpert->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['rq_apbkpert']) ? [] : [$row['rq_apbkpert']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->rq_apbkpert->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->rq_apbkpert->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['bap_apbkpert']) ? [] : [$row['bap_apbkpert']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->bap_apbkpert->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->bap_apbkpert->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['risalah_sidang']) ? [] : [$row['risalah_sidang']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->risalah_sidang->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->risalah_sidang->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['absen_peserta']) ? [] : [$row['absen_peserta']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->absen_peserta->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->absen_peserta->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['neraca']) ? [] : [$row['neraca']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->neraca->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->neraca->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['lra']) ? [] : [$row['lra']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->lra->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->lra->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['calk']) ? [] : [$row['calk']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->calk->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->calk->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['lo']) ? [] : [$row['lo']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->lo->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->lo->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['lpe']) ? [] : [$row['lpe']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->lpe->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->lpe->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['lpsal']) ? [] : [$row['lpsal']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->lpsal->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->lpsal->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['lak']) ? [] : [$row['lak']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->lak->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->lak->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['laporan_pemeriksaan']) ? [] : [$row['laporan_pemeriksaan']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->laporan_pemeriksaan->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->laporan_pemeriksaan->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['softcopy_rqanun']) ? [] : [$row['softcopy_rqanun']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->softcopy_rqanun->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->softcopy_rqanun->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
     }
 
     // Record filter WHERE clause
@@ -1124,34 +1159,40 @@ SORTHTML;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
+        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
-        $this->file_01->setDbValue($row['file_01']);
-        $this->file_02->setDbValue($row['file_02']);
-        $this->file_03->setDbValue($row['file_03']);
-        $this->file_04->setDbValue($row['file_04']);
-        $this->file_05->setDbValue($row['file_05']);
-        $this->file_06->setDbValue($row['file_06']);
-        $this->file_07->setDbValue($row['file_07']);
-        $this->file_08->setDbValue($row['file_08']);
-        $this->file_09->setDbValue($row['file_09']);
-        $this->file_10->setDbValue($row['file_10']);
-        $this->file_11->setDbValue($row['file_11']);
-        $this->file_12->setDbValue($row['file_12']);
-        $this->file_13->setDbValue($row['file_13']);
-        $this->file_14->setDbValue($row['file_14']);
-        $this->file_15->setDbValue($row['file_15']);
-        $this->file_16->setDbValue($row['file_16']);
-        $this->file_17->setDbValue($row['file_17']);
-        $this->file_18->setDbValue($row['file_18']);
-        $this->file_19->setDbValue($row['file_19']);
-        $this->file_20->setDbValue($row['file_20']);
-        $this->file_21->setDbValue($row['file_21']);
-        $this->file_22->setDbValue($row['file_22']);
-        $this->file_23->setDbValue($row['file_23']);
-        $this->file_24->setDbValue($row['file_24']);
+        $this->surat_pengantar->Upload->DbValue = $row['surat_pengantar'];
+        $this->surat_pengantar->setDbValue($this->surat_pengantar->Upload->DbValue);
+        $this->skd_rqanunpert->Upload->DbValue = $row['skd_rqanunpert'];
+        $this->skd_rqanunpert->setDbValue($this->skd_rqanunpert->Upload->DbValue);
+        $this->rq_apbkpert->Upload->DbValue = $row['rq_apbkpert'];
+        $this->rq_apbkpert->setDbValue($this->rq_apbkpert->Upload->DbValue);
+        $this->bap_apbkpert->Upload->DbValue = $row['bap_apbkpert'];
+        $this->bap_apbkpert->setDbValue($this->bap_apbkpert->Upload->DbValue);
+        $this->risalah_sidang->Upload->DbValue = $row['risalah_sidang'];
+        $this->risalah_sidang->setDbValue($this->risalah_sidang->Upload->DbValue);
+        $this->absen_peserta->Upload->DbValue = $row['absen_peserta'];
+        $this->absen_peserta->setDbValue($this->absen_peserta->Upload->DbValue);
+        $this->neraca->Upload->DbValue = $row['neraca'];
+        $this->neraca->setDbValue($this->neraca->Upload->DbValue);
+        $this->lra->Upload->DbValue = $row['lra'];
+        $this->lra->setDbValue($this->lra->Upload->DbValue);
+        $this->calk->Upload->DbValue = $row['calk'];
+        $this->calk->setDbValue($this->calk->Upload->DbValue);
+        $this->lo->Upload->DbValue = $row['lo'];
+        $this->lo->setDbValue($this->lo->Upload->DbValue);
+        $this->lpe->Upload->DbValue = $row['lpe'];
+        $this->lpe->setDbValue($this->lpe->Upload->DbValue);
+        $this->lpsal->Upload->DbValue = $row['lpsal'];
+        $this->lpsal->setDbValue($this->lpsal->Upload->DbValue);
+        $this->lak->Upload->DbValue = $row['lak'];
+        $this->lak->setDbValue($this->lak->Upload->DbValue);
+        $this->laporan_pemeriksaan->Upload->DbValue = $row['laporan_pemeriksaan'];
+        $this->laporan_pemeriksaan->setDbValue($this->laporan_pemeriksaan->Upload->DbValue);
+        $this->softcopy_rqanun->Upload->DbValue = $row['softcopy_rqanun'];
+        $this->softcopy_rqanun->setDbValue($this->softcopy_rqanun->Upload->DbValue);
         $this->status->setDbValue($row['status']);
         $this->idd_user->setDbValue($row['idd_user']);
     }
@@ -1170,61 +1211,43 @@ SORTHTML;
 
         // tanggal
 
+        // idd_wilayah
+
         // kd_satker
 
         // idd_tahapan
 
         // tahun_anggaran
 
-        // idd_wilayah
+        // surat_pengantar
 
-        // file_01
+        // skd_rqanunpert
 
-        // file_02
+        // rq_apbkpert
 
-        // file_03
+        // bap_apbkpert
 
-        // file_04
+        // risalah_sidang
 
-        // file_05
+        // absen_peserta
 
-        // file_06
+        // neraca
 
-        // file_07
+        // lra
 
-        // file_08
+        // calk
 
-        // file_09
+        // lo
 
-        // file_10
+        // lpe
 
-        // file_11
+        // lpsal
 
-        // file_12
+        // lak
 
-        // file_13
+        // laporan_pemeriksaan
 
-        // file_14
-
-        // file_15
-
-        // file_16
-
-        // file_17
-
-        // file_18
-
-        // file_19
-
-        // file_20
-
-        // file_21
-
-        // file_22
-
-        // file_23
-
-        // file_24
+        // softcopy_rqanun
 
         // status
 
@@ -1239,128 +1262,237 @@ SORTHTML;
         $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
         $this->tanggal->ViewCustomAttributes = "";
 
+        // idd_wilayah
+        $curVal = trim(strval($this->idd_wilayah->CurrentValue));
+        if ($curVal != "") {
+            $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
+            if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
+                $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
+                    $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
+                } else {
+                    $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
+                }
+            }
+        } else {
+            $this->idd_wilayah->ViewValue = null;
+        }
+        $this->idd_wilayah->ViewCustomAttributes = "";
+
         // kd_satker
-        $this->kd_satker->ViewValue = $this->kd_satker->CurrentValue;
+        $curVal = trim(strval($this->kd_satker->CurrentValue));
+        if ($curVal != "") {
+            $this->kd_satker->ViewValue = $this->kd_satker->lookupCacheOption($curVal);
+            if ($this->kd_satker->ViewValue === null) { // Lookup from database
+                $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                $sqlWrk = $this->kd_satker->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->kd_satker->Lookup->renderViewRow($rswrk[0]);
+                    $this->kd_satker->ViewValue = $this->kd_satker->displayValue($arwrk);
+                } else {
+                    $this->kd_satker->ViewValue = $this->kd_satker->CurrentValue;
+                }
+            }
+        } else {
+            $this->kd_satker->ViewValue = null;
+        }
         $this->kd_satker->ViewCustomAttributes = "";
 
         // idd_tahapan
-        $this->idd_tahapan->ViewValue = $this->idd_tahapan->CurrentValue;
-        $this->idd_tahapan->ViewValue = FormatNumber($this->idd_tahapan->ViewValue, 0, -2, -2, -2);
+        $curVal = trim(strval($this->idd_tahapan->CurrentValue));
+        if ($curVal != "") {
+            $this->idd_tahapan->ViewValue = $this->idd_tahapan->lookupCacheOption($curVal);
+            if ($this->idd_tahapan->ViewValue === null) { // Lookup from database
+                $filterWrk = "`idd_tahapan`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                $sqlWrk = $this->idd_tahapan->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->idd_tahapan->Lookup->renderViewRow($rswrk[0]);
+                    $this->idd_tahapan->ViewValue = $this->idd_tahapan->displayValue($arwrk);
+                } else {
+                    $this->idd_tahapan->ViewValue = $this->idd_tahapan->CurrentValue;
+                }
+            }
+        } else {
+            $this->idd_tahapan->ViewValue = null;
+        }
         $this->idd_tahapan->ViewCustomAttributes = "";
 
         // tahun_anggaran
-        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+        $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+        if ($curVal != "") {
+            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+            if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                    $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                } else {
+                    $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                }
+            }
+        } else {
+            $this->tahun_anggaran->ViewValue = null;
+        }
         $this->tahun_anggaran->ViewCustomAttributes = "";
 
-        // idd_wilayah
-        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-        $this->idd_wilayah->ViewValue = FormatNumber($this->idd_wilayah->ViewValue, 0, -2, -2, -2);
-        $this->idd_wilayah->ViewCustomAttributes = "";
+        // surat_pengantar
+        if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+            $this->surat_pengantar->ViewValue = $this->surat_pengantar->Upload->DbValue;
+        } else {
+            $this->surat_pengantar->ViewValue = "";
+        }
+        $this->surat_pengantar->ViewCustomAttributes = "";
 
-        // file_01
-        $this->file_01->ViewValue = $this->file_01->CurrentValue;
-        $this->file_01->ViewCustomAttributes = "";
+        // skd_rqanunpert
+        if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
+            $this->skd_rqanunpert->ViewValue = $this->skd_rqanunpert->Upload->DbValue;
+        } else {
+            $this->skd_rqanunpert->ViewValue = "";
+        }
+        $this->skd_rqanunpert->ViewCustomAttributes = "";
 
-        // file_02
-        $this->file_02->ViewValue = $this->file_02->CurrentValue;
-        $this->file_02->ViewCustomAttributes = "";
+        // rq_apbkpert
+        if (!EmptyValue($this->rq_apbkpert->Upload->DbValue)) {
+            $this->rq_apbkpert->ViewValue = $this->rq_apbkpert->Upload->DbValue;
+        } else {
+            $this->rq_apbkpert->ViewValue = "";
+        }
+        $this->rq_apbkpert->ViewCustomAttributes = "";
 
-        // file_03
-        $this->file_03->ViewValue = $this->file_03->CurrentValue;
-        $this->file_03->ViewCustomAttributes = "";
+        // bap_apbkpert
+        if (!EmptyValue($this->bap_apbkpert->Upload->DbValue)) {
+            $this->bap_apbkpert->ViewValue = $this->bap_apbkpert->Upload->DbValue;
+        } else {
+            $this->bap_apbkpert->ViewValue = "";
+        }
+        $this->bap_apbkpert->ViewCustomAttributes = "";
 
-        // file_04
-        $this->file_04->ViewValue = $this->file_04->CurrentValue;
-        $this->file_04->ViewCustomAttributes = "";
+        // risalah_sidang
+        if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+            $this->risalah_sidang->ViewValue = $this->risalah_sidang->Upload->DbValue;
+        } else {
+            $this->risalah_sidang->ViewValue = "";
+        }
+        $this->risalah_sidang->ViewCustomAttributes = "";
 
-        // file_05
-        $this->file_05->ViewValue = $this->file_05->CurrentValue;
-        $this->file_05->ViewCustomAttributes = "";
+        // absen_peserta
+        if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
+            $this->absen_peserta->ViewValue = $this->absen_peserta->Upload->DbValue;
+        } else {
+            $this->absen_peserta->ViewValue = "";
+        }
+        $this->absen_peserta->ViewCustomAttributes = "";
 
-        // file_06
-        $this->file_06->ViewValue = $this->file_06->CurrentValue;
-        $this->file_06->ViewCustomAttributes = "";
+        // neraca
+        if (!EmptyValue($this->neraca->Upload->DbValue)) {
+            $this->neraca->ViewValue = $this->neraca->Upload->DbValue;
+        } else {
+            $this->neraca->ViewValue = "";
+        }
+        $this->neraca->ViewCustomAttributes = "";
 
-        // file_07
-        $this->file_07->ViewValue = $this->file_07->CurrentValue;
-        $this->file_07->ViewCustomAttributes = "";
+        // lra
+        if (!EmptyValue($this->lra->Upload->DbValue)) {
+            $this->lra->ViewValue = $this->lra->Upload->DbValue;
+        } else {
+            $this->lra->ViewValue = "";
+        }
+        $this->lra->ViewCustomAttributes = "";
 
-        // file_08
-        $this->file_08->ViewValue = $this->file_08->CurrentValue;
-        $this->file_08->ViewCustomAttributes = "";
+        // calk
+        if (!EmptyValue($this->calk->Upload->DbValue)) {
+            $this->calk->ViewValue = $this->calk->Upload->DbValue;
+        } else {
+            $this->calk->ViewValue = "";
+        }
+        $this->calk->ViewCustomAttributes = "";
 
-        // file_09
-        $this->file_09->ViewValue = $this->file_09->CurrentValue;
-        $this->file_09->ViewCustomAttributes = "";
+        // lo
+        if (!EmptyValue($this->lo->Upload->DbValue)) {
+            $this->lo->ViewValue = $this->lo->Upload->DbValue;
+        } else {
+            $this->lo->ViewValue = "";
+        }
+        $this->lo->ViewCustomAttributes = "";
 
-        // file_10
-        $this->file_10->ViewValue = $this->file_10->CurrentValue;
-        $this->file_10->ViewCustomAttributes = "";
+        // lpe
+        if (!EmptyValue($this->lpe->Upload->DbValue)) {
+            $this->lpe->ViewValue = $this->lpe->Upload->DbValue;
+        } else {
+            $this->lpe->ViewValue = "";
+        }
+        $this->lpe->ViewCustomAttributes = "";
 
-        // file_11
-        $this->file_11->ViewValue = $this->file_11->CurrentValue;
-        $this->file_11->ViewCustomAttributes = "";
+        // lpsal
+        if (!EmptyValue($this->lpsal->Upload->DbValue)) {
+            $this->lpsal->ViewValue = $this->lpsal->Upload->DbValue;
+        } else {
+            $this->lpsal->ViewValue = "";
+        }
+        $this->lpsal->ViewCustomAttributes = "";
 
-        // file_12
-        $this->file_12->ViewValue = $this->file_12->CurrentValue;
-        $this->file_12->ViewCustomAttributes = "";
+        // lak
+        if (!EmptyValue($this->lak->Upload->DbValue)) {
+            $this->lak->ViewValue = $this->lak->Upload->DbValue;
+        } else {
+            $this->lak->ViewValue = "";
+        }
+        $this->lak->ViewCustomAttributes = "";
 
-        // file_13
-        $this->file_13->ViewValue = $this->file_13->CurrentValue;
-        $this->file_13->ViewCustomAttributes = "";
+        // laporan_pemeriksaan
+        if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
+            $this->laporan_pemeriksaan->ViewValue = $this->laporan_pemeriksaan->Upload->DbValue;
+        } else {
+            $this->laporan_pemeriksaan->ViewValue = "";
+        }
+        $this->laporan_pemeriksaan->ViewCustomAttributes = "";
 
-        // file_14
-        $this->file_14->ViewValue = $this->file_14->CurrentValue;
-        $this->file_14->ViewCustomAttributes = "";
-
-        // file_15
-        $this->file_15->ViewValue = $this->file_15->CurrentValue;
-        $this->file_15->ViewCustomAttributes = "";
-
-        // file_16
-        $this->file_16->ViewValue = $this->file_16->CurrentValue;
-        $this->file_16->ViewCustomAttributes = "";
-
-        // file_17
-        $this->file_17->ViewValue = $this->file_17->CurrentValue;
-        $this->file_17->ViewCustomAttributes = "";
-
-        // file_18
-        $this->file_18->ViewValue = $this->file_18->CurrentValue;
-        $this->file_18->ViewCustomAttributes = "";
-
-        // file_19
-        $this->file_19->ViewValue = $this->file_19->CurrentValue;
-        $this->file_19->ViewCustomAttributes = "";
-
-        // file_20
-        $this->file_20->ViewValue = $this->file_20->CurrentValue;
-        $this->file_20->ViewCustomAttributes = "";
-
-        // file_21
-        $this->file_21->ViewValue = $this->file_21->CurrentValue;
-        $this->file_21->ViewCustomAttributes = "";
-
-        // file_22
-        $this->file_22->ViewValue = $this->file_22->CurrentValue;
-        $this->file_22->ViewCustomAttributes = "";
-
-        // file_23
-        $this->file_23->ViewValue = $this->file_23->CurrentValue;
-        $this->file_23->ViewCustomAttributes = "";
-
-        // file_24
-        $this->file_24->ViewValue = $this->file_24->CurrentValue;
-        $this->file_24->ViewCustomAttributes = "";
+        // softcopy_rqanun
+        if (!EmptyValue($this->softcopy_rqanun->Upload->DbValue)) {
+            $this->softcopy_rqanun->ViewValue = $this->softcopy_rqanun->Upload->DbValue;
+        } else {
+            $this->softcopy_rqanun->ViewValue = "";
+        }
+        $this->softcopy_rqanun->ViewCustomAttributes = "";
 
         // status
-        $this->status->ViewValue = $this->status->CurrentValue;
-        $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+        if (strval($this->status->CurrentValue) != "") {
+            $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+        } else {
+            $this->status->ViewValue = null;
+        }
         $this->status->ViewCustomAttributes = "";
 
         // idd_user
-        $this->idd_user->ViewValue = $this->idd_user->CurrentValue;
-        $this->idd_user->ViewValue = FormatNumber($this->idd_user->ViewValue, 0, -2, -2, -2);
+        $curVal = trim(strval($this->idd_user->CurrentValue));
+        if ($curVal != "") {
+            $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
+            if ($this->idd_user->ViewValue === null) { // Lookup from database
+                $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                    $this->idd_user->ViewValue = $this->idd_user->displayValue($arwrk);
+                } else {
+                    $this->idd_user->ViewValue = $this->idd_user->CurrentValue;
+                }
+            }
+        } else {
+            $this->idd_user->ViewValue = null;
+        }
         $this->idd_user->ViewCustomAttributes = "";
 
         // idd_evaluasi
@@ -1372,6 +1504,11 @@ SORTHTML;
         $this->tanggal->LinkCustomAttributes = "";
         $this->tanggal->HrefValue = "";
         $this->tanggal->TooltipValue = "";
+
+        // idd_wilayah
+        $this->idd_wilayah->LinkCustomAttributes = "";
+        $this->idd_wilayah->HrefValue = "";
+        $this->idd_wilayah->TooltipValue = "";
 
         // kd_satker
         $this->kd_satker->LinkCustomAttributes = "";
@@ -1388,130 +1525,95 @@ SORTHTML;
         $this->tahun_anggaran->HrefValue = "";
         $this->tahun_anggaran->TooltipValue = "";
 
-        // idd_wilayah
-        $this->idd_wilayah->LinkCustomAttributes = "";
-        $this->idd_wilayah->HrefValue = "";
-        $this->idd_wilayah->TooltipValue = "";
+        // surat_pengantar
+        $this->surat_pengantar->LinkCustomAttributes = "";
+        $this->surat_pengantar->HrefValue = "";
+        $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
+        $this->surat_pengantar->TooltipValue = "";
 
-        // file_01
-        $this->file_01->LinkCustomAttributes = "";
-        $this->file_01->HrefValue = "";
-        $this->file_01->TooltipValue = "";
+        // skd_rqanunpert
+        $this->skd_rqanunpert->LinkCustomAttributes = "";
+        $this->skd_rqanunpert->HrefValue = "";
+        $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
+        $this->skd_rqanunpert->TooltipValue = "";
 
-        // file_02
-        $this->file_02->LinkCustomAttributes = "";
-        $this->file_02->HrefValue = "";
-        $this->file_02->TooltipValue = "";
+        // rq_apbkpert
+        $this->rq_apbkpert->LinkCustomAttributes = "";
+        $this->rq_apbkpert->HrefValue = "";
+        $this->rq_apbkpert->ExportHrefValue = $this->rq_apbkpert->UploadPath . $this->rq_apbkpert->Upload->DbValue;
+        $this->rq_apbkpert->TooltipValue = "";
 
-        // file_03
-        $this->file_03->LinkCustomAttributes = "";
-        $this->file_03->HrefValue = "";
-        $this->file_03->TooltipValue = "";
+        // bap_apbkpert
+        $this->bap_apbkpert->LinkCustomAttributes = "";
+        $this->bap_apbkpert->HrefValue = "";
+        $this->bap_apbkpert->ExportHrefValue = $this->bap_apbkpert->UploadPath . $this->bap_apbkpert->Upload->DbValue;
+        $this->bap_apbkpert->TooltipValue = "";
 
-        // file_04
-        $this->file_04->LinkCustomAttributes = "";
-        $this->file_04->HrefValue = "";
-        $this->file_04->TooltipValue = "";
+        // risalah_sidang
+        $this->risalah_sidang->LinkCustomAttributes = "";
+        $this->risalah_sidang->HrefValue = "";
+        $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
+        $this->risalah_sidang->TooltipValue = "";
 
-        // file_05
-        $this->file_05->LinkCustomAttributes = "";
-        $this->file_05->HrefValue = "";
-        $this->file_05->TooltipValue = "";
+        // absen_peserta
+        $this->absen_peserta->LinkCustomAttributes = "";
+        $this->absen_peserta->HrefValue = "";
+        $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
+        $this->absen_peserta->TooltipValue = "";
 
-        // file_06
-        $this->file_06->LinkCustomAttributes = "";
-        $this->file_06->HrefValue = "";
-        $this->file_06->TooltipValue = "";
+        // neraca
+        $this->neraca->LinkCustomAttributes = "";
+        $this->neraca->HrefValue = "";
+        $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
+        $this->neraca->TooltipValue = "";
 
-        // file_07
-        $this->file_07->LinkCustomAttributes = "";
-        $this->file_07->HrefValue = "";
-        $this->file_07->TooltipValue = "";
+        // lra
+        $this->lra->LinkCustomAttributes = "";
+        $this->lra->HrefValue = "";
+        $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
+        $this->lra->TooltipValue = "";
 
-        // file_08
-        $this->file_08->LinkCustomAttributes = "";
-        $this->file_08->HrefValue = "";
-        $this->file_08->TooltipValue = "";
+        // calk
+        $this->calk->LinkCustomAttributes = "";
+        $this->calk->HrefValue = "";
+        $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
+        $this->calk->TooltipValue = "";
 
-        // file_09
-        $this->file_09->LinkCustomAttributes = "";
-        $this->file_09->HrefValue = "";
-        $this->file_09->TooltipValue = "";
+        // lo
+        $this->lo->LinkCustomAttributes = "";
+        $this->lo->HrefValue = "";
+        $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
+        $this->lo->TooltipValue = "";
 
-        // file_10
-        $this->file_10->LinkCustomAttributes = "";
-        $this->file_10->HrefValue = "";
-        $this->file_10->TooltipValue = "";
+        // lpe
+        $this->lpe->LinkCustomAttributes = "";
+        $this->lpe->HrefValue = "";
+        $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
+        $this->lpe->TooltipValue = "";
 
-        // file_11
-        $this->file_11->LinkCustomAttributes = "";
-        $this->file_11->HrefValue = "";
-        $this->file_11->TooltipValue = "";
+        // lpsal
+        $this->lpsal->LinkCustomAttributes = "";
+        $this->lpsal->HrefValue = "";
+        $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
+        $this->lpsal->TooltipValue = "";
 
-        // file_12
-        $this->file_12->LinkCustomAttributes = "";
-        $this->file_12->HrefValue = "";
-        $this->file_12->TooltipValue = "";
+        // lak
+        $this->lak->LinkCustomAttributes = "";
+        $this->lak->HrefValue = "";
+        $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
+        $this->lak->TooltipValue = "";
 
-        // file_13
-        $this->file_13->LinkCustomAttributes = "";
-        $this->file_13->HrefValue = "";
-        $this->file_13->TooltipValue = "";
+        // laporan_pemeriksaan
+        $this->laporan_pemeriksaan->LinkCustomAttributes = "";
+        $this->laporan_pemeriksaan->HrefValue = "";
+        $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
+        $this->laporan_pemeriksaan->TooltipValue = "";
 
-        // file_14
-        $this->file_14->LinkCustomAttributes = "";
-        $this->file_14->HrefValue = "";
-        $this->file_14->TooltipValue = "";
-
-        // file_15
-        $this->file_15->LinkCustomAttributes = "";
-        $this->file_15->HrefValue = "";
-        $this->file_15->TooltipValue = "";
-
-        // file_16
-        $this->file_16->LinkCustomAttributes = "";
-        $this->file_16->HrefValue = "";
-        $this->file_16->TooltipValue = "";
-
-        // file_17
-        $this->file_17->LinkCustomAttributes = "";
-        $this->file_17->HrefValue = "";
-        $this->file_17->TooltipValue = "";
-
-        // file_18
-        $this->file_18->LinkCustomAttributes = "";
-        $this->file_18->HrefValue = "";
-        $this->file_18->TooltipValue = "";
-
-        // file_19
-        $this->file_19->LinkCustomAttributes = "";
-        $this->file_19->HrefValue = "";
-        $this->file_19->TooltipValue = "";
-
-        // file_20
-        $this->file_20->LinkCustomAttributes = "";
-        $this->file_20->HrefValue = "";
-        $this->file_20->TooltipValue = "";
-
-        // file_21
-        $this->file_21->LinkCustomAttributes = "";
-        $this->file_21->HrefValue = "";
-        $this->file_21->TooltipValue = "";
-
-        // file_22
-        $this->file_22->LinkCustomAttributes = "";
-        $this->file_22->HrefValue = "";
-        $this->file_22->TooltipValue = "";
-
-        // file_23
-        $this->file_23->LinkCustomAttributes = "";
-        $this->file_23->HrefValue = "";
-        $this->file_23->TooltipValue = "";
-
-        // file_24
-        $this->file_24->LinkCustomAttributes = "";
-        $this->file_24->HrefValue = "";
-        $this->file_24->TooltipValue = "";
+        // softcopy_rqanun
+        $this->softcopy_rqanun->LinkCustomAttributes = "";
+        $this->softcopy_rqanun->HrefValue = "";
+        $this->softcopy_rqanun->ExportHrefValue = $this->softcopy_rqanun->UploadPath . $this->softcopy_rqanun->Upload->DbValue;
+        $this->softcopy_rqanun->TooltipValue = "";
 
         // status
         $this->status->LinkCustomAttributes = "";
@@ -1550,263 +1652,239 @@ SORTHTML;
         $this->tanggal->EditValue = FormatDateTime($this->tanggal->CurrentValue, 8);
         $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
 
+        // idd_wilayah
+        $this->idd_wilayah->EditAttrs["class"] = "form-control";
+        $this->idd_wilayah->EditCustomAttributes = "";
+        $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
+
         // kd_satker
         $this->kd_satker->EditAttrs["class"] = "form-control";
         $this->kd_satker->EditCustomAttributes = "";
-        if (!$this->kd_satker->Raw) {
-            $this->kd_satker->CurrentValue = HtmlDecode($this->kd_satker->CurrentValue);
-        }
-        $this->kd_satker->EditValue = $this->kd_satker->CurrentValue;
         $this->kd_satker->PlaceHolder = RemoveHtml($this->kd_satker->caption());
 
         // idd_tahapan
         $this->idd_tahapan->EditAttrs["class"] = "form-control";
         $this->idd_tahapan->EditCustomAttributes = "";
-        $this->idd_tahapan->EditValue = $this->idd_tahapan->CurrentValue;
         $this->idd_tahapan->PlaceHolder = RemoveHtml($this->idd_tahapan->caption());
 
         // tahun_anggaran
         $this->tahun_anggaran->EditAttrs["class"] = "form-control";
         $this->tahun_anggaran->EditCustomAttributes = "";
-        if (!$this->tahun_anggaran->Raw) {
-            $this->tahun_anggaran->CurrentValue = HtmlDecode($this->tahun_anggaran->CurrentValue);
-        }
-        $this->tahun_anggaran->EditValue = $this->tahun_anggaran->CurrentValue;
         $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
 
-        // idd_wilayah
-        $this->idd_wilayah->EditAttrs["class"] = "form-control";
-        $this->idd_wilayah->EditCustomAttributes = "";
-        $this->idd_wilayah->EditValue = $this->idd_wilayah->CurrentValue;
-        $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
-
-        // file_01
-        $this->file_01->EditAttrs["class"] = "form-control";
-        $this->file_01->EditCustomAttributes = "";
-        if (!$this->file_01->Raw) {
-            $this->file_01->CurrentValue = HtmlDecode($this->file_01->CurrentValue);
+        // surat_pengantar
+        $this->surat_pengantar->EditAttrs["class"] = "form-control";
+        $this->surat_pengantar->EditCustomAttributes = "";
+        if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+            $this->surat_pengantar->EditValue = $this->surat_pengantar->Upload->DbValue;
+        } else {
+            $this->surat_pengantar->EditValue = "";
         }
-        $this->file_01->EditValue = $this->file_01->CurrentValue;
-        $this->file_01->PlaceHolder = RemoveHtml($this->file_01->caption());
-
-        // file_02
-        $this->file_02->EditAttrs["class"] = "form-control";
-        $this->file_02->EditCustomAttributes = "";
-        if (!$this->file_02->Raw) {
-            $this->file_02->CurrentValue = HtmlDecode($this->file_02->CurrentValue);
+        if (!EmptyValue($this->surat_pengantar->CurrentValue)) {
+            $this->surat_pengantar->Upload->FileName = $this->surat_pengantar->CurrentValue;
         }
-        $this->file_02->EditValue = $this->file_02->CurrentValue;
-        $this->file_02->PlaceHolder = RemoveHtml($this->file_02->caption());
 
-        // file_03
-        $this->file_03->EditAttrs["class"] = "form-control";
-        $this->file_03->EditCustomAttributes = "";
-        if (!$this->file_03->Raw) {
-            $this->file_03->CurrentValue = HtmlDecode($this->file_03->CurrentValue);
+        // skd_rqanunpert
+        $this->skd_rqanunpert->EditAttrs["class"] = "form-control";
+        $this->skd_rqanunpert->EditCustomAttributes = "";
+        if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
+            $this->skd_rqanunpert->EditValue = $this->skd_rqanunpert->Upload->DbValue;
+        } else {
+            $this->skd_rqanunpert->EditValue = "";
         }
-        $this->file_03->EditValue = $this->file_03->CurrentValue;
-        $this->file_03->PlaceHolder = RemoveHtml($this->file_03->caption());
+        if (!EmptyValue($this->skd_rqanunpert->CurrentValue)) {
+            $this->skd_rqanunpert->Upload->FileName = $this->skd_rqanunpert->CurrentValue;
+        }
 
-        // file_04
-        $this->file_04->EditAttrs["class"] = "form-control";
-        $this->file_04->EditCustomAttributes = "";
-        if (!$this->file_04->Raw) {
-            $this->file_04->CurrentValue = HtmlDecode($this->file_04->CurrentValue);
+        // rq_apbkpert
+        $this->rq_apbkpert->EditAttrs["class"] = "form-control";
+        $this->rq_apbkpert->EditCustomAttributes = "";
+        if (!EmptyValue($this->rq_apbkpert->Upload->DbValue)) {
+            $this->rq_apbkpert->EditValue = $this->rq_apbkpert->Upload->DbValue;
+        } else {
+            $this->rq_apbkpert->EditValue = "";
         }
-        $this->file_04->EditValue = $this->file_04->CurrentValue;
-        $this->file_04->PlaceHolder = RemoveHtml($this->file_04->caption());
+        if (!EmptyValue($this->rq_apbkpert->CurrentValue)) {
+            $this->rq_apbkpert->Upload->FileName = $this->rq_apbkpert->CurrentValue;
+        }
 
-        // file_05
-        $this->file_05->EditAttrs["class"] = "form-control";
-        $this->file_05->EditCustomAttributes = "";
-        if (!$this->file_05->Raw) {
-            $this->file_05->CurrentValue = HtmlDecode($this->file_05->CurrentValue);
+        // bap_apbkpert
+        $this->bap_apbkpert->EditAttrs["class"] = "form-control";
+        $this->bap_apbkpert->EditCustomAttributes = "";
+        if (!EmptyValue($this->bap_apbkpert->Upload->DbValue)) {
+            $this->bap_apbkpert->EditValue = $this->bap_apbkpert->Upload->DbValue;
+        } else {
+            $this->bap_apbkpert->EditValue = "";
         }
-        $this->file_05->EditValue = $this->file_05->CurrentValue;
-        $this->file_05->PlaceHolder = RemoveHtml($this->file_05->caption());
+        if (!EmptyValue($this->bap_apbkpert->CurrentValue)) {
+            $this->bap_apbkpert->Upload->FileName = $this->bap_apbkpert->CurrentValue;
+        }
 
-        // file_06
-        $this->file_06->EditAttrs["class"] = "form-control";
-        $this->file_06->EditCustomAttributes = "";
-        if (!$this->file_06->Raw) {
-            $this->file_06->CurrentValue = HtmlDecode($this->file_06->CurrentValue);
+        // risalah_sidang
+        $this->risalah_sidang->EditAttrs["class"] = "form-control";
+        $this->risalah_sidang->EditCustomAttributes = "";
+        if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+            $this->risalah_sidang->EditValue = $this->risalah_sidang->Upload->DbValue;
+        } else {
+            $this->risalah_sidang->EditValue = "";
         }
-        $this->file_06->EditValue = $this->file_06->CurrentValue;
-        $this->file_06->PlaceHolder = RemoveHtml($this->file_06->caption());
+        if (!EmptyValue($this->risalah_sidang->CurrentValue)) {
+            $this->risalah_sidang->Upload->FileName = $this->risalah_sidang->CurrentValue;
+        }
 
-        // file_07
-        $this->file_07->EditAttrs["class"] = "form-control";
-        $this->file_07->EditCustomAttributes = "";
-        if (!$this->file_07->Raw) {
-            $this->file_07->CurrentValue = HtmlDecode($this->file_07->CurrentValue);
+        // absen_peserta
+        $this->absen_peserta->EditAttrs["class"] = "form-control";
+        $this->absen_peserta->EditCustomAttributes = "";
+        if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
+            $this->absen_peserta->EditValue = $this->absen_peserta->Upload->DbValue;
+        } else {
+            $this->absen_peserta->EditValue = "";
         }
-        $this->file_07->EditValue = $this->file_07->CurrentValue;
-        $this->file_07->PlaceHolder = RemoveHtml($this->file_07->caption());
+        if (!EmptyValue($this->absen_peserta->CurrentValue)) {
+            $this->absen_peserta->Upload->FileName = $this->absen_peserta->CurrentValue;
+        }
 
-        // file_08
-        $this->file_08->EditAttrs["class"] = "form-control";
-        $this->file_08->EditCustomAttributes = "";
-        if (!$this->file_08->Raw) {
-            $this->file_08->CurrentValue = HtmlDecode($this->file_08->CurrentValue);
+        // neraca
+        $this->neraca->EditAttrs["class"] = "form-control";
+        $this->neraca->EditCustomAttributes = "";
+        if (!EmptyValue($this->neraca->Upload->DbValue)) {
+            $this->neraca->EditValue = $this->neraca->Upload->DbValue;
+        } else {
+            $this->neraca->EditValue = "";
         }
-        $this->file_08->EditValue = $this->file_08->CurrentValue;
-        $this->file_08->PlaceHolder = RemoveHtml($this->file_08->caption());
+        if (!EmptyValue($this->neraca->CurrentValue)) {
+            $this->neraca->Upload->FileName = $this->neraca->CurrentValue;
+        }
 
-        // file_09
-        $this->file_09->EditAttrs["class"] = "form-control";
-        $this->file_09->EditCustomAttributes = "";
-        if (!$this->file_09->Raw) {
-            $this->file_09->CurrentValue = HtmlDecode($this->file_09->CurrentValue);
+        // lra
+        $this->lra->EditAttrs["class"] = "form-control";
+        $this->lra->EditCustomAttributes = "";
+        if (!EmptyValue($this->lra->Upload->DbValue)) {
+            $this->lra->EditValue = $this->lra->Upload->DbValue;
+        } else {
+            $this->lra->EditValue = "";
         }
-        $this->file_09->EditValue = $this->file_09->CurrentValue;
-        $this->file_09->PlaceHolder = RemoveHtml($this->file_09->caption());
+        if (!EmptyValue($this->lra->CurrentValue)) {
+            $this->lra->Upload->FileName = $this->lra->CurrentValue;
+        }
 
-        // file_10
-        $this->file_10->EditAttrs["class"] = "form-control";
-        $this->file_10->EditCustomAttributes = "";
-        if (!$this->file_10->Raw) {
-            $this->file_10->CurrentValue = HtmlDecode($this->file_10->CurrentValue);
+        // calk
+        $this->calk->EditAttrs["class"] = "form-control";
+        $this->calk->EditCustomAttributes = "";
+        if (!EmptyValue($this->calk->Upload->DbValue)) {
+            $this->calk->EditValue = $this->calk->Upload->DbValue;
+        } else {
+            $this->calk->EditValue = "";
         }
-        $this->file_10->EditValue = $this->file_10->CurrentValue;
-        $this->file_10->PlaceHolder = RemoveHtml($this->file_10->caption());
+        if (!EmptyValue($this->calk->CurrentValue)) {
+            $this->calk->Upload->FileName = $this->calk->CurrentValue;
+        }
 
-        // file_11
-        $this->file_11->EditAttrs["class"] = "form-control";
-        $this->file_11->EditCustomAttributes = "";
-        if (!$this->file_11->Raw) {
-            $this->file_11->CurrentValue = HtmlDecode($this->file_11->CurrentValue);
+        // lo
+        $this->lo->EditAttrs["class"] = "form-control";
+        $this->lo->EditCustomAttributes = "";
+        if (!EmptyValue($this->lo->Upload->DbValue)) {
+            $this->lo->EditValue = $this->lo->Upload->DbValue;
+        } else {
+            $this->lo->EditValue = "";
         }
-        $this->file_11->EditValue = $this->file_11->CurrentValue;
-        $this->file_11->PlaceHolder = RemoveHtml($this->file_11->caption());
+        if (!EmptyValue($this->lo->CurrentValue)) {
+            $this->lo->Upload->FileName = $this->lo->CurrentValue;
+        }
 
-        // file_12
-        $this->file_12->EditAttrs["class"] = "form-control";
-        $this->file_12->EditCustomAttributes = "";
-        if (!$this->file_12->Raw) {
-            $this->file_12->CurrentValue = HtmlDecode($this->file_12->CurrentValue);
+        // lpe
+        $this->lpe->EditAttrs["class"] = "form-control";
+        $this->lpe->EditCustomAttributes = "";
+        if (!EmptyValue($this->lpe->Upload->DbValue)) {
+            $this->lpe->EditValue = $this->lpe->Upload->DbValue;
+        } else {
+            $this->lpe->EditValue = "";
         }
-        $this->file_12->EditValue = $this->file_12->CurrentValue;
-        $this->file_12->PlaceHolder = RemoveHtml($this->file_12->caption());
+        if (!EmptyValue($this->lpe->CurrentValue)) {
+            $this->lpe->Upload->FileName = $this->lpe->CurrentValue;
+        }
 
-        // file_13
-        $this->file_13->EditAttrs["class"] = "form-control";
-        $this->file_13->EditCustomAttributes = "";
-        if (!$this->file_13->Raw) {
-            $this->file_13->CurrentValue = HtmlDecode($this->file_13->CurrentValue);
+        // lpsal
+        $this->lpsal->EditAttrs["class"] = "form-control";
+        $this->lpsal->EditCustomAttributes = "";
+        if (!EmptyValue($this->lpsal->Upload->DbValue)) {
+            $this->lpsal->EditValue = $this->lpsal->Upload->DbValue;
+        } else {
+            $this->lpsal->EditValue = "";
         }
-        $this->file_13->EditValue = $this->file_13->CurrentValue;
-        $this->file_13->PlaceHolder = RemoveHtml($this->file_13->caption());
+        if (!EmptyValue($this->lpsal->CurrentValue)) {
+            $this->lpsal->Upload->FileName = $this->lpsal->CurrentValue;
+        }
 
-        // file_14
-        $this->file_14->EditAttrs["class"] = "form-control";
-        $this->file_14->EditCustomAttributes = "";
-        if (!$this->file_14->Raw) {
-            $this->file_14->CurrentValue = HtmlDecode($this->file_14->CurrentValue);
+        // lak
+        $this->lak->EditAttrs["class"] = "form-control";
+        $this->lak->EditCustomAttributes = "";
+        if (!EmptyValue($this->lak->Upload->DbValue)) {
+            $this->lak->EditValue = $this->lak->Upload->DbValue;
+        } else {
+            $this->lak->EditValue = "";
         }
-        $this->file_14->EditValue = $this->file_14->CurrentValue;
-        $this->file_14->PlaceHolder = RemoveHtml($this->file_14->caption());
+        if (!EmptyValue($this->lak->CurrentValue)) {
+            $this->lak->Upload->FileName = $this->lak->CurrentValue;
+        }
 
-        // file_15
-        $this->file_15->EditAttrs["class"] = "form-control";
-        $this->file_15->EditCustomAttributes = "";
-        if (!$this->file_15->Raw) {
-            $this->file_15->CurrentValue = HtmlDecode($this->file_15->CurrentValue);
+        // laporan_pemeriksaan
+        $this->laporan_pemeriksaan->EditAttrs["class"] = "form-control";
+        $this->laporan_pemeriksaan->EditCustomAttributes = "";
+        if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
+            $this->laporan_pemeriksaan->EditValue = $this->laporan_pemeriksaan->Upload->DbValue;
+        } else {
+            $this->laporan_pemeriksaan->EditValue = "";
         }
-        $this->file_15->EditValue = $this->file_15->CurrentValue;
-        $this->file_15->PlaceHolder = RemoveHtml($this->file_15->caption());
+        if (!EmptyValue($this->laporan_pemeriksaan->CurrentValue)) {
+            $this->laporan_pemeriksaan->Upload->FileName = $this->laporan_pemeriksaan->CurrentValue;
+        }
 
-        // file_16
-        $this->file_16->EditAttrs["class"] = "form-control";
-        $this->file_16->EditCustomAttributes = "";
-        if (!$this->file_16->Raw) {
-            $this->file_16->CurrentValue = HtmlDecode($this->file_16->CurrentValue);
+        // softcopy_rqanun
+        $this->softcopy_rqanun->EditAttrs["class"] = "form-control";
+        $this->softcopy_rqanun->EditCustomAttributes = "";
+        if (!EmptyValue($this->softcopy_rqanun->Upload->DbValue)) {
+            $this->softcopy_rqanun->EditValue = $this->softcopy_rqanun->Upload->DbValue;
+        } else {
+            $this->softcopy_rqanun->EditValue = "";
         }
-        $this->file_16->EditValue = $this->file_16->CurrentValue;
-        $this->file_16->PlaceHolder = RemoveHtml($this->file_16->caption());
-
-        // file_17
-        $this->file_17->EditAttrs["class"] = "form-control";
-        $this->file_17->EditCustomAttributes = "";
-        if (!$this->file_17->Raw) {
-            $this->file_17->CurrentValue = HtmlDecode($this->file_17->CurrentValue);
+        if (!EmptyValue($this->softcopy_rqanun->CurrentValue)) {
+            $this->softcopy_rqanun->Upload->FileName = $this->softcopy_rqanun->CurrentValue;
         }
-        $this->file_17->EditValue = $this->file_17->CurrentValue;
-        $this->file_17->PlaceHolder = RemoveHtml($this->file_17->caption());
-
-        // file_18
-        $this->file_18->EditAttrs["class"] = "form-control";
-        $this->file_18->EditCustomAttributes = "";
-        if (!$this->file_18->Raw) {
-            $this->file_18->CurrentValue = HtmlDecode($this->file_18->CurrentValue);
-        }
-        $this->file_18->EditValue = $this->file_18->CurrentValue;
-        $this->file_18->PlaceHolder = RemoveHtml($this->file_18->caption());
-
-        // file_19
-        $this->file_19->EditAttrs["class"] = "form-control";
-        $this->file_19->EditCustomAttributes = "";
-        if (!$this->file_19->Raw) {
-            $this->file_19->CurrentValue = HtmlDecode($this->file_19->CurrentValue);
-        }
-        $this->file_19->EditValue = $this->file_19->CurrentValue;
-        $this->file_19->PlaceHolder = RemoveHtml($this->file_19->caption());
-
-        // file_20
-        $this->file_20->EditAttrs["class"] = "form-control";
-        $this->file_20->EditCustomAttributes = "";
-        if (!$this->file_20->Raw) {
-            $this->file_20->CurrentValue = HtmlDecode($this->file_20->CurrentValue);
-        }
-        $this->file_20->EditValue = $this->file_20->CurrentValue;
-        $this->file_20->PlaceHolder = RemoveHtml($this->file_20->caption());
-
-        // file_21
-        $this->file_21->EditAttrs["class"] = "form-control";
-        $this->file_21->EditCustomAttributes = "";
-        if (!$this->file_21->Raw) {
-            $this->file_21->CurrentValue = HtmlDecode($this->file_21->CurrentValue);
-        }
-        $this->file_21->EditValue = $this->file_21->CurrentValue;
-        $this->file_21->PlaceHolder = RemoveHtml($this->file_21->caption());
-
-        // file_22
-        $this->file_22->EditAttrs["class"] = "form-control";
-        $this->file_22->EditCustomAttributes = "";
-        if (!$this->file_22->Raw) {
-            $this->file_22->CurrentValue = HtmlDecode($this->file_22->CurrentValue);
-        }
-        $this->file_22->EditValue = $this->file_22->CurrentValue;
-        $this->file_22->PlaceHolder = RemoveHtml($this->file_22->caption());
-
-        // file_23
-        $this->file_23->EditAttrs["class"] = "form-control";
-        $this->file_23->EditCustomAttributes = "";
-        if (!$this->file_23->Raw) {
-            $this->file_23->CurrentValue = HtmlDecode($this->file_23->CurrentValue);
-        }
-        $this->file_23->EditValue = $this->file_23->CurrentValue;
-        $this->file_23->PlaceHolder = RemoveHtml($this->file_23->caption());
-
-        // file_24
-        $this->file_24->EditAttrs["class"] = "form-control";
-        $this->file_24->EditCustomAttributes = "";
-        if (!$this->file_24->Raw) {
-            $this->file_24->CurrentValue = HtmlDecode($this->file_24->CurrentValue);
-        }
-        $this->file_24->EditValue = $this->file_24->CurrentValue;
-        $this->file_24->PlaceHolder = RemoveHtml($this->file_24->caption());
 
         // status
         $this->status->EditAttrs["class"] = "form-control";
         $this->status->EditCustomAttributes = "";
-        $this->status->EditValue = $this->status->CurrentValue;
+        $this->status->EditValue = $this->status->options(true);
         $this->status->PlaceHolder = RemoveHtml($this->status->caption());
 
         // idd_user
         $this->idd_user->EditAttrs["class"] = "form-control";
         $this->idd_user->EditCustomAttributes = "";
-        $this->idd_user->EditValue = $this->idd_user->CurrentValue;
-        $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("info")) { // Non system admin
+            $this->idd_user->CurrentValue = CurrentUserID();
+            $curVal = trim(strval($this->idd_user->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                if ($this->idd_user->EditValue === null) { // Lookup from database
+                    $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                    } else {
+                        $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_user->EditValue = null;
+            }
+            $this->idd_user->ViewCustomAttributes = "";
+        } else {
+            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        }
 
         // Call Row Rendered event
         $this->rowRendered();
@@ -1838,67 +1916,49 @@ SORTHTML;
                 if ($exportPageType == "view") {
                     $doc->exportCaption($this->idd_evaluasi);
                     $doc->exportCaption($this->tanggal);
+                    $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
                     $doc->exportCaption($this->tahun_anggaran);
-                    $doc->exportCaption($this->idd_wilayah);
-                    $doc->exportCaption($this->file_01);
-                    $doc->exportCaption($this->file_02);
-                    $doc->exportCaption($this->file_03);
-                    $doc->exportCaption($this->file_04);
-                    $doc->exportCaption($this->file_05);
-                    $doc->exportCaption($this->file_06);
-                    $doc->exportCaption($this->file_07);
-                    $doc->exportCaption($this->file_08);
-                    $doc->exportCaption($this->file_09);
-                    $doc->exportCaption($this->file_10);
-                    $doc->exportCaption($this->file_11);
-                    $doc->exportCaption($this->file_12);
-                    $doc->exportCaption($this->file_13);
-                    $doc->exportCaption($this->file_14);
-                    $doc->exportCaption($this->file_15);
-                    $doc->exportCaption($this->file_16);
-                    $doc->exportCaption($this->file_17);
-                    $doc->exportCaption($this->file_18);
-                    $doc->exportCaption($this->file_19);
-                    $doc->exportCaption($this->file_20);
-                    $doc->exportCaption($this->file_21);
-                    $doc->exportCaption($this->file_22);
-                    $doc->exportCaption($this->file_23);
-                    $doc->exportCaption($this->file_24);
+                    $doc->exportCaption($this->surat_pengantar);
+                    $doc->exportCaption($this->skd_rqanunpert);
+                    $doc->exportCaption($this->rq_apbkpert);
+                    $doc->exportCaption($this->bap_apbkpert);
+                    $doc->exportCaption($this->risalah_sidang);
+                    $doc->exportCaption($this->absen_peserta);
+                    $doc->exportCaption($this->neraca);
+                    $doc->exportCaption($this->lra);
+                    $doc->exportCaption($this->calk);
+                    $doc->exportCaption($this->lo);
+                    $doc->exportCaption($this->lpe);
+                    $doc->exportCaption($this->lpsal);
+                    $doc->exportCaption($this->lak);
+                    $doc->exportCaption($this->laporan_pemeriksaan);
+                    $doc->exportCaption($this->softcopy_rqanun);
                     $doc->exportCaption($this->status);
                     $doc->exportCaption($this->idd_user);
                 } else {
                     $doc->exportCaption($this->idd_evaluasi);
                     $doc->exportCaption($this->tanggal);
+                    $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
                     $doc->exportCaption($this->tahun_anggaran);
-                    $doc->exportCaption($this->idd_wilayah);
-                    $doc->exportCaption($this->file_01);
-                    $doc->exportCaption($this->file_02);
-                    $doc->exportCaption($this->file_03);
-                    $doc->exportCaption($this->file_04);
-                    $doc->exportCaption($this->file_05);
-                    $doc->exportCaption($this->file_06);
-                    $doc->exportCaption($this->file_07);
-                    $doc->exportCaption($this->file_08);
-                    $doc->exportCaption($this->file_09);
-                    $doc->exportCaption($this->file_10);
-                    $doc->exportCaption($this->file_11);
-                    $doc->exportCaption($this->file_12);
-                    $doc->exportCaption($this->file_13);
-                    $doc->exportCaption($this->file_14);
-                    $doc->exportCaption($this->file_15);
-                    $doc->exportCaption($this->file_16);
-                    $doc->exportCaption($this->file_17);
-                    $doc->exportCaption($this->file_18);
-                    $doc->exportCaption($this->file_19);
-                    $doc->exportCaption($this->file_20);
-                    $doc->exportCaption($this->file_21);
-                    $doc->exportCaption($this->file_22);
-                    $doc->exportCaption($this->file_23);
-                    $doc->exportCaption($this->file_24);
+                    $doc->exportCaption($this->surat_pengantar);
+                    $doc->exportCaption($this->skd_rqanunpert);
+                    $doc->exportCaption($this->rq_apbkpert);
+                    $doc->exportCaption($this->bap_apbkpert);
+                    $doc->exportCaption($this->risalah_sidang);
+                    $doc->exportCaption($this->absen_peserta);
+                    $doc->exportCaption($this->neraca);
+                    $doc->exportCaption($this->lra);
+                    $doc->exportCaption($this->calk);
+                    $doc->exportCaption($this->lo);
+                    $doc->exportCaption($this->lpe);
+                    $doc->exportCaption($this->lpsal);
+                    $doc->exportCaption($this->lak);
+                    $doc->exportCaption($this->laporan_pemeriksaan);
+                    $doc->exportCaption($this->softcopy_rqanun);
                     $doc->exportCaption($this->status);
                     $doc->exportCaption($this->idd_user);
                 }
@@ -1932,67 +1992,49 @@ SORTHTML;
                     if ($exportPageType == "view") {
                         $doc->exportField($this->idd_evaluasi);
                         $doc->exportField($this->tanggal);
+                        $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);
                         $doc->exportField($this->tahun_anggaran);
-                        $doc->exportField($this->idd_wilayah);
-                        $doc->exportField($this->file_01);
-                        $doc->exportField($this->file_02);
-                        $doc->exportField($this->file_03);
-                        $doc->exportField($this->file_04);
-                        $doc->exportField($this->file_05);
-                        $doc->exportField($this->file_06);
-                        $doc->exportField($this->file_07);
-                        $doc->exportField($this->file_08);
-                        $doc->exportField($this->file_09);
-                        $doc->exportField($this->file_10);
-                        $doc->exportField($this->file_11);
-                        $doc->exportField($this->file_12);
-                        $doc->exportField($this->file_13);
-                        $doc->exportField($this->file_14);
-                        $doc->exportField($this->file_15);
-                        $doc->exportField($this->file_16);
-                        $doc->exportField($this->file_17);
-                        $doc->exportField($this->file_18);
-                        $doc->exportField($this->file_19);
-                        $doc->exportField($this->file_20);
-                        $doc->exportField($this->file_21);
-                        $doc->exportField($this->file_22);
-                        $doc->exportField($this->file_23);
-                        $doc->exportField($this->file_24);
+                        $doc->exportField($this->surat_pengantar);
+                        $doc->exportField($this->skd_rqanunpert);
+                        $doc->exportField($this->rq_apbkpert);
+                        $doc->exportField($this->bap_apbkpert);
+                        $doc->exportField($this->risalah_sidang);
+                        $doc->exportField($this->absen_peserta);
+                        $doc->exportField($this->neraca);
+                        $doc->exportField($this->lra);
+                        $doc->exportField($this->calk);
+                        $doc->exportField($this->lo);
+                        $doc->exportField($this->lpe);
+                        $doc->exportField($this->lpsal);
+                        $doc->exportField($this->lak);
+                        $doc->exportField($this->laporan_pemeriksaan);
+                        $doc->exportField($this->softcopy_rqanun);
                         $doc->exportField($this->status);
                         $doc->exportField($this->idd_user);
                     } else {
                         $doc->exportField($this->idd_evaluasi);
                         $doc->exportField($this->tanggal);
+                        $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);
                         $doc->exportField($this->tahun_anggaran);
-                        $doc->exportField($this->idd_wilayah);
-                        $doc->exportField($this->file_01);
-                        $doc->exportField($this->file_02);
-                        $doc->exportField($this->file_03);
-                        $doc->exportField($this->file_04);
-                        $doc->exportField($this->file_05);
-                        $doc->exportField($this->file_06);
-                        $doc->exportField($this->file_07);
-                        $doc->exportField($this->file_08);
-                        $doc->exportField($this->file_09);
-                        $doc->exportField($this->file_10);
-                        $doc->exportField($this->file_11);
-                        $doc->exportField($this->file_12);
-                        $doc->exportField($this->file_13);
-                        $doc->exportField($this->file_14);
-                        $doc->exportField($this->file_15);
-                        $doc->exportField($this->file_16);
-                        $doc->exportField($this->file_17);
-                        $doc->exportField($this->file_18);
-                        $doc->exportField($this->file_19);
-                        $doc->exportField($this->file_20);
-                        $doc->exportField($this->file_21);
-                        $doc->exportField($this->file_22);
-                        $doc->exportField($this->file_23);
-                        $doc->exportField($this->file_24);
+                        $doc->exportField($this->surat_pengantar);
+                        $doc->exportField($this->skd_rqanunpert);
+                        $doc->exportField($this->rq_apbkpert);
+                        $doc->exportField($this->bap_apbkpert);
+                        $doc->exportField($this->risalah_sidang);
+                        $doc->exportField($this->absen_peserta);
+                        $doc->exportField($this->neraca);
+                        $doc->exportField($this->lra);
+                        $doc->exportField($this->calk);
+                        $doc->exportField($this->lo);
+                        $doc->exportField($this->lpe);
+                        $doc->exportField($this->lpsal);
+                        $doc->exportField($this->lak);
+                        $doc->exportField($this->laporan_pemeriksaan);
+                        $doc->exportField($this->softcopy_rqanun);
                         $doc->exportField($this->status);
                         $doc->exportField($this->idd_user);
                     }
@@ -2011,10 +2053,212 @@ SORTHTML;
         }
     }
 
+    // Add User ID filter
+    public function addUserIDFilter($filter = "")
+    {
+        global $Security;
+        $filterWrk = "";
+        $id = (CurrentPageID() == "list") ? $this->CurrentAction : CurrentPageID();
+        if (!$this->userIDAllow($id) && !$Security->isAdmin()) {
+            $filterWrk = $Security->userIdList();
+            if ($filterWrk != "") {
+                $filterWrk = '`idd_user` IN (' . $filterWrk . ')';
+            }
+        }
+
+        // Call User ID Filtering event
+        $this->userIdFiltering($filterWrk);
+        AddFilter($filter, $filterWrk);
+        return $filter;
+    }
+
+    // User ID subquery
+    public function getUserIDSubquery(&$fld, &$masterfld)
+    {
+        global $UserTable;
+        $wrk = "";
+        $sql = "SELECT " . $masterfld->Expression . " FROM `pertanggungjawaban`";
+        $filter = $this->addUserIDFilter("");
+        if ($filter != "") {
+            $sql .= " WHERE " . $filter;
+        }
+
+        // List all values
+        if ($rs = Conn($UserTable->Dbid)->executeQuery($sql)->fetchAll(\PDO::FETCH_NUM)) {
+            foreach ($rs as $row) {
+                if ($wrk != "") {
+                    $wrk .= ",";
+                }
+                $wrk .= QuotedValue($row[0], $masterfld->DataType, Config("USER_TABLE_DBID"));
+            }
+        }
+        if ($wrk != "") {
+            $wrk = $fld->Expression . " IN (" . $wrk . ")";
+        } else { // No User ID value found
+            $wrk = "0=1";
+        }
+        return $wrk;
+    }
+
     // Get file data
     public function getFileData($fldparm, $key, $resize, $width = 0, $height = 0, $plugins = [])
     {
-        // No binary fields
+        $width = ($width > 0) ? $width : Config("THUMBNAIL_DEFAULT_WIDTH");
+        $height = ($height > 0) ? $height : Config("THUMBNAIL_DEFAULT_HEIGHT");
+
+        // Set up field name / file name field / file type field
+        $fldName = "";
+        $fileNameFld = "";
+        $fileTypeFld = "";
+        if ($fldparm == 'surat_pengantar') {
+            $fldName = "surat_pengantar";
+            $fileNameFld = "surat_pengantar";
+        } elseif ($fldparm == 'skd_rqanunpert') {
+            $fldName = "skd_rqanunpert";
+            $fileNameFld = "skd_rqanunpert";
+        } elseif ($fldparm == 'rq_apbkpert') {
+            $fldName = "rq_apbkpert";
+            $fileNameFld = "rq_apbkpert";
+        } elseif ($fldparm == 'bap_apbkpert') {
+            $fldName = "bap_apbkpert";
+            $fileNameFld = "bap_apbkpert";
+        } elseif ($fldparm == 'risalah_sidang') {
+            $fldName = "risalah_sidang";
+            $fileNameFld = "risalah_sidang";
+        } elseif ($fldparm == 'absen_peserta') {
+            $fldName = "absen_peserta";
+            $fileNameFld = "absen_peserta";
+        } elseif ($fldparm == 'neraca') {
+            $fldName = "neraca";
+            $fileNameFld = "neraca";
+        } elseif ($fldparm == 'lra') {
+            $fldName = "lra";
+            $fileNameFld = "lra";
+        } elseif ($fldparm == 'calk') {
+            $fldName = "calk";
+            $fileNameFld = "calk";
+        } elseif ($fldparm == 'lo') {
+            $fldName = "lo";
+            $fileNameFld = "lo";
+        } elseif ($fldparm == 'lpe') {
+            $fldName = "lpe";
+            $fileNameFld = "lpe";
+        } elseif ($fldparm == 'lpsal') {
+            $fldName = "lpsal";
+            $fileNameFld = "lpsal";
+        } elseif ($fldparm == 'lak') {
+            $fldName = "lak";
+            $fileNameFld = "lak";
+        } elseif ($fldparm == 'laporan_pemeriksaan') {
+            $fldName = "laporan_pemeriksaan";
+            $fileNameFld = "laporan_pemeriksaan";
+        } elseif ($fldparm == 'softcopy_rqanun') {
+            $fldName = "softcopy_rqanun";
+            $fileNameFld = "softcopy_rqanun";
+        } else {
+            return false; // Incorrect field
+        }
+
+        // Set up key values
+        $ar = explode(Config("COMPOSITE_KEY_SEPARATOR"), $key);
+        if (count($ar) == 1) {
+            $this->idd_evaluasi->CurrentValue = $ar[0];
+        } else {
+            return false; // Incorrect key
+        }
+
+        // Set up filter (WHERE Clause)
+        $filter = $this->getRecordFilter();
+        $this->CurrentFilter = $filter;
+        $sql = $this->getCurrentSql();
+        $conn = $this->getConnection();
+        $dbtype = GetConnectionType($this->Dbid);
+        if ($row = $conn->fetchAssoc($sql)) {
+            $val = $row[$fldName];
+            if (!EmptyValue($val)) {
+                $fld = $this->Fields[$fldName];
+
+                // Binary data
+                if ($fld->DataType == DATATYPE_BLOB) {
+                    if ($dbtype != "MYSQL") {
+                        if (is_resource($val) && get_resource_type($val) == "stream") { // Byte array
+                            $val = stream_get_contents($val);
+                        }
+                    }
+                    if ($resize) {
+                        ResizeBinary($val, $width, $height, 100, $plugins);
+                    }
+
+                    // Write file type
+                    if ($fileTypeFld != "" && !EmptyValue($row[$fileTypeFld])) {
+                        AddHeader("Content-type", $row[$fileTypeFld]);
+                    } else {
+                        AddHeader("Content-type", ContentType($val));
+                    }
+
+                    // Write file name
+                    $downloadPdf = !Config("EMBED_PDF") && Config("DOWNLOAD_PDF_FILE");
+                    if ($fileNameFld != "" && !EmptyValue($row[$fileNameFld])) {
+                        $fileName = $row[$fileNameFld];
+                        $pathinfo = pathinfo($fileName);
+                        $ext = strtolower(@$pathinfo["extension"]);
+                        $isPdf = SameText($ext, "pdf");
+                        if ($downloadPdf || !$isPdf) { // Skip header if not download PDF
+                            AddHeader("Content-Disposition", "attachment; filename=\"" . $fileName . "\"");
+                        }
+                    } else {
+                        $ext = ContentExtension($val);
+                        $isPdf = SameText($ext, ".pdf");
+                        if ($isPdf && $downloadPdf) { // Add header if download PDF
+                            AddHeader("Content-Disposition", "attachment; filename=\"" . $fileName . "\"");
+                        }
+                    }
+
+                    // Write file data
+                    if (
+                        StartsString("PK", $val) &&
+                        ContainsString($val, "[Content_Types].xml") &&
+                        ContainsString($val, "_rels") &&
+                        ContainsString($val, "docProps")
+                    ) { // Fix Office 2007 documents
+                        if (!EndsString("\0\0\0", $val)) { // Not ends with 3 or 4 \0
+                            $val .= "\0\0\0\0";
+                        }
+                    }
+
+                    // Clear any debug message
+                    if (ob_get_length()) {
+                        ob_end_clean();
+                    }
+
+                    // Write binary data
+                    Write($val);
+
+                // Upload to folder
+                } else {
+                    if ($fld->UploadMultiple) {
+                        $files = explode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $val);
+                    } else {
+                        $files = [$val];
+                    }
+                    $data = [];
+                    $ar = [];
+                    foreach ($files as $file) {
+                        if (!EmptyValue($file)) {
+                            if (Config("ENCRYPT_FILE_PATH")) {
+                                $ar[$file] = FullUrl(GetApiUrl(Config("API_FILE_ACTION") .
+                                    "/" . $this->TableVar . "/" . Encrypt($fld->physicalUploadPath() . $file)));
+                            } else {
+                                $ar[$file] = FullUrl($fld->hrefPath() . $file);
+                            }
+                        }
+                    }
+                    $data[$fld->Param] = $ar;
+                    WriteJson($data);
+                }
+            }
+            return true;
+        }
         return false;
     }
 

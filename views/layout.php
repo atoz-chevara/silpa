@@ -357,7 +357,7 @@ if (isset($DebugTimer)) {
     <!-- Menampilkan User Status -->
     <script type="text/html" class="ew-js-template" data-name="myDropdown" data-method="prependTo" data-target="#ew-menu" data-seq="10">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-    	<div class="image"> <img src="<?= GetUrl("images/user2-160x160.jpg") ?>" class="img-circle elevation-2" alt="User Image"> </div>
+    	<div class="image"> <img src="<?= GetUrl("images/avatar.png") ?>" class="img-circle elevation-2" alt="User Image"> </div>
     	<div class="info"> <a href="#" class="d-block"><?= JsEncode(CurrentUserName()) ?></a> </div>
     </div>
     </script>

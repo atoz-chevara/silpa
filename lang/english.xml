@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ew-language date="2022/6/8" version="17.0.5" id="en" name="English" desc="English" author="e.World Technology Limited">
+<ew-language date="2022/6/9" version="17.0.5" id="en" name="English" desc="English" author="e.World Technology Limited">
   <!--
     *** Important Notes:
     1. Language ID should follow: https://developers.google.com/recaptcha/docs/language,
@@ -923,7 +923,7 @@
     <phrase id="501desc" value="The server does not support the functionality required to fulfill the request." />
   </global>
   <project>
-    <phrase id="bodytitle" value="Sistem Informasi" />
+    <phrase id="bodytitle" value="Sistem Informasi Layanan Pembinaan Anggaran (SILPA) " />
     <phrase id="footertext" value="&amp;copy;2022 Aceh Creative Labs. All rights reserved." />
     <menu id="32">
       <phrase id="menutext" value="Home" />
@@ -1024,7 +1024,7 @@
         <phrase id="fldcaption" value="Email" />
       </field>
       <field id="photo">
-        <phrase id="fldcaption" value="photo" />
+        <phrase id="fldcaption" value="Photo" />
       </field>
       <field id="level">
         <phrase id="fldcaption" value="Level" />
@@ -1105,6 +1105,9 @@
       <field id="tanggal">
         <phrase id="fldcaption" value="Tanggal" />
       </field>
+      <field id="idd_wilayah">
+        <phrase id="fldcaption" value="Wilayah" />
+      </field>
       <field id="kd_satker">
         <phrase id="fldcaption" value="Kabupaten / Kota" />
       </field>
@@ -1120,80 +1123,98 @@
         <phrase id="fldtagvalue3" value="2023" />
         <phrase id="fldtagcaption3" value="2023" />
       </field>
-      <field id="idd_wilayah">
-        <phrase id="fldcaption" value="Wilayah" />
+      <field id="surat_pengantar">
+        <phrase id="fldcaption" value="Surat Pengantar" />
+        <phrase id="custommsg" value="Surat Pengantar Kepala Daerah ke Gubernur" />
       </field>
-      <field id="file_01">
-        <phrase id="fldcaption" value="Surat Pengantar Kepala Daerah ke Gubernur" />
-      </field>
-      <field id="file_02">
+      <field id="rpjmd">
         <phrase id="fldcaption" value="RPJMD" />
+        <phrase id="custommsg" value="Rencana Pembangunan Jangka Menengah Daerah" />
       </field>
-      <field id="file_03">
+      <field id="rkpk">
         <phrase id="fldcaption" value="RKPK" />
+        <phrase id="custommsg" value="Rencana Kerja Pemerintah Kota" />
       </field>
-      <field id="file_04">
-        <phrase id="fldcaption" value="Surat Kepala Daerah kepada DPRK untuk penyampaian Rangcangan KUA da PPAS" />
+      <field id="skd_rkuappas">
+        <phrase id="fldcaption" value="Surat Kepala Daerah" />
+        <phrase id="custommsg" value="Surat Kepala Daerah kepada DPRK untuk penyampaian Rangcangan KUA da PPAS" />
       </field>
-      <field id="file_05">
-        <phrase id="fldcaption" value="KUA yang telah disepakati bersama antara Bupati/Walikota dan DPRK" />
+      <field id="kua">
+        <phrase id="fldcaption" value="KUA" />
+        <phrase id="custommsg" value="KUA yang telah disepakati bersama antara Bupati/Walikota dan DPRK" />
       </field>
-      <field id="file_06">
-        <phrase id="fldcaption" value="PPAS yang telah disepakati bersama antara Bupati/Walikota" />
+      <field id="ppas">
+        <phrase id="fldcaption" value="PPAS" />
+        <phrase id="custommsg" value="PPAS yang telah disepakati bersama antara Bupati/Walikota" />
       </field>
-      <field id="file_07">
-        <phrase id="fldcaption" value="Surat Kepala Daerah kepada DPRK untuk penyampaian Rancangan Qanun" />
+      <field id="skd_rqanun">
+        <phrase id="fldcaption" value="Surat Kepala Daerah" />
+        <phrase id="custommsg" value="Surat Kepala Daerah kepada DPRK untuk penyampaian Rancangan Qanun" />
       </field>
-      <field id="file_08">
+      <field id="nota_keuangan">
         <phrase id="fldcaption" value="Nota Keuangan" />
       </field>
-      <field id="file_09">
+      <field id="pengantar_nota">
         <phrase id="fldcaption" value="Pengantar Nota Keuangan" />
       </field>
-      <field id="file_10">
+      <field id="risalah_sidang">
         <phrase id="fldcaption" value="Risalah Sidang" />
       </field>
-      <field id="file_11">
-        <phrase id="fldcaption" value="Berita Acara Persetujuan Bersama terhadap APBK antara Bupati/Walikota dan DPRK" />
+      <field id="bap_apbk">
+        <phrase id="fldcaption" value="Berita Acara Persetujuan" />
+        <phrase id="custommsg" value="Berita Acara Persetujuan Bersama terhadap APBK antara Bupati/Walikota dan DPRK" />
       </field>
-      <field id="file_12">
-        <phrase id="fldcaption" value="Rancangan Qanun tentang APBK" />
+      <field id="rq_apbk">
+        <phrase id="fldcaption" value="Rancangan Qanun" />
+        <phrase id="custommsg" value="Rancangan Qanun tentang APBK" />
       </field>
-      <field id="file_13">
-        <phrase id="fldcaption" value="Rancangan Perbup/Perwal tentang Penjabaran APBK" />
+      <field id="rp_penjabaran">
+        <phrase id="fldcaption" value="Rancangan Perbup/Perwal" />
+        <phrase id="custommsg" value="Rancangan Perbup/Perwal tentang Penjabaran APBK" />
       </field>
-      <field id="file_14">
-        <phrase id="fldcaption" value="Tabel Tahapan dan Jadwal proses penyusunan APBK" />
+      <field id="jadwal_proses">
+        <phrase id="fldcaption" value="Tahapan dan Jadwal" />
+        <phrase id="custommsg" value="Tabel Tahapan dan Jadwal proses penyusunan APBK" />
       </field>
-      <field id="file_15">
-        <phrase id="fldcaption" value="Daftar Sinkronisasi Kebijakan Pemerintah Kab/Kota dengan Pemerintah Pusat, Kab/Kota dengan Provinsi dan Prioritas Daerah" />
+      <field id="sinkron_kebijakan">
+        <phrase id="fldcaption" value="Daftar Sinkronisasi" />
+        <phrase id="custommsg" value="Daftar Sinkronisasi Kebijakan Pemerintah Kab/Kota dengan Pemerintah Pusat, &lt;br /&gt;Kab/Kota dengan Provinsi dan Prioritas Daerah" />
       </field>
-      <field id="file_16">
-        <phrase id="fldcaption" value="Tabel Konsistensi Program, Kegiatan dan Sub Kegiatan pada RPJMD, RKPK, KUA, PPAS dan RAPBK" />
+      <field id="konsistensi_program">
+        <phrase id="fldcaption" value="Tabel Konsistensi" />
+        <phrase id="custommsg" value="Tabel Konsistensi Program, Kegiatan dan Sub Kegiatan pada RPJMD, RKPK, KUA, PPAS dan RAPBK" />
       </field>
-      <field id="file_17">
-        <phrase id="fldcaption" value="Tabel Format Perhitungan Alokasi Pendidikan" />
+      <field id="alokasi_pendidikan">
+        <phrase id="fldcaption" value="Alokasi Pendidikan" />
+        <phrase id="custommsg" value="Tabel Format Perhitungan Alokasi Pendidikan" />
       </field>
-      <field id="file_18">
-        <phrase id="fldcaption" value="Tabel Format Perhitungan Alokasi Anggaran Pendidikan" />
+      <field id="alokasi_kesehatan">
+        <phrase id="fldcaption" value="Alokasi Anggaran Kesehatan" />
+        <phrase id="custommsg" value="Tabel Format Perhitungan Alokasi Anggaran Kesehatan" />
       </field>
-      <field id="file_19">
-        <phrase id="fldcaption" value="Table Alokasi Belanja Daerah dalam rangka pemenuhan standar pelayanan minimal" />
+      <field id="alokasi_belanja">
+        <phrase id="fldcaption" value="Alokasi Belanja Daerah" />
+        <phrase id="custommsg" value="Table Alokasi Belanja Daerah dalam rangka pemenuhan standar pelayanan minimal" />
       </field>
-      <field id="file_20">
-        <phrase id="fldcaption" value="Berita Acara Kesepakatan Penambahan Keg/Sub Keg baru antara PPAS dengan RKPD Bupati/Walikota dan DPRK" />
+      <field id="bak_kegiatan">
+        <phrase id="fldcaption" value="Berita Acara Kesepakatan" />
+        <phrase id="custommsg" value="Berita Acara Kesepakatan Penambahan Keg/Sub Keg baru antara PPAS dengan RKPD Bupati/Walikota dan DPRK" />
       </field>
-      <field id="file_21">
-        <phrase id="fldcaption" value="Softcopy RKA dalam format PDF dan Excel (PDF sudah digabung, Excel terpisah masing-masing SKPK)" />
+      <field id="softcopy_rka">
+        <phrase id="fldcaption" value="Softcopy RKA" />
+        <phrase id="custommsg" value="Softcopy RKA dalam format PDF dan Excel (PDF sudah digabung, Excel terpisah masing-masing SKPK)" />
       </field>
-      <field id="file_22">
+      <field id="otsus">
         <phrase id="fldcaption" value="Lampiran OTSUS" />
+        <phrase id="custommsg" value="Lampiran OTSUS" />
       </field>
-      <field id="file_23">
-        <phrase id="fldcaption" value="Qanun dan Peraturan Kepala Daerah tentang Perubahan APBK dan Penjabaran Perubahan APBK dan Softcopy" />
+      <field id="qanun_perbup">
+        <phrase id="fldcaption" value="Qanun dan PERDA" />
+        <phrase id="custommsg" value="Qanun dan Peraturan Kepala Daerah tentang Perubahan APBK dan Penjabaran Perubahan APBK dan Softcopy" />
       </field>
-      <field id="file_24">
-        <phrase id="fldcaption" value="Tindak Lanjut Hasil Evaluasi Perubahan APBK" />
+      <field id="tindak_apbkp">
+        <phrase id="fldcaption" value="Tindak Lanjut Hasil Evaluasi" />
+        <phrase id="custommsg" value="Tindak Lanjut Hasil Evaluasi Perubahan APBK" />
       </field>
       <field id="status">
         <phrase id="fldcaption" value="Status" />
@@ -1417,6 +1438,9 @@
       <field id="tanggal">
         <phrase id="fldcaption" value="Tanggal" />
       </field>
+      <field id="idd_wilayah">
+        <phrase id="fldcaption" value="Wilayah" />
+      </field>
       <field id="kd_satker">
         <phrase id="fldcaption" value="Kabupaten/Kota" />
       </field>
@@ -1426,83 +1450,73 @@
       <field id="tahun_anggaran">
         <phrase id="fldcaption" value="Tahun Anggaran" />
       </field>
-      <field id="idd_wilayah">
-        <phrase id="fldcaption" value="Wilayah" />
+      <field id="surat_pengantar">
+        <phrase id="fldcaption" value="Surat Pengantar" />
+        <phrase id="custommsg" value="Surat Pengantar Kepala Daerah ke Gubernur" />
       </field>
-      <field id="file_01">
-        <phrase id="fldcaption" value="file 01" />
+      <field id="skd_rqanunpert">
+        <phrase id="fldcaption" value="Surat Kepala Daerah" />
+        <phrase id="custommsg" value="Surat Kepala Daerah kepada DPRK untuk penyampaian &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="file_02">
-        <phrase id="fldcaption" value="file 02" />
+      <field id="rq_apbkpert">
+        <phrase id="fldcaption" value="Rancangan Qanun" />
+        <phrase id="custommsg" value="Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK dan &lt;br /&gt;Rancangan Peraturan Kepala Daerah tentang Penjabaran Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="file_03">
-        <phrase id="fldcaption" value="file 03" />
+      <field id="bap_apbkpert">
+        <phrase id="fldcaption" value="Persetujuan Bersama" />
+        <phrase id="custommsg" value="Persetujuan Bersama antara Kepala Daerah dan DPRK terhadap &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="file_04">
-        <phrase id="fldcaption" value="file 04" />
+      <field id="risalah_sidang">
+        <phrase id="fldcaption" value="Risalah Sidang" />
+        <phrase id="custommsg" value="Risalah Sidang DPRK mengenai jalannya pembahasan terhadap &lt;br /&gt;Rancangan Qanung tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="file_05">
-        <phrase id="fldcaption" value="file 05" />
+      <field id="absen_peserta">
+        <phrase id="fldcaption" value="Absensi Peserta" />
+        <phrase id="custommsg" value="Absensi Peserta Rapat Paripurna Pengambilan Keputusan Persetujuan Bersama &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK yang &lt;br /&gt;dihadiri oleh paling sedikit 2/3 (dua pertiga) dari jumlah Anggota DPRK" />
       </field>
-      <field id="file_06">
-        <phrase id="fldcaption" value="file 06" />
+      <field id="neraca">
+        <phrase id="fldcaption" value="Neraca" />
       </field>
-      <field id="file_07">
-        <phrase id="fldcaption" value="file 07" />
+      <field id="lra">
+        <phrase id="fldcaption" value="Laporan Realisasi Anggaran" />
+        <phrase id="custommsg" value="Laporan Realisasi Anggaran (LRA)" />
       </field>
-      <field id="file_08">
-        <phrase id="fldcaption" value="file 08" />
+      <field id="calk">
+        <phrase id="fldcaption" value="CaLK" />
+        <phrase id="custommsg" value="Catatan Atas Laporan Keuangan" />
       </field>
-      <field id="file_09">
-        <phrase id="fldcaption" value="file 09" />
+      <field id="lo">
+        <phrase id="fldcaption" value="Laporan Operasional" />
+        <phrase id="custommsg" value="Laporan Operasional (LO)" />
       </field>
-      <field id="file_10">
-        <phrase id="fldcaption" value="file 10" />
+      <field id="lpe">
+        <phrase id="fldcaption" value="Laporan Perubahan Ekuitas" />
+        <phrase id="custommsg" value="Laporan Perubahan Ekuitas (LPE)" />
       </field>
-      <field id="file_11">
-        <phrase id="fldcaption" value="file 11" />
+      <field id="lpsal">
+        <phrase id="fldcaption" value="Laporan Perubahan SAL" />
+        <phrase id="custommsg" value="Laporan Perubahan SAL (LPSAL)" />
       </field>
-      <field id="file_12">
-        <phrase id="fldcaption" value="file 12" />
+      <field id="lak">
+        <phrase id="fldcaption" value="Laporan Arus Kas" />
+        <phrase id="custommsg" value="Laporan Arus Kas (LAK)" />
       </field>
-      <field id="file_13">
-        <phrase id="fldcaption" value="file 13" />
+      <field id="laporan_pemeriksaan">
+        <phrase id="fldcaption" value="Laporan Hasil Pemeriksaan" />
+        <phrase id="custommsg" value="Laporan Hasil Pemeriksaan Atas Laporan Keuangan atau LKPD dari BPK RI (Buku I dan II)" />
       </field>
-      <field id="file_14">
-        <phrase id="fldcaption" value="file 14" />
-      </field>
-      <field id="file_15">
-        <phrase id="fldcaption" value="file 15" />
-      </field>
-      <field id="file_16">
-        <phrase id="fldcaption" value="file 16" />
-      </field>
-      <field id="file_17">
-        <phrase id="fldcaption" value="file 17" />
-      </field>
-      <field id="file_18">
-        <phrase id="fldcaption" value="file 18" />
-      </field>
-      <field id="file_19">
-        <phrase id="fldcaption" value="file 19" />
-      </field>
-      <field id="file_20">
-        <phrase id="fldcaption" value="file 20" />
-      </field>
-      <field id="file_21">
-        <phrase id="fldcaption" value="file 21" />
-      </field>
-      <field id="file_22">
-        <phrase id="fldcaption" value="file 22" />
-      </field>
-      <field id="file_23">
-        <phrase id="fldcaption" value="file 23" />
-      </field>
-      <field id="file_24">
-        <phrase id="fldcaption" value="file 24" />
+      <field id="softcopy_rqanun">
+        <phrase id="fldcaption" value="Rancangan Qanun dan Perbup" />
+        <phrase id="custommsg" value="Softcopy Rancangan Qanun dan Rancangan Peraturan Kepala Daerah beserta lampirannya" />
       </field>
       <field id="status">
         <phrase id="fldcaption" value="Status" />
+        <phrase id="fldtagvalue1" value="0" />
+        <phrase id="fldtagcaption1" value="Tidak Lengkap" />
+        <phrase id="fldtagvalue2" value="1" />
+        <phrase id="fldtagcaption2" value="Kurang Lengkap" />
+        <phrase id="fldtagvalue3" value="2" />
+        <phrase id="fldtagcaption3" value="Lengkap" />
       </field>
       <field id="idd_user">
         <phrase id="fldcaption" value="Username" />
@@ -1512,6 +1526,12 @@
       <phrase id="tblcaption" value="Evaluasi R-APBK" />
       <field id="idd_evaluasi">
         <phrase id="fldcaption" value="idd evaluasi" />
+        <phrase id="fldtagvalue1" value="0" />
+        <phrase id="fldtagcaption1" value="Tidak Lengkap" />
+        <phrase id="fldtagvalue2" value="1" />
+        <phrase id="fldtagcaption2" value="Kurang Lengkap" />
+        <phrase id="fldtagvalue3" value="2" />
+        <phrase id="fldtagcaption3" value="Lengkap" />
       </field>
       <field id="tanggal">
         <phrase id="fldcaption" value="Tanggal" />
@@ -1602,6 +1622,12 @@
       </field>
       <field id="status">
         <phrase id="fldcaption" value="Status" />
+        <phrase id="fldtagvalue1" value="0" />
+        <phrase id="fldtagcaption1" value="Tidak Lengkap" />
+        <phrase id="fldtagvalue2" value="1" />
+        <phrase id="fldtagcaption2" value="Kurang Lengkap" />
+        <phrase id="fldtagvalue3" value="2" />
+        <phrase id="fldtagcaption3" value="" />
       </field>
       <field id="idd_user">
         <phrase id="fldcaption" value="Username" />

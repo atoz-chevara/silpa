@@ -67,6 +67,17 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
+<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
+    <tr id="r_idd_wilayah">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_idd_wilayah"><?= $Page->idd_wilayah->caption() ?></span></td>
+        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_idd_wilayah">
+<span<?= $Page->idd_wilayah->viewAttributes() ?>>
+<?= $Page->idd_wilayah->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <tr id="r_kd_satker">
         <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_kd_satker"><?= $Page->kd_satker->caption() ?></span></td>
@@ -100,277 +111,182 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-    <tr id="r_idd_wilayah">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_idd_wilayah"><?= $Page->idd_wilayah->caption() ?></span></td>
-        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_idd_wilayah">
-<span<?= $Page->idd_wilayah->viewAttributes() ?>>
-<?= $Page->idd_wilayah->getViewValue() ?></span>
+<?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
+    <tr id="r_surat_pengantar">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_surat_pengantar"><?= $Page->surat_pengantar->caption() ?></span></td>
+        <td data-name="surat_pengantar" <?= $Page->surat_pengantar->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_surat_pengantar">
+<span<?= $Page->surat_pengantar->viewAttributes() ?>>
+<?= GetFileViewTag($Page->surat_pengantar, $Page->surat_pengantar->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_01->Visible) { // file_01 ?>
-    <tr id="r_file_01">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_01"><?= $Page->file_01->caption() ?></span></td>
-        <td data-name="file_01" <?= $Page->file_01->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_01">
-<span<?= $Page->file_01->viewAttributes() ?>>
-<?= $Page->file_01->getViewValue() ?></span>
+<?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
+    <tr id="r_skd_rqanunpert">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_skd_rqanunpert"><?= $Page->skd_rqanunpert->caption() ?></span></td>
+        <td data-name="skd_rqanunpert" <?= $Page->skd_rqanunpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_skd_rqanunpert">
+<span<?= $Page->skd_rqanunpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->skd_rqanunpert, $Page->skd_rqanunpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_02->Visible) { // file_02 ?>
-    <tr id="r_file_02">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_02"><?= $Page->file_02->caption() ?></span></td>
-        <td data-name="file_02" <?= $Page->file_02->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_02">
-<span<?= $Page->file_02->viewAttributes() ?>>
-<?= $Page->file_02->getViewValue() ?></span>
+<?php if ($Page->rq_apbkpert->Visible) { // rq_apbkpert ?>
+    <tr id="r_rq_apbkpert">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_rq_apbkpert"><?= $Page->rq_apbkpert->caption() ?></span></td>
+        <td data-name="rq_apbkpert" <?= $Page->rq_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_rq_apbkpert">
+<span<?= $Page->rq_apbkpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rq_apbkpert, $Page->rq_apbkpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_03->Visible) { // file_03 ?>
-    <tr id="r_file_03">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_03"><?= $Page->file_03->caption() ?></span></td>
-        <td data-name="file_03" <?= $Page->file_03->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_03">
-<span<?= $Page->file_03->viewAttributes() ?>>
-<?= $Page->file_03->getViewValue() ?></span>
+<?php if ($Page->bap_apbkpert->Visible) { // bap_apbkpert ?>
+    <tr id="r_bap_apbkpert">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_bap_apbkpert"><?= $Page->bap_apbkpert->caption() ?></span></td>
+        <td data-name="bap_apbkpert" <?= $Page->bap_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_bap_apbkpert">
+<span<?= $Page->bap_apbkpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->bap_apbkpert, $Page->bap_apbkpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_04->Visible) { // file_04 ?>
-    <tr id="r_file_04">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_04"><?= $Page->file_04->caption() ?></span></td>
-        <td data-name="file_04" <?= $Page->file_04->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_04">
-<span<?= $Page->file_04->viewAttributes() ?>>
-<?= $Page->file_04->getViewValue() ?></span>
+<?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
+    <tr id="r_risalah_sidang">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_risalah_sidang"><?= $Page->risalah_sidang->caption() ?></span></td>
+        <td data-name="risalah_sidang" <?= $Page->risalah_sidang->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_risalah_sidang">
+<span<?= $Page->risalah_sidang->viewAttributes() ?>>
+<?= GetFileViewTag($Page->risalah_sidang, $Page->risalah_sidang->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_05->Visible) { // file_05 ?>
-    <tr id="r_file_05">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_05"><?= $Page->file_05->caption() ?></span></td>
-        <td data-name="file_05" <?= $Page->file_05->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_05">
-<span<?= $Page->file_05->viewAttributes() ?>>
-<?= $Page->file_05->getViewValue() ?></span>
+<?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
+    <tr id="r_absen_peserta">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_absen_peserta"><?= $Page->absen_peserta->caption() ?></span></td>
+        <td data-name="absen_peserta" <?= $Page->absen_peserta->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_absen_peserta">
+<span<?= $Page->absen_peserta->viewAttributes() ?>>
+<?= GetFileViewTag($Page->absen_peserta, $Page->absen_peserta->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_06->Visible) { // file_06 ?>
-    <tr id="r_file_06">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_06"><?= $Page->file_06->caption() ?></span></td>
-        <td data-name="file_06" <?= $Page->file_06->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_06">
-<span<?= $Page->file_06->viewAttributes() ?>>
-<?= $Page->file_06->getViewValue() ?></span>
+<?php if ($Page->neraca->Visible) { // neraca ?>
+    <tr id="r_neraca">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_neraca"><?= $Page->neraca->caption() ?></span></td>
+        <td data-name="neraca" <?= $Page->neraca->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_neraca">
+<span<?= $Page->neraca->viewAttributes() ?>>
+<?= GetFileViewTag($Page->neraca, $Page->neraca->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_07->Visible) { // file_07 ?>
-    <tr id="r_file_07">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_07"><?= $Page->file_07->caption() ?></span></td>
-        <td data-name="file_07" <?= $Page->file_07->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_07">
-<span<?= $Page->file_07->viewAttributes() ?>>
-<?= $Page->file_07->getViewValue() ?></span>
+<?php if ($Page->lra->Visible) { // lra ?>
+    <tr id="r_lra">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_lra"><?= $Page->lra->caption() ?></span></td>
+        <td data-name="lra" <?= $Page->lra->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lra">
+<span<?= $Page->lra->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lra, $Page->lra->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_08->Visible) { // file_08 ?>
-    <tr id="r_file_08">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_08"><?= $Page->file_08->caption() ?></span></td>
-        <td data-name="file_08" <?= $Page->file_08->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_08">
-<span<?= $Page->file_08->viewAttributes() ?>>
-<?= $Page->file_08->getViewValue() ?></span>
+<?php if ($Page->calk->Visible) { // calk ?>
+    <tr id="r_calk">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_calk"><?= $Page->calk->caption() ?></span></td>
+        <td data-name="calk" <?= $Page->calk->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_calk">
+<span<?= $Page->calk->viewAttributes() ?>>
+<?= GetFileViewTag($Page->calk, $Page->calk->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_09->Visible) { // file_09 ?>
-    <tr id="r_file_09">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_09"><?= $Page->file_09->caption() ?></span></td>
-        <td data-name="file_09" <?= $Page->file_09->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_09">
-<span<?= $Page->file_09->viewAttributes() ?>>
-<?= $Page->file_09->getViewValue() ?></span>
+<?php if ($Page->lo->Visible) { // lo ?>
+    <tr id="r_lo">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_lo"><?= $Page->lo->caption() ?></span></td>
+        <td data-name="lo" <?= $Page->lo->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lo">
+<span<?= $Page->lo->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lo, $Page->lo->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_10->Visible) { // file_10 ?>
-    <tr id="r_file_10">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_10"><?= $Page->file_10->caption() ?></span></td>
-        <td data-name="file_10" <?= $Page->file_10->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_10">
-<span<?= $Page->file_10->viewAttributes() ?>>
-<?= $Page->file_10->getViewValue() ?></span>
+<?php if ($Page->lpe->Visible) { // lpe ?>
+    <tr id="r_lpe">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_lpe"><?= $Page->lpe->caption() ?></span></td>
+        <td data-name="lpe" <?= $Page->lpe->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lpe">
+<span<?= $Page->lpe->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lpe, $Page->lpe->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_11->Visible) { // file_11 ?>
-    <tr id="r_file_11">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_11"><?= $Page->file_11->caption() ?></span></td>
-        <td data-name="file_11" <?= $Page->file_11->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_11">
-<span<?= $Page->file_11->viewAttributes() ?>>
-<?= $Page->file_11->getViewValue() ?></span>
+<?php if ($Page->lpsal->Visible) { // lpsal ?>
+    <tr id="r_lpsal">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_lpsal"><?= $Page->lpsal->caption() ?></span></td>
+        <td data-name="lpsal" <?= $Page->lpsal->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lpsal">
+<span<?= $Page->lpsal->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lpsal, $Page->lpsal->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_12->Visible) { // file_12 ?>
-    <tr id="r_file_12">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_12"><?= $Page->file_12->caption() ?></span></td>
-        <td data-name="file_12" <?= $Page->file_12->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_12">
-<span<?= $Page->file_12->viewAttributes() ?>>
-<?= $Page->file_12->getViewValue() ?></span>
+<?php if ($Page->lak->Visible) { // lak ?>
+    <tr id="r_lak">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_lak"><?= $Page->lak->caption() ?></span></td>
+        <td data-name="lak" <?= $Page->lak->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_lak">
+<span<?= $Page->lak->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lak, $Page->lak->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_13->Visible) { // file_13 ?>
-    <tr id="r_file_13">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_13"><?= $Page->file_13->caption() ?></span></td>
-        <td data-name="file_13" <?= $Page->file_13->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_13">
-<span<?= $Page->file_13->viewAttributes() ?>>
-<?= $Page->file_13->getViewValue() ?></span>
+<?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
+    <tr id="r_laporan_pemeriksaan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_laporan_pemeriksaan"><?= $Page->laporan_pemeriksaan->caption() ?></span></td>
+        <td data-name="laporan_pemeriksaan" <?= $Page->laporan_pemeriksaan->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_laporan_pemeriksaan">
+<span<?= $Page->laporan_pemeriksaan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->laporan_pemeriksaan, $Page->laporan_pemeriksaan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_14->Visible) { // file_14 ?>
-    <tr id="r_file_14">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_14"><?= $Page->file_14->caption() ?></span></td>
-        <td data-name="file_14" <?= $Page->file_14->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_14">
-<span<?= $Page->file_14->viewAttributes() ?>>
-<?= $Page->file_14->getViewValue() ?></span>
+<?php if ($Page->softcopy_rqanun->Visible) { // softcopy_rqanun ?>
+    <tr id="r_softcopy_rqanun">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_softcopy_rqanun"><?= $Page->softcopy_rqanun->caption() ?></span></td>
+        <td data-name="softcopy_rqanun" <?= $Page->softcopy_rqanun->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_softcopy_rqanun">
+<span<?= $Page->softcopy_rqanun->viewAttributes() ?>>
+<?= GetFileViewTag($Page->softcopy_rqanun, $Page->softcopy_rqanun->getViewValue(), false) ?>
 </span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_15->Visible) { // file_15 ?>
-    <tr id="r_file_15">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_15"><?= $Page->file_15->caption() ?></span></td>
-        <td data-name="file_15" <?= $Page->file_15->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_15">
-<span<?= $Page->file_15->viewAttributes() ?>>
-<?= $Page->file_15->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_16->Visible) { // file_16 ?>
-    <tr id="r_file_16">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_16"><?= $Page->file_16->caption() ?></span></td>
-        <td data-name="file_16" <?= $Page->file_16->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_16">
-<span<?= $Page->file_16->viewAttributes() ?>>
-<?= $Page->file_16->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_17->Visible) { // file_17 ?>
-    <tr id="r_file_17">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_17"><?= $Page->file_17->caption() ?></span></td>
-        <td data-name="file_17" <?= $Page->file_17->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_17">
-<span<?= $Page->file_17->viewAttributes() ?>>
-<?= $Page->file_17->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_18->Visible) { // file_18 ?>
-    <tr id="r_file_18">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_18"><?= $Page->file_18->caption() ?></span></td>
-        <td data-name="file_18" <?= $Page->file_18->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_18">
-<span<?= $Page->file_18->viewAttributes() ?>>
-<?= $Page->file_18->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_19->Visible) { // file_19 ?>
-    <tr id="r_file_19">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_19"><?= $Page->file_19->caption() ?></span></td>
-        <td data-name="file_19" <?= $Page->file_19->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_19">
-<span<?= $Page->file_19->viewAttributes() ?>>
-<?= $Page->file_19->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_20->Visible) { // file_20 ?>
-    <tr id="r_file_20">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_20"><?= $Page->file_20->caption() ?></span></td>
-        <td data-name="file_20" <?= $Page->file_20->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_20">
-<span<?= $Page->file_20->viewAttributes() ?>>
-<?= $Page->file_20->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_21->Visible) { // file_21 ?>
-    <tr id="r_file_21">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_21"><?= $Page->file_21->caption() ?></span></td>
-        <td data-name="file_21" <?= $Page->file_21->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_21">
-<span<?= $Page->file_21->viewAttributes() ?>>
-<?= $Page->file_21->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_22->Visible) { // file_22 ?>
-    <tr id="r_file_22">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_22"><?= $Page->file_22->caption() ?></span></td>
-        <td data-name="file_22" <?= $Page->file_22->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_22">
-<span<?= $Page->file_22->viewAttributes() ?>>
-<?= $Page->file_22->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_23->Visible) { // file_23 ?>
-    <tr id="r_file_23">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_23"><?= $Page->file_23->caption() ?></span></td>
-        <td data-name="file_23" <?= $Page->file_23->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_23">
-<span<?= $Page->file_23->viewAttributes() ?>>
-<?= $Page->file_23->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_24->Visible) { // file_24 ?>
-    <tr id="r_file_24">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_file_24"><?= $Page->file_24->caption() ?></span></td>
-        <td data-name="file_24" <?= $Page->file_24->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_file_24">
-<span<?= $Page->file_24->viewAttributes() ?>>
-<?= $Page->file_24->getViewValue() ?></span>
 </span>
 </td>
     </tr>

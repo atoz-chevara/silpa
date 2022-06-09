@@ -120,9 +120,6 @@ $Page->ListOptions->render("header", "left");
 <?php if ($Page->photo->Visible) { // photo ?>
         <th data-name="photo" class="<?= $Page->photo->headerCellClass() ?>"><div id="elh_users_photo" class="users_photo"><?= $Page->renderSort($Page->photo) ?></div></th>
 <?php } ?>
-<?php if ($Page->level->Visible) { // level ?>
-        <th data-name="level" class="<?= $Page->level->headerCellClass() ?>"><div id="elh_users_level" class="users_level"><?= $Page->renderSort($Page->level) ?></div></th>
-<?php } ?>
 <?php
 // Render list options (header, right)
 $Page->ListOptions->render("header", "right");
@@ -212,14 +209,6 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
 <span>
 <?= GetFileViewTag($Page->photo, $Page->photo->getViewValue(), false) ?>
 </span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->level->Visible) { // level ?>
-        <td data-name="level" <?= $Page->level->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_users_level">
-<span<?= $Page->level->viewAttributes() ?>>
-<?= $Page->level->getViewValue() ?></span>
 </span>
 </td>
     <?php } ?>

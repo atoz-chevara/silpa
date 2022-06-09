@@ -67,6 +67,17 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
+<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
+    <tr id="r_idd_wilayah">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_idd_wilayah"><?= $Page->idd_wilayah->caption() ?></span></td>
+        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
+<span id="el_evaluasi_idd_wilayah" data-page="1">
+<span<?= $Page->idd_wilayah->viewAttributes() ?>>
+<?= $Page->idd_wilayah->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <tr id="r_kd_satker">
         <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_kd_satker"><?= $Page->kd_satker->caption() ?></span></td>
@@ -100,287 +111,290 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-    <tr id="r_idd_wilayah">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_idd_wilayah"><?= $Page->idd_wilayah->caption() ?></span></td>
-        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el_evaluasi_idd_wilayah" data-page="1">
-<span<?= $Page->idd_wilayah->viewAttributes() ?>>
-<?= $Page->idd_wilayah->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->file_01->Visible) { // file_01 ?>
-    <tr id="r_file_01">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_01"><?= $Page->file_01->caption() ?></span></td>
-        <td data-name="file_01" <?= $Page->file_01->cellAttributes() ?>>
-<span id="el_evaluasi_file_01" data-page="1">
-<span<?= $Page->file_01->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_01, $Page->file_01->getViewValue(), false) ?>
+<?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
+    <tr id="r_surat_pengantar">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_surat_pengantar"><?= $Page->surat_pengantar->caption() ?></span></td>
+        <td data-name="surat_pengantar" <?= $Page->surat_pengantar->cellAttributes() ?>>
+<span id="el_evaluasi_surat_pengantar" data-page="1">
+<span<?= $Page->surat_pengantar->viewAttributes() ?>>
+<?= GetFileViewTag($Page->surat_pengantar, $Page->surat_pengantar->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_02->Visible) { // file_02 ?>
-    <tr id="r_file_02">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_02"><?= $Page->file_02->caption() ?></span></td>
-        <td data-name="file_02" <?= $Page->file_02->cellAttributes() ?>>
-<span id="el_evaluasi_file_02" data-page="1">
-<span<?= $Page->file_02->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_02, $Page->file_02->getViewValue(), false) ?>
+<?php if ($Page->rpjmd->Visible) { // rpjmd ?>
+    <tr id="r_rpjmd">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_rpjmd"><?= $Page->rpjmd->caption() ?></span></td>
+        <td data-name="rpjmd" <?= $Page->rpjmd->cellAttributes() ?>>
+<span id="el_evaluasi_rpjmd" data-page="1">
+<span<?= $Page->rpjmd->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rpjmd, $Page->rpjmd->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_03->Visible) { // file_03 ?>
-    <tr id="r_file_03">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_03"><?= $Page->file_03->caption() ?></span></td>
-        <td data-name="file_03" <?= $Page->file_03->cellAttributes() ?>>
-<span id="el_evaluasi_file_03" data-page="1">
-<span<?= $Page->file_03->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_03, $Page->file_03->getViewValue(), false) ?>
+<?php if ($Page->rkpk->Visible) { // rkpk ?>
+    <tr id="r_rkpk">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_rkpk"><?= $Page->rkpk->caption() ?></span></td>
+        <td data-name="rkpk" <?= $Page->rkpk->cellAttributes() ?>>
+<span id="el_evaluasi_rkpk" data-page="1">
+<span<?= $Page->rkpk->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rkpk, $Page->rkpk->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_04->Visible) { // file_04 ?>
-    <tr id="r_file_04">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_04"><?= $Page->file_04->caption() ?></span></td>
-        <td data-name="file_04" <?= $Page->file_04->cellAttributes() ?>>
-<span id="el_evaluasi_file_04" data-page="1">
-<span<?= $Page->file_04->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_04, $Page->file_04->getViewValue(), false) ?>
+<?php if ($Page->skd_rkuappas->Visible) { // skd_rkuappas ?>
+    <tr id="r_skd_rkuappas">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_skd_rkuappas"><?= $Page->skd_rkuappas->caption() ?></span></td>
+        <td data-name="skd_rkuappas" <?= $Page->skd_rkuappas->cellAttributes() ?>>
+<span id="el_evaluasi_skd_rkuappas" data-page="1">
+<span<?= $Page->skd_rkuappas->viewAttributes() ?>>
+<?= GetFileViewTag($Page->skd_rkuappas, $Page->skd_rkuappas->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_05->Visible) { // file_05 ?>
-    <tr id="r_file_05">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_05"><?= $Page->file_05->caption() ?></span></td>
-        <td data-name="file_05" <?= $Page->file_05->cellAttributes() ?>>
-<span id="el_evaluasi_file_05" data-page="1">
-<span<?= $Page->file_05->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_05, $Page->file_05->getViewValue(), false) ?>
+<?php if ($Page->kua->Visible) { // kua ?>
+    <tr id="r_kua">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_kua"><?= $Page->kua->caption() ?></span></td>
+        <td data-name="kua" <?= $Page->kua->cellAttributes() ?>>
+<span id="el_evaluasi_kua" data-page="1">
+<span<?= $Page->kua->viewAttributes() ?>>
+<?= GetFileViewTag($Page->kua, $Page->kua->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_06->Visible) { // file_06 ?>
-    <tr id="r_file_06">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_06"><?= $Page->file_06->caption() ?></span></td>
-        <td data-name="file_06" <?= $Page->file_06->cellAttributes() ?>>
-<span id="el_evaluasi_file_06" data-page="1">
-<span<?= $Page->file_06->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_06, $Page->file_06->getViewValue(), false) ?>
+<?php if ($Page->ppas->Visible) { // ppas ?>
+    <tr id="r_ppas">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_ppas"><?= $Page->ppas->caption() ?></span></td>
+        <td data-name="ppas" <?= $Page->ppas->cellAttributes() ?>>
+<span id="el_evaluasi_ppas" data-page="1">
+<span<?= $Page->ppas->viewAttributes() ?>>
+<?= GetFileViewTag($Page->ppas, $Page->ppas->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_07->Visible) { // file_07 ?>
-    <tr id="r_file_07">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_07"><?= $Page->file_07->caption() ?></span></td>
-        <td data-name="file_07" <?= $Page->file_07->cellAttributes() ?>>
-<span id="el_evaluasi_file_07" data-page="1">
-<span<?= $Page->file_07->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_07, $Page->file_07->getViewValue(), false) ?>
+<?php if ($Page->skd_rqanun->Visible) { // skd_rqanun ?>
+    <tr id="r_skd_rqanun">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_skd_rqanun"><?= $Page->skd_rqanun->caption() ?></span></td>
+        <td data-name="skd_rqanun" <?= $Page->skd_rqanun->cellAttributes() ?>>
+<span id="el_evaluasi_skd_rqanun" data-page="1">
+<span<?= $Page->skd_rqanun->viewAttributes() ?>>
+<?= GetFileViewTag($Page->skd_rqanun, $Page->skd_rqanun->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_08->Visible) { // file_08 ?>
-    <tr id="r_file_08">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_08"><?= $Page->file_08->caption() ?></span></td>
-        <td data-name="file_08" <?= $Page->file_08->cellAttributes() ?>>
-<span id="el_evaluasi_file_08" data-page="1">
-<span<?= $Page->file_08->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_08, $Page->file_08->getViewValue(), false) ?>
+<?php if ($Page->nota_keuangan->Visible) { // nota_keuangan ?>
+    <tr id="r_nota_keuangan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_nota_keuangan"><?= $Page->nota_keuangan->caption() ?></span></td>
+        <td data-name="nota_keuangan" <?= $Page->nota_keuangan->cellAttributes() ?>>
+<span id="el_evaluasi_nota_keuangan" data-page="1">
+<span<?= $Page->nota_keuangan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->nota_keuangan, $Page->nota_keuangan->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_09->Visible) { // file_09 ?>
-    <tr id="r_file_09">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_09"><?= $Page->file_09->caption() ?></span></td>
-        <td data-name="file_09" <?= $Page->file_09->cellAttributes() ?>>
-<span id="el_evaluasi_file_09" data-page="1">
-<span<?= $Page->file_09->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_09, $Page->file_09->getViewValue(), false) ?>
+<?php if ($Page->pengantar_nota->Visible) { // pengantar_nota ?>
+    <tr id="r_pengantar_nota">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_pengantar_nota"><?= $Page->pengantar_nota->caption() ?></span></td>
+        <td data-name="pengantar_nota" <?= $Page->pengantar_nota->cellAttributes() ?>>
+<span id="el_evaluasi_pengantar_nota" data-page="1">
+<span<?= $Page->pengantar_nota->viewAttributes() ?>>
+<?= GetFileViewTag($Page->pengantar_nota, $Page->pengantar_nota->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_10->Visible) { // file_10 ?>
-    <tr id="r_file_10">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_10"><?= $Page->file_10->caption() ?></span></td>
-        <td data-name="file_10" <?= $Page->file_10->cellAttributes() ?>>
-<span id="el_evaluasi_file_10" data-page="1">
-<span<?= $Page->file_10->viewAttributes() ?>>
-<?= GetFileViewTag($Page->file_10, $Page->file_10->getViewValue(), false) ?>
+<?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
+    <tr id="r_risalah_sidang">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_risalah_sidang"><?= $Page->risalah_sidang->caption() ?></span></td>
+        <td data-name="risalah_sidang" <?= $Page->risalah_sidang->cellAttributes() ?>>
+<span id="el_evaluasi_risalah_sidang" data-page="1">
+<span<?= $Page->risalah_sidang->viewAttributes() ?>>
+<?= GetFileViewTag($Page->risalah_sidang, $Page->risalah_sidang->getViewValue(), false) ?>
 </span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_11->Visible) { // file_11 ?>
-    <tr id="r_file_11">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_11"><?= $Page->file_11->caption() ?></span></td>
-        <td data-name="file_11" <?= $Page->file_11->cellAttributes() ?>>
-<span id="el_evaluasi_file_11" data-page="1">
-<span<?= $Page->file_11->viewAttributes() ?>>
-<?= $Page->file_11->getViewValue() ?></span>
+<?php if ($Page->bap_apbk->Visible) { // bap_apbk ?>
+    <tr id="r_bap_apbk">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_bap_apbk"><?= $Page->bap_apbk->caption() ?></span></td>
+        <td data-name="bap_apbk" <?= $Page->bap_apbk->cellAttributes() ?>>
+<span id="el_evaluasi_bap_apbk" data-page="1">
+<span<?= $Page->bap_apbk->viewAttributes() ?>>
+<?= GetFileViewTag($Page->bap_apbk, $Page->bap_apbk->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_12->Visible) { // file_12 ?>
-    <tr id="r_file_12">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_12"><?= $Page->file_12->caption() ?></span></td>
-        <td data-name="file_12" <?= $Page->file_12->cellAttributes() ?>>
-<span id="el_evaluasi_file_12" data-page="1">
-<span<?= $Page->file_12->viewAttributes() ?>>
-<?= $Page->file_12->getViewValue() ?></span>
+<?php if ($Page->rq_apbk->Visible) { // rq_apbk ?>
+    <tr id="r_rq_apbk">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_rq_apbk"><?= $Page->rq_apbk->caption() ?></span></td>
+        <td data-name="rq_apbk" <?= $Page->rq_apbk->cellAttributes() ?>>
+<span id="el_evaluasi_rq_apbk" data-page="1">
+<span<?= $Page->rq_apbk->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rq_apbk, $Page->rq_apbk->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_13->Visible) { // file_13 ?>
-    <tr id="r_file_13">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_13"><?= $Page->file_13->caption() ?></span></td>
-        <td data-name="file_13" <?= $Page->file_13->cellAttributes() ?>>
-<span id="el_evaluasi_file_13" data-page="1">
-<span<?= $Page->file_13->viewAttributes() ?>>
-<?= $Page->file_13->getViewValue() ?></span>
+<?php if ($Page->rp_penjabaran->Visible) { // rp_penjabaran ?>
+    <tr id="r_rp_penjabaran">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_rp_penjabaran"><?= $Page->rp_penjabaran->caption() ?></span></td>
+        <td data-name="rp_penjabaran" <?= $Page->rp_penjabaran->cellAttributes() ?>>
+<span id="el_evaluasi_rp_penjabaran" data-page="1">
+<span<?= $Page->rp_penjabaran->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rp_penjabaran, $Page->rp_penjabaran->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_14->Visible) { // file_14 ?>
-    <tr id="r_file_14">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_14"><?= $Page->file_14->caption() ?></span></td>
-        <td data-name="file_14" <?= $Page->file_14->cellAttributes() ?>>
-<span id="el_evaluasi_file_14" data-page="1">
-<span<?= $Page->file_14->viewAttributes() ?>>
-<?= $Page->file_14->getViewValue() ?></span>
+<?php if ($Page->jadwal_proses->Visible) { // jadwal_proses ?>
+    <tr id="r_jadwal_proses">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_jadwal_proses"><?= $Page->jadwal_proses->caption() ?></span></td>
+        <td data-name="jadwal_proses" <?= $Page->jadwal_proses->cellAttributes() ?>>
+<span id="el_evaluasi_jadwal_proses" data-page="1">
+<span<?= $Page->jadwal_proses->viewAttributes() ?>>
+<?= GetFileViewTag($Page->jadwal_proses, $Page->jadwal_proses->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_15->Visible) { // file_15 ?>
-    <tr id="r_file_15">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_15"><?= $Page->file_15->caption() ?></span></td>
-        <td data-name="file_15" <?= $Page->file_15->cellAttributes() ?>>
-<span id="el_evaluasi_file_15" data-page="1">
-<span<?= $Page->file_15->viewAttributes() ?>>
-<?= $Page->file_15->getViewValue() ?></span>
+<?php if ($Page->sinkron_kebijakan->Visible) { // sinkron_kebijakan ?>
+    <tr id="r_sinkron_kebijakan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_sinkron_kebijakan"><?= $Page->sinkron_kebijakan->caption() ?></span></td>
+        <td data-name="sinkron_kebijakan" <?= $Page->sinkron_kebijakan->cellAttributes() ?>>
+<span id="el_evaluasi_sinkron_kebijakan" data-page="1">
+<span<?= $Page->sinkron_kebijakan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->sinkron_kebijakan, $Page->sinkron_kebijakan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_16->Visible) { // file_16 ?>
-    <tr id="r_file_16">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_16"><?= $Page->file_16->caption() ?></span></td>
-        <td data-name="file_16" <?= $Page->file_16->cellAttributes() ?>>
-<span id="el_evaluasi_file_16" data-page="1">
-<span<?= $Page->file_16->viewAttributes() ?>>
-<?= $Page->file_16->getViewValue() ?></span>
+<?php if ($Page->konsistensi_program->Visible) { // konsistensi_program ?>
+    <tr id="r_konsistensi_program">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_konsistensi_program"><?= $Page->konsistensi_program->caption() ?></span></td>
+        <td data-name="konsistensi_program" <?= $Page->konsistensi_program->cellAttributes() ?>>
+<span id="el_evaluasi_konsistensi_program" data-page="1">
+<span<?= $Page->konsistensi_program->viewAttributes() ?>>
+<?= GetFileViewTag($Page->konsistensi_program, $Page->konsistensi_program->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_17->Visible) { // file_17 ?>
-    <tr id="r_file_17">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_17"><?= $Page->file_17->caption() ?></span></td>
-        <td data-name="file_17" <?= $Page->file_17->cellAttributes() ?>>
-<span id="el_evaluasi_file_17" data-page="1">
-<span<?= $Page->file_17->viewAttributes() ?>>
-<?= $Page->file_17->getViewValue() ?></span>
+<?php if ($Page->alokasi_pendidikan->Visible) { // alokasi_pendidikan ?>
+    <tr id="r_alokasi_pendidikan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_alokasi_pendidikan"><?= $Page->alokasi_pendidikan->caption() ?></span></td>
+        <td data-name="alokasi_pendidikan" <?= $Page->alokasi_pendidikan->cellAttributes() ?>>
+<span id="el_evaluasi_alokasi_pendidikan" data-page="1">
+<span<?= $Page->alokasi_pendidikan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->alokasi_pendidikan, $Page->alokasi_pendidikan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_18->Visible) { // file_18 ?>
-    <tr id="r_file_18">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_18"><?= $Page->file_18->caption() ?></span></td>
-        <td data-name="file_18" <?= $Page->file_18->cellAttributes() ?>>
-<span id="el_evaluasi_file_18" data-page="1">
-<span<?= $Page->file_18->viewAttributes() ?>>
-<?= $Page->file_18->getViewValue() ?></span>
+<?php if ($Page->alokasi_kesehatan->Visible) { // alokasi_kesehatan ?>
+    <tr id="r_alokasi_kesehatan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_alokasi_kesehatan"><?= $Page->alokasi_kesehatan->caption() ?></span></td>
+        <td data-name="alokasi_kesehatan" <?= $Page->alokasi_kesehatan->cellAttributes() ?>>
+<span id="el_evaluasi_alokasi_kesehatan" data-page="1">
+<span<?= $Page->alokasi_kesehatan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->alokasi_kesehatan, $Page->alokasi_kesehatan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_19->Visible) { // file_19 ?>
-    <tr id="r_file_19">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_19"><?= $Page->file_19->caption() ?></span></td>
-        <td data-name="file_19" <?= $Page->file_19->cellAttributes() ?>>
-<span id="el_evaluasi_file_19" data-page="1">
-<span<?= $Page->file_19->viewAttributes() ?>>
-<?= $Page->file_19->getViewValue() ?></span>
+<?php if ($Page->alokasi_belanja->Visible) { // alokasi_belanja ?>
+    <tr id="r_alokasi_belanja">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_alokasi_belanja"><?= $Page->alokasi_belanja->caption() ?></span></td>
+        <td data-name="alokasi_belanja" <?= $Page->alokasi_belanja->cellAttributes() ?>>
+<span id="el_evaluasi_alokasi_belanja" data-page="1">
+<span<?= $Page->alokasi_belanja->viewAttributes() ?>>
+<?= GetFileViewTag($Page->alokasi_belanja, $Page->alokasi_belanja->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_20->Visible) { // file_20 ?>
-    <tr id="r_file_20">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_20"><?= $Page->file_20->caption() ?></span></td>
-        <td data-name="file_20" <?= $Page->file_20->cellAttributes() ?>>
-<span id="el_evaluasi_file_20" data-page="1">
-<span<?= $Page->file_20->viewAttributes() ?>>
-<?= $Page->file_20->getViewValue() ?></span>
+<?php if ($Page->bak_kegiatan->Visible) { // bak_kegiatan ?>
+    <tr id="r_bak_kegiatan">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_bak_kegiatan"><?= $Page->bak_kegiatan->caption() ?></span></td>
+        <td data-name="bak_kegiatan" <?= $Page->bak_kegiatan->cellAttributes() ?>>
+<span id="el_evaluasi_bak_kegiatan" data-page="1">
+<span<?= $Page->bak_kegiatan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->bak_kegiatan, $Page->bak_kegiatan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_21->Visible) { // file_21 ?>
-    <tr id="r_file_21">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_21"><?= $Page->file_21->caption() ?></span></td>
-        <td data-name="file_21" <?= $Page->file_21->cellAttributes() ?>>
-<span id="el_evaluasi_file_21" data-page="1">
-<span<?= $Page->file_21->viewAttributes() ?>>
-<?= $Page->file_21->getViewValue() ?></span>
+<?php if ($Page->softcopy_rka->Visible) { // softcopy_rka ?>
+    <tr id="r_softcopy_rka">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_softcopy_rka"><?= $Page->softcopy_rka->caption() ?></span></td>
+        <td data-name="softcopy_rka" <?= $Page->softcopy_rka->cellAttributes() ?>>
+<span id="el_evaluasi_softcopy_rka" data-page="1">
+<span<?= $Page->softcopy_rka->viewAttributes() ?>>
+<?= GetFileViewTag($Page->softcopy_rka, $Page->softcopy_rka->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_22->Visible) { // file_22 ?>
-    <tr id="r_file_22">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_22"><?= $Page->file_22->caption() ?></span></td>
-        <td data-name="file_22" <?= $Page->file_22->cellAttributes() ?>>
-<span id="el_evaluasi_file_22" data-page="1">
-<span<?= $Page->file_22->viewAttributes() ?>>
-<?= $Page->file_22->getViewValue() ?></span>
+<?php if ($Page->otsus->Visible) { // otsus ?>
+    <tr id="r_otsus">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_otsus"><?= $Page->otsus->caption() ?></span></td>
+        <td data-name="otsus" <?= $Page->otsus->cellAttributes() ?>>
+<span id="el_evaluasi_otsus" data-page="1">
+<span<?= $Page->otsus->viewAttributes() ?>>
+<?= GetFileViewTag($Page->otsus, $Page->otsus->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_23->Visible) { // file_23 ?>
-    <tr id="r_file_23">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_23"><?= $Page->file_23->caption() ?></span></td>
-        <td data-name="file_23" <?= $Page->file_23->cellAttributes() ?>>
-<span id="el_evaluasi_file_23" data-page="1">
-<span<?= $Page->file_23->viewAttributes() ?>>
-<?= $Page->file_23->getViewValue() ?></span>
+<?php if ($Page->qanun_perbup->Visible) { // qanun_perbup ?>
+    <tr id="r_qanun_perbup">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_qanun_perbup"><?= $Page->qanun_perbup->caption() ?></span></td>
+        <td data-name="qanun_perbup" <?= $Page->qanun_perbup->cellAttributes() ?>>
+<span id="el_evaluasi_qanun_perbup" data-page="1">
+<span<?= $Page->qanun_perbup->viewAttributes() ?>>
+<?= GetFileViewTag($Page->qanun_perbup, $Page->qanun_perbup->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->file_24->Visible) { // file_24 ?>
-    <tr id="r_file_24">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_file_24"><?= $Page->file_24->caption() ?></span></td>
-        <td data-name="file_24" <?= $Page->file_24->cellAttributes() ?>>
-<span id="el_evaluasi_file_24" data-page="1">
-<span<?= $Page->file_24->viewAttributes() ?>>
-<?= $Page->file_24->getViewValue() ?></span>
+<?php if ($Page->tindak_apbkp->Visible) { // tindak_apbkp ?>
+    <tr id="r_tindak_apbkp">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_evaluasi_tindak_apbkp"><?= $Page->tindak_apbkp->caption() ?></span></td>
+        <td data-name="tindak_apbkp" <?= $Page->tindak_apbkp->cellAttributes() ?>>
+<span id="el_evaluasi_tindak_apbkp" data-page="1">
+<span<?= $Page->tindak_apbkp->viewAttributes() ?>>
+<?= GetFileViewTag($Page->tindak_apbkp, $Page->tindak_apbkp->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     </tr>

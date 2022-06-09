@@ -171,7 +171,7 @@ $CONFIG = [
 
     // General
     "UNFORMAT_YEAR" => 50, // Unformat year
-    "RANDOM_KEY" => 'HAtrC2CdIskgaHVk', // Random key for encryption
+    "RANDOM_KEY" => 'fNBquXV2TbjLYeUB', // Random key for encryption
     "ENCRYPTION_KEY" => '', // Encryption key for data protection
     "PROJECT_STYLESHEET_FILENAME" => "css/silpa.css", // Project stylesheet file name
     "PROJECT_CHARSET" => "utf-8", // Project charset
@@ -183,8 +183,8 @@ $CONFIG = [
     "CACHE" => false, // Cache
     "LAZY_LOAD" => true, // Lazy loading of images
     "BODY_CLASS" => "hold-transition layout-fixed",
-    "SIDEBAR_CLASS" => "main-sidebar sidebar-dark-danger",
-    "NAVBAR_CLASS" => "main-header navbar navbar-expand navbar-danger navbar-dark border-bottom-0",
+    "SIDEBAR_CLASS" => "main-sidebar sidebar-dark-primary",
+    "NAVBAR_CLASS" => "main-header navbar navbar-expand navbar-primary navbar-dark border-bottom-0",
 
     // Check Token
     "CHECK_TOKEN" => true,
@@ -325,7 +325,7 @@ $CONFIG = [
     "CSRF_PREFIX" => "csrf",
     "ENCRYPTION_ENABLED" => false, // Encryption enabled
     "ADMIN_USER_NAME" => "admin", // Administrator user name
-    "ADMIN_PASSWORD" => "F4t4moregana", // Administrator password
+    "ADMIN_PASSWORD" => "admin", // Administrator password
     "USE_CUSTOM_LOGIN" => true, // Use custom login
     "ALLOW_LOGIN_BY_URL" => false, // Allow login by URL
     "ALLOW_LOGIN_BY_SESSION" => false, // Allow login by session variables

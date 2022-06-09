@@ -93,7 +93,6 @@ class Apbk extends DbTable
         $this->ShowMultipleDetails = false; // Show multiple details
         $this->GridAddRowCount = 5;
         $this->AllowAddDeleteRow = true; // Allow add/delete row
-        $this->UserIDAllowSecurity = Config("DEFAULT_USER_ID_ALLOW_SECURITY"); // Default User ID allowed permissions
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // idd_evaluasi
@@ -493,6 +492,11 @@ class Apbk extends DbTable
     // Apply User ID filters
     public function applyUserIDFilters($filter)
     {
+        global $Security;
+        // Add User ID filter
+        if ($Security->currentUserID() != "" && !$Security->isAdmin()) { // Non system admin
+            $filter = $this->addUserIDFilter($filter);
+        }
         return $filter;
     }
 
@@ -1805,8 +1809,15 @@ SORTHTML;
         // idd_user
         $this->idd_user->EditAttrs["class"] = "form-control";
         $this->idd_user->EditCustomAttributes = "";
-        $this->idd_user->EditValue = $this->idd_user->CurrentValue;
-        $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("info")) { // Non system admin
+            $this->idd_user->CurrentValue = CurrentUserID();
+            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+            $this->idd_user->EditValue = FormatNumber($this->idd_user->EditValue, 0, -2, -2, -2);
+            $this->idd_user->ViewCustomAttributes = "";
+        } else {
+            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        }
 
         // Call Row Rendered event
         $this->rowRendered();
@@ -2009,6 +2020,53 @@ SORTHTML;
         if (!$doc->ExportCustom) {
             $doc->exportTableFooter();
         }
+    }
+
+    // Add User ID filter
+    public function addUserIDFilter($filter = "")
+    {
+        global $Security;
+        $filterWrk = "";
+        $id = (CurrentPageID() == "list") ? $this->CurrentAction : CurrentPageID();
+        if (!$this->userIDAllow($id) && !$Security->isAdmin()) {
+            $filterWrk = $Security->userIdList();
+            if ($filterWrk != "") {
+                $filterWrk = '`idd_user` IN (' . $filterWrk . ')';
+            }
+        }
+
+        // Call User ID Filtering event
+        $this->userIdFiltering($filterWrk);
+        AddFilter($filter, $filterWrk);
+        return $filter;
+    }
+
+    // User ID subquery
+    public function getUserIDSubquery(&$fld, &$masterfld)
+    {
+        global $UserTable;
+        $wrk = "";
+        $sql = "SELECT " . $masterfld->Expression . " FROM `apbk`";
+        $filter = $this->addUserIDFilter("");
+        if ($filter != "") {
+            $sql .= " WHERE " . $filter;
+        }
+
+        // List all values
+        if ($rs = Conn($UserTable->Dbid)->executeQuery($sql)->fetchAll(\PDO::FETCH_NUM)) {
+            foreach ($rs as $row) {
+                if ($wrk != "") {
+                    $wrk .= ",";
+                }
+                $wrk .= QuotedValue($row[0], $masterfld->DataType, Config("USER_TABLE_DBID"));
+            }
+        }
+        if ($wrk != "") {
+            $wrk = $fld->Expression . " IN (" . $wrk . ")";
+        } else { // No User ID value found
+            $wrk = "0=1";
+        }
+        return $wrk;
     }
 
     // Get file data

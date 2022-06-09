@@ -376,34 +376,25 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_evaluasi->setVisibility();
         $this->tanggal->setVisibility();
+        $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
-        $this->idd_wilayah->setVisibility();
-        $this->file_01->setVisibility();
-        $this->file_02->setVisibility();
-        $this->file_03->setVisibility();
-        $this->file_04->setVisibility();
-        $this->file_05->setVisibility();
-        $this->file_06->setVisibility();
-        $this->file_07->setVisibility();
-        $this->file_08->setVisibility();
-        $this->file_09->setVisibility();
-        $this->file_10->setVisibility();
-        $this->file_11->setVisibility();
-        $this->file_12->setVisibility();
-        $this->file_13->setVisibility();
-        $this->file_14->setVisibility();
-        $this->file_15->setVisibility();
-        $this->file_16->setVisibility();
-        $this->file_17->setVisibility();
-        $this->file_18->setVisibility();
-        $this->file_19->setVisibility();
-        $this->file_20->setVisibility();
-        $this->file_21->setVisibility();
-        $this->file_22->setVisibility();
-        $this->file_23->setVisibility();
-        $this->file_24->setVisibility();
+        $this->surat_pengantar->setVisibility();
+        $this->skd_rqanunpert->setVisibility();
+        $this->rq_apbkpert->setVisibility();
+        $this->bap_apbkpert->setVisibility();
+        $this->risalah_sidang->setVisibility();
+        $this->absen_peserta->setVisibility();
+        $this->neraca->setVisibility();
+        $this->lra->setVisibility();
+        $this->calk->setVisibility();
+        $this->lo->setVisibility();
+        $this->lpe->setVisibility();
+        $this->lpsal->setVisibility();
+        $this->lak->setVisibility();
+        $this->laporan_pemeriksaan->setVisibility();
+        $this->softcopy_rqanun->setVisibility();
         $this->status->setVisibility();
         $this->idd_user->setVisibility();
         $this->hideFieldsForAddEdit();
@@ -420,6 +411,11 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         }
 
         // Set up lookup cache
+        $this->setupLookupOptions($this->idd_wilayah);
+        $this->setupLookupOptions($this->kd_satker);
+        $this->setupLookupOptions($this->idd_tahapan);
+        $this->setupLookupOptions($this->tahun_anggaran);
+        $this->setupLookupOptions($this->idd_user);
 
         // Set up Breadcrumb
         $this->setupBreadcrumb();
@@ -434,6 +430,25 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
 
         // Set up filter (WHERE Clause)
         $this->CurrentFilter = $filter;
+
+        // Check if valid User ID
+        $conn = $this->getConnection();
+        $sql = $this->getSql($this->CurrentFilter);
+        $rows = $conn->fetchAll($sql);
+        $res = true;
+        foreach ($rows as $row) {
+            $this->loadRowValues($row);
+            if (!$this->showOptionLink("delete")) {
+                $userIdMsg = $Language->phrase("NoDeletePermission");
+                $this->setFailureMessage($userIdMsg);
+                $res = false;
+                break;
+            }
+        }
+        if (!$res) {
+            $this->terminate("pertanggungjawabanlist"); // Return to list
+            return;
+        }
 
         // Get action
         if (IsApi()) {
@@ -570,34 +585,40 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
+        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
-        $this->file_01->setDbValue($row['file_01']);
-        $this->file_02->setDbValue($row['file_02']);
-        $this->file_03->setDbValue($row['file_03']);
-        $this->file_04->setDbValue($row['file_04']);
-        $this->file_05->setDbValue($row['file_05']);
-        $this->file_06->setDbValue($row['file_06']);
-        $this->file_07->setDbValue($row['file_07']);
-        $this->file_08->setDbValue($row['file_08']);
-        $this->file_09->setDbValue($row['file_09']);
-        $this->file_10->setDbValue($row['file_10']);
-        $this->file_11->setDbValue($row['file_11']);
-        $this->file_12->setDbValue($row['file_12']);
-        $this->file_13->setDbValue($row['file_13']);
-        $this->file_14->setDbValue($row['file_14']);
-        $this->file_15->setDbValue($row['file_15']);
-        $this->file_16->setDbValue($row['file_16']);
-        $this->file_17->setDbValue($row['file_17']);
-        $this->file_18->setDbValue($row['file_18']);
-        $this->file_19->setDbValue($row['file_19']);
-        $this->file_20->setDbValue($row['file_20']);
-        $this->file_21->setDbValue($row['file_21']);
-        $this->file_22->setDbValue($row['file_22']);
-        $this->file_23->setDbValue($row['file_23']);
-        $this->file_24->setDbValue($row['file_24']);
+        $this->surat_pengantar->Upload->DbValue = $row['surat_pengantar'];
+        $this->surat_pengantar->setDbValue($this->surat_pengantar->Upload->DbValue);
+        $this->skd_rqanunpert->Upload->DbValue = $row['skd_rqanunpert'];
+        $this->skd_rqanunpert->setDbValue($this->skd_rqanunpert->Upload->DbValue);
+        $this->rq_apbkpert->Upload->DbValue = $row['rq_apbkpert'];
+        $this->rq_apbkpert->setDbValue($this->rq_apbkpert->Upload->DbValue);
+        $this->bap_apbkpert->Upload->DbValue = $row['bap_apbkpert'];
+        $this->bap_apbkpert->setDbValue($this->bap_apbkpert->Upload->DbValue);
+        $this->risalah_sidang->Upload->DbValue = $row['risalah_sidang'];
+        $this->risalah_sidang->setDbValue($this->risalah_sidang->Upload->DbValue);
+        $this->absen_peserta->Upload->DbValue = $row['absen_peserta'];
+        $this->absen_peserta->setDbValue($this->absen_peserta->Upload->DbValue);
+        $this->neraca->Upload->DbValue = $row['neraca'];
+        $this->neraca->setDbValue($this->neraca->Upload->DbValue);
+        $this->lra->Upload->DbValue = $row['lra'];
+        $this->lra->setDbValue($this->lra->Upload->DbValue);
+        $this->calk->Upload->DbValue = $row['calk'];
+        $this->calk->setDbValue($this->calk->Upload->DbValue);
+        $this->lo->Upload->DbValue = $row['lo'];
+        $this->lo->setDbValue($this->lo->Upload->DbValue);
+        $this->lpe->Upload->DbValue = $row['lpe'];
+        $this->lpe->setDbValue($this->lpe->Upload->DbValue);
+        $this->lpsal->Upload->DbValue = $row['lpsal'];
+        $this->lpsal->setDbValue($this->lpsal->Upload->DbValue);
+        $this->lak->Upload->DbValue = $row['lak'];
+        $this->lak->setDbValue($this->lak->Upload->DbValue);
+        $this->laporan_pemeriksaan->Upload->DbValue = $row['laporan_pemeriksaan'];
+        $this->laporan_pemeriksaan->setDbValue($this->laporan_pemeriksaan->Upload->DbValue);
+        $this->softcopy_rqanun->Upload->DbValue = $row['softcopy_rqanun'];
+        $this->softcopy_rqanun->setDbValue($this->softcopy_rqanun->Upload->DbValue);
         $this->status->setDbValue($row['status']);
         $this->idd_user->setDbValue($row['idd_user']);
     }
@@ -608,34 +629,25 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         $row = [];
         $row['idd_evaluasi'] = null;
         $row['tanggal'] = null;
+        $row['idd_wilayah'] = null;
         $row['kd_satker'] = null;
         $row['idd_tahapan'] = null;
         $row['tahun_anggaran'] = null;
-        $row['idd_wilayah'] = null;
-        $row['file_01'] = null;
-        $row['file_02'] = null;
-        $row['file_03'] = null;
-        $row['file_04'] = null;
-        $row['file_05'] = null;
-        $row['file_06'] = null;
-        $row['file_07'] = null;
-        $row['file_08'] = null;
-        $row['file_09'] = null;
-        $row['file_10'] = null;
-        $row['file_11'] = null;
-        $row['file_12'] = null;
-        $row['file_13'] = null;
-        $row['file_14'] = null;
-        $row['file_15'] = null;
-        $row['file_16'] = null;
-        $row['file_17'] = null;
-        $row['file_18'] = null;
-        $row['file_19'] = null;
-        $row['file_20'] = null;
-        $row['file_21'] = null;
-        $row['file_22'] = null;
-        $row['file_23'] = null;
-        $row['file_24'] = null;
+        $row['surat_pengantar'] = null;
+        $row['skd_rqanunpert'] = null;
+        $row['rq_apbkpert'] = null;
+        $row['bap_apbkpert'] = null;
+        $row['risalah_sidang'] = null;
+        $row['absen_peserta'] = null;
+        $row['neraca'] = null;
+        $row['lra'] = null;
+        $row['calk'] = null;
+        $row['lo'] = null;
+        $row['lpe'] = null;
+        $row['lpsal'] = null;
+        $row['lak'] = null;
+        $row['laporan_pemeriksaan'] = null;
+        $row['softcopy_rqanun'] = null;
         $row['status'] = null;
         $row['idd_user'] = null;
         return $row;
@@ -657,61 +669,43 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
 
         // tanggal
 
+        // idd_wilayah
+
         // kd_satker
 
         // idd_tahapan
 
         // tahun_anggaran
 
-        // idd_wilayah
+        // surat_pengantar
 
-        // file_01
+        // skd_rqanunpert
 
-        // file_02
+        // rq_apbkpert
 
-        // file_03
+        // bap_apbkpert
 
-        // file_04
+        // risalah_sidang
 
-        // file_05
+        // absen_peserta
 
-        // file_06
+        // neraca
 
-        // file_07
+        // lra
 
-        // file_08
+        // calk
 
-        // file_09
+        // lo
 
-        // file_10
+        // lpe
 
-        // file_11
+        // lpsal
 
-        // file_12
+        // lak
 
-        // file_13
+        // laporan_pemeriksaan
 
-        // file_14
-
-        // file_15
-
-        // file_16
-
-        // file_17
-
-        // file_18
-
-        // file_19
-
-        // file_20
-
-        // file_21
-
-        // file_22
-
-        // file_23
-
-        // file_24
+        // softcopy_rqanun
 
         // status
 
@@ -726,128 +720,237 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
             $this->tanggal->ViewCustomAttributes = "";
 
+            // idd_wilayah
+            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
+                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
+                    } else {
+                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_wilayah->ViewValue = null;
+            }
+            $this->idd_wilayah->ViewCustomAttributes = "";
+
             // kd_satker
-            $this->kd_satker->ViewValue = $this->kd_satker->CurrentValue;
+            $curVal = trim(strval($this->kd_satker->CurrentValue));
+            if ($curVal != "") {
+                $this->kd_satker->ViewValue = $this->kd_satker->lookupCacheOption($curVal);
+                if ($this->kd_satker->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                    $sqlWrk = $this->kd_satker->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->kd_satker->Lookup->renderViewRow($rswrk[0]);
+                        $this->kd_satker->ViewValue = $this->kd_satker->displayValue($arwrk);
+                    } else {
+                        $this->kd_satker->ViewValue = $this->kd_satker->CurrentValue;
+                    }
+                }
+            } else {
+                $this->kd_satker->ViewValue = null;
+            }
             $this->kd_satker->ViewCustomAttributes = "";
 
             // idd_tahapan
-            $this->idd_tahapan->ViewValue = $this->idd_tahapan->CurrentValue;
-            $this->idd_tahapan->ViewValue = FormatNumber($this->idd_tahapan->ViewValue, 0, -2, -2, -2);
+            $curVal = trim(strval($this->idd_tahapan->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_tahapan->ViewValue = $this->idd_tahapan->lookupCacheOption($curVal);
+                if ($this->idd_tahapan->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`idd_tahapan`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_tahapan->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_tahapan->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_tahapan->ViewValue = $this->idd_tahapan->displayValue($arwrk);
+                    } else {
+                        $this->idd_tahapan->ViewValue = $this->idd_tahapan->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_tahapan->ViewValue = null;
+            }
             $this->idd_tahapan->ViewCustomAttributes = "";
 
             // tahun_anggaran
-            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+            if ($curVal != "") {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+                if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                    $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                    } else {
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                    }
+                }
+            } else {
+                $this->tahun_anggaran->ViewValue = null;
+            }
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-            $this->idd_wilayah->ViewValue = FormatNumber($this->idd_wilayah->ViewValue, 0, -2, -2, -2);
-            $this->idd_wilayah->ViewCustomAttributes = "";
+            // surat_pengantar
+            if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+                $this->surat_pengantar->ViewValue = $this->surat_pengantar->Upload->DbValue;
+            } else {
+                $this->surat_pengantar->ViewValue = "";
+            }
+            $this->surat_pengantar->ViewCustomAttributes = "";
 
-            // file_01
-            $this->file_01->ViewValue = $this->file_01->CurrentValue;
-            $this->file_01->ViewCustomAttributes = "";
+            // skd_rqanunpert
+            if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
+                $this->skd_rqanunpert->ViewValue = $this->skd_rqanunpert->Upload->DbValue;
+            } else {
+                $this->skd_rqanunpert->ViewValue = "";
+            }
+            $this->skd_rqanunpert->ViewCustomAttributes = "";
 
-            // file_02
-            $this->file_02->ViewValue = $this->file_02->CurrentValue;
-            $this->file_02->ViewCustomAttributes = "";
+            // rq_apbkpert
+            if (!EmptyValue($this->rq_apbkpert->Upload->DbValue)) {
+                $this->rq_apbkpert->ViewValue = $this->rq_apbkpert->Upload->DbValue;
+            } else {
+                $this->rq_apbkpert->ViewValue = "";
+            }
+            $this->rq_apbkpert->ViewCustomAttributes = "";
 
-            // file_03
-            $this->file_03->ViewValue = $this->file_03->CurrentValue;
-            $this->file_03->ViewCustomAttributes = "";
+            // bap_apbkpert
+            if (!EmptyValue($this->bap_apbkpert->Upload->DbValue)) {
+                $this->bap_apbkpert->ViewValue = $this->bap_apbkpert->Upload->DbValue;
+            } else {
+                $this->bap_apbkpert->ViewValue = "";
+            }
+            $this->bap_apbkpert->ViewCustomAttributes = "";
 
-            // file_04
-            $this->file_04->ViewValue = $this->file_04->CurrentValue;
-            $this->file_04->ViewCustomAttributes = "";
+            // risalah_sidang
+            if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+                $this->risalah_sidang->ViewValue = $this->risalah_sidang->Upload->DbValue;
+            } else {
+                $this->risalah_sidang->ViewValue = "";
+            }
+            $this->risalah_sidang->ViewCustomAttributes = "";
 
-            // file_05
-            $this->file_05->ViewValue = $this->file_05->CurrentValue;
-            $this->file_05->ViewCustomAttributes = "";
+            // absen_peserta
+            if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
+                $this->absen_peserta->ViewValue = $this->absen_peserta->Upload->DbValue;
+            } else {
+                $this->absen_peserta->ViewValue = "";
+            }
+            $this->absen_peserta->ViewCustomAttributes = "";
 
-            // file_06
-            $this->file_06->ViewValue = $this->file_06->CurrentValue;
-            $this->file_06->ViewCustomAttributes = "";
+            // neraca
+            if (!EmptyValue($this->neraca->Upload->DbValue)) {
+                $this->neraca->ViewValue = $this->neraca->Upload->DbValue;
+            } else {
+                $this->neraca->ViewValue = "";
+            }
+            $this->neraca->ViewCustomAttributes = "";
 
-            // file_07
-            $this->file_07->ViewValue = $this->file_07->CurrentValue;
-            $this->file_07->ViewCustomAttributes = "";
+            // lra
+            if (!EmptyValue($this->lra->Upload->DbValue)) {
+                $this->lra->ViewValue = $this->lra->Upload->DbValue;
+            } else {
+                $this->lra->ViewValue = "";
+            }
+            $this->lra->ViewCustomAttributes = "";
 
-            // file_08
-            $this->file_08->ViewValue = $this->file_08->CurrentValue;
-            $this->file_08->ViewCustomAttributes = "";
+            // calk
+            if (!EmptyValue($this->calk->Upload->DbValue)) {
+                $this->calk->ViewValue = $this->calk->Upload->DbValue;
+            } else {
+                $this->calk->ViewValue = "";
+            }
+            $this->calk->ViewCustomAttributes = "";
 
-            // file_09
-            $this->file_09->ViewValue = $this->file_09->CurrentValue;
-            $this->file_09->ViewCustomAttributes = "";
+            // lo
+            if (!EmptyValue($this->lo->Upload->DbValue)) {
+                $this->lo->ViewValue = $this->lo->Upload->DbValue;
+            } else {
+                $this->lo->ViewValue = "";
+            }
+            $this->lo->ViewCustomAttributes = "";
 
-            // file_10
-            $this->file_10->ViewValue = $this->file_10->CurrentValue;
-            $this->file_10->ViewCustomAttributes = "";
+            // lpe
+            if (!EmptyValue($this->lpe->Upload->DbValue)) {
+                $this->lpe->ViewValue = $this->lpe->Upload->DbValue;
+            } else {
+                $this->lpe->ViewValue = "";
+            }
+            $this->lpe->ViewCustomAttributes = "";
 
-            // file_11
-            $this->file_11->ViewValue = $this->file_11->CurrentValue;
-            $this->file_11->ViewCustomAttributes = "";
+            // lpsal
+            if (!EmptyValue($this->lpsal->Upload->DbValue)) {
+                $this->lpsal->ViewValue = $this->lpsal->Upload->DbValue;
+            } else {
+                $this->lpsal->ViewValue = "";
+            }
+            $this->lpsal->ViewCustomAttributes = "";
 
-            // file_12
-            $this->file_12->ViewValue = $this->file_12->CurrentValue;
-            $this->file_12->ViewCustomAttributes = "";
+            // lak
+            if (!EmptyValue($this->lak->Upload->DbValue)) {
+                $this->lak->ViewValue = $this->lak->Upload->DbValue;
+            } else {
+                $this->lak->ViewValue = "";
+            }
+            $this->lak->ViewCustomAttributes = "";
 
-            // file_13
-            $this->file_13->ViewValue = $this->file_13->CurrentValue;
-            $this->file_13->ViewCustomAttributes = "";
+            // laporan_pemeriksaan
+            if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
+                $this->laporan_pemeriksaan->ViewValue = $this->laporan_pemeriksaan->Upload->DbValue;
+            } else {
+                $this->laporan_pemeriksaan->ViewValue = "";
+            }
+            $this->laporan_pemeriksaan->ViewCustomAttributes = "";
 
-            // file_14
-            $this->file_14->ViewValue = $this->file_14->CurrentValue;
-            $this->file_14->ViewCustomAttributes = "";
-
-            // file_15
-            $this->file_15->ViewValue = $this->file_15->CurrentValue;
-            $this->file_15->ViewCustomAttributes = "";
-
-            // file_16
-            $this->file_16->ViewValue = $this->file_16->CurrentValue;
-            $this->file_16->ViewCustomAttributes = "";
-
-            // file_17
-            $this->file_17->ViewValue = $this->file_17->CurrentValue;
-            $this->file_17->ViewCustomAttributes = "";
-
-            // file_18
-            $this->file_18->ViewValue = $this->file_18->CurrentValue;
-            $this->file_18->ViewCustomAttributes = "";
-
-            // file_19
-            $this->file_19->ViewValue = $this->file_19->CurrentValue;
-            $this->file_19->ViewCustomAttributes = "";
-
-            // file_20
-            $this->file_20->ViewValue = $this->file_20->CurrentValue;
-            $this->file_20->ViewCustomAttributes = "";
-
-            // file_21
-            $this->file_21->ViewValue = $this->file_21->CurrentValue;
-            $this->file_21->ViewCustomAttributes = "";
-
-            // file_22
-            $this->file_22->ViewValue = $this->file_22->CurrentValue;
-            $this->file_22->ViewCustomAttributes = "";
-
-            // file_23
-            $this->file_23->ViewValue = $this->file_23->CurrentValue;
-            $this->file_23->ViewCustomAttributes = "";
-
-            // file_24
-            $this->file_24->ViewValue = $this->file_24->CurrentValue;
-            $this->file_24->ViewCustomAttributes = "";
+            // softcopy_rqanun
+            if (!EmptyValue($this->softcopy_rqanun->Upload->DbValue)) {
+                $this->softcopy_rqanun->ViewValue = $this->softcopy_rqanun->Upload->DbValue;
+            } else {
+                $this->softcopy_rqanun->ViewValue = "";
+            }
+            $this->softcopy_rqanun->ViewCustomAttributes = "";
 
             // status
-            $this->status->ViewValue = $this->status->CurrentValue;
-            $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+            if (strval($this->status->CurrentValue) != "") {
+                $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+            } else {
+                $this->status->ViewValue = null;
+            }
             $this->status->ViewCustomAttributes = "";
 
             // idd_user
-            $this->idd_user->ViewValue = $this->idd_user->CurrentValue;
-            $this->idd_user->ViewValue = FormatNumber($this->idd_user->ViewValue, 0, -2, -2, -2);
+            $curVal = trim(strval($this->idd_user->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
+                if ($this->idd_user->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_user->ViewValue = $this->idd_user->displayValue($arwrk);
+                    } else {
+                        $this->idd_user->ViewValue = $this->idd_user->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_user->ViewValue = null;
+            }
             $this->idd_user->ViewCustomAttributes = "";
 
             // idd_evaluasi
@@ -859,6 +962,11 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             $this->tanggal->LinkCustomAttributes = "";
             $this->tanggal->HrefValue = "";
             $this->tanggal->TooltipValue = "";
+
+            // idd_wilayah
+            $this->idd_wilayah->LinkCustomAttributes = "";
+            $this->idd_wilayah->HrefValue = "";
+            $this->idd_wilayah->TooltipValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -875,130 +983,95 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             $this->tahun_anggaran->HrefValue = "";
             $this->tahun_anggaran->TooltipValue = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
+            // surat_pengantar
+            $this->surat_pengantar->LinkCustomAttributes = "";
+            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
+            $this->surat_pengantar->TooltipValue = "";
 
-            // file_01
-            $this->file_01->LinkCustomAttributes = "";
-            $this->file_01->HrefValue = "";
-            $this->file_01->TooltipValue = "";
+            // skd_rqanunpert
+            $this->skd_rqanunpert->LinkCustomAttributes = "";
+            $this->skd_rqanunpert->HrefValue = "";
+            $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
+            $this->skd_rqanunpert->TooltipValue = "";
 
-            // file_02
-            $this->file_02->LinkCustomAttributes = "";
-            $this->file_02->HrefValue = "";
-            $this->file_02->TooltipValue = "";
+            // rq_apbkpert
+            $this->rq_apbkpert->LinkCustomAttributes = "";
+            $this->rq_apbkpert->HrefValue = "";
+            $this->rq_apbkpert->ExportHrefValue = $this->rq_apbkpert->UploadPath . $this->rq_apbkpert->Upload->DbValue;
+            $this->rq_apbkpert->TooltipValue = "";
 
-            // file_03
-            $this->file_03->LinkCustomAttributes = "";
-            $this->file_03->HrefValue = "";
-            $this->file_03->TooltipValue = "";
+            // bap_apbkpert
+            $this->bap_apbkpert->LinkCustomAttributes = "";
+            $this->bap_apbkpert->HrefValue = "";
+            $this->bap_apbkpert->ExportHrefValue = $this->bap_apbkpert->UploadPath . $this->bap_apbkpert->Upload->DbValue;
+            $this->bap_apbkpert->TooltipValue = "";
 
-            // file_04
-            $this->file_04->LinkCustomAttributes = "";
-            $this->file_04->HrefValue = "";
-            $this->file_04->TooltipValue = "";
+            // risalah_sidang
+            $this->risalah_sidang->LinkCustomAttributes = "";
+            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
+            $this->risalah_sidang->TooltipValue = "";
 
-            // file_05
-            $this->file_05->LinkCustomAttributes = "";
-            $this->file_05->HrefValue = "";
-            $this->file_05->TooltipValue = "";
+            // absen_peserta
+            $this->absen_peserta->LinkCustomAttributes = "";
+            $this->absen_peserta->HrefValue = "";
+            $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
+            $this->absen_peserta->TooltipValue = "";
 
-            // file_06
-            $this->file_06->LinkCustomAttributes = "";
-            $this->file_06->HrefValue = "";
-            $this->file_06->TooltipValue = "";
+            // neraca
+            $this->neraca->LinkCustomAttributes = "";
+            $this->neraca->HrefValue = "";
+            $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
+            $this->neraca->TooltipValue = "";
 
-            // file_07
-            $this->file_07->LinkCustomAttributes = "";
-            $this->file_07->HrefValue = "";
-            $this->file_07->TooltipValue = "";
+            // lra
+            $this->lra->LinkCustomAttributes = "";
+            $this->lra->HrefValue = "";
+            $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
+            $this->lra->TooltipValue = "";
 
-            // file_08
-            $this->file_08->LinkCustomAttributes = "";
-            $this->file_08->HrefValue = "";
-            $this->file_08->TooltipValue = "";
+            // calk
+            $this->calk->LinkCustomAttributes = "";
+            $this->calk->HrefValue = "";
+            $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
+            $this->calk->TooltipValue = "";
 
-            // file_09
-            $this->file_09->LinkCustomAttributes = "";
-            $this->file_09->HrefValue = "";
-            $this->file_09->TooltipValue = "";
+            // lo
+            $this->lo->LinkCustomAttributes = "";
+            $this->lo->HrefValue = "";
+            $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
+            $this->lo->TooltipValue = "";
 
-            // file_10
-            $this->file_10->LinkCustomAttributes = "";
-            $this->file_10->HrefValue = "";
-            $this->file_10->TooltipValue = "";
+            // lpe
+            $this->lpe->LinkCustomAttributes = "";
+            $this->lpe->HrefValue = "";
+            $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
+            $this->lpe->TooltipValue = "";
 
-            // file_11
-            $this->file_11->LinkCustomAttributes = "";
-            $this->file_11->HrefValue = "";
-            $this->file_11->TooltipValue = "";
+            // lpsal
+            $this->lpsal->LinkCustomAttributes = "";
+            $this->lpsal->HrefValue = "";
+            $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
+            $this->lpsal->TooltipValue = "";
 
-            // file_12
-            $this->file_12->LinkCustomAttributes = "";
-            $this->file_12->HrefValue = "";
-            $this->file_12->TooltipValue = "";
+            // lak
+            $this->lak->LinkCustomAttributes = "";
+            $this->lak->HrefValue = "";
+            $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
+            $this->lak->TooltipValue = "";
 
-            // file_13
-            $this->file_13->LinkCustomAttributes = "";
-            $this->file_13->HrefValue = "";
-            $this->file_13->TooltipValue = "";
+            // laporan_pemeriksaan
+            $this->laporan_pemeriksaan->LinkCustomAttributes = "";
+            $this->laporan_pemeriksaan->HrefValue = "";
+            $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
+            $this->laporan_pemeriksaan->TooltipValue = "";
 
-            // file_14
-            $this->file_14->LinkCustomAttributes = "";
-            $this->file_14->HrefValue = "";
-            $this->file_14->TooltipValue = "";
-
-            // file_15
-            $this->file_15->LinkCustomAttributes = "";
-            $this->file_15->HrefValue = "";
-            $this->file_15->TooltipValue = "";
-
-            // file_16
-            $this->file_16->LinkCustomAttributes = "";
-            $this->file_16->HrefValue = "";
-            $this->file_16->TooltipValue = "";
-
-            // file_17
-            $this->file_17->LinkCustomAttributes = "";
-            $this->file_17->HrefValue = "";
-            $this->file_17->TooltipValue = "";
-
-            // file_18
-            $this->file_18->LinkCustomAttributes = "";
-            $this->file_18->HrefValue = "";
-            $this->file_18->TooltipValue = "";
-
-            // file_19
-            $this->file_19->LinkCustomAttributes = "";
-            $this->file_19->HrefValue = "";
-            $this->file_19->TooltipValue = "";
-
-            // file_20
-            $this->file_20->LinkCustomAttributes = "";
-            $this->file_20->HrefValue = "";
-            $this->file_20->TooltipValue = "";
-
-            // file_21
-            $this->file_21->LinkCustomAttributes = "";
-            $this->file_21->HrefValue = "";
-            $this->file_21->TooltipValue = "";
-
-            // file_22
-            $this->file_22->LinkCustomAttributes = "";
-            $this->file_22->HrefValue = "";
-            $this->file_22->TooltipValue = "";
-
-            // file_23
-            $this->file_23->LinkCustomAttributes = "";
-            $this->file_23->HrefValue = "";
-            $this->file_23->TooltipValue = "";
-
-            // file_24
-            $this->file_24->LinkCustomAttributes = "";
-            $this->file_24->HrefValue = "";
-            $this->file_24->TooltipValue = "";
+            // softcopy_rqanun
+            $this->softcopy_rqanun->LinkCustomAttributes = "";
+            $this->softcopy_rqanun->HrefValue = "";
+            $this->softcopy_rqanun->ExportHrefValue = $this->softcopy_rqanun->UploadPath . $this->softcopy_rqanun->Upload->DbValue;
+            $this->softcopy_rqanun->TooltipValue = "";
 
             // status
             $this->status->LinkCustomAttributes = "";
@@ -1100,6 +1173,16 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         return $deleteRows;
     }
 
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
+    }
+
     // Set up Breadcrumb
     protected function setupBreadcrumb()
     {
@@ -1124,6 +1207,18 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
 
             // Set up lookup SQL and connection
             switch ($fld->FieldVar) {
+                case "x_idd_wilayah":
+                    break;
+                case "x_kd_satker":
+                    break;
+                case "x_idd_tahapan":
+                    break;
+                case "x_tahun_anggaran":
+                    break;
+                case "x_status":
+                    break;
+                case "x_idd_user":
+                    break;
                 default:
                     $lookupFilter = "";
                     break;

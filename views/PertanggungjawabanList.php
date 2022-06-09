@@ -117,6 +117,9 @@ $Page->ListOptions->render("header", "left");
 <?php if ($Page->tanggal->Visible) { // tanggal ?>
         <th data-name="tanggal" class="<?= $Page->tanggal->headerCellClass() ?>"><div id="elh_pertanggungjawaban_tanggal" class="pertanggungjawaban_tanggal"><?= $Page->renderSort($Page->tanggal) ?></div></th>
 <?php } ?>
+<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
+        <th data-name="idd_wilayah" class="<?= $Page->idd_wilayah->headerCellClass() ?>"><div id="elh_pertanggungjawaban_idd_wilayah" class="pertanggungjawaban_idd_wilayah"><?= $Page->renderSort($Page->idd_wilayah) ?></div></th>
+<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <th data-name="kd_satker" class="<?= $Page->kd_satker->headerCellClass() ?>"><div id="elh_pertanggungjawaban_kd_satker" class="pertanggungjawaban_kd_satker"><?= $Page->renderSort($Page->kd_satker) ?></div></th>
 <?php } ?>
@@ -126,80 +129,50 @@ $Page->ListOptions->render("header", "left");
 <?php if ($Page->tahun_anggaran->Visible) { // tahun_anggaran ?>
         <th data-name="tahun_anggaran" class="<?= $Page->tahun_anggaran->headerCellClass() ?>"><div id="elh_pertanggungjawaban_tahun_anggaran" class="pertanggungjawaban_tahun_anggaran"><?= $Page->renderSort($Page->tahun_anggaran) ?></div></th>
 <?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <th data-name="idd_wilayah" class="<?= $Page->idd_wilayah->headerCellClass() ?>"><div id="elh_pertanggungjawaban_idd_wilayah" class="pertanggungjawaban_idd_wilayah"><?= $Page->renderSort($Page->idd_wilayah) ?></div></th>
+<?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
+        <th data-name="surat_pengantar" class="<?= $Page->surat_pengantar->headerCellClass() ?>"><div id="elh_pertanggungjawaban_surat_pengantar" class="pertanggungjawaban_surat_pengantar"><?= $Page->renderSort($Page->surat_pengantar) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_01->Visible) { // file_01 ?>
-        <th data-name="file_01" class="<?= $Page->file_01->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_01" class="pertanggungjawaban_file_01"><?= $Page->renderSort($Page->file_01) ?></div></th>
+<?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
+        <th data-name="skd_rqanunpert" class="<?= $Page->skd_rqanunpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban_skd_rqanunpert" class="pertanggungjawaban_skd_rqanunpert"><?= $Page->renderSort($Page->skd_rqanunpert) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_02->Visible) { // file_02 ?>
-        <th data-name="file_02" class="<?= $Page->file_02->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_02" class="pertanggungjawaban_file_02"><?= $Page->renderSort($Page->file_02) ?></div></th>
+<?php if ($Page->rq_apbkpert->Visible) { // rq_apbkpert ?>
+        <th data-name="rq_apbkpert" class="<?= $Page->rq_apbkpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban_rq_apbkpert" class="pertanggungjawaban_rq_apbkpert"><?= $Page->renderSort($Page->rq_apbkpert) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_03->Visible) { // file_03 ?>
-        <th data-name="file_03" class="<?= $Page->file_03->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_03" class="pertanggungjawaban_file_03"><?= $Page->renderSort($Page->file_03) ?></div></th>
+<?php if ($Page->bap_apbkpert->Visible) { // bap_apbkpert ?>
+        <th data-name="bap_apbkpert" class="<?= $Page->bap_apbkpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban_bap_apbkpert" class="pertanggungjawaban_bap_apbkpert"><?= $Page->renderSort($Page->bap_apbkpert) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_04->Visible) { // file_04 ?>
-        <th data-name="file_04" class="<?= $Page->file_04->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_04" class="pertanggungjawaban_file_04"><?= $Page->renderSort($Page->file_04) ?></div></th>
+<?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
+        <th data-name="risalah_sidang" class="<?= $Page->risalah_sidang->headerCellClass() ?>"><div id="elh_pertanggungjawaban_risalah_sidang" class="pertanggungjawaban_risalah_sidang"><?= $Page->renderSort($Page->risalah_sidang) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_05->Visible) { // file_05 ?>
-        <th data-name="file_05" class="<?= $Page->file_05->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_05" class="pertanggungjawaban_file_05"><?= $Page->renderSort($Page->file_05) ?></div></th>
+<?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
+        <th data-name="absen_peserta" class="<?= $Page->absen_peserta->headerCellClass() ?>"><div id="elh_pertanggungjawaban_absen_peserta" class="pertanggungjawaban_absen_peserta"><?= $Page->renderSort($Page->absen_peserta) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_06->Visible) { // file_06 ?>
-        <th data-name="file_06" class="<?= $Page->file_06->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_06" class="pertanggungjawaban_file_06"><?= $Page->renderSort($Page->file_06) ?></div></th>
+<?php if ($Page->neraca->Visible) { // neraca ?>
+        <th data-name="neraca" class="<?= $Page->neraca->headerCellClass() ?>"><div id="elh_pertanggungjawaban_neraca" class="pertanggungjawaban_neraca"><?= $Page->renderSort($Page->neraca) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_07->Visible) { // file_07 ?>
-        <th data-name="file_07" class="<?= $Page->file_07->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_07" class="pertanggungjawaban_file_07"><?= $Page->renderSort($Page->file_07) ?></div></th>
+<?php if ($Page->lra->Visible) { // lra ?>
+        <th data-name="lra" class="<?= $Page->lra->headerCellClass() ?>"><div id="elh_pertanggungjawaban_lra" class="pertanggungjawaban_lra"><?= $Page->renderSort($Page->lra) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_08->Visible) { // file_08 ?>
-        <th data-name="file_08" class="<?= $Page->file_08->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_08" class="pertanggungjawaban_file_08"><?= $Page->renderSort($Page->file_08) ?></div></th>
+<?php if ($Page->calk->Visible) { // calk ?>
+        <th data-name="calk" class="<?= $Page->calk->headerCellClass() ?>"><div id="elh_pertanggungjawaban_calk" class="pertanggungjawaban_calk"><?= $Page->renderSort($Page->calk) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_09->Visible) { // file_09 ?>
-        <th data-name="file_09" class="<?= $Page->file_09->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_09" class="pertanggungjawaban_file_09"><?= $Page->renderSort($Page->file_09) ?></div></th>
+<?php if ($Page->lo->Visible) { // lo ?>
+        <th data-name="lo" class="<?= $Page->lo->headerCellClass() ?>"><div id="elh_pertanggungjawaban_lo" class="pertanggungjawaban_lo"><?= $Page->renderSort($Page->lo) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_10->Visible) { // file_10 ?>
-        <th data-name="file_10" class="<?= $Page->file_10->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_10" class="pertanggungjawaban_file_10"><?= $Page->renderSort($Page->file_10) ?></div></th>
+<?php if ($Page->lpe->Visible) { // lpe ?>
+        <th data-name="lpe" class="<?= $Page->lpe->headerCellClass() ?>"><div id="elh_pertanggungjawaban_lpe" class="pertanggungjawaban_lpe"><?= $Page->renderSort($Page->lpe) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_11->Visible) { // file_11 ?>
-        <th data-name="file_11" class="<?= $Page->file_11->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_11" class="pertanggungjawaban_file_11"><?= $Page->renderSort($Page->file_11) ?></div></th>
+<?php if ($Page->lpsal->Visible) { // lpsal ?>
+        <th data-name="lpsal" class="<?= $Page->lpsal->headerCellClass() ?>"><div id="elh_pertanggungjawaban_lpsal" class="pertanggungjawaban_lpsal"><?= $Page->renderSort($Page->lpsal) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_12->Visible) { // file_12 ?>
-        <th data-name="file_12" class="<?= $Page->file_12->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_12" class="pertanggungjawaban_file_12"><?= $Page->renderSort($Page->file_12) ?></div></th>
+<?php if ($Page->lak->Visible) { // lak ?>
+        <th data-name="lak" class="<?= $Page->lak->headerCellClass() ?>"><div id="elh_pertanggungjawaban_lak" class="pertanggungjawaban_lak"><?= $Page->renderSort($Page->lak) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_13->Visible) { // file_13 ?>
-        <th data-name="file_13" class="<?= $Page->file_13->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_13" class="pertanggungjawaban_file_13"><?= $Page->renderSort($Page->file_13) ?></div></th>
+<?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
+        <th data-name="laporan_pemeriksaan" class="<?= $Page->laporan_pemeriksaan->headerCellClass() ?>"><div id="elh_pertanggungjawaban_laporan_pemeriksaan" class="pertanggungjawaban_laporan_pemeriksaan"><?= $Page->renderSort($Page->laporan_pemeriksaan) ?></div></th>
 <?php } ?>
-<?php if ($Page->file_14->Visible) { // file_14 ?>
-        <th data-name="file_14" class="<?= $Page->file_14->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_14" class="pertanggungjawaban_file_14"><?= $Page->renderSort($Page->file_14) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_15->Visible) { // file_15 ?>
-        <th data-name="file_15" class="<?= $Page->file_15->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_15" class="pertanggungjawaban_file_15"><?= $Page->renderSort($Page->file_15) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_16->Visible) { // file_16 ?>
-        <th data-name="file_16" class="<?= $Page->file_16->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_16" class="pertanggungjawaban_file_16"><?= $Page->renderSort($Page->file_16) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_17->Visible) { // file_17 ?>
-        <th data-name="file_17" class="<?= $Page->file_17->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_17" class="pertanggungjawaban_file_17"><?= $Page->renderSort($Page->file_17) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_18->Visible) { // file_18 ?>
-        <th data-name="file_18" class="<?= $Page->file_18->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_18" class="pertanggungjawaban_file_18"><?= $Page->renderSort($Page->file_18) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_19->Visible) { // file_19 ?>
-        <th data-name="file_19" class="<?= $Page->file_19->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_19" class="pertanggungjawaban_file_19"><?= $Page->renderSort($Page->file_19) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_20->Visible) { // file_20 ?>
-        <th data-name="file_20" class="<?= $Page->file_20->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_20" class="pertanggungjawaban_file_20"><?= $Page->renderSort($Page->file_20) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_21->Visible) { // file_21 ?>
-        <th data-name="file_21" class="<?= $Page->file_21->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_21" class="pertanggungjawaban_file_21"><?= $Page->renderSort($Page->file_21) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_22->Visible) { // file_22 ?>
-        <th data-name="file_22" class="<?= $Page->file_22->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_22" class="pertanggungjawaban_file_22"><?= $Page->renderSort($Page->file_22) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_23->Visible) { // file_23 ?>
-        <th data-name="file_23" class="<?= $Page->file_23->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_23" class="pertanggungjawaban_file_23"><?= $Page->renderSort($Page->file_23) ?></div></th>
-<?php } ?>
-<?php if ($Page->file_24->Visible) { // file_24 ?>
-        <th data-name="file_24" class="<?= $Page->file_24->headerCellClass() ?>"><div id="elh_pertanggungjawaban_file_24" class="pertanggungjawaban_file_24"><?= $Page->renderSort($Page->file_24) ?></div></th>
+<?php if ($Page->softcopy_rqanun->Visible) { // softcopy_rqanun ?>
+        <th data-name="softcopy_rqanun" class="<?= $Page->softcopy_rqanun->headerCellClass() ?>"><div id="elh_pertanggungjawaban_softcopy_rqanun" class="pertanggungjawaban_softcopy_rqanun"><?= $Page->renderSort($Page->softcopy_rqanun) ?></div></th>
 <?php } ?>
 <?php if ($Page->status->Visible) { // status ?>
         <th data-name="status" class="<?= $Page->status->headerCellClass() ?>"><div id="elh_pertanggungjawaban_status" class="pertanggungjawaban_status"><?= $Page->renderSort($Page->status) ?></div></th>
@@ -290,6 +263,14 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
 </span>
 </td>
     <?php } ?>
+    <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
+        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah">
+<span<?= $Page->idd_wilayah->viewAttributes() ?>>
+<?= $Page->idd_wilayah->getViewValue() ?></span>
+</span>
+</td>
+    <?php } ?>
     <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <td data-name="kd_satker" <?= $Page->kd_satker->cellAttributes() ?>>
 <span id="el<?= $Page->RowCount ?>_pertanggungjawaban_kd_satker">
@@ -314,203 +295,138 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah">
-<span<?= $Page->idd_wilayah->viewAttributes() ?>>
-<?= $Page->idd_wilayah->getViewValue() ?></span>
+    <?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
+        <td data-name="surat_pengantar" <?= $Page->surat_pengantar->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_surat_pengantar">
+<span<?= $Page->surat_pengantar->viewAttributes() ?>>
+<?= GetFileViewTag($Page->surat_pengantar, $Page->surat_pengantar->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_01->Visible) { // file_01 ?>
-        <td data-name="file_01" <?= $Page->file_01->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_01">
-<span<?= $Page->file_01->viewAttributes() ?>>
-<?= $Page->file_01->getViewValue() ?></span>
+    <?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
+        <td data-name="skd_rqanunpert" <?= $Page->skd_rqanunpert->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_skd_rqanunpert">
+<span<?= $Page->skd_rqanunpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->skd_rqanunpert, $Page->skd_rqanunpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_02->Visible) { // file_02 ?>
-        <td data-name="file_02" <?= $Page->file_02->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_02">
-<span<?= $Page->file_02->viewAttributes() ?>>
-<?= $Page->file_02->getViewValue() ?></span>
+    <?php if ($Page->rq_apbkpert->Visible) { // rq_apbkpert ?>
+        <td data-name="rq_apbkpert" <?= $Page->rq_apbkpert->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_rq_apbkpert">
+<span<?= $Page->rq_apbkpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->rq_apbkpert, $Page->rq_apbkpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_03->Visible) { // file_03 ?>
-        <td data-name="file_03" <?= $Page->file_03->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_03">
-<span<?= $Page->file_03->viewAttributes() ?>>
-<?= $Page->file_03->getViewValue() ?></span>
+    <?php if ($Page->bap_apbkpert->Visible) { // bap_apbkpert ?>
+        <td data-name="bap_apbkpert" <?= $Page->bap_apbkpert->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_bap_apbkpert">
+<span<?= $Page->bap_apbkpert->viewAttributes() ?>>
+<?= GetFileViewTag($Page->bap_apbkpert, $Page->bap_apbkpert->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_04->Visible) { // file_04 ?>
-        <td data-name="file_04" <?= $Page->file_04->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_04">
-<span<?= $Page->file_04->viewAttributes() ?>>
-<?= $Page->file_04->getViewValue() ?></span>
+    <?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
+        <td data-name="risalah_sidang" <?= $Page->risalah_sidang->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_risalah_sidang">
+<span<?= $Page->risalah_sidang->viewAttributes() ?>>
+<?= GetFileViewTag($Page->risalah_sidang, $Page->risalah_sidang->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_05->Visible) { // file_05 ?>
-        <td data-name="file_05" <?= $Page->file_05->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_05">
-<span<?= $Page->file_05->viewAttributes() ?>>
-<?= $Page->file_05->getViewValue() ?></span>
+    <?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
+        <td data-name="absen_peserta" <?= $Page->absen_peserta->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_absen_peserta">
+<span<?= $Page->absen_peserta->viewAttributes() ?>>
+<?= GetFileViewTag($Page->absen_peserta, $Page->absen_peserta->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_06->Visible) { // file_06 ?>
-        <td data-name="file_06" <?= $Page->file_06->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_06">
-<span<?= $Page->file_06->viewAttributes() ?>>
-<?= $Page->file_06->getViewValue() ?></span>
+    <?php if ($Page->neraca->Visible) { // neraca ?>
+        <td data-name="neraca" <?= $Page->neraca->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_neraca">
+<span<?= $Page->neraca->viewAttributes() ?>>
+<?= GetFileViewTag($Page->neraca, $Page->neraca->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_07->Visible) { // file_07 ?>
-        <td data-name="file_07" <?= $Page->file_07->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_07">
-<span<?= $Page->file_07->viewAttributes() ?>>
-<?= $Page->file_07->getViewValue() ?></span>
+    <?php if ($Page->lra->Visible) { // lra ?>
+        <td data-name="lra" <?= $Page->lra->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_lra">
+<span<?= $Page->lra->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lra, $Page->lra->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_08->Visible) { // file_08 ?>
-        <td data-name="file_08" <?= $Page->file_08->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_08">
-<span<?= $Page->file_08->viewAttributes() ?>>
-<?= $Page->file_08->getViewValue() ?></span>
+    <?php if ($Page->calk->Visible) { // calk ?>
+        <td data-name="calk" <?= $Page->calk->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_calk">
+<span<?= $Page->calk->viewAttributes() ?>>
+<?= GetFileViewTag($Page->calk, $Page->calk->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_09->Visible) { // file_09 ?>
-        <td data-name="file_09" <?= $Page->file_09->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_09">
-<span<?= $Page->file_09->viewAttributes() ?>>
-<?= $Page->file_09->getViewValue() ?></span>
+    <?php if ($Page->lo->Visible) { // lo ?>
+        <td data-name="lo" <?= $Page->lo->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_lo">
+<span<?= $Page->lo->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lo, $Page->lo->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_10->Visible) { // file_10 ?>
-        <td data-name="file_10" <?= $Page->file_10->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_10">
-<span<?= $Page->file_10->viewAttributes() ?>>
-<?= $Page->file_10->getViewValue() ?></span>
+    <?php if ($Page->lpe->Visible) { // lpe ?>
+        <td data-name="lpe" <?= $Page->lpe->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_lpe">
+<span<?= $Page->lpe->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lpe, $Page->lpe->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_11->Visible) { // file_11 ?>
-        <td data-name="file_11" <?= $Page->file_11->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_11">
-<span<?= $Page->file_11->viewAttributes() ?>>
-<?= $Page->file_11->getViewValue() ?></span>
+    <?php if ($Page->lpsal->Visible) { // lpsal ?>
+        <td data-name="lpsal" <?= $Page->lpsal->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_lpsal">
+<span<?= $Page->lpsal->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lpsal, $Page->lpsal->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_12->Visible) { // file_12 ?>
-        <td data-name="file_12" <?= $Page->file_12->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_12">
-<span<?= $Page->file_12->viewAttributes() ?>>
-<?= $Page->file_12->getViewValue() ?></span>
+    <?php if ($Page->lak->Visible) { // lak ?>
+        <td data-name="lak" <?= $Page->lak->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_lak">
+<span<?= $Page->lak->viewAttributes() ?>>
+<?= GetFileViewTag($Page->lak, $Page->lak->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_13->Visible) { // file_13 ?>
-        <td data-name="file_13" <?= $Page->file_13->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_13">
-<span<?= $Page->file_13->viewAttributes() ?>>
-<?= $Page->file_13->getViewValue() ?></span>
+    <?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
+        <td data-name="laporan_pemeriksaan" <?= $Page->laporan_pemeriksaan->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_laporan_pemeriksaan">
+<span<?= $Page->laporan_pemeriksaan->viewAttributes() ?>>
+<?= GetFileViewTag($Page->laporan_pemeriksaan, $Page->laporan_pemeriksaan->getViewValue(), false) ?>
+</span>
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->file_14->Visible) { // file_14 ?>
-        <td data-name="file_14" <?= $Page->file_14->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_14">
-<span<?= $Page->file_14->viewAttributes() ?>>
-<?= $Page->file_14->getViewValue() ?></span>
+    <?php if ($Page->softcopy_rqanun->Visible) { // softcopy_rqanun ?>
+        <td data-name="softcopy_rqanun" <?= $Page->softcopy_rqanun->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_softcopy_rqanun">
+<span<?= $Page->softcopy_rqanun->viewAttributes() ?>>
+<?= GetFileViewTag($Page->softcopy_rqanun, $Page->softcopy_rqanun->getViewValue(), false) ?>
 </span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_15->Visible) { // file_15 ?>
-        <td data-name="file_15" <?= $Page->file_15->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_15">
-<span<?= $Page->file_15->viewAttributes() ?>>
-<?= $Page->file_15->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_16->Visible) { // file_16 ?>
-        <td data-name="file_16" <?= $Page->file_16->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_16">
-<span<?= $Page->file_16->viewAttributes() ?>>
-<?= $Page->file_16->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_17->Visible) { // file_17 ?>
-        <td data-name="file_17" <?= $Page->file_17->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_17">
-<span<?= $Page->file_17->viewAttributes() ?>>
-<?= $Page->file_17->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_18->Visible) { // file_18 ?>
-        <td data-name="file_18" <?= $Page->file_18->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_18">
-<span<?= $Page->file_18->viewAttributes() ?>>
-<?= $Page->file_18->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_19->Visible) { // file_19 ?>
-        <td data-name="file_19" <?= $Page->file_19->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_19">
-<span<?= $Page->file_19->viewAttributes() ?>>
-<?= $Page->file_19->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_20->Visible) { // file_20 ?>
-        <td data-name="file_20" <?= $Page->file_20->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_20">
-<span<?= $Page->file_20->viewAttributes() ?>>
-<?= $Page->file_20->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_21->Visible) { // file_21 ?>
-        <td data-name="file_21" <?= $Page->file_21->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_21">
-<span<?= $Page->file_21->viewAttributes() ?>>
-<?= $Page->file_21->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_22->Visible) { // file_22 ?>
-        <td data-name="file_22" <?= $Page->file_22->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_22">
-<span<?= $Page->file_22->viewAttributes() ?>>
-<?= $Page->file_22->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_23->Visible) { // file_23 ?>
-        <td data-name="file_23" <?= $Page->file_23->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_23">
-<span<?= $Page->file_23->viewAttributes() ?>>
-<?= $Page->file_23->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->file_24->Visible) { // file_24 ?>
-        <td data-name="file_24" <?= $Page->file_24->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_file_24">
-<span<?= $Page->file_24->viewAttributes() ?>>
-<?= $Page->file_24->getViewValue() ?></span>
 </span>
 </td>
     <?php } ?>

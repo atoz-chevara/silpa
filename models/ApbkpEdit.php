@@ -1059,6 +1059,15 @@ class ApbkpEdit extends Apbkp
             $res = true;
             $this->loadRowValues($row); // Load row values
         }
+
+        // Check if valid User ID
+        if ($res) {
+            $res = $this->showOptionLink("edit");
+            if (!$res) {
+                $userIdMsg = DeniedMessage();
+                $this->setFailureMessage($userIdMsg);
+            }
+        }
         return $res;
     }
 
@@ -1808,8 +1817,15 @@ class ApbkpEdit extends Apbkp
             // idd_user
             $this->idd_user->EditAttrs["class"] = "form-control";
             $this->idd_user->EditCustomAttributes = "";
-            $this->idd_user->EditValue = HtmlEncode($this->idd_user->CurrentValue);
-            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("edit")) { // Non system admin
+                $this->idd_user->CurrentValue = CurrentUserID();
+                $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                $this->idd_user->EditValue = FormatNumber($this->idd_user->EditValue, 0, -2, -2, -2);
+                $this->idd_user->ViewCustomAttributes = "";
+            } else {
+                $this->idd_user->EditValue = HtmlEncode($this->idd_user->CurrentValue);
+                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+            }
 
             // Edit refer script
 
@@ -2302,6 +2318,16 @@ class ApbkpEdit extends Apbkp
             WriteJson(["success" => true, $this->TableVar => $row]);
         }
         return $editRow;
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb

@@ -629,7 +629,7 @@ class RapbkList extends Rapbk
         // Set up lookup cache
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
-        $this->setupLookupOptions($this->file_13);
+        $this->setupLookupOptions($this->tahun_anggaran);
         $this->setupLookupOptions($this->idd_user);
 
         // Search filters
@@ -1609,7 +1609,7 @@ class RapbkList extends Rapbk
             // "view"
             $opt = $this->ListOptions["view"];
             $viewcaption = HtmlTitle($Language->phrase("ViewLink"));
-            if ($Security->canView()) {
+            if ($Security->canView() && $this->showOptionLink("view")) {
                 $opt->Body = "<a class=\"ew-row-link ew-view\" title=\"" . $viewcaption . "\" data-caption=\"" . $viewcaption . "\" href=\"" . HtmlEncode(GetUrl($this->ViewUrl)) . "\">" . $Language->phrase("ViewLink") . "</a>";
             } else {
                 $opt->Body = "";
@@ -1618,7 +1618,7 @@ class RapbkList extends Rapbk
             // "edit"
             $opt = $this->ListOptions["edit"];
             $editcaption = HtmlTitle($Language->phrase("EditLink"));
-            if ($Security->canEdit()) {
+            if ($Security->canEdit() && $this->showOptionLink("edit")) {
                 $opt->Body = "<a class=\"ew-row-link ew-edit\" title=\"" . HtmlTitle($Language->phrase("EditLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("EditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->EditUrl)) . "\">" . $Language->phrase("EditLink") . "</a>";
             } else {
                 $opt->Body = "";
@@ -1627,7 +1627,7 @@ class RapbkList extends Rapbk
             // "copy"
             $opt = $this->ListOptions["copy"];
             $copycaption = HtmlTitle($Language->phrase("CopyLink"));
-            if ($Security->canAdd()) {
+            if ($Security->canAdd() && $this->showOptionLink("add")) {
                 $opt->Body = "<a class=\"ew-row-link ew-copy\" title=\"" . $copycaption . "\" data-caption=\"" . $copycaption . "\" href=\"" . HtmlEncode(GetUrl($this->CopyUrl)) . "\">" . $Language->phrase("CopyLink") . "</a>";
             } else {
                 $opt->Body = "";
@@ -1635,7 +1635,7 @@ class RapbkList extends Rapbk
 
             // "delete"
             $opt = $this->ListOptions["delete"];
-            if ($Security->canDelete()) {
+            if ($Security->canDelete() && $this->showOptionLink("delete")) {
             $opt->Body = "<a class=\"ew-row-link ew-delete\"" . "" . " title=\"" . HtmlTitle($Language->phrase("DeleteLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("DeleteLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->DeleteUrl)) . "\">" . $Language->phrase("DeleteLink") . "</a>";
             } else {
                 $opt->Body = "";
@@ -1955,7 +1955,8 @@ class RapbkList extends Rapbk
         $this->file_11->setDbValue($this->file_11->Upload->DbValue);
         $this->file_12->Upload->DbValue = $row['file_12'];
         $this->file_12->setDbValue($this->file_12->Upload->DbValue);
-        $this->file_13->setDbValue($row['file_13']);
+        $this->file_13->Upload->DbValue = $row['file_13'];
+        $this->file_13->setDbValue($this->file_13->Upload->DbValue);
         $this->file_14->Upload->DbValue = $row['file_14'];
         $this->file_14->setDbValue($this->file_14->Upload->DbValue);
         $this->file_15->Upload->DbValue = $row['file_15'];
@@ -2171,7 +2172,24 @@ class RapbkList extends Rapbk
             $this->idd_tahapan->ViewCustomAttributes = "";
 
             // tahun_anggaran
-            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+            if ($curVal != "") {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+                if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                    $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                    } else {
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                    }
+                }
+            } else {
+                $this->tahun_anggaran->ViewValue = null;
+            }
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
             // idd_wilayah
@@ -2276,23 +2294,10 @@ class RapbkList extends Rapbk
             $this->file_12->ViewCustomAttributes = "";
 
             // file_13
-            $curVal = trim(strval($this->file_13->CurrentValue));
-            if ($curVal != "") {
-                $this->file_13->ViewValue = $this->file_13->lookupCacheOption($curVal);
-                if ($this->file_13->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
-                    $sqlWrk = $this->file_13->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->file_13->Lookup->renderViewRow($rswrk[0]);
-                        $this->file_13->ViewValue = $this->file_13->displayValue($arwrk);
-                    } else {
-                        $this->file_13->ViewValue = $this->file_13->CurrentValue;
-                    }
-                }
+            if (!EmptyValue($this->file_13->Upload->DbValue)) {
+                $this->file_13->ViewValue = $this->file_13->Upload->DbValue;
             } else {
-                $this->file_13->ViewValue = null;
+                $this->file_13->ViewValue = "";
             }
             $this->file_13->ViewCustomAttributes = "";
 
@@ -2385,8 +2390,11 @@ class RapbkList extends Rapbk
             $this->file_24->ViewCustomAttributes = "";
 
             // status
-            $this->status->ViewValue = $this->status->CurrentValue;
-            $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+            if (strval($this->status->CurrentValue) != "") {
+                $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+            } else {
+                $this->status->ViewValue = null;
+            }
             $this->status->ViewCustomAttributes = "";
 
             // idd_user
@@ -2515,6 +2523,7 @@ class RapbkList extends Rapbk
             // file_13
             $this->file_13->LinkCustomAttributes = "";
             $this->file_13->HrefValue = "";
+            $this->file_13->ExportHrefValue = $this->file_13->UploadPath . $this->file_13->Upload->DbValue;
             $this->file_13->TooltipValue = "";
 
             // file_14
@@ -2639,6 +2648,16 @@ class RapbkList extends Rapbk
         }
     }
 
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
+    }
+
     // Set up Breadcrumb
     protected function setupBreadcrumb()
     {
@@ -2666,7 +2685,9 @@ class RapbkList extends Rapbk
                     break;
                 case "x_idd_tahapan":
                     break;
-                case "x_file_13":
+                case "x_tahun_anggaran":
+                    break;
+                case "x_status":
                     break;
                 case "x_idd_user":
                     break;

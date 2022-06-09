@@ -68,7 +68,6 @@ class Evaluators extends DbTable
         $this->ShowMultipleDetails = false; // Show multiple details
         $this->GridAddRowCount = 5;
         $this->AllowAddDeleteRow = true; // Allow add/delete row
-        $this->UserIDAllowSecurity = Config("DEFAULT_USER_ID_ALLOW_SECURITY"); // Default User ID allowed permissions
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // idd_evaluator
@@ -285,6 +284,11 @@ class Evaluators extends DbTable
     // Apply User ID filters
     public function applyUserIDFilters($filter)
     {
+        global $Security;
+        // Add User ID filter
+        if ($Security->currentUserID() != "" && !$Security->isAdmin()) { // Non system admin
+            $filter = $this->addUserIDFilter($filter);
+        }
         return $filter;
     }
 
@@ -1017,7 +1021,15 @@ SORTHTML;
 
         // no_telepon
         $this->no_telepon->LinkCustomAttributes = "";
-        $this->no_telepon->HrefValue = "";
+        if (!EmptyValue($this->no_telepon->CurrentValue)) {
+            $this->no_telepon->HrefValue = "https://wa.me/" . (!empty($this->no_telepon->ViewValue) && !is_array($this->no_telepon->ViewValue) ? RemoveHtml($this->no_telepon->ViewValue) : $this->no_telepon->CurrentValue) . "?text=Assalamu'alaikum"; // Add prefix/suffix
+            $this->no_telepon->LinkAttrs["target"] = "_blank"; // Add target
+            if ($this->isExport()) {
+                $this->no_telepon->HrefValue = FullUrl($this->no_telepon->HrefValue, "href");
+            }
+        } else {
+            $this->no_telepon->HrefValue = "";
+        }
         $this->no_telepon->TooltipValue = "";
 
         // Call Row Rendered event
@@ -1074,7 +1086,30 @@ SORTHTML;
         // idd_user
         $this->idd_user->EditAttrs["class"] = "form-control";
         $this->idd_user->EditCustomAttributes = "";
-        $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("info")) { // Non system admin
+            $this->idd_user->CurrentValue = CurrentUserID();
+            $curVal = trim(strval($this->idd_user->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                if ($this->idd_user->EditValue === null) { // Lookup from database
+                    $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                    } else {
+                        $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_user->EditValue = null;
+            }
+            $this->idd_user->ViewCustomAttributes = "";
+        } else {
+            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        }
 
         // no_telepon
         $this->no_telepon->EditAttrs["class"] = "form-control";
@@ -1184,6 +1219,53 @@ SORTHTML;
         if (!$doc->ExportCustom) {
             $doc->exportTableFooter();
         }
+    }
+
+    // Add User ID filter
+    public function addUserIDFilter($filter = "")
+    {
+        global $Security;
+        $filterWrk = "";
+        $id = (CurrentPageID() == "list") ? $this->CurrentAction : CurrentPageID();
+        if (!$this->userIDAllow($id) && !$Security->isAdmin()) {
+            $filterWrk = $Security->userIdList();
+            if ($filterWrk != "") {
+                $filterWrk = '`idd_user` IN (' . $filterWrk . ')';
+            }
+        }
+
+        // Call User ID Filtering event
+        $this->userIdFiltering($filterWrk);
+        AddFilter($filter, $filterWrk);
+        return $filter;
+    }
+
+    // User ID subquery
+    public function getUserIDSubquery(&$fld, &$masterfld)
+    {
+        global $UserTable;
+        $wrk = "";
+        $sql = "SELECT " . $masterfld->Expression . " FROM `evaluators`";
+        $filter = $this->addUserIDFilter("");
+        if ($filter != "") {
+            $sql .= " WHERE " . $filter;
+        }
+
+        // List all values
+        if ($rs = Conn($UserTable->Dbid)->executeQuery($sql)->fetchAll(\PDO::FETCH_NUM)) {
+            foreach ($rs as $row) {
+                if ($wrk != "") {
+                    $wrk .= ",";
+                }
+                $wrk .= QuotedValue($row[0], $masterfld->DataType, Config("USER_TABLE_DBID"));
+            }
+        }
+        if ($wrk != "") {
+            $wrk = $fld->Expression . " IN (" . $wrk . ")";
+        } else { // No User ID value found
+            $wrk = "0=1";
+        }
+        return $wrk;
     }
 
     // Get file data

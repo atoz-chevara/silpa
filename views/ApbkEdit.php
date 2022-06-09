@@ -523,11 +523,19 @@ loadjs.ready(["fapbkedit", "datetimepicker"], function() {
     <div id="r_idd_user" class="form-group row">
         <label id="elh_apbk_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_user->cellAttributes() ?>>
+<?php if (!$Security->isAdmin() && $Security->isLoggedIn() && !$Page->userIDAllow("edit")) { // Non system admin ?>
+<span id="el_apbk_idd_user">
+<span<?= $Page->idd_user->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_user->getDisplayValue($Page->idd_user->EditValue))) ?>"></span>
+</span>
+<input type="hidden" data-table="apbk" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
+<?php } else { ?>
 <span id="el_apbk_idd_user">
 <input type="<?= $Page->idd_user->getInputTextType() ?>" data-table="apbk" data-field="x_idd_user" name="x_idd_user" id="x_idd_user" size="30" placeholder="<?= HtmlEncode($Page->idd_user->getPlaceHolder()) ?>" value="<?= $Page->idd_user->EditValue ?>"<?= $Page->idd_user->editAttributes() ?> aria-describedby="x_idd_user_help">
 <?= $Page->idd_user->getCustomMessage() ?>
 <div class="invalid-feedback"><?= $Page->idd_user->getErrorMessage() ?></div>
 </span>
+<?php } ?>
 </div></div>
     </div>
 <?php } ?>

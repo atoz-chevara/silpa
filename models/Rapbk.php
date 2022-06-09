@@ -93,7 +93,6 @@ class Rapbk extends DbTable
         $this->ShowMultipleDetails = false; // Show multiple details
         $this->GridAddRowCount = 5;
         $this->AllowAddDeleteRow = true; // Allow add/delete row
-        $this->UserIDAllowSecurity = Config("DEFAULT_USER_ID_ALLOW_SECURITY"); // Default User ID allowed permissions
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // idd_evaluasi
@@ -152,10 +151,20 @@ class Rapbk extends DbTable
         $this->Fields['idd_tahapan'] = &$this->idd_tahapan;
 
         // tahun_anggaran
-        $this->tahun_anggaran = new DbField('rapbk', 'rapbk', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->tahun_anggaran = new DbField('rapbk', 'rapbk', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->tahun_anggaran->Nullable = false; // NOT NULL field
         $this->tahun_anggaran->Required = true; // Required field
         $this->tahun_anggaran->Sortable = true; // Allow sort
+        $this->tahun_anggaran->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->tahun_anggaran->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->tahun_anggaran->Lookup = new Lookup('tahun_anggaran', 'tahun', false, 'id_tahun', ["tahun","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->tahun_anggaran->Lookup = new Lookup('tahun_anggaran', 'tahun', false, 'id_tahun', ["tahun","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
         $this->tahun_anggaran->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tahun_anggaran->Param, "CustomMsg");
         $this->Fields['tahun_anggaran'] = &$this->tahun_anggaran;
 
@@ -265,20 +274,10 @@ class Rapbk extends DbTable
         $this->Fields['file_12'] = &$this->file_12;
 
         // file_13
-        $this->file_13 = new DbField('rapbk', 'rapbk', 'x_file_13', 'file_13', '`file_13`', '`file_13`', 200, 200, -1, false, '`file_13`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->file_13 = new DbField('rapbk', 'rapbk', 'x_file_13', 'file_13', '`file_13`', '`file_13`', 200, 200, -1, true, '`file_13`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->file_13->Nullable = false; // NOT NULL field
         $this->file_13->Required = true; // Required field
         $this->file_13->Sortable = true; // Allow sort
-        $this->file_13->UsePleaseSelect = true; // Use PleaseSelect by default
-        $this->file_13->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
-        switch ($CurrentLanguage) {
-            case "en":
-                $this->file_13->Lookup = new Lookup('file_13', 'satkers', false, 'kode_pemda', ["nama_satker","","",""], [], [], [], [], [], [], '', '');
-                break;
-            default:
-                $this->file_13->Lookup = new Lookup('file_13', 'satkers', false, 'kode_pemda', ["nama_satker","","",""], [], [], [], [], [], [], '', '');
-                break;
-        }
         $this->file_13->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->file_13->Param, "CustomMsg");
         $this->Fields['file_13'] = &$this->file_13;
 
@@ -371,10 +370,21 @@ class Rapbk extends DbTable
         $this->Fields['file_24'] = &$this->file_24;
 
         // status
-        $this->status = new DbField('rapbk', 'rapbk', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->status = new DbField('rapbk', 'rapbk', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->status->Nullable = false; // NOT NULL field
         $this->status->Required = true; // Required field
         $this->status->Sortable = true; // Allow sort
+        $this->status->UsePleaseSelect = true; // Use PleaseSelect by default
+        $this->status->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
+        switch ($CurrentLanguage) {
+            case "en":
+                $this->status->Lookup = new Lookup('status', 'rapbk', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                break;
+            default:
+                $this->status->Lookup = new Lookup('status', 'rapbk', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                break;
+        }
+        $this->status->OptionCount = 3;
         $this->status->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
         $this->status->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->status->Param, "CustomMsg");
         $this->Fields['status'] = &$this->status;
@@ -533,6 +543,11 @@ class Rapbk extends DbTable
     // Apply User ID filters
     public function applyUserIDFilters($filter)
     {
+        global $Security;
+        // Add User ID filter
+        if ($Security->currentUserID() != "" && !$Security->isAdmin()) { // Non system admin
+            $filter = $this->addUserIDFilter($filter);
+        }
         return $filter;
     }
 
@@ -828,7 +843,7 @@ class Rapbk extends DbTable
         $this->file_10->Upload->DbValue = $row['file_10'];
         $this->file_11->Upload->DbValue = $row['file_11'];
         $this->file_12->Upload->DbValue = $row['file_12'];
-        $this->file_13->DbValue = $row['file_13'];
+        $this->file_13->Upload->DbValue = $row['file_13'];
         $this->file_14->Upload->DbValue = $row['file_14'];
         $this->file_15->Upload->DbValue = $row['file_15'];
         $this->file_16->Upload->DbValue = $row['file_16'];
@@ -918,6 +933,12 @@ class Rapbk extends DbTable
         foreach ($oldFiles as $oldFile) {
             if (file_exists($this->file_12->oldPhysicalUploadPath() . $oldFile)) {
                 @unlink($this->file_12->oldPhysicalUploadPath() . $oldFile);
+            }
+        }
+        $oldFiles = EmptyValue($row['file_13']) ? [] : [$row['file_13']];
+        foreach ($oldFiles as $oldFile) {
+            if (file_exists($this->file_13->oldPhysicalUploadPath() . $oldFile)) {
+                @unlink($this->file_13->oldPhysicalUploadPath() . $oldFile);
             }
         }
         $oldFiles = EmptyValue($row['file_14']) ? [] : [$row['file_14']];
@@ -1330,7 +1351,8 @@ SORTHTML;
         $this->file_11->setDbValue($this->file_11->Upload->DbValue);
         $this->file_12->Upload->DbValue = $row['file_12'];
         $this->file_12->setDbValue($this->file_12->Upload->DbValue);
-        $this->file_13->setDbValue($row['file_13']);
+        $this->file_13->Upload->DbValue = $row['file_13'];
+        $this->file_13->setDbValue($this->file_13->Upload->DbValue);
         $this->file_14->Upload->DbValue = $row['file_14'];
         $this->file_14->setDbValue($this->file_14->Upload->DbValue);
         $this->file_15->Upload->DbValue = $row['file_15'];
@@ -1483,7 +1505,24 @@ SORTHTML;
         $this->idd_tahapan->ViewCustomAttributes = "";
 
         // tahun_anggaran
-        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+        $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+        if ($curVal != "") {
+            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+            if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                if ($ari > 0) { // Lookup values found
+                    $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                    $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                } else {
+                    $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                }
+            }
+        } else {
+            $this->tahun_anggaran->ViewValue = null;
+        }
         $this->tahun_anggaran->ViewCustomAttributes = "";
 
         // idd_wilayah
@@ -1588,23 +1627,10 @@ SORTHTML;
         $this->file_12->ViewCustomAttributes = "";
 
         // file_13
-        $curVal = trim(strval($this->file_13->CurrentValue));
-        if ($curVal != "") {
-            $this->file_13->ViewValue = $this->file_13->lookupCacheOption($curVal);
-            if ($this->file_13->ViewValue === null) { // Lookup from database
-                $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
-                $sqlWrk = $this->file_13->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                if ($ari > 0) { // Lookup values found
-                    $arwrk = $this->file_13->Lookup->renderViewRow($rswrk[0]);
-                    $this->file_13->ViewValue = $this->file_13->displayValue($arwrk);
-                } else {
-                    $this->file_13->ViewValue = $this->file_13->CurrentValue;
-                }
-            }
+        if (!EmptyValue($this->file_13->Upload->DbValue)) {
+            $this->file_13->ViewValue = $this->file_13->Upload->DbValue;
         } else {
-            $this->file_13->ViewValue = null;
+            $this->file_13->ViewValue = "";
         }
         $this->file_13->ViewCustomAttributes = "";
 
@@ -1697,8 +1723,11 @@ SORTHTML;
         $this->file_24->ViewCustomAttributes = "";
 
         // status
-        $this->status->ViewValue = $this->status->CurrentValue;
-        $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+        if (strval($this->status->CurrentValue) != "") {
+            $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+        } else {
+            $this->status->ViewValue = null;
+        }
         $this->status->ViewCustomAttributes = "";
 
         // idd_user
@@ -1827,6 +1856,7 @@ SORTHTML;
         // file_13
         $this->file_13->LinkCustomAttributes = "";
         $this->file_13->HrefValue = "";
+        $this->file_13->ExportHrefValue = $this->file_13->UploadPath . $this->file_13->Upload->DbValue;
         $this->file_13->TooltipValue = "";
 
         // file_14
@@ -1945,10 +1975,6 @@ SORTHTML;
         // tahun_anggaran
         $this->tahun_anggaran->EditAttrs["class"] = "form-control";
         $this->tahun_anggaran->EditCustomAttributes = "";
-        if (!$this->tahun_anggaran->Raw) {
-            $this->tahun_anggaran->CurrentValue = HtmlDecode($this->tahun_anggaran->CurrentValue);
-        }
-        $this->tahun_anggaran->EditValue = $this->tahun_anggaran->CurrentValue;
         $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
 
         // idd_wilayah
@@ -2104,7 +2130,14 @@ SORTHTML;
         // file_13
         $this->file_13->EditAttrs["class"] = "form-control";
         $this->file_13->EditCustomAttributes = "";
-        $this->file_13->PlaceHolder = RemoveHtml($this->file_13->caption());
+        if (!EmptyValue($this->file_13->Upload->DbValue)) {
+            $this->file_13->EditValue = $this->file_13->Upload->DbValue;
+        } else {
+            $this->file_13->EditValue = "";
+        }
+        if (!EmptyValue($this->file_13->CurrentValue)) {
+            $this->file_13->Upload->FileName = $this->file_13->CurrentValue;
+        }
 
         // file_14
         $this->file_14->EditAttrs["class"] = "form-control";
@@ -2241,13 +2274,36 @@ SORTHTML;
         // status
         $this->status->EditAttrs["class"] = "form-control";
         $this->status->EditCustomAttributes = "";
-        $this->status->EditValue = $this->status->CurrentValue;
+        $this->status->EditValue = $this->status->options(true);
         $this->status->PlaceHolder = RemoveHtml($this->status->caption());
 
         // idd_user
         $this->idd_user->EditAttrs["class"] = "form-control";
         $this->idd_user->EditCustomAttributes = "";
-        $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("info")) { // Non system admin
+            $this->idd_user->CurrentValue = CurrentUserID();
+            $curVal = trim(strval($this->idd_user->CurrentValue));
+            if ($curVal != "") {
+                $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                if ($this->idd_user->EditValue === null) { // Lookup from database
+                    $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                    $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                        $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                    } else {
+                        $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                    }
+                }
+            } else {
+                $this->idd_user->EditValue = null;
+            }
+            $this->idd_user->ViewCustomAttributes = "";
+        } else {
+            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
+        }
 
         // Call Row Rendered event
         $this->rowRendered();
@@ -2452,6 +2508,53 @@ SORTHTML;
         }
     }
 
+    // Add User ID filter
+    public function addUserIDFilter($filter = "")
+    {
+        global $Security;
+        $filterWrk = "";
+        $id = (CurrentPageID() == "list") ? $this->CurrentAction : CurrentPageID();
+        if (!$this->userIDAllow($id) && !$Security->isAdmin()) {
+            $filterWrk = $Security->userIdList();
+            if ($filterWrk != "") {
+                $filterWrk = '`idd_user` IN (' . $filterWrk . ')';
+            }
+        }
+
+        // Call User ID Filtering event
+        $this->userIdFiltering($filterWrk);
+        AddFilter($filter, $filterWrk);
+        return $filter;
+    }
+
+    // User ID subquery
+    public function getUserIDSubquery(&$fld, &$masterfld)
+    {
+        global $UserTable;
+        $wrk = "";
+        $sql = "SELECT " . $masterfld->Expression . " FROM `rapbk`";
+        $filter = $this->addUserIDFilter("");
+        if ($filter != "") {
+            $sql .= " WHERE " . $filter;
+        }
+
+        // List all values
+        if ($rs = Conn($UserTable->Dbid)->executeQuery($sql)->fetchAll(\PDO::FETCH_NUM)) {
+            foreach ($rs as $row) {
+                if ($wrk != "") {
+                    $wrk .= ",";
+                }
+                $wrk .= QuotedValue($row[0], $masterfld->DataType, Config("USER_TABLE_DBID"));
+            }
+        }
+        if ($wrk != "") {
+            $wrk = $fld->Expression . " IN (" . $wrk . ")";
+        } else { // No User ID value found
+            $wrk = "0=1";
+        }
+        return $wrk;
+    }
+
     // Get file data
     public function getFileData($fldparm, $key, $resize, $width = 0, $height = 0, $plugins = [])
     {
@@ -2498,6 +2601,9 @@ SORTHTML;
         } elseif ($fldparm == 'file_12') {
             $fldName = "file_12";
             $fileNameFld = "file_12";
+        } elseif ($fldparm == 'file_13') {
+            $fldName = "file_13";
+            $fileNameFld = "file_13";
         } elseif ($fldparm == 'file_14') {
             $fldName = "file_14";
             $fileNameFld = "file_14";

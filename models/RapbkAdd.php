@@ -512,7 +512,7 @@ class RapbkAdd extends Rapbk
         // Set up lookup cache
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
-        $this->setupLookupOptions($this->file_13);
+        $this->setupLookupOptions($this->tahun_anggaran);
         $this->setupLookupOptions($this->idd_user);
 
         // Check modal
@@ -677,6 +677,9 @@ class RapbkAdd extends Rapbk
         $this->file_12->Upload->Index = $CurrentForm->Index;
         $this->file_12->Upload->uploadFile();
         $this->file_12->CurrentValue = $this->file_12->Upload->FileName;
+        $this->file_13->Upload->Index = $CurrentForm->Index;
+        $this->file_13->Upload->uploadFile();
+        $this->file_13->CurrentValue = $this->file_13->Upload->FileName;
         $this->file_14->Upload->Index = $CurrentForm->Index;
         $this->file_14->Upload->uploadFile();
         $this->file_14->CurrentValue = $this->file_14->Upload->FileName;
@@ -763,8 +766,9 @@ class RapbkAdd extends Rapbk
         $this->file_12->Upload->DbValue = null;
         $this->file_12->OldValue = $this->file_12->Upload->DbValue;
         $this->file_12->CurrentValue = null; // Clear file related field
-        $this->file_13->CurrentValue = null;
-        $this->file_13->OldValue = $this->file_13->CurrentValue;
+        $this->file_13->Upload->DbValue = null;
+        $this->file_13->OldValue = $this->file_13->Upload->DbValue;
+        $this->file_13->CurrentValue = null; // Clear file related field
         $this->file_14->Upload->DbValue = null;
         $this->file_14->OldValue = $this->file_14->Upload->DbValue;
         $this->file_14->CurrentValue = null; // Clear file related field
@@ -800,8 +804,7 @@ class RapbkAdd extends Rapbk
         $this->file_24->CurrentValue = null; // Clear file related field
         $this->status->CurrentValue = null;
         $this->status->OldValue = $this->status->CurrentValue;
-        $this->idd_user->CurrentValue = null;
-        $this->idd_user->OldValue = $this->idd_user->CurrentValue;
+        $this->idd_user->CurrentValue = CurrentUserID();
     }
 
     // Load form values
@@ -861,16 +864,6 @@ class RapbkAdd extends Rapbk
             }
         }
 
-        // Check field name 'file_13' first before field var 'x_file_13'
-        $val = $CurrentForm->hasValue("file_13") ? $CurrentForm->getValue("file_13") : $CurrentForm->getValue("x_file_13");
-        if (!$this->file_13->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->file_13->Visible = false; // Disable update for API request
-            } else {
-                $this->file_13->setFormValue($val);
-            }
-        }
-
         // Check field name 'status' first before field var 'x_status'
         $val = $CurrentForm->hasValue("status") ? $CurrentForm->getValue("status") : $CurrentForm->getValue("x_status");
         if (!$this->status->IsDetailKey) {
@@ -906,7 +899,6 @@ class RapbkAdd extends Rapbk
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
         $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
         $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
-        $this->file_13->CurrentValue = $this->file_13->FormValue;
         $this->status->CurrentValue = $this->status->FormValue;
         $this->idd_user->CurrentValue = $this->idd_user->FormValue;
     }
@@ -933,6 +925,15 @@ class RapbkAdd extends Rapbk
         if ($row) {
             $res = true;
             $this->loadRowValues($row); // Load row values
+        }
+
+        // Check if valid User ID
+        if ($res) {
+            $res = $this->showOptionLink("add");
+            if (!$res) {
+                $userIdMsg = DeniedMessage();
+                $this->setFailureMessage($userIdMsg);
+            }
         }
         return $res;
     }
@@ -988,7 +989,8 @@ class RapbkAdd extends Rapbk
         $this->file_11->setDbValue($this->file_11->Upload->DbValue);
         $this->file_12->Upload->DbValue = $row['file_12'];
         $this->file_12->setDbValue($this->file_12->Upload->DbValue);
-        $this->file_13->setDbValue($row['file_13']);
+        $this->file_13->Upload->DbValue = $row['file_13'];
+        $this->file_13->setDbValue($this->file_13->Upload->DbValue);
         $this->file_14->Upload->DbValue = $row['file_14'];
         $this->file_14->setDbValue($this->file_14->Upload->DbValue);
         $this->file_15->Upload->DbValue = $row['file_15'];
@@ -1038,7 +1040,7 @@ class RapbkAdd extends Rapbk
         $row['file_10'] = $this->file_10->Upload->DbValue;
         $row['file_11'] = $this->file_11->Upload->DbValue;
         $row['file_12'] = $this->file_12->Upload->DbValue;
-        $row['file_13'] = $this->file_13->CurrentValue;
+        $row['file_13'] = $this->file_13->Upload->DbValue;
         $row['file_14'] = $this->file_14->Upload->DbValue;
         $row['file_15'] = $this->file_15->Upload->DbValue;
         $row['file_16'] = $this->file_16->Upload->DbValue;
@@ -1199,7 +1201,24 @@ class RapbkAdd extends Rapbk
             $this->idd_tahapan->ViewCustomAttributes = "";
 
             // tahun_anggaran
-            $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+            if ($curVal != "") {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+                if ($this->tahun_anggaran->ViewValue === null) { // Lookup from database
+                    $filterWrk = "`id_tahun`" . SearchString("=", $curVal, DATATYPE_STRING, "");
+                    $sqlWrk = $this->tahun_anggaran->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    if ($ari > 0) { // Lookup values found
+                        $arwrk = $this->tahun_anggaran->Lookup->renderViewRow($rswrk[0]);
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->displayValue($arwrk);
+                    } else {
+                        $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->CurrentValue;
+                    }
+                }
+            } else {
+                $this->tahun_anggaran->ViewValue = null;
+            }
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
             // idd_wilayah
@@ -1304,23 +1323,10 @@ class RapbkAdd extends Rapbk
             $this->file_12->ViewCustomAttributes = "";
 
             // file_13
-            $curVal = trim(strval($this->file_13->CurrentValue));
-            if ($curVal != "") {
-                $this->file_13->ViewValue = $this->file_13->lookupCacheOption($curVal);
-                if ($this->file_13->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $curVal, DATATYPE_STRING, "");
-                    $sqlWrk = $this->file_13->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->file_13->Lookup->renderViewRow($rswrk[0]);
-                        $this->file_13->ViewValue = $this->file_13->displayValue($arwrk);
-                    } else {
-                        $this->file_13->ViewValue = $this->file_13->CurrentValue;
-                    }
-                }
+            if (!EmptyValue($this->file_13->Upload->DbValue)) {
+                $this->file_13->ViewValue = $this->file_13->Upload->DbValue;
             } else {
-                $this->file_13->ViewValue = null;
+                $this->file_13->ViewValue = "";
             }
             $this->file_13->ViewCustomAttributes = "";
 
@@ -1413,8 +1419,11 @@ class RapbkAdd extends Rapbk
             $this->file_24->ViewCustomAttributes = "";
 
             // status
-            $this->status->ViewValue = $this->status->CurrentValue;
-            $this->status->ViewValue = FormatNumber($this->status->ViewValue, 0, -2, -2, -2);
+            if (strval($this->status->CurrentValue) != "") {
+                $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
+            } else {
+                $this->status->ViewValue = null;
+            }
             $this->status->ViewCustomAttributes = "";
 
             // idd_user
@@ -1538,6 +1547,7 @@ class RapbkAdd extends Rapbk
             // file_13
             $this->file_13->LinkCustomAttributes = "";
             $this->file_13->HrefValue = "";
+            $this->file_13->ExportHrefValue = $this->file_13->UploadPath . $this->file_13->Upload->DbValue;
             $this->file_13->TooltipValue = "";
 
             // file_14
@@ -1675,10 +1685,26 @@ class RapbkAdd extends Rapbk
             // tahun_anggaran
             $this->tahun_anggaran->EditAttrs["class"] = "form-control";
             $this->tahun_anggaran->EditCustomAttributes = "";
-            if (!$this->tahun_anggaran->Raw) {
-                $this->tahun_anggaran->CurrentValue = HtmlDecode($this->tahun_anggaran->CurrentValue);
+            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
+            if ($curVal != "") {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
+            } else {
+                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->Lookup !== null && is_array($this->tahun_anggaran->Lookup->Options) ? $curVal : null;
             }
-            $this->tahun_anggaran->EditValue = HtmlEncode($this->tahun_anggaran->CurrentValue);
+            if ($this->tahun_anggaran->ViewValue !== null) { // Load from cache
+                $this->tahun_anggaran->EditValue = array_values($this->tahun_anggaran->Lookup->Options);
+            } else { // Lookup from database
+                if ($curVal == "") {
+                    $filterWrk = "0=1";
+                } else {
+                    $filterWrk = "`id_tahun`" . SearchString("=", $this->tahun_anggaran->CurrentValue, DATATYPE_STRING, "");
+                }
+                $sqlWrk = $this->tahun_anggaran->Lookup->getSql(true, $filterWrk, '', $this, false, true);
+                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                $ari = count($rswrk);
+                $arwrk = $rswrk;
+                $this->tahun_anggaran->EditValue = $arwrk;
+            }
             $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
 
             // idd_wilayah
@@ -1870,27 +1896,17 @@ class RapbkAdd extends Rapbk
             // file_13
             $this->file_13->EditAttrs["class"] = "form-control";
             $this->file_13->EditCustomAttributes = "";
-            $curVal = trim(strval($this->file_13->CurrentValue));
-            if ($curVal != "") {
-                $this->file_13->ViewValue = $this->file_13->lookupCacheOption($curVal);
+            if (!EmptyValue($this->file_13->Upload->DbValue)) {
+                $this->file_13->EditValue = $this->file_13->Upload->DbValue;
             } else {
-                $this->file_13->ViewValue = $this->file_13->Lookup !== null && is_array($this->file_13->Lookup->Options) ? $curVal : null;
+                $this->file_13->EditValue = "";
             }
-            if ($this->file_13->ViewValue !== null) { // Load from cache
-                $this->file_13->EditValue = array_values($this->file_13->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $this->file_13->CurrentValue, DATATYPE_STRING, "");
-                }
-                $sqlWrk = $this->file_13->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->file_13->EditValue = $arwrk;
+            if (!EmptyValue($this->file_13->CurrentValue)) {
+                $this->file_13->Upload->FileName = $this->file_13->CurrentValue;
             }
-            $this->file_13->PlaceHolder = RemoveHtml($this->file_13->caption());
+            if ($this->isShow() || $this->isCopy()) {
+                RenderUploadField($this->file_13);
+            }
 
             // file_14
             $this->file_14->EditAttrs["class"] = "form-control";
@@ -2060,33 +2076,56 @@ class RapbkAdd extends Rapbk
             // status
             $this->status->EditAttrs["class"] = "form-control";
             $this->status->EditCustomAttributes = "";
-            $this->status->EditValue = HtmlEncode($this->status->CurrentValue);
+            $this->status->EditValue = $this->status->options(true);
             $this->status->PlaceHolder = RemoveHtml($this->status->caption());
 
             // idd_user
             $this->idd_user->EditAttrs["class"] = "form-control";
             $this->idd_user->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_user->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
-            } else {
-                $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_user->ViewValue !== null) { // Load from cache
-                $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
+            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("add")) { // Non system admin
+                $this->idd_user->CurrentValue = CurrentUserID();
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                    if ($this->idd_user->EditValue === null) { // Lookup from database
+                        $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                        $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                        $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                        $ari = count($rswrk);
+                        if ($ari > 0) { // Lookup values found
+                            $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                            $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                        } else {
+                            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                        }
+                    }
                 } else {
-                    $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    $this->idd_user->EditValue = null;
                 }
-                $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_user->EditValue = $arwrk;
+                $this->idd_user->ViewCustomAttributes = "";
+            } else {
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
+                } else {
+                    $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
+                }
+                if ($this->idd_user->ViewValue !== null) { // Load from cache
+                    $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
+                } else { // Lookup from database
+                    if ($curVal == "") {
+                        $filterWrk = "0=1";
+                    } else {
+                        $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    }
+                    $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    $arwrk = $rswrk;
+                    $this->idd_user->EditValue = $arwrk;
+                }
+                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
             }
-            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
 
             // Add refer script
 
@@ -2173,6 +2212,7 @@ class RapbkAdd extends Rapbk
             // file_13
             $this->file_13->LinkCustomAttributes = "";
             $this->file_13->HrefValue = "";
+            $this->file_13->ExportHrefValue = $this->file_13->UploadPath . $this->file_13->Upload->DbValue;
 
             // file_14
             $this->file_14->LinkCustomAttributes = "";
@@ -2348,7 +2388,7 @@ class RapbkAdd extends Rapbk
             }
         }
         if ($this->file_13->Required) {
-            if (!$this->file_13->IsDetailKey && EmptyValue($this->file_13->FormValue)) {
+            if ($this->file_13->Upload->FileName == "" && !$this->file_13->Upload->KeepFile) {
                 $this->file_13->addErrorMessage(str_replace("%s", $this->file_13->caption(), $this->file_13->RequiredErrorMessage));
             }
         }
@@ -2412,9 +2452,6 @@ class RapbkAdd extends Rapbk
                 $this->status->addErrorMessage(str_replace("%s", $this->status->caption(), $this->status->RequiredErrorMessage));
             }
         }
-        if (!CheckInteger($this->status->FormValue)) {
-            $this->status->addErrorMessage($this->status->getErrorMessage(false));
-        }
         if ($this->idd_user->Required) {
             if (!$this->idd_user->IsDetailKey && EmptyValue($this->idd_user->FormValue)) {
                 $this->idd_user->addErrorMessage(str_replace("%s", $this->idd_user->caption(), $this->idd_user->RequiredErrorMessage));
@@ -2437,6 +2474,18 @@ class RapbkAdd extends Rapbk
     protected function addRow($rsold = null)
     {
         global $Language, $Security;
+
+        // Check if valid User ID
+        $validUser = false;
+        if ($Security->currentUserID() != "" && !EmptyValue($this->idd_user->CurrentValue) && !$Security->isAdmin()) { // Non system admin
+            $validUser = $Security->isValidUserID($this->idd_user->CurrentValue);
+            if (!$validUser) {
+                $userIdMsg = str_replace("%c", CurrentUserID(), $Language->phrase("UnAuthorizedUserID"));
+                $userIdMsg = str_replace("%u", $this->idd_user->CurrentValue, $userIdMsg);
+                $this->setFailureMessage($userIdMsg);
+                return false;
+            }
+        }
         $conn = $this->getConnection();
 
         // Load db values from rsold
@@ -2581,7 +2630,14 @@ class RapbkAdd extends Rapbk
         }
 
         // file_13
-        $this->file_13->setDbValueDef($rsnew, $this->file_13->CurrentValue, "", false);
+        if ($this->file_13->Visible && !$this->file_13->Upload->KeepFile) {
+            $this->file_13->Upload->DbValue = ""; // No need to delete old file
+            if ($this->file_13->Upload->FileName == "") {
+                $rsnew['file_13'] = null;
+            } else {
+                $rsnew['file_13'] = $this->file_13->Upload->FileName;
+            }
+        }
 
         // file_14
         if ($this->file_14->Visible && !$this->file_14->Upload->KeepFile) {
@@ -3188,6 +3244,47 @@ class RapbkAdd extends Rapbk
                 $this->file_12->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
                 $this->file_12->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
                 $this->file_12->setDbValueDef($rsnew, $this->file_12->Upload->FileName, "", false);
+            }
+        }
+        if ($this->file_13->Visible && !$this->file_13->Upload->KeepFile) {
+            $oldFiles = EmptyValue($this->file_13->Upload->DbValue) ? [] : [$this->file_13->htmlDecode($this->file_13->Upload->DbValue)];
+            if (!EmptyValue($this->file_13->Upload->FileName)) {
+                $newFiles = [$this->file_13->Upload->FileName];
+                $NewFileCount = count($newFiles);
+                for ($i = 0; $i < $NewFileCount; $i++) {
+                    if ($newFiles[$i] != "") {
+                        $file = $newFiles[$i];
+                        $tempPath = UploadTempPath($this->file_13, $this->file_13->Upload->Index);
+                        if (file_exists($tempPath . $file)) {
+                            if (Config("DELETE_UPLOADED_FILES")) {
+                                $oldFileFound = false;
+                                $oldFileCount = count($oldFiles);
+                                for ($j = 0; $j < $oldFileCount; $j++) {
+                                    $oldFile = $oldFiles[$j];
+                                    if ($oldFile == $file) { // Old file found, no need to delete anymore
+                                        array_splice($oldFiles, $j, 1);
+                                        $oldFileFound = true;
+                                        break;
+                                    }
+                                }
+                                if ($oldFileFound) { // No need to check if file exists further
+                                    continue;
+                                }
+                            }
+                            $file1 = UniqueFilename($this->file_13->physicalUploadPath(), $file); // Get new file name
+                            if ($file1 != $file) { // Rename temp file
+                                while (file_exists($tempPath . $file1) || file_exists($this->file_13->physicalUploadPath() . $file1)) { // Make sure no file name clash
+                                    $file1 = UniqueFilename([$this->file_13->physicalUploadPath(), $tempPath], $file1, true); // Use indexed name
+                                }
+                                rename($tempPath . $file, $tempPath . $file1);
+                                $newFiles[$i] = $file1;
+                            }
+                        }
+                    }
+                }
+                $this->file_13->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
+                $this->file_13->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
+                $this->file_13->setDbValueDef($rsnew, $this->file_13->Upload->FileName, "", false);
             }
         }
         if ($this->file_14->Visible && !$this->file_14->Upload->KeepFile) {
@@ -4024,6 +4121,37 @@ class RapbkAdd extends Rapbk
                         }
                     }
                 }
+                if ($this->file_13->Visible && !$this->file_13->Upload->KeepFile) {
+                    $oldFiles = EmptyValue($this->file_13->Upload->DbValue) ? [] : [$this->file_13->htmlDecode($this->file_13->Upload->DbValue)];
+                    if (!EmptyValue($this->file_13->Upload->FileName)) {
+                        $newFiles = [$this->file_13->Upload->FileName];
+                        $newFiles2 = [$this->file_13->htmlDecode($rsnew['file_13'])];
+                        $newFileCount = count($newFiles);
+                        for ($i = 0; $i < $newFileCount; $i++) {
+                            if ($newFiles[$i] != "") {
+                                $file = UploadTempPath($this->file_13, $this->file_13->Upload->Index) . $newFiles[$i];
+                                if (file_exists($file)) {
+                                    if (@$newFiles2[$i] != "") { // Use correct file name
+                                        $newFiles[$i] = $newFiles2[$i];
+                                    }
+                                    if (!$this->file_13->Upload->SaveToFile($newFiles[$i], true, $i)) { // Just replace
+                                        $this->setFailureMessage($Language->phrase("UploadErrMsg7"));
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        $newFiles = [];
+                    }
+                    if (Config("DELETE_UPLOADED_FILES")) {
+                        foreach ($oldFiles as $oldFile) {
+                            if ($oldFile != "" && !in_array($oldFile, $newFiles)) {
+                                @unlink($this->file_13->oldPhysicalUploadPath() . $oldFile);
+                            }
+                        }
+                    }
+                }
                 if ($this->file_14->Visible && !$this->file_14->Upload->KeepFile) {
                     $oldFiles = EmptyValue($this->file_14->Upload->DbValue) ? [] : [$this->file_14->htmlDecode($this->file_14->Upload->DbValue)];
                     if (!EmptyValue($this->file_14->Upload->FileName)) {
@@ -4420,6 +4548,9 @@ class RapbkAdd extends Rapbk
             // file_12
             CleanUploadTempPath($this->file_12, $this->file_12->Upload->Index);
 
+            // file_13
+            CleanUploadTempPath($this->file_13, $this->file_13->Upload->Index);
+
             // file_14
             CleanUploadTempPath($this->file_14, $this->file_14->Upload->Index);
 
@@ -4462,6 +4593,16 @@ class RapbkAdd extends Rapbk
         return $addRow;
     }
 
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
+    }
+
     // Set up Breadcrumb
     protected function setupBreadcrumb()
     {
@@ -4490,7 +4631,9 @@ class RapbkAdd extends Rapbk
                     break;
                 case "x_idd_tahapan":
                     break;
-                case "x_file_13":
+                case "x_tahun_anggaran":
+                    break;
+                case "x_status":
                     break;
                 case "x_idd_user":
                     break;

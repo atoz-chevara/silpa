@@ -1702,7 +1702,15 @@ class EvaluatorsList extends Evaluators
 
             // no_telepon
             $this->no_telepon->LinkCustomAttributes = "";
-            $this->no_telepon->HrefValue = "";
+            if (!EmptyValue($this->no_telepon->CurrentValue)) {
+                $this->no_telepon->HrefValue = "https://wa.me/" . (!empty($this->no_telepon->ViewValue) && !is_array($this->no_telepon->ViewValue) ? RemoveHtml($this->no_telepon->ViewValue) : $this->no_telepon->CurrentValue) . "?text=Assalamu'alaikum"; // Add prefix/suffix
+                $this->no_telepon->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->no_telepon->HrefValue = FullUrl($this->no_telepon->HrefValue, "href");
+                }
+            } else {
+                $this->no_telepon->HrefValue = "";
+            }
             $this->no_telepon->TooltipValue = "";
         }
 
@@ -1749,6 +1757,16 @@ class EvaluatorsList extends Evaluators
             $this->SearchOptions->hideAllOptions();
             $this->FilterOptions->hideAllOptions();
         }
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb

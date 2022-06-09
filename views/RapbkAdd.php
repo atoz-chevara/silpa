@@ -37,7 +37,7 @@ loadjs.ready("head", function () {
         ["file_10", [fields.file_10.visible && fields.file_10.required ? ew.Validators.fileRequired(fields.file_10.caption) : null], fields.file_10.isInvalid],
         ["file_11", [fields.file_11.visible && fields.file_11.required ? ew.Validators.fileRequired(fields.file_11.caption) : null], fields.file_11.isInvalid],
         ["file_12", [fields.file_12.visible && fields.file_12.required ? ew.Validators.fileRequired(fields.file_12.caption) : null], fields.file_12.isInvalid],
-        ["file_13", [fields.file_13.visible && fields.file_13.required ? ew.Validators.required(fields.file_13.caption) : null], fields.file_13.isInvalid],
+        ["file_13", [fields.file_13.visible && fields.file_13.required ? ew.Validators.fileRequired(fields.file_13.caption) : null], fields.file_13.isInvalid],
         ["file_14", [fields.file_14.visible && fields.file_14.required ? ew.Validators.fileRequired(fields.file_14.caption) : null], fields.file_14.isInvalid],
         ["file_15", [fields.file_15.visible && fields.file_15.required ? ew.Validators.fileRequired(fields.file_15.caption) : null], fields.file_15.isInvalid],
         ["file_16", [fields.file_16.visible && fields.file_16.required ? ew.Validators.fileRequired(fields.file_16.caption) : null], fields.file_16.isInvalid],
@@ -49,7 +49,7 @@ loadjs.ready("head", function () {
         ["file_22", [fields.file_22.visible && fields.file_22.required ? ew.Validators.fileRequired(fields.file_22.caption) : null], fields.file_22.isInvalid],
         ["file_23", [fields.file_23.visible && fields.file_23.required ? ew.Validators.fileRequired(fields.file_23.caption) : null], fields.file_23.isInvalid],
         ["file_24", [fields.file_24.visible && fields.file_24.required ? ew.Validators.fileRequired(fields.file_24.caption) : null], fields.file_24.isInvalid],
-        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null, ew.Validators.integer], fields.status.isInvalid],
+        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid],
         ["idd_user", [fields.idd_user.visible && fields.idd_user.required ? ew.Validators.required(fields.idd_user.caption) : null], fields.idd_user.isInvalid]
     ]);
 
@@ -119,7 +119,8 @@ loadjs.ready("head", function () {
     // Dynamic selection lists
     frapbkadd.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
     frapbkadd.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
-    frapbkadd.lists.file_13 = <?= $Page->file_13->toClientList($Page) ?>;
+    frapbkadd.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
+    frapbkadd.lists.status = <?= $Page->status->toClientList($Page) ?>;
     frapbkadd.lists.idd_user = <?= $Page->idd_user->toClientList($Page) ?>;
     loadjs.done("frapbkadd");
 });
@@ -233,9 +234,30 @@ loadjs.ready("head", function() {
         <label id="elh_rapbk_tahun_anggaran" for="x_tahun_anggaran" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tahun_anggaran->caption() ?><?= $Page->tahun_anggaran->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tahun_anggaran->cellAttributes() ?>>
 <span id="el_rapbk_tahun_anggaran">
-<input type="<?= $Page->tahun_anggaran->getInputTextType() ?>" data-table="rapbk" data-field="x_tahun_anggaran" name="x_tahun_anggaran" id="x_tahun_anggaran" size="30" maxlength="100" placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>" value="<?= $Page->tahun_anggaran->EditValue ?>"<?= $Page->tahun_anggaran->editAttributes() ?> aria-describedby="x_tahun_anggaran_help">
-<?= $Page->tahun_anggaran->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+    <select
+        id="x_tahun_anggaran"
+        name="x_tahun_anggaran"
+        class="form-control ew-select<?= $Page->tahun_anggaran->isInvalidClass() ?>"
+        data-select2-id="rapbk_x_tahun_anggaran"
+        data-table="rapbk"
+        data-field="x_tahun_anggaran"
+        data-value-separator="<?= $Page->tahun_anggaran->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>"
+        <?= $Page->tahun_anggaran->editAttributes() ?>>
+        <?= $Page->tahun_anggaran->selectOptionListHtml("x_tahun_anggaran") ?>
+    </select>
+    <?= $Page->tahun_anggaran->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+<?= $Page->tahun_anggaran->Lookup->getParamTag($Page, "p_x_tahun_anggaran") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='rapbk_x_tahun_anggaran']"),
+        options = { name: "x_tahun_anggaran", selectId: "rapbk_x_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.rapbk.fields.tahun_anggaran.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
@@ -554,33 +576,25 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->file_13->Visible) { // file_13 ?>
     <div id="r_file_13" class="form-group row">
-        <label id="elh_rapbk_file_13" for="x_file_13" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_13->caption() ?><?= $Page->file_13->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_rapbk_file_13" class="<?= $Page->LeftColumnClass ?>"><?= $Page->file_13->caption() ?><?= $Page->file_13->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->file_13->cellAttributes() ?>>
 <span id="el_rapbk_file_13">
-    <select
-        id="x_file_13"
-        name="x_file_13"
-        class="form-control ew-select<?= $Page->file_13->isInvalidClass() ?>"
-        data-select2-id="rapbk_x_file_13"
-        data-table="rapbk"
-        data-field="x_file_13"
-        data-value-separator="<?= $Page->file_13->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->file_13->getPlaceHolder()) ?>"
-        <?= $Page->file_13->editAttributes() ?>>
-        <?= $Page->file_13->selectOptionListHtml("x_file_13") ?>
-    </select>
-    <?= $Page->file_13->getCustomMessage() ?>
-    <div class="invalid-feedback"><?= $Page->file_13->getErrorMessage() ?></div>
-<?= $Page->file_13->Lookup->getParamTag($Page, "p_x_file_13") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='rapbk_x_file_13']"),
-        options = { name: "x_file_13", selectId: "rapbk_x_file_13", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.rapbk.fields.file_13.selectOptions);
-    ew.createSelect(options);
-});
-</script>
+<div id="fd_x_file_13">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->file_13->title() ?>" data-table="rapbk" data-field="x_file_13" name="x_file_13" id="x_file_13" lang="<?= CurrentLanguageID() ?>"<?= $Page->file_13->editAttributes() ?><?= ($Page->file_13->ReadOnly || $Page->file_13->Disabled) ? " disabled" : "" ?> aria-describedby="x_file_13_help">
+        <label class="custom-file-label ew-file-label" for="x_file_13"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->file_13->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->file_13->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_file_13" id= "fn_x_file_13" value="<?= $Page->file_13->Upload->FileName ?>">
+<input type="hidden" name="fa_x_file_13" id= "fa_x_file_13" value="0">
+<input type="hidden" name="fs_x_file_13" id= "fs_x_file_13" value="200">
+<input type="hidden" name="fx_x_file_13" id= "fx_x_file_13" value="<?= $Page->file_13->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_file_13" id= "fm_x_file_13" value="<?= $Page->file_13->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_file_13" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
@@ -865,9 +879,30 @@ loadjs.ready("head", function() {
         <label id="elh_rapbk_status" for="x_status" class="<?= $Page->LeftColumnClass ?>"><?= $Page->status->caption() ?><?= $Page->status->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->status->cellAttributes() ?>>
 <span id="el_rapbk_status">
-<input type="<?= $Page->status->getInputTextType() ?>" data-table="rapbk" data-field="x_status" name="x_status" id="x_status" size="30" placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>" value="<?= $Page->status->EditValue ?>"<?= $Page->status->editAttributes() ?> aria-describedby="x_status_help">
-<?= $Page->status->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+    <select
+        id="x_status"
+        name="x_status"
+        class="form-control ew-select<?= $Page->status->isInvalidClass() ?>"
+        data-select2-id="rapbk_x_status"
+        data-table="rapbk"
+        data-field="x_status"
+        data-value-separator="<?= $Page->status->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>"
+        <?= $Page->status->editAttributes() ?>>
+        <?= $Page->status->selectOptionListHtml("x_status") ?>
+    </select>
+    <?= $Page->status->getCustomMessage() ?>
+    <div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='rapbk_x_status']"),
+        options = { name: "x_status", selectId: "rapbk_x_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.data = ew.vars.tables.rapbk.fields.status.lookupOptions;
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.rapbk.fields.status.selectOptions);
+    ew.createSelect(options);
+});
+</script>
 </span>
 </div></div>
     </div>
@@ -876,6 +911,13 @@ loadjs.ready("head", function() {
     <div id="r_idd_user" class="form-group row">
         <label id="elh_rapbk_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_user->cellAttributes() ?>>
+<?php if (!$Security->isAdmin() && $Security->isLoggedIn() && !$Page->userIDAllow("add")) { // Non system admin ?>
+<span id="el_rapbk_idd_user">
+<span<?= $Page->idd_user->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_user->getDisplayValue($Page->idd_user->EditValue))) ?>"></span>
+</span>
+<input type="hidden" data-table="rapbk" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
+<?php } else { ?>
 <span id="el_rapbk_idd_user">
     <select
         id="x_idd_user"
@@ -902,6 +944,7 @@ loadjs.ready("head", function() {
 });
 </script>
 </span>
+<?php } ?>
 </div></div>
     </div>
 <?php } ?>

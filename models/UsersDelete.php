@@ -381,7 +381,7 @@ class UsersDelete extends Users
         $this->_password->Visible = false;
         $this->_email->setVisibility();
         $this->photo->setVisibility();
-        $this->level->setVisibility();
+        $this->level->Visible = false;
         $this->hideFieldsForAddEdit();
 
         // Do not use lookup cache
@@ -692,11 +692,6 @@ class UsersDelete extends Users
                 $this->photo->LinkAttrs["data-rel"] = "users_x_photo";
                 $this->photo->LinkAttrs->appendClass("ew-lightbox");
             }
-
-            // level
-            $this->level->LinkCustomAttributes = "";
-            $this->level->HrefValue = "";
-            $this->level->TooltipValue = "";
         }
 
         // Call Row Rendered event
