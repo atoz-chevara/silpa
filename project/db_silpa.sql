@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jun 2022 pada 19.25
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.28
+-- Waktu pembuatan: 09 Jun 2022 pada 11.54
+-- Versi server: 10.4.18-MariaDB
+-- Versi PHP: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -116,30 +116,30 @@ CREATE TABLE `evaluasi` (
   `idd_tahapan` int(100) NOT NULL,
   `tahun_anggaran` varchar(100) NOT NULL,
   `idd_wilayah` int(100) NOT NULL,
-  `file_01` varchar(200) NOT NULL,
-  `file_02` varchar(200) NOT NULL,
-  `file_03` varchar(200) NOT NULL,
-  `file_04` varchar(200) NOT NULL,
-  `file_05` varchar(200) NOT NULL,
-  `file_06` varchar(200) NOT NULL,
-  `file_07` varchar(200) NOT NULL,
-  `file_08` varchar(200) NOT NULL,
-  `file_09` varchar(200) NOT NULL,
-  `file_10` varchar(200) NOT NULL,
-  `file_11` varchar(200) NOT NULL,
-  `file_12` varchar(200) NOT NULL,
-  `file_13` varchar(200) NOT NULL,
-  `file_14` varchar(200) NOT NULL,
-  `file_15` varchar(200) NOT NULL,
-  `file_16` varchar(200) NOT NULL,
-  `file_17` varchar(200) NOT NULL,
-  `file_18` varchar(200) NOT NULL,
-  `file_19` varchar(200) NOT NULL,
-  `file_20` varchar(200) NOT NULL,
-  `file_21` varchar(200) NOT NULL,
-  `file_22` varchar(200) NOT NULL,
-  `file_23` varchar(200) NOT NULL,
-  `file_24` varchar(200) NOT NULL,
+  `surat_pengantar` varchar(200) NOT NULL,
+  `rpjmd` varchar(200) NOT NULL,
+  `rkpk` varchar(200) NOT NULL,
+  `skd_rkuappas` varchar(200) NOT NULL,
+  `kua` varchar(200) NOT NULL,
+  `ppas` varchar(200) NOT NULL,
+  `skd_rqanun` varchar(200) NOT NULL,
+  `nota_keuangan` varchar(200) NOT NULL,
+  `pengantar_nota` varchar(200) NOT NULL,
+  `risalah_sidang` varchar(200) NOT NULL,
+  `bap_apbk` varchar(200) NOT NULL,
+  `rq_apbk` varchar(200) NOT NULL,
+  `rp_penjabaran` varchar(200) NOT NULL,
+  `jadwal_proses` varchar(200) NOT NULL,
+  `sinkron_kebijakan` varchar(200) NOT NULL,
+  `konsistensi_program` varchar(200) NOT NULL,
+  `alokasi_pendidikan` varchar(200) NOT NULL,
+  `alokasi_kesehatan` varchar(200) NOT NULL,
+  `alokasi_belanja` varchar(200) NOT NULL,
+  `bak_kegiatan` varchar(200) NOT NULL,
+  `softcopy_rka` varchar(200) NOT NULL,
+  `otsus` varchar(200) NOT NULL,
+  `qanun_perbup` varchar(200) NOT NULL,
+  `tindak_apbkp` varchar(200) NOT NULL,
   `status` int(11) NOT NULL,
   `idd_user` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -159,6 +159,14 @@ CREATE TABLE `evaluators` (
   `idd_user` int(100) NOT NULL,
   `no_telepon` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `evaluators`
+--
+
+INSERT INTO `evaluators` (`idd_evaluator`, `nip`, `nama_lengkap`, `alamat`, `wilayah`, `idd_user`, `no_telepon`) VALUES
+(1, '19830223 200901 1 003', 'Andrew Vilas, SE', '-', 1, 2, '08126900377'),
+(2, '19900805 201206 1 001', 'Agustia Ferrira , S.STP, M.Si', '-', 1, 3, '085277366230');
 
 -- --------------------------------------------------------
 
@@ -256,30 +264,21 @@ CREATE TABLE `pertanggungjawaban` (
   `idd_tahapan` int(100) NOT NULL,
   `tahun_anggaran` varchar(100) NOT NULL,
   `idd_wilayah` int(100) NOT NULL,
-  `file_01` varchar(200) NOT NULL,
-  `file_02` varchar(200) NOT NULL,
-  `file_03` varchar(200) NOT NULL,
-  `file_04` varchar(200) NOT NULL,
-  `file_05` varchar(200) NOT NULL,
-  `file_06` varchar(200) NOT NULL,
-  `file_07` varchar(200) NOT NULL,
-  `file_08` varchar(200) NOT NULL,
-  `file_09` varchar(200) NOT NULL,
-  `file_10` varchar(200) NOT NULL,
-  `file_11` varchar(200) NOT NULL,
-  `file_12` varchar(200) NOT NULL,
-  `file_13` varchar(200) NOT NULL,
-  `file_14` varchar(200) NOT NULL,
-  `file_15` varchar(200) NOT NULL,
-  `file_16` varchar(200) NOT NULL,
-  `file_17` varchar(200) NOT NULL,
-  `file_18` varchar(200) NOT NULL,
-  `file_19` varchar(200) NOT NULL,
-  `file_20` varchar(200) NOT NULL,
-  `file_21` varchar(200) NOT NULL,
-  `file_22` varchar(200) NOT NULL,
-  `file_23` varchar(200) NOT NULL,
-  `file_24` varchar(200) NOT NULL,
+  `surat_pengantar` varchar(200) DEFAULT NULL,
+  `skd_rqanunpert` varchar(200) DEFAULT NULL,
+  `rq_apbkpert` varchar(200) DEFAULT NULL,
+  `bap_apbkpert` varchar(200) DEFAULT NULL,
+  `risalah_sidang` varchar(200) DEFAULT NULL,
+  `absen_peserta` varchar(200) DEFAULT NULL,
+  `neraca` varchar(200) DEFAULT NULL,
+  `lra` varchar(200) DEFAULT NULL,
+  `calk` varchar(200) DEFAULT NULL,
+  `lo` varchar(200) DEFAULT NULL,
+  `lpe` varchar(200) DEFAULT NULL,
+  `lpsal` varchar(200) DEFAULT NULL,
+  `lak` varchar(200) DEFAULT NULL,
+  `laporan_pemeriksaan` varchar(200) DEFAULT NULL,
+  `softcopy_rqanun` varchar(200) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `idd_user` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -433,7 +432,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idd_user`, `username`, `password`, `email`, `photo`, `level`) VALUES
-(1, 'atoz', '5f4dcc3b5aa765d61d8327deb882cf99', 'atoz.chevara@yahoo.com', 'user1-128x128.jpg', 1);
+(1, 'atoz', '5f4dcc3b5aa765d61d8327deb882cf99', 'atoz.chevara@yahoo.com', 'user1-128x128.jpg', 1),
+(2, 'een', '5f4dcc3b5aa765d61d8327deb882cf99', 'een@email.com', 'anonim.png', 2),
+(3, 'agus', '5f4dcc3b5aa765d61d8327deb882cf99', 'agus@email.com', 'anonim(1).png', 2);
 
 -- --------------------------------------------------------
 
@@ -546,7 +547,7 @@ ALTER TABLE `evaluasi`
 -- AUTO_INCREMENT untuk tabel `evaluators`
 --
 ALTER TABLE `evaluators`
-  MODIFY `idd_evaluator` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `idd_evaluator` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `pertanggungjawaban`
@@ -576,7 +577,7 @@ ALTER TABLE `tahapan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `idd_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idd_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `wilayah`
