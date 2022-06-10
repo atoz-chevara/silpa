@@ -143,8 +143,6 @@ class Evaluators extends DbTable
 
         // no_telepon
         $this->no_telepon = new DbField('evaluators', 'evaluators', 'x_no_telepon', 'no_telepon', '`no_telepon`', '`no_telepon`', 200, 25, -1, false, '`no_telepon`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->no_telepon->Nullable = false; // NOT NULL field
-        $this->no_telepon->Required = true; // Required field
         $this->no_telepon->Sortable = true; // Allow sort
         $this->no_telepon->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->no_telepon->Param, "CustomMsg");
         $this->Fields['no_telepon'] = &$this->no_telepon;

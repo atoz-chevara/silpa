@@ -7,7 +7,7 @@ use Doctrine\DBAL\ParameterType;
 /**
  * Page class
  */
-class PertanggungjawabanDelete extends Pertanggungjawaban
+class Pertanggungjawaban2022Delete extends Pertanggungjawaban2022
 {
     use MessagesTrait;
 
@@ -18,10 +18,10 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
     public $ProjectID = PROJECT_ID;
 
     // Table name
-    public $TableName = 'pertanggungjawaban';
+    public $TableName = 'pertanggungjawaban2022';
 
     // Page object name
-    public $PageObjName = "PertanggungjawabanDelete";
+    public $PageObjName = "Pertanggungjawaban2022Delete";
 
     // Rendering View
     public $RenderingView = false;
@@ -127,9 +127,9 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         // Parent constuctor
         parent::__construct();
 
-        // Table object (pertanggungjawaban)
-        if (!isset($GLOBALS["pertanggungjawaban"]) || get_class($GLOBALS["pertanggungjawaban"]) == PROJECT_NAMESPACE . "pertanggungjawaban") {
-            $GLOBALS["pertanggungjawaban"] = &$this;
+        // Table object (pertanggungjawaban2022)
+        if (!isset($GLOBALS["pertanggungjawaban2022"]) || get_class($GLOBALS["pertanggungjawaban2022"]) == PROJECT_NAMESPACE . "pertanggungjawaban2022") {
+            $GLOBALS["pertanggungjawaban2022"] = &$this;
         }
 
         // Page URL
@@ -137,7 +137,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
 
         // Table name (for backward compatibility only)
         if (!defined(PROJECT_NAMESPACE . "TABLE_NAME")) {
-            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban');
+            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban2022');
         }
 
         // Start timer
@@ -222,7 +222,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             }
             $class = PROJECT_NAMESPACE . Config("EXPORT_CLASSES." . $this->CustomExport);
             if (class_exists($class)) {
-                $doc = new $class(Container("pertanggungjawaban"));
+                $doc = new $class(Container("pertanggungjawaban2022"));
                 $doc->Text = @$content;
                 if ($this->isExport("email")) {
                     echo $this->exportEmail($doc->Text);
@@ -374,29 +374,28 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
     {
         global $ExportType, $CustomExportType, $ExportFileName, $UserProfile, $Language, $Security, $CurrentForm;
         $this->CurrentAction = Param("action"); // Set up current action
-        $this->idd_evaluasi->Visible = false;
+        $this->idd_evaluasi->setVisibility();
         $this->tanggal->setVisibility();
-        $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
-        $this->surat_pengantar->Visible = false;
-        $this->skd_rqanunpert->Visible = false;
-        $this->rqanun_apbkpert->Visible = false;
-        $this->rperbup_apbkpert->Visible = false;
-        $this->pbkdd_apbkpert->Visible = false;
-        $this->risalah_sidang->Visible = false;
-        $this->absen_peserta->Visible = false;
-        $this->neraca->Visible = false;
-        $this->lra->Visible = false;
-        $this->calk->Visible = false;
-        $this->lo->Visible = false;
-        $this->lpe->Visible = false;
-        $this->lpsal->Visible = false;
-        $this->lak->Visible = false;
-        $this->laporan_pemeriksaan->Visible = false;
+        $this->surat_pengantar->setVisibility();
+        $this->skd_rqanunpert->setVisibility();
+        $this->rqanun_apbkpert->setVisibility();
+        $this->rperbup_apbkpert->setVisibility();
+        $this->pbkdd_apbkpert->setVisibility();
+        $this->risalah_sidang->setVisibility();
+        $this->absen_peserta->setVisibility();
+        $this->neraca->setVisibility();
+        $this->lra->setVisibility();
+        $this->calk->setVisibility();
+        $this->lo->setVisibility();
+        $this->lpe->setVisibility();
+        $this->lpsal->setVisibility();
+        $this->lak->setVisibility();
+        $this->laporan_pemeriksaan->setVisibility();
         $this->status->setVisibility();
-        $this->idd_user->Visible = false;
+        $this->idd_user->setVisibility();
         $this->hideFieldsForAddEdit();
 
         // Do not use lookup cache
@@ -411,7 +410,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         }
 
         // Set up lookup cache
-        $this->setupLookupOptions($this->idd_wilayah);
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
         $this->setupLookupOptions($this->tahun_anggaran);
@@ -424,7 +422,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         $this->RecKeys = $this->getRecordKeys(); // Load record keys
         $filter = $this->getFilterFromRecordKeys();
         if ($filter == "") {
-            $this->terminate("pertanggungjawabanlist"); // Prevent SQL injection, return to list
+            $this->terminate("pertanggungjawaban2022list"); // Prevent SQL injection, return to list
             return;
         }
 
@@ -446,7 +444,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             }
         }
         if (!$res) {
-            $this->terminate("pertanggungjawabanlist"); // Return to list
+            $this->terminate("pertanggungjawaban2022list"); // Return to list
             return;
         }
 
@@ -489,7 +487,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
                 if ($this->Recordset) {
                     $this->Recordset->close();
                 }
-                $this->terminate("pertanggungjawabanlist"); // Return to list
+                $this->terminate("pertanggungjawaban2022list"); // Return to list
                 return;
             }
         }
@@ -585,7 +583,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
@@ -629,7 +626,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         $row = [];
         $row['idd_evaluasi'] = null;
         $row['tanggal'] = null;
-        $row['idd_wilayah'] = null;
         $row['kd_satker'] = null;
         $row['idd_tahapan'] = null;
         $row['tahun_anggaran'] = null;
@@ -668,8 +664,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         // idd_evaluasi
 
         // tanggal
-
-        // idd_wilayah
 
         // kd_satker
 
@@ -719,27 +713,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
             $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
             $this->tanggal->ViewCustomAttributes = "";
-
-            // idd_wilayah
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
-                    } else {
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-                    }
-                }
-            } else {
-                $this->idd_wilayah->ViewValue = null;
-            }
-            $this->idd_wilayah->ViewCustomAttributes = "";
 
             // kd_satker
             $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -953,15 +926,15 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             }
             $this->idd_user->ViewCustomAttributes = "";
 
+            // idd_evaluasi
+            $this->idd_evaluasi->LinkCustomAttributes = "";
+            $this->idd_evaluasi->HrefValue = "";
+            $this->idd_evaluasi->TooltipValue = "";
+
             // tanggal
             $this->tanggal->LinkCustomAttributes = "";
             $this->tanggal->HrefValue = "";
             $this->tanggal->TooltipValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -978,10 +951,105 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
             $this->tahun_anggaran->HrefValue = "";
             $this->tahun_anggaran->TooltipValue = "";
 
+            // surat_pengantar
+            $this->surat_pengantar->LinkCustomAttributes = "";
+            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
+            $this->surat_pengantar->TooltipValue = "";
+
+            // skd_rqanunpert
+            $this->skd_rqanunpert->LinkCustomAttributes = "";
+            $this->skd_rqanunpert->HrefValue = "";
+            $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
+            $this->skd_rqanunpert->TooltipValue = "";
+
+            // rqanun_apbkpert
+            $this->rqanun_apbkpert->LinkCustomAttributes = "";
+            $this->rqanun_apbkpert->HrefValue = "";
+            $this->rqanun_apbkpert->ExportHrefValue = $this->rqanun_apbkpert->UploadPath . $this->rqanun_apbkpert->Upload->DbValue;
+            $this->rqanun_apbkpert->TooltipValue = "";
+
+            // rperbup_apbkpert
+            $this->rperbup_apbkpert->LinkCustomAttributes = "";
+            $this->rperbup_apbkpert->HrefValue = "";
+            $this->rperbup_apbkpert->ExportHrefValue = $this->rperbup_apbkpert->UploadPath . $this->rperbup_apbkpert->Upload->DbValue;
+            $this->rperbup_apbkpert->TooltipValue = "";
+
+            // pbkdd_apbkpert
+            $this->pbkdd_apbkpert->LinkCustomAttributes = "";
+            $this->pbkdd_apbkpert->HrefValue = "";
+            $this->pbkdd_apbkpert->ExportHrefValue = $this->pbkdd_apbkpert->UploadPath . $this->pbkdd_apbkpert->Upload->DbValue;
+            $this->pbkdd_apbkpert->TooltipValue = "";
+
+            // risalah_sidang
+            $this->risalah_sidang->LinkCustomAttributes = "";
+            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
+            $this->risalah_sidang->TooltipValue = "";
+
+            // absen_peserta
+            $this->absen_peserta->LinkCustomAttributes = "";
+            $this->absen_peserta->HrefValue = "";
+            $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
+            $this->absen_peserta->TooltipValue = "";
+
+            // neraca
+            $this->neraca->LinkCustomAttributes = "";
+            $this->neraca->HrefValue = "";
+            $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
+            $this->neraca->TooltipValue = "";
+
+            // lra
+            $this->lra->LinkCustomAttributes = "";
+            $this->lra->HrefValue = "";
+            $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
+            $this->lra->TooltipValue = "";
+
+            // calk
+            $this->calk->LinkCustomAttributes = "";
+            $this->calk->HrefValue = "";
+            $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
+            $this->calk->TooltipValue = "";
+
+            // lo
+            $this->lo->LinkCustomAttributes = "";
+            $this->lo->HrefValue = "";
+            $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
+            $this->lo->TooltipValue = "";
+
+            // lpe
+            $this->lpe->LinkCustomAttributes = "";
+            $this->lpe->HrefValue = "";
+            $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
+            $this->lpe->TooltipValue = "";
+
+            // lpsal
+            $this->lpsal->LinkCustomAttributes = "";
+            $this->lpsal->HrefValue = "";
+            $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
+            $this->lpsal->TooltipValue = "";
+
+            // lak
+            $this->lak->LinkCustomAttributes = "";
+            $this->lak->HrefValue = "";
+            $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
+            $this->lak->TooltipValue = "";
+
+            // laporan_pemeriksaan
+            $this->laporan_pemeriksaan->LinkCustomAttributes = "";
+            $this->laporan_pemeriksaan->HrefValue = "";
+            $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
+            $this->laporan_pemeriksaan->TooltipValue = "";
+
             // status
             $this->status->LinkCustomAttributes = "";
             $this->status->HrefValue = "";
             $this->status->TooltipValue = "";
+
+            // idd_user
+            $this->idd_user->LinkCustomAttributes = "";
+            $this->idd_user->HrefValue = "";
+            $this->idd_user->TooltipValue = "";
         }
 
         // Call Row Rendered event
@@ -1089,7 +1157,7 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
         global $Breadcrumb, $Language;
         $Breadcrumb = new Breadcrumb("index");
         $url = CurrentUrl();
-        $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("pertanggungjawabanlist"), "", $this->TableVar, true);
+        $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("pertanggungjawaban2022list"), "", $this->TableVar, true);
         $pageId = "delete";
         $Breadcrumb->add("delete", $pageId, $url);
     }
@@ -1107,8 +1175,6 @@ class PertanggungjawabanDelete extends Pertanggungjawaban
 
             // Set up lookup SQL and connection
             switch ($fld->FieldVar) {
-                case "x_idd_wilayah":
-                    break;
                 case "x_kd_satker":
                     break;
                 case "x_idd_tahapan":

@@ -64,6 +64,7 @@ return [
     "pertanggungjawaban" => \DI\create(Pertanggungjawaban::class),
     "rapbk" => \DI\create(Rapbk::class),
     "tahun" => \DI\create(Tahun::class),
+    "pertanggungjawaban2022" => \DI\create(Pertanggungjawaban2022::class),
 
     // User table
     "usertable" => \DI\get("users"),

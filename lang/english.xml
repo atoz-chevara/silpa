@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ew-language date="2022/6/9" version="17.0.5" id="en" name="English" desc="English" author="e.World Technology Limited">
+<ew-language date="2022/6/10" version="17.0.5" id="en" name="English" desc="English" author="e.World Technology Limited">
   <!--
     *** Important Notes:
     1. Language ID should follow: https://developers.google.com/recaptcha/docs/language,
@@ -976,6 +976,12 @@
     <menu id="53">
       <phrase id="menutext" value="Evaluasi" />
     </menu>
+    <menu id="55">
+      <phrase id="menutext" value="Pertanggungjawaban" />
+    </menu>
+    <menu id="77">
+      <phrase id="menutext" value="Template" />
+    </menu>
     <menu id="37">
       <phrase id="menutext" value="R-APBK" />
     </menu>
@@ -1458,11 +1464,15 @@
         <phrase id="fldcaption" value="Surat Kepala Daerah" />
         <phrase id="custommsg" value="Surat Kepala Daerah kepada DPRK untuk penyampaian &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="rq_apbkpert">
+      <field id="rqanun_apbkpert">
         <phrase id="fldcaption" value="Rancangan Qanun" />
-        <phrase id="custommsg" value="Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK dan &lt;br /&gt;Rancangan Peraturan Kepala Daerah tentang Penjabaran Pertanggungjawaban Pelaksanaan APBK" />
+        <phrase id="custommsg" value="Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
-      <field id="bap_apbkpert">
+      <field id="rperbup_apbkpert">
+        <phrase id="fldcaption" value="Rancangan Perbup" />
+        <phrase id="custommsg" value="Rancangan Peraturan Kepala Daerah tentang Penjabaran &lt;br /&gt;Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="pbkdd_apbkpert">
         <phrase id="fldcaption" value="Persetujuan Bersama" />
         <phrase id="custommsg" value="Persetujuan Bersama antara Kepala Daerah dan DPRK terhadap &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
       </field>
@@ -1504,10 +1514,6 @@
       <field id="laporan_pemeriksaan">
         <phrase id="fldcaption" value="Laporan Hasil Pemeriksaan" />
         <phrase id="custommsg" value="Laporan Hasil Pemeriksaan Atas Laporan Keuangan atau LKPD dari BPK RI (Buku I dan II)" />
-      </field>
-      <field id="softcopy_rqanun">
-        <phrase id="fldcaption" value="Rancangan Qanun dan Perbup" />
-        <phrase id="custommsg" value="Softcopy Rancangan Qanun dan Rancangan Peraturan Kepala Daerah beserta lampirannya" />
       </field>
       <field id="status">
         <phrase id="fldcaption" value="Status" />
@@ -1640,6 +1646,96 @@
       </field>
       <field id="tahun">
         <phrase id="fldcaption" value="Tahun Anggaran" />
+      </field>
+    </table>
+    <table id="pertanggungjawaban2022">
+      <phrase id="tblcaption" value="Pertanggungjawaban" />
+      <field id="idd_evaluasi">
+        <phrase id="fldcaption" value="idd evaluasi" />
+      </field>
+      <field id="tanggal">
+        <phrase id="fldcaption" value="Tanggal" />
+      </field>
+      <field id="kd_satker">
+        <phrase id="fldcaption" value="Kabupaten/Kota" />
+      </field>
+      <field id="idd_tahapan">
+        <phrase id="fldcaption" value="Tahapan" />
+      </field>
+      <field id="tahun_anggaran">
+        <phrase id="fldcaption" value="Tahun Anggaran" />
+      </field>
+      <field id="surat_pengantar">
+        <phrase id="fldcaption" value="Surat Pengantar" />
+        <phrase id="custommsg" value="Surat Pengantar Kepala Daerah ke Gubernur" />
+      </field>
+      <field id="skd_rqanunpert">
+        <phrase id="fldcaption" value="Surat Kepala Daerah" />
+        <phrase id="custommsg" value="Surat Kepala Daerah kepada DPRK untuk penyampaian &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="rqanun_apbkpert">
+        <phrase id="fldcaption" value="Rancangan Qanun" />
+        <phrase id="custommsg" value="Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="rperbup_apbkpert">
+        <phrase id="fldcaption" value="Rancangan Perbup" />
+        <phrase id="custommsg" value="Rancangan Peraturan Kepala Daerah tentang Penjabaran &lt;br /&gt;Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="pbkdd_apbkpert">
+        <phrase id="fldcaption" value="Persetujuan Bersama" />
+        <phrase id="custommsg" value="Persetujuan Bersama antara Kepala Daerah dan DPRK terhadap &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="risalah_sidang">
+        <phrase id="fldcaption" value="Risalah Sidang" />
+        <phrase id="custommsg" value="Risalah Sidang DPRK mengenai jalannya pembahasan terhadap &lt;br /&gt;Rancangan Qanung tentang Pertanggungjawaban Pelaksanaan APBK" />
+      </field>
+      <field id="absen_peserta">
+        <phrase id="fldcaption" value="Absen Peserta" />
+        <phrase id="custommsg" value="Absensi Peserta Rapat Paripurna Pengambilan Keputusan Persetujuan Bersama &lt;br /&gt;Rancangan Qanun tentang Pertanggungjawaban Pelaksanaan APBK &lt;br /&gt;yang dihadiri oleh paling sedikit 2/3 (dua pertiga) dari jumlah Anggota DPRK" />
+      </field>
+      <field id="neraca">
+        <phrase id="fldcaption" value="Neraca" />
+        <phrase id="custommsg" value="Neraca" />
+      </field>
+      <field id="lra">
+        <phrase id="fldcaption" value="Laporan Realisasi Anggaran" />
+        <phrase id="custommsg" value="Laporan Realisasi Anggaran (LRA)" />
+      </field>
+      <field id="calk">
+        <phrase id="fldcaption" value="CaLK" />
+        <phrase id="custommsg" value="Catatan Atas Laporan Keuangan (CaLK)" />
+      </field>
+      <field id="lo">
+        <phrase id="fldcaption" value="Laporan Operasional" />
+        <phrase id="custommsg" value="Laporan Operasional (LO)" />
+      </field>
+      <field id="lpe">
+        <phrase id="fldcaption" value="LPE" />
+        <phrase id="custommsg" value="Laporan Perubahan Ekuitas (LPE)" />
+      </field>
+      <field id="lpsal">
+        <phrase id="fldcaption" value="LPSAL" />
+        <phrase id="custommsg" value="Laporan Perubahan SAL (LPSAL)" />
+      </field>
+      <field id="lak">
+        <phrase id="fldcaption" value="LAK" />
+        <phrase id="custommsg" value="Laporan Arus Kas (LAK)" />
+      </field>
+      <field id="laporan_pemeriksaan">
+        <phrase id="fldcaption" value="Laporan Pemeriksaan" />
+        <phrase id="custommsg" value="Laporan Hasil Pemeriksaan Atas Laporan Keuangan atau LKPD dari BPK RI (Buku I dan II)" />
+      </field>
+      <field id="status">
+        <phrase id="fldcaption" value="Status" />
+        <phrase id="fldtagvalue1" value="0" />
+        <phrase id="fldtagcaption1" value="Tidak Lengkap" />
+        <phrase id="fldtagvalue2" value="1" />
+        <phrase id="fldtagcaption2" value="Belum Lengkap" />
+        <phrase id="fldtagvalue3" value="2" />
+        <phrase id="fldtagcaption3" value="Lengkap" />
+      </field>
+      <field id="idd_user">
+        <phrase id="fldcaption" value="Username" />
       </field>
     </table>
   </project>

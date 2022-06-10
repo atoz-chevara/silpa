@@ -759,6 +759,15 @@ class SatkersEdit extends Satkers
             $res = true;
             $this->loadRowValues($row); // Load row values
         }
+
+        // Check if valid User ID
+        if ($res) {
+            $res = $this->showOptionLink("edit");
+            if (!$res) {
+                $userIdMsg = DeniedMessage();
+                $this->setFailureMessage($userIdMsg);
+            }
+        }
         return $res;
     }
 
@@ -1011,27 +1020,50 @@ class SatkersEdit extends Satkers
             // idd_user
             $this->idd_user->EditAttrs["class"] = "form-control";
             $this->idd_user->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_user->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
-            } else {
-                $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_user->ViewValue !== null) { // Load from cache
-                $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
+            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("edit")) { // Non system admin
+                $this->idd_user->CurrentValue = CurrentUserID();
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                    if ($this->idd_user->EditValue === null) { // Lookup from database
+                        $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                        $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                        $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                        $ari = count($rswrk);
+                        if ($ari > 0) { // Lookup values found
+                            $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                            $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                        } else {
+                            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                        }
+                    }
                 } else {
-                    $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    $this->idd_user->EditValue = null;
                 }
-                $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_user->EditValue = $arwrk;
+                $this->idd_user->ViewCustomAttributes = "";
+            } else {
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
+                } else {
+                    $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
+                }
+                if ($this->idd_user->ViewValue !== null) { // Load from cache
+                    $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
+                } else { // Lookup from database
+                    if ($curVal == "") {
+                        $filterWrk = "0=1";
+                    } else {
+                        $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    }
+                    $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    $arwrk = $rswrk;
+                    $this->idd_user->EditValue = $arwrk;
+                }
+                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
             }
-            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
 
             // no_telepon
             $this->no_telepon->EditAttrs["class"] = "form-control";
@@ -1176,7 +1208,7 @@ class SatkersEdit extends Satkers
             $this->idd_user->setDbValueDef($rsnew, $this->idd_user->CurrentValue, 0, $this->idd_user->ReadOnly);
 
             // no_telepon
-            $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, "", $this->no_telepon->ReadOnly);
+            $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, null, $this->no_telepon->ReadOnly);
 
             // Call Row Updating event
             $updateRow = $this->rowUpdating($rsold, $rsnew);
@@ -1220,6 +1252,16 @@ class SatkersEdit extends Satkers
             WriteJson(["success" => true, $this->TableVar => $row]);
         }
         return $editRow;
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb

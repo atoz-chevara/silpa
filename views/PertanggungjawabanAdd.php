@@ -27,8 +27,9 @@ loadjs.ready("head", function () {
         ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
         ["surat_pengantar", [fields.surat_pengantar.visible && fields.surat_pengantar.required ? ew.Validators.fileRequired(fields.surat_pengantar.caption) : null], fields.surat_pengantar.isInvalid],
         ["skd_rqanunpert", [fields.skd_rqanunpert.visible && fields.skd_rqanunpert.required ? ew.Validators.fileRequired(fields.skd_rqanunpert.caption) : null], fields.skd_rqanunpert.isInvalid],
-        ["rq_apbkpert", [fields.rq_apbkpert.visible && fields.rq_apbkpert.required ? ew.Validators.fileRequired(fields.rq_apbkpert.caption) : null], fields.rq_apbkpert.isInvalid],
-        ["bap_apbkpert", [fields.bap_apbkpert.visible && fields.bap_apbkpert.required ? ew.Validators.fileRequired(fields.bap_apbkpert.caption) : null], fields.bap_apbkpert.isInvalid],
+        ["rqanun_apbkpert", [fields.rqanun_apbkpert.visible && fields.rqanun_apbkpert.required ? ew.Validators.fileRequired(fields.rqanun_apbkpert.caption) : null], fields.rqanun_apbkpert.isInvalid],
+        ["rperbup_apbkpert", [fields.rperbup_apbkpert.visible && fields.rperbup_apbkpert.required ? ew.Validators.fileRequired(fields.rperbup_apbkpert.caption) : null], fields.rperbup_apbkpert.isInvalid],
+        ["pbkdd_apbkpert", [fields.pbkdd_apbkpert.visible && fields.pbkdd_apbkpert.required ? ew.Validators.fileRequired(fields.pbkdd_apbkpert.caption) : null], fields.pbkdd_apbkpert.isInvalid],
         ["risalah_sidang", [fields.risalah_sidang.visible && fields.risalah_sidang.required ? ew.Validators.fileRequired(fields.risalah_sidang.caption) : null], fields.risalah_sidang.isInvalid],
         ["absen_peserta", [fields.absen_peserta.visible && fields.absen_peserta.required ? ew.Validators.fileRequired(fields.absen_peserta.caption) : null], fields.absen_peserta.isInvalid],
         ["neraca", [fields.neraca.visible && fields.neraca.required ? ew.Validators.fileRequired(fields.neraca.caption) : null], fields.neraca.isInvalid],
@@ -39,7 +40,6 @@ loadjs.ready("head", function () {
         ["lpsal", [fields.lpsal.visible && fields.lpsal.required ? ew.Validators.fileRequired(fields.lpsal.caption) : null], fields.lpsal.isInvalid],
         ["lak", [fields.lak.visible && fields.lak.required ? ew.Validators.fileRequired(fields.lak.caption) : null], fields.lak.isInvalid],
         ["laporan_pemeriksaan", [fields.laporan_pemeriksaan.visible && fields.laporan_pemeriksaan.required ? ew.Validators.fileRequired(fields.laporan_pemeriksaan.caption) : null], fields.laporan_pemeriksaan.isInvalid],
-        ["softcopy_rqanun", [fields.softcopy_rqanun.visible && fields.softcopy_rqanun.required ? ew.Validators.fileRequired(fields.softcopy_rqanun.caption) : null], fields.softcopy_rqanun.isInvalid],
         ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid],
         ["idd_user", [fields.idd_user.visible && fields.idd_user.required ? ew.Validators.required(fields.idd_user.caption) : null], fields.idd_user.isInvalid]
     ]);
@@ -337,52 +337,77 @@ loadjs.ready("head", function() {
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->rq_apbkpert->Visible) { // rq_apbkpert ?>
-    <div id="r_rq_apbkpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_rq_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rq_apbkpert->caption() ?><?= $Page->rq_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rq_apbkpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_rq_apbkpert">
-<div id="fd_x_rq_apbkpert">
+<?php if ($Page->rqanun_apbkpert->Visible) { // rqanun_apbkpert ?>
+    <div id="r_rqanun_apbkpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_rqanun_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rqanun_apbkpert->caption() ?><?= $Page->rqanun_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rqanun_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_rqanun_apbkpert">
+<div id="fd_x_rqanun_apbkpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->rq_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rq_apbkpert" name="x_rq_apbkpert" id="x_rq_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rq_apbkpert->editAttributes() ?><?= ($Page->rq_apbkpert->ReadOnly || $Page->rq_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rq_apbkpert_help">
-        <label class="custom-file-label ew-file-label" for="x_rq_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
+        <input type="file" class="custom-file-input" title="<?= $Page->rqanun_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rqanun_apbkpert" name="x_rqanun_apbkpert" id="x_rqanun_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rqanun_apbkpert->editAttributes() ?><?= ($Page->rqanun_apbkpert->ReadOnly || $Page->rqanun_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rqanun_apbkpert_help">
+        <label class="custom-file-label ew-file-label" for="x_rqanun_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
-<?= $Page->rq_apbkpert->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->rq_apbkpert->getErrorMessage() ?></div>
-<input type="hidden" name="fn_x_rq_apbkpert" id= "fn_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->Upload->FileName ?>">
-<input type="hidden" name="fa_x_rq_apbkpert" id= "fa_x_rq_apbkpert" value="0">
-<input type="hidden" name="fs_x_rq_apbkpert" id= "fs_x_rq_apbkpert" value="200">
-<input type="hidden" name="fx_x_rq_apbkpert" id= "fx_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->UploadAllowedFileExt ?>">
-<input type="hidden" name="fm_x_rq_apbkpert" id= "fm_x_rq_apbkpert" value="<?= $Page->rq_apbkpert->UploadMaxFileSize ?>">
+<?= $Page->rqanun_apbkpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->rqanun_apbkpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_rqanun_apbkpert" id= "fn_x_rqanun_apbkpert" value="<?= $Page->rqanun_apbkpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_rqanun_apbkpert" id= "fa_x_rqanun_apbkpert" value="0">
+<input type="hidden" name="fs_x_rqanun_apbkpert" id= "fs_x_rqanun_apbkpert" value="200">
+<input type="hidden" name="fx_x_rqanun_apbkpert" id= "fx_x_rqanun_apbkpert" value="<?= $Page->rqanun_apbkpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_rqanun_apbkpert" id= "fm_x_rqanun_apbkpert" value="<?= $Page->rqanun_apbkpert->UploadMaxFileSize ?>">
 </div>
-<table id="ft_x_rq_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
+<table id="ft_x_rqanun_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->bap_apbkpert->Visible) { // bap_apbkpert ?>
-    <div id="r_bap_apbkpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_bap_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->bap_apbkpert->caption() ?><?= $Page->bap_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->bap_apbkpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_bap_apbkpert">
-<div id="fd_x_bap_apbkpert">
+<?php if ($Page->rperbup_apbkpert->Visible) { // rperbup_apbkpert ?>
+    <div id="r_rperbup_apbkpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_rperbup_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rperbup_apbkpert->caption() ?><?= $Page->rperbup_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rperbup_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_rperbup_apbkpert">
+<div id="fd_x_rperbup_apbkpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->bap_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_bap_apbkpert" name="x_bap_apbkpert" id="x_bap_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->bap_apbkpert->editAttributes() ?><?= ($Page->bap_apbkpert->ReadOnly || $Page->bap_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_bap_apbkpert_help">
-        <label class="custom-file-label ew-file-label" for="x_bap_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
+        <input type="file" class="custom-file-input" title="<?= $Page->rperbup_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rperbup_apbkpert" name="x_rperbup_apbkpert" id="x_rperbup_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rperbup_apbkpert->editAttributes() ?><?= ($Page->rperbup_apbkpert->ReadOnly || $Page->rperbup_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rperbup_apbkpert_help">
+        <label class="custom-file-label ew-file-label" for="x_rperbup_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
-<?= $Page->bap_apbkpert->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->bap_apbkpert->getErrorMessage() ?></div>
-<input type="hidden" name="fn_x_bap_apbkpert" id= "fn_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->Upload->FileName ?>">
-<input type="hidden" name="fa_x_bap_apbkpert" id= "fa_x_bap_apbkpert" value="0">
-<input type="hidden" name="fs_x_bap_apbkpert" id= "fs_x_bap_apbkpert" value="200">
-<input type="hidden" name="fx_x_bap_apbkpert" id= "fx_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->UploadAllowedFileExt ?>">
-<input type="hidden" name="fm_x_bap_apbkpert" id= "fm_x_bap_apbkpert" value="<?= $Page->bap_apbkpert->UploadMaxFileSize ?>">
+<?= $Page->rperbup_apbkpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->rperbup_apbkpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_rperbup_apbkpert" id= "fn_x_rperbup_apbkpert" value="<?= $Page->rperbup_apbkpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_rperbup_apbkpert" id= "fa_x_rperbup_apbkpert" value="0">
+<input type="hidden" name="fs_x_rperbup_apbkpert" id= "fs_x_rperbup_apbkpert" value="200">
+<input type="hidden" name="fx_x_rperbup_apbkpert" id= "fx_x_rperbup_apbkpert" value="<?= $Page->rperbup_apbkpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_rperbup_apbkpert" id= "fm_x_rperbup_apbkpert" value="<?= $Page->rperbup_apbkpert->UploadMaxFileSize ?>">
 </div>
-<table id="ft_x_bap_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
+<table id="ft_x_rperbup_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
+</span>
+</div></div>
+    </div>
+<?php } ?>
+<?php if ($Page->pbkdd_apbkpert->Visible) { // pbkdd_apbkpert ?>
+    <div id="r_pbkdd_apbkpert" class="form-group row">
+        <label id="elh_pertanggungjawaban_pbkdd_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->pbkdd_apbkpert->caption() ?><?= $Page->pbkdd_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->pbkdd_apbkpert->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_pbkdd_apbkpert">
+<div id="fd_x_pbkdd_apbkpert">
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" title="<?= $Page->pbkdd_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_pbkdd_apbkpert" name="x_pbkdd_apbkpert" id="x_pbkdd_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->pbkdd_apbkpert->editAttributes() ?><?= ($Page->pbkdd_apbkpert->ReadOnly || $Page->pbkdd_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_pbkdd_apbkpert_help">
+        <label class="custom-file-label ew-file-label" for="x_pbkdd_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
+    </div>
+</div>
+<?= $Page->pbkdd_apbkpert->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->pbkdd_apbkpert->getErrorMessage() ?></div>
+<input type="hidden" name="fn_x_pbkdd_apbkpert" id= "fn_x_pbkdd_apbkpert" value="<?= $Page->pbkdd_apbkpert->Upload->FileName ?>">
+<input type="hidden" name="fa_x_pbkdd_apbkpert" id= "fa_x_pbkdd_apbkpert" value="0">
+<input type="hidden" name="fs_x_pbkdd_apbkpert" id= "fs_x_pbkdd_apbkpert" value="200">
+<input type="hidden" name="fx_x_pbkdd_apbkpert" id= "fx_x_pbkdd_apbkpert" value="<?= $Page->pbkdd_apbkpert->UploadAllowedFileExt ?>">
+<input type="hidden" name="fm_x_pbkdd_apbkpert" id= "fm_x_pbkdd_apbkpert" value="<?= $Page->pbkdd_apbkpert->UploadMaxFileSize ?>">
+</div>
+<table id="ft_x_pbkdd_apbkpert" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>
@@ -633,31 +658,6 @@ loadjs.ready("head", function() {
 <input type="hidden" name="fm_x_laporan_pemeriksaan" id= "fm_x_laporan_pemeriksaan" value="<?= $Page->laporan_pemeriksaan->UploadMaxFileSize ?>">
 </div>
 <table id="ft_x_laporan_pemeriksaan" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->softcopy_rqanun->Visible) { // softcopy_rqanun ?>
-    <div id="r_softcopy_rqanun" class="form-group row">
-        <label id="elh_pertanggungjawaban_softcopy_rqanun" class="<?= $Page->LeftColumnClass ?>"><?= $Page->softcopy_rqanun->caption() ?><?= $Page->softcopy_rqanun->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->softcopy_rqanun->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_softcopy_rqanun">
-<div id="fd_x_softcopy_rqanun">
-<div class="input-group">
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->softcopy_rqanun->title() ?>" data-table="pertanggungjawaban" data-field="x_softcopy_rqanun" name="x_softcopy_rqanun" id="x_softcopy_rqanun" lang="<?= CurrentLanguageID() ?>"<?= $Page->softcopy_rqanun->editAttributes() ?><?= ($Page->softcopy_rqanun->ReadOnly || $Page->softcopy_rqanun->Disabled) ? " disabled" : "" ?> aria-describedby="x_softcopy_rqanun_help">
-        <label class="custom-file-label ew-file-label" for="x_softcopy_rqanun"><?= $Language->phrase("ChooseFile") ?></label>
-    </div>
-</div>
-<?= $Page->softcopy_rqanun->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->softcopy_rqanun->getErrorMessage() ?></div>
-<input type="hidden" name="fn_x_softcopy_rqanun" id= "fn_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->Upload->FileName ?>">
-<input type="hidden" name="fa_x_softcopy_rqanun" id= "fa_x_softcopy_rqanun" value="0">
-<input type="hidden" name="fs_x_softcopy_rqanun" id= "fs_x_softcopy_rqanun" value="200">
-<input type="hidden" name="fx_x_softcopy_rqanun" id= "fx_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->UploadAllowedFileExt ?>">
-<input type="hidden" name="fm_x_softcopy_rqanun" id= "fm_x_softcopy_rqanun" value="<?= $Page->softcopy_rqanun->UploadMaxFileSize ?>">
-</div>
-<table id="ft_x_softcopy_rqanun" class="table table-sm float-left ew-upload-table"><tbody class="files"></tbody></table>
 </span>
 </div></div>
     </div>

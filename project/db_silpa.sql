@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Jun 2022 pada 11.54
+-- Waktu pembuatan: 10 Jun 2022 pada 12.09
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -157,7 +157,7 @@ CREATE TABLE `evaluators` (
   `alamat` text NOT NULL,
   `wilayah` int(100) NOT NULL,
   `idd_user` int(100) NOT NULL,
-  `no_telepon` varchar(25) NOT NULL
+  `no_telepon` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -231,7 +231,7 @@ INSERT INTO `permissions` (`table_name`, `id_level`, `permission`) VALUES
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}satkers', 2, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}tahapan', 2, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}wilayah', 2, 0),
-('{8FB2C16F-E090-4B20-9B83-115D69E60354}evaluasi', 2, 0),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}evaluasi', 2, 360),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}news.php', 2, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}apbk', 2, 360),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}apbkp', 2, 360),
@@ -242,14 +242,18 @@ INSERT INTO `permissions` (`table_name`, `id_level`, `permission`) VALUES
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}users', 3, 364),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}evaluators', 3, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}satkers', 3, 364),
-('{8FB2C16F-E090-4B20-9B83-115D69E60354}tahapan', 3, 0),
-('{8FB2C16F-E090-4B20-9B83-115D69E60354}wilayah', 3, 0),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}tahapan', 3, 256),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}wilayah', 3, 256),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}evaluasi', 3, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}news.php', 3, 0),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}apbk', 3, 367),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}apbkp', 3, 367),
 ('{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban', 3, 367),
-('{8FB2C16F-E090-4B20-9B83-115D69E60354}rapbk', 3, 367);
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}rapbk', 3, 367),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}tahun', 3, 256),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban2022', 3, 367),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}tahun', 2, 0),
+('{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban2022', 2, 364);
 
 -- --------------------------------------------------------
 
@@ -266,8 +270,9 @@ CREATE TABLE `pertanggungjawaban` (
   `idd_wilayah` int(100) NOT NULL,
   `surat_pengantar` varchar(200) DEFAULT NULL,
   `skd_rqanunpert` varchar(200) DEFAULT NULL,
-  `rq_apbkpert` varchar(200) DEFAULT NULL,
-  `bap_apbkpert` varchar(200) DEFAULT NULL,
+  `rqanun_apbkpert` varchar(200) DEFAULT NULL,
+  `rperbup_apbkpert` varchar(200) DEFAULT NULL,
+  `pbkdd_apbkpert` varchar(200) DEFAULT NULL,
   `risalah_sidang` varchar(200) DEFAULT NULL,
   `absen_peserta` varchar(200) DEFAULT NULL,
   `neraca` varchar(200) DEFAULT NULL,
@@ -278,7 +283,44 @@ CREATE TABLE `pertanggungjawaban` (
   `lpsal` varchar(200) DEFAULT NULL,
   `lak` varchar(200) DEFAULT NULL,
   `laporan_pemeriksaan` varchar(200) DEFAULT NULL,
-  `softcopy_rqanun` varchar(200) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `idd_user` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pertanggungjawaban`
+--
+
+INSERT INTO `pertanggungjawaban` (`idd_evaluasi`, `tanggal`, `kd_satker`, `idd_tahapan`, `tahun_anggaran`, `idd_wilayah`, `surat_pengantar`, `skd_rqanunpert`, `rqanun_apbkpert`, `rperbup_apbkpert`, `pbkdd_apbkpert`, `risalah_sidang`, `absen_peserta`, `neraca`, `lra`, `calk`, `lo`, `lpe`, `lpsal`, `lak`, `laporan_pemeriksaan`, `status`, `idd_user`) VALUES
+(1, '2022-06-10', '01.20', 4, '2022', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pertanggungjawaban2022`
+--
+
+CREATE TABLE `pertanggungjawaban2022` (
+  `idd_evaluasi` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kd_satker` varchar(100) NOT NULL,
+  `idd_tahapan` int(100) NOT NULL,
+  `tahun_anggaran` varchar(100) NOT NULL,
+  `surat_pengantar` varchar(200) DEFAULT NULL,
+  `skd_rqanunpert` varchar(200) DEFAULT NULL,
+  `rqanun_apbkpert` varchar(200) DEFAULT NULL,
+  `rperbup_apbkpert` varchar(200) DEFAULT NULL,
+  `pbkdd_apbkpert` varchar(200) DEFAULT NULL,
+  `risalah_sidang` varchar(200) DEFAULT NULL,
+  `absen_peserta` varchar(200) DEFAULT NULL,
+  `neraca` varchar(200) DEFAULT NULL,
+  `lra` varchar(200) DEFAULT NULL,
+  `calk` varchar(200) DEFAULT NULL,
+  `lo` varchar(200) DEFAULT NULL,
+  `lpe` varchar(200) DEFAULT NULL,
+  `lpsal` varchar(200) DEFAULT NULL,
+  `lak` varchar(200) DEFAULT NULL,
+  `laporan_pemeriksaan` varchar(200) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `idd_user` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -337,7 +379,7 @@ CREATE TABLE `satkers` (
   `nama_satker` varchar(200) NOT NULL,
   `wilayah` int(100) NOT NULL,
   `idd_user` int(100) NOT NULL,
-  `no_telepon` varchar(25) NOT NULL
+  `no_telepon` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -365,7 +407,7 @@ INSERT INTO `satkers` (`idd_satker`, `kode_pemda`, `kode_satker`, `nama_satker`,
 (18, '01.17', 997426, 'Kab. Aceh Barat Daya', 3, 1, '082259013113'),
 (19, '01.18', 997447, 'Kab. Aceh Jaya', 3, 1, '082259013113'),
 (20, '01.19', 997451, 'Kab. Nagan Raya', 2, 1, '082259013113'),
-(21, '01.20', 997468, 'Kab. Aceh Tamiang', 1, 1, '082259013113'),
+(21, '01.20', 997468, 'Kab. Aceh Tamiang', 1, 4, '082259013113'),
 (22, '01.21', 987532, 'Kab. Bener Meriah', 2, 1, '082259013113'),
 (23, '01.22', 963311, 'Kab. Pidie Jaya', 1, 1, '082259013113'),
 (24, '01.23', 963327, 'Kota Subulussalam', 3, 1, '082259013113');
@@ -422,8 +464,8 @@ CREATE TABLE `users` (
   `idd_user` int(100) NOT NULL,
   `username` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `photo` varchar(100) NOT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `photo` varchar(100) DEFAULT NULL,
   `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -434,7 +476,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`idd_user`, `username`, `password`, `email`, `photo`, `level`) VALUES
 (1, 'atoz', '5f4dcc3b5aa765d61d8327deb882cf99', 'atoz.chevara@yahoo.com', 'user1-128x128.jpg', 1),
 (2, 'een', '5f4dcc3b5aa765d61d8327deb882cf99', 'een@email.com', 'anonim.png', 2),
-(3, 'agus', '5f4dcc3b5aa765d61d8327deb882cf99', 'agus@email.com', 'anonim(1).png', 2);
+(3, 'agus', '5f4dcc3b5aa765d61d8327deb882cf99', 'agus@email.com', 'anonim(1).png', 2),
+(4, '01.20', '5f4dcc3b5aa765d61d8327deb882cf99', 'user@email.com', '', 3);
 
 -- --------------------------------------------------------
 
@@ -489,6 +532,12 @@ ALTER TABLE `evaluators`
 -- Indeks untuk tabel `pertanggungjawaban`
 --
 ALTER TABLE `pertanggungjawaban`
+  ADD PRIMARY KEY (`idd_evaluasi`);
+
+--
+-- Indeks untuk tabel `pertanggungjawaban2022`
+--
+ALTER TABLE `pertanggungjawaban2022`
   ADD PRIMARY KEY (`idd_evaluasi`);
 
 --
@@ -553,6 +602,12 @@ ALTER TABLE `evaluators`
 -- AUTO_INCREMENT untuk tabel `pertanggungjawaban`
 --
 ALTER TABLE `pertanggungjawaban`
+  MODIFY `idd_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `pertanggungjawaban2022`
+--
+ALTER TABLE `pertanggungjawaban2022`
   MODIFY `idd_evaluasi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -577,7 +632,7 @@ ALTER TABLE `tahapan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `idd_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idd_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `wilayah`

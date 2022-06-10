@@ -5,9 +5,9 @@ namespace PHPMaker2021\silpa;
 use Doctrine\DBAL\ParameterType;
 
 /**
- * Table class for pertanggungjawaban
+ * Table class for pertanggungjawaban2022
  */
-class Pertanggungjawaban extends DbTable
+class Pertanggungjawaban2022 extends DbTable
 {
     protected $SqlFrom = "";
     protected $SqlSelect = null;
@@ -30,7 +30,6 @@ class Pertanggungjawaban extends DbTable
     // Fields
     public $idd_evaluasi;
     public $tanggal;
-    public $idd_wilayah;
     public $kd_satker;
     public $idd_tahapan;
     public $tahun_anggaran;
@@ -63,12 +62,12 @@ class Pertanggungjawaban extends DbTable
 
         // Language object
         $Language = Container("language");
-        $this->TableVar = 'pertanggungjawaban';
-        $this->TableName = 'pertanggungjawaban';
+        $this->TableVar = 'pertanggungjawaban2022';
+        $this->TableName = 'pertanggungjawaban2022';
         $this->TableType = 'TABLE';
 
         // Update Table
-        $this->UpdateTable = "`pertanggungjawaban`";
+        $this->UpdateTable = "`pertanggungjawaban2022`";
         $this->Dbid = 'DB';
         $this->ExportAll = true;
         $this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
@@ -87,7 +86,7 @@ class Pertanggungjawaban extends DbTable
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // idd_evaluasi
-        $this->idd_evaluasi = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_evaluasi', 'idd_evaluasi', '`idd_evaluasi`', '`idd_evaluasi`', 3, 11, -1, false, '`idd_evaluasi`', false, false, false, 'FORMATTED TEXT', 'NO');
+        $this->idd_evaluasi = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_idd_evaluasi', 'idd_evaluasi', '`idd_evaluasi`', '`idd_evaluasi`', 3, 11, -1, false, '`idd_evaluasi`', false, false, false, 'FORMATTED TEXT', 'NO');
         $this->idd_evaluasi->IsAutoIncrement = true; // Autoincrement field
         $this->idd_evaluasi->IsPrimaryKey = true; // Primary key field
         $this->idd_evaluasi->Sortable = true; // Allow sort
@@ -96,7 +95,7 @@ class Pertanggungjawaban extends DbTable
         $this->Fields['idd_evaluasi'] = &$this->idd_evaluasi;
 
         // tanggal
-        $this->tanggal = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tanggal', 'tanggal', '`tanggal`', CastDateFieldForLike("`tanggal`", 0, "DB"), 133, 10, 0, false, '`tanggal`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->tanggal = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_tanggal', 'tanggal', '`tanggal`', CastDateFieldForLike("`tanggal`", 0, "DB"), 133, 10, 0, false, '`tanggal`', false, false, false, 'FORMATTED TEXT', 'TEXT');
         $this->tanggal->Nullable = false; // NOT NULL field
         $this->tanggal->Required = true; // Required field
         $this->tanggal->Sortable = true; // Allow sort
@@ -104,27 +103,8 @@ class Pertanggungjawaban extends DbTable
         $this->tanggal->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tanggal->Param, "CustomMsg");
         $this->Fields['tanggal'] = &$this->tanggal;
 
-        // idd_wilayah
-        $this->idd_wilayah = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_wilayah', 'idd_wilayah', '`idd_wilayah`', '`idd_wilayah`', 3, 100, -1, false, '`idd_wilayah`', false, false, false, 'FORMATTED TEXT', 'SELECT');
-        $this->idd_wilayah->Nullable = false; // NOT NULL field
-        $this->idd_wilayah->Required = true; // Required field
-        $this->idd_wilayah->Sortable = true; // Allow sort
-        $this->idd_wilayah->UsePleaseSelect = true; // Use PleaseSelect by default
-        $this->idd_wilayah->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
-        switch ($CurrentLanguage) {
-            case "en":
-                $this->idd_wilayah->Lookup = new Lookup('idd_wilayah', 'wilayah', false, 'idd_wilayah', ["nama_wilayah","","",""], [], [], [], [], [], [], '', '');
-                break;
-            default:
-                $this->idd_wilayah->Lookup = new Lookup('idd_wilayah', 'wilayah', false, 'idd_wilayah', ["nama_wilayah","","",""], [], [], [], [], [], [], '', '');
-                break;
-        }
-        $this->idd_wilayah->DefaultErrorMessage = $Language->phrase("IncorrectInteger");
-        $this->idd_wilayah->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_wilayah->Param, "CustomMsg");
-        $this->Fields['idd_wilayah'] = &$this->idd_wilayah;
-
         // kd_satker
-        $this->kd_satker = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_kd_satker', 'kd_satker', '`kd_satker`', '`kd_satker`', 200, 100, -1, false, '`kd_satker`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->kd_satker = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_kd_satker', 'kd_satker', '`kd_satker`', '`kd_satker`', 200, 100, -1, false, '`kd_satker`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->kd_satker->Nullable = false; // NOT NULL field
         $this->kd_satker->Required = true; // Required field
         $this->kd_satker->Sortable = true; // Allow sort
@@ -142,7 +122,7 @@ class Pertanggungjawaban extends DbTable
         $this->Fields['kd_satker'] = &$this->kd_satker;
 
         // idd_tahapan
-        $this->idd_tahapan = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_tahapan', 'idd_tahapan', '`idd_tahapan`', '`idd_tahapan`', 3, 100, -1, false, '`idd_tahapan`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->idd_tahapan = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_idd_tahapan', 'idd_tahapan', '`idd_tahapan`', '`idd_tahapan`', 3, 100, -1, false, '`idd_tahapan`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->idd_tahapan->Nullable = false; // NOT NULL field
         $this->idd_tahapan->Required = true; // Required field
         $this->idd_tahapan->Sortable = true; // Allow sort
@@ -161,7 +141,7 @@ class Pertanggungjawaban extends DbTable
         $this->Fields['idd_tahapan'] = &$this->idd_tahapan;
 
         // tahun_anggaran
-        $this->tahun_anggaran = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->tahun_anggaran = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_tahun_anggaran', 'tahun_anggaran', '`tahun_anggaran`', '`tahun_anggaran`', 200, 100, -1, false, '`tahun_anggaran`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->tahun_anggaran->Nullable = false; // NOT NULL field
         $this->tahun_anggaran->Required = true; // Required field
         $this->tahun_anggaran->Sortable = true; // Allow sort
@@ -179,97 +159,97 @@ class Pertanggungjawaban extends DbTable
         $this->Fields['tahun_anggaran'] = &$this->tahun_anggaran;
 
         // surat_pengantar
-        $this->surat_pengantar = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_surat_pengantar', 'surat_pengantar', '`surat_pengantar`', '`surat_pengantar`', 200, 200, -1, true, '`surat_pengantar`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->surat_pengantar = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_surat_pengantar', 'surat_pengantar', '`surat_pengantar`', '`surat_pengantar`', 200, 200, -1, true, '`surat_pengantar`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->surat_pengantar->Sortable = true; // Allow sort
         $this->surat_pengantar->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->surat_pengantar->Param, "CustomMsg");
         $this->Fields['surat_pengantar'] = &$this->surat_pengantar;
 
         // skd_rqanunpert
-        $this->skd_rqanunpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_skd_rqanunpert', 'skd_rqanunpert', '`skd_rqanunpert`', '`skd_rqanunpert`', 200, 200, -1, true, '`skd_rqanunpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->skd_rqanunpert = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_skd_rqanunpert', 'skd_rqanunpert', '`skd_rqanunpert`', '`skd_rqanunpert`', 200, 200, -1, true, '`skd_rqanunpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->skd_rqanunpert->Sortable = true; // Allow sort
         $this->skd_rqanunpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->skd_rqanunpert->Param, "CustomMsg");
         $this->Fields['skd_rqanunpert'] = &$this->skd_rqanunpert;
 
         // rqanun_apbkpert
-        $this->rqanun_apbkpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_rqanun_apbkpert', 'rqanun_apbkpert', '`rqanun_apbkpert`', '`rqanun_apbkpert`', 200, 200, -1, true, '`rqanun_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->rqanun_apbkpert = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_rqanun_apbkpert', 'rqanun_apbkpert', '`rqanun_apbkpert`', '`rqanun_apbkpert`', 200, 200, -1, true, '`rqanun_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->rqanun_apbkpert->Sortable = true; // Allow sort
         $this->rqanun_apbkpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->rqanun_apbkpert->Param, "CustomMsg");
         $this->Fields['rqanun_apbkpert'] = &$this->rqanun_apbkpert;
 
         // rperbup_apbkpert
-        $this->rperbup_apbkpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_rperbup_apbkpert', 'rperbup_apbkpert', '`rperbup_apbkpert`', '`rperbup_apbkpert`', 200, 200, -1, true, '`rperbup_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->rperbup_apbkpert = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_rperbup_apbkpert', 'rperbup_apbkpert', '`rperbup_apbkpert`', '`rperbup_apbkpert`', 200, 200, -1, true, '`rperbup_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->rperbup_apbkpert->Sortable = true; // Allow sort
         $this->rperbup_apbkpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->rperbup_apbkpert->Param, "CustomMsg");
         $this->Fields['rperbup_apbkpert'] = &$this->rperbup_apbkpert;
 
         // pbkdd_apbkpert
-        $this->pbkdd_apbkpert = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_pbkdd_apbkpert', 'pbkdd_apbkpert', '`pbkdd_apbkpert`', '`pbkdd_apbkpert`', 200, 200, -1, true, '`pbkdd_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->pbkdd_apbkpert = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_pbkdd_apbkpert', 'pbkdd_apbkpert', '`pbkdd_apbkpert`', '`pbkdd_apbkpert`', 200, 200, -1, true, '`pbkdd_apbkpert`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->pbkdd_apbkpert->Sortable = true; // Allow sort
         $this->pbkdd_apbkpert->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->pbkdd_apbkpert->Param, "CustomMsg");
         $this->Fields['pbkdd_apbkpert'] = &$this->pbkdd_apbkpert;
 
         // risalah_sidang
-        $this->risalah_sidang = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_risalah_sidang', 'risalah_sidang', '`risalah_sidang`', '`risalah_sidang`', 200, 200, -1, true, '`risalah_sidang`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->risalah_sidang = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_risalah_sidang', 'risalah_sidang', '`risalah_sidang`', '`risalah_sidang`', 200, 200, -1, true, '`risalah_sidang`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->risalah_sidang->Sortable = true; // Allow sort
         $this->risalah_sidang->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->risalah_sidang->Param, "CustomMsg");
         $this->Fields['risalah_sidang'] = &$this->risalah_sidang;
 
         // absen_peserta
-        $this->absen_peserta = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_absen_peserta', 'absen_peserta', '`absen_peserta`', '`absen_peserta`', 200, 200, -1, true, '`absen_peserta`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->absen_peserta = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_absen_peserta', 'absen_peserta', '`absen_peserta`', '`absen_peserta`', 200, 200, -1, true, '`absen_peserta`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->absen_peserta->Sortable = true; // Allow sort
         $this->absen_peserta->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->absen_peserta->Param, "CustomMsg");
         $this->Fields['absen_peserta'] = &$this->absen_peserta;
 
         // neraca
-        $this->neraca = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_neraca', 'neraca', '`neraca`', '`neraca`', 200, 200, -1, true, '`neraca`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->neraca = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_neraca', 'neraca', '`neraca`', '`neraca`', 200, 200, -1, true, '`neraca`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->neraca->Sortable = true; // Allow sort
         $this->neraca->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->neraca->Param, "CustomMsg");
         $this->Fields['neraca'] = &$this->neraca;
 
         // lra
-        $this->lra = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lra', 'lra', '`lra`', '`lra`', 200, 200, -1, true, '`lra`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lra = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_lra', 'lra', '`lra`', '`lra`', 200, 200, -1, true, '`lra`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->lra->Sortable = true; // Allow sort
         $this->lra->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lra->Param, "CustomMsg");
         $this->Fields['lra'] = &$this->lra;
 
         // calk
-        $this->calk = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_calk', 'calk', '`calk`', '`calk`', 200, 200, -1, true, '`calk`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->calk = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_calk', 'calk', '`calk`', '`calk`', 200, 200, -1, true, '`calk`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->calk->Sortable = true; // Allow sort
         $this->calk->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->calk->Param, "CustomMsg");
         $this->Fields['calk'] = &$this->calk;
 
         // lo
-        $this->lo = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lo', 'lo', '`lo`', '`lo`', 200, 200, -1, true, '`lo`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lo = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_lo', 'lo', '`lo`', '`lo`', 200, 200, -1, true, '`lo`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->lo->Sortable = true; // Allow sort
         $this->lo->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lo->Param, "CustomMsg");
         $this->Fields['lo'] = &$this->lo;
 
         // lpe
-        $this->lpe = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lpe', 'lpe', '`lpe`', '`lpe`', 200, 200, -1, true, '`lpe`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lpe = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_lpe', 'lpe', '`lpe`', '`lpe`', 200, 200, -1, true, '`lpe`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->lpe->Sortable = true; // Allow sort
         $this->lpe->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lpe->Param, "CustomMsg");
         $this->Fields['lpe'] = &$this->lpe;
 
         // lpsal
-        $this->lpsal = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lpsal', 'lpsal', '`lpsal`', '`lpsal`', 200, 200, -1, true, '`lpsal`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lpsal = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_lpsal', 'lpsal', '`lpsal`', '`lpsal`', 200, 200, -1, true, '`lpsal`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->lpsal->Sortable = true; // Allow sort
         $this->lpsal->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lpsal->Param, "CustomMsg");
         $this->Fields['lpsal'] = &$this->lpsal;
 
         // lak
-        $this->lak = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_lak', 'lak', '`lak`', '`lak`', 200, 200, -1, true, '`lak`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->lak = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_lak', 'lak', '`lak`', '`lak`', 200, 200, -1, true, '`lak`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->lak->Sortable = true; // Allow sort
         $this->lak->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->lak->Param, "CustomMsg");
         $this->Fields['lak'] = &$this->lak;
 
         // laporan_pemeriksaan
-        $this->laporan_pemeriksaan = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_laporan_pemeriksaan', 'laporan_pemeriksaan', '`laporan_pemeriksaan`', '`laporan_pemeriksaan`', 200, 200, -1, true, '`laporan_pemeriksaan`', false, false, false, 'FORMATTED TEXT', 'FILE');
+        $this->laporan_pemeriksaan = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_laporan_pemeriksaan', 'laporan_pemeriksaan', '`laporan_pemeriksaan`', '`laporan_pemeriksaan`', 200, 200, -1, true, '`laporan_pemeriksaan`', false, false, false, 'FORMATTED TEXT', 'FILE');
         $this->laporan_pemeriksaan->Sortable = true; // Allow sort
         $this->laporan_pemeriksaan->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->laporan_pemeriksaan->Param, "CustomMsg");
         $this->Fields['laporan_pemeriksaan'] = &$this->laporan_pemeriksaan;
 
         // status
-        $this->status = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->status = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_status', 'status', '`status`', '`status`', 3, 11, -1, false, '`status`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->status->Nullable = false; // NOT NULL field
         $this->status->Required = true; // Required field
         $this->status->Sortable = true; // Allow sort
@@ -277,10 +257,10 @@ class Pertanggungjawaban extends DbTable
         $this->status->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
         switch ($CurrentLanguage) {
             case "en":
-                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban2022', false, '', ["","","",""], [], [], [], [], [], [], '', '');
                 break;
             default:
-                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban', false, '', ["","","",""], [], [], [], [], [], [], '', '');
+                $this->status->Lookup = new Lookup('status', 'pertanggungjawaban2022', false, '', ["","","",""], [], [], [], [], [], [], '', '');
                 break;
         }
         $this->status->OptionCount = 3;
@@ -289,7 +269,7 @@ class Pertanggungjawaban extends DbTable
         $this->Fields['status'] = &$this->status;
 
         // idd_user
-        $this->idd_user = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_user', 'idd_user', '`idd_user`', '`idd_user`', 3, 100, -1, false, '`idd_user`', false, false, false, 'FORMATTED TEXT', 'SELECT');
+        $this->idd_user = new DbField('pertanggungjawaban2022', 'pertanggungjawaban2022', 'x_idd_user', 'idd_user', '`idd_user`', '`idd_user`', 3, 100, -1, false, '`idd_user`', false, false, false, 'FORMATTED TEXT', 'SELECT');
         $this->idd_user->Nullable = false; // NOT NULL field
         $this->idd_user->Required = true; // Required field
         $this->idd_user->Sortable = true; // Allow sort
@@ -348,7 +328,7 @@ class Pertanggungjawaban extends DbTable
     // Table level SQL
     public function getSqlFrom() // From
     {
-        return ($this->SqlFrom != "") ? $this->SqlFrom : "`pertanggungjawaban`";
+        return ($this->SqlFrom != "") ? $this->SqlFrom : "`pertanggungjawaban2022`";
     }
 
     public function sqlFrom() // For backward compatibility
@@ -726,7 +706,6 @@ class Pertanggungjawaban extends DbTable
         }
         $this->idd_evaluasi->DbValue = $row['idd_evaluasi'];
         $this->tanggal->DbValue = $row['tanggal'];
-        $this->idd_wilayah->DbValue = $row['idd_wilayah'];
         $this->kd_satker->DbValue = $row['kd_satker'];
         $this->idd_tahapan->DbValue = $row['idd_tahapan'];
         $this->tahun_anggaran->DbValue = $row['tahun_anggaran'];
@@ -908,7 +887,7 @@ class Pertanggungjawaban extends DbTable
         if ($referUrl != "" && $referPageName != CurrentPageName() && $referPageName != "login") { // Referer not same page or login page
             $_SESSION[$name] = $referUrl; // Save to Session
         }
-        return $_SESSION[$name] ?? GetUrl("pertanggungjawabanlist");
+        return $_SESSION[$name] ?? GetUrl("pertanggungjawaban2022list");
     }
 
     // Set return page URL
@@ -921,11 +900,11 @@ class Pertanggungjawaban extends DbTable
     public function getModalCaption($pageName)
     {
         global $Language;
-        if ($pageName == "pertanggungjawabanview") {
+        if ($pageName == "pertanggungjawaban2022view") {
             return $Language->phrase("View");
-        } elseif ($pageName == "pertanggungjawabanedit") {
+        } elseif ($pageName == "pertanggungjawaban2022edit") {
             return $Language->phrase("Edit");
-        } elseif ($pageName == "pertanggungjawabanadd") {
+        } elseif ($pageName == "pertanggungjawaban2022add") {
             return $Language->phrase("Add");
         } else {
             return "";
@@ -937,15 +916,15 @@ class Pertanggungjawaban extends DbTable
     {
         switch (strtolower($action)) {
             case Config("API_VIEW_ACTION"):
-                return "PertanggungjawabanView";
+                return "Pertanggungjawaban2022View";
             case Config("API_ADD_ACTION"):
-                return "PertanggungjawabanAdd";
+                return "Pertanggungjawaban2022Add";
             case Config("API_EDIT_ACTION"):
-                return "PertanggungjawabanEdit";
+                return "Pertanggungjawaban2022Edit";
             case Config("API_DELETE_ACTION"):
-                return "PertanggungjawabanDelete";
+                return "Pertanggungjawaban2022Delete";
             case Config("API_LIST_ACTION"):
-                return "PertanggungjawabanList";
+                return "Pertanggungjawaban2022List";
             default:
                 return "";
         }
@@ -954,16 +933,16 @@ class Pertanggungjawaban extends DbTable
     // List URL
     public function getListUrl()
     {
-        return "pertanggungjawabanlist";
+        return "pertanggungjawaban2022list";
     }
 
     // View URL
     public function getViewUrl($parm = "")
     {
         if ($parm != "") {
-            $url = $this->keyUrl("pertanggungjawabanview", $this->getUrlParm($parm));
+            $url = $this->keyUrl("pertanggungjawaban2022view", $this->getUrlParm($parm));
         } else {
-            $url = $this->keyUrl("pertanggungjawabanview", $this->getUrlParm(Config("TABLE_SHOW_DETAIL") . "="));
+            $url = $this->keyUrl("pertanggungjawaban2022view", $this->getUrlParm(Config("TABLE_SHOW_DETAIL") . "="));
         }
         return $this->addMasterUrl($url);
     }
@@ -972,9 +951,9 @@ class Pertanggungjawaban extends DbTable
     public function getAddUrl($parm = "")
     {
         if ($parm != "") {
-            $url = "pertanggungjawabanadd?" . $this->getUrlParm($parm);
+            $url = "pertanggungjawaban2022add?" . $this->getUrlParm($parm);
         } else {
-            $url = "pertanggungjawabanadd";
+            $url = "pertanggungjawaban2022add";
         }
         return $this->addMasterUrl($url);
     }
@@ -982,7 +961,7 @@ class Pertanggungjawaban extends DbTable
     // Edit URL
     public function getEditUrl($parm = "")
     {
-        $url = $this->keyUrl("pertanggungjawabanedit", $this->getUrlParm($parm));
+        $url = $this->keyUrl("pertanggungjawaban2022edit", $this->getUrlParm($parm));
         return $this->addMasterUrl($url);
     }
 
@@ -996,7 +975,7 @@ class Pertanggungjawaban extends DbTable
     // Copy URL
     public function getCopyUrl($parm = "")
     {
-        $url = $this->keyUrl("pertanggungjawabanadd", $this->getUrlParm($parm));
+        $url = $this->keyUrl("pertanggungjawaban2022add", $this->getUrlParm($parm));
         return $this->addMasterUrl($url);
     }
 
@@ -1010,7 +989,7 @@ class Pertanggungjawaban extends DbTable
     // Delete URL
     public function getDeleteUrl()
     {
-        return $this->keyUrl("pertanggungjawabandelete", $this->getUrlParm());
+        return $this->keyUrl("pertanggungjawaban2022delete", $this->getUrlParm());
     }
 
     // Add master url
@@ -1159,7 +1138,6 @@ SORTHTML;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
@@ -1211,8 +1189,6 @@ SORTHTML;
 
         // tanggal
 
-        // idd_wilayah
-
         // kd_satker
 
         // idd_tahapan
@@ -1261,27 +1237,6 @@ SORTHTML;
         $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
         $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
         $this->tanggal->ViewCustomAttributes = "";
-
-        // idd_wilayah
-        $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-        if ($curVal != "") {
-            $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
-                $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                if ($ari > 0) { // Lookup values found
-                    $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
-                    $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
-                } else {
-                    $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-                }
-            }
-        } else {
-            $this->idd_wilayah->ViewValue = null;
-        }
-        $this->idd_wilayah->ViewCustomAttributes = "";
 
         // kd_satker
         $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -1505,11 +1460,6 @@ SORTHTML;
         $this->tanggal->HrefValue = "";
         $this->tanggal->TooltipValue = "";
 
-        // idd_wilayah
-        $this->idd_wilayah->LinkCustomAttributes = "";
-        $this->idd_wilayah->HrefValue = "";
-        $this->idd_wilayah->TooltipValue = "";
-
         // kd_satker
         $this->kd_satker->LinkCustomAttributes = "";
         $this->kd_satker->HrefValue = "";
@@ -1651,11 +1601,6 @@ SORTHTML;
         $this->tanggal->EditCustomAttributes = "";
         $this->tanggal->EditValue = FormatDateTime($this->tanggal->CurrentValue, 8);
         $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
-        // idd_wilayah
-        $this->idd_wilayah->EditAttrs["class"] = "form-control";
-        $this->idd_wilayah->EditCustomAttributes = "";
-        $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
 
         // kd_satker
         $this->kd_satker->EditAttrs["class"] = "form-control";
@@ -1914,8 +1859,8 @@ SORTHTML;
             if ($doc->Horizontal) { // Horizontal format, write header
                 $doc->beginExportRow();
                 if ($exportPageType == "view") {
+                    $doc->exportCaption($this->idd_evaluasi);
                     $doc->exportCaption($this->tanggal);
-                    $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
                     $doc->exportCaption($this->tahun_anggaran);
@@ -1939,7 +1884,6 @@ SORTHTML;
                 } else {
                     $doc->exportCaption($this->idd_evaluasi);
                     $doc->exportCaption($this->tanggal);
-                    $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
                     $doc->exportCaption($this->tahun_anggaran);
@@ -1989,8 +1933,8 @@ SORTHTML;
                 if (!$doc->ExportCustom) {
                     $doc->beginExportRow($rowCnt); // Allow CSS styles if enabled
                     if ($exportPageType == "view") {
+                        $doc->exportField($this->idd_evaluasi);
                         $doc->exportField($this->tanggal);
-                        $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);
                         $doc->exportField($this->tahun_anggaran);
@@ -2014,7 +1958,6 @@ SORTHTML;
                     } else {
                         $doc->exportField($this->idd_evaluasi);
                         $doc->exportField($this->tanggal);
-                        $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);
                         $doc->exportField($this->tahun_anggaran);
@@ -2075,7 +2018,7 @@ SORTHTML;
     {
         global $UserTable;
         $wrk = "";
-        $sql = "SELECT " . $masterfld->Expression . " FROM `pertanggungjawaban`";
+        $sql = "SELECT " . $masterfld->Expression . " FROM `pertanggungjawaban2022`";
         $filter = $this->addUserIDFilter("");
         if ($filter != "") {
             $sql .= " WHERE " . $filter;

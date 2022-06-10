@@ -7,7 +7,7 @@ use Doctrine\DBAL\ParameterType;
 /**
  * Page class
  */
-class PertanggungjawabanList extends Pertanggungjawaban
+class Pertanggungjawaban2022List extends Pertanggungjawaban2022
 {
     use MessagesTrait;
 
@@ -18,16 +18,16 @@ class PertanggungjawabanList extends Pertanggungjawaban
     public $ProjectID = PROJECT_ID;
 
     // Table name
-    public $TableName = 'pertanggungjawaban';
+    public $TableName = 'pertanggungjawaban2022';
 
     // Page object name
-    public $PageObjName = "PertanggungjawabanList";
+    public $PageObjName = "Pertanggungjawaban2022List";
 
     // Rendering View
     public $RenderingView = false;
 
     // Grid form hidden field names
-    public $FormName = "fpertanggungjawabanlist";
+    public $FormName = "fpertanggungjawaban2022list";
     public $FormActionName = "k_action";
     public $FormBlankRowName = "k_blankrow";
     public $FormKeyCountName = "key_count";
@@ -165,9 +165,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
         // Parent constuctor
         parent::__construct();
 
-        // Table object (pertanggungjawaban)
-        if (!isset($GLOBALS["pertanggungjawaban"]) || get_class($GLOBALS["pertanggungjawaban"]) == PROJECT_NAMESPACE . "pertanggungjawaban") {
-            $GLOBALS["pertanggungjawaban"] = &$this;
+        // Table object (pertanggungjawaban2022)
+        if (!isset($GLOBALS["pertanggungjawaban2022"]) || get_class($GLOBALS["pertanggungjawaban2022"]) == PROJECT_NAMESPACE . "pertanggungjawaban2022") {
+            $GLOBALS["pertanggungjawaban2022"] = &$this;
         }
 
         // Page URL
@@ -181,16 +181,16 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $this->ExportHtmlUrl = $pageUrl . "export=html";
         $this->ExportXmlUrl = $pageUrl . "export=xml";
         $this->ExportCsvUrl = $pageUrl . "export=csv";
-        $this->AddUrl = "pertanggungjawabanadd";
+        $this->AddUrl = "pertanggungjawaban2022add";
         $this->InlineAddUrl = $pageUrl . "action=add";
         $this->GridAddUrl = $pageUrl . "action=gridadd";
         $this->GridEditUrl = $pageUrl . "action=gridedit";
-        $this->MultiDeleteUrl = "pertanggungjawabandelete";
-        $this->MultiUpdateUrl = "pertanggungjawabanupdate";
+        $this->MultiDeleteUrl = "pertanggungjawaban2022delete";
+        $this->MultiUpdateUrl = "pertanggungjawaban2022update";
 
         // Table name (for backward compatibility only)
         if (!defined(PROJECT_NAMESPACE . "TABLE_NAME")) {
-            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban');
+            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban2022');
         }
 
         // Start timer
@@ -230,7 +230,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
         // Filter options
         $this->FilterOptions = new ListOptions("div");
-        $this->FilterOptions->TagClassName = "ew-filter-option fpertanggungjawabanlistsrch";
+        $this->FilterOptions->TagClassName = "ew-filter-option fpertanggungjawaban2022listsrch";
 
         // List actions
         $this->ListActions = new ListActions();
@@ -305,7 +305,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
             }
             $class = PROJECT_NAMESPACE . Config("EXPORT_CLASSES." . $this->CustomExport);
             if (class_exists($class)) {
-                $doc = new $class(Container("pertanggungjawaban"));
+                $doc = new $class(Container("pertanggungjawaban2022"));
                 $doc->Text = @$content;
                 if ($this->isExport("email")) {
                     echo $this->exportEmail($doc->Text);
@@ -558,9 +558,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
     public function run()
     {
         global $ExportType, $CustomExportType, $ExportFileName, $UserProfile, $Language, $Security, $CurrentForm;
-
-        // Create form object
-        $CurrentForm = new HttpForm();
         $this->CurrentAction = Param("action"); // Set up current action
 
         // Get grid add count
@@ -571,29 +568,28 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
         // Set up list options
         $this->setupListOptions();
-        $this->idd_evaluasi->Visible = false;
+        $this->idd_evaluasi->setVisibility();
         $this->tanggal->setVisibility();
-        $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
-        $this->surat_pengantar->Visible = false;
-        $this->skd_rqanunpert->Visible = false;
-        $this->rqanun_apbkpert->Visible = false;
-        $this->rperbup_apbkpert->Visible = false;
-        $this->pbkdd_apbkpert->Visible = false;
-        $this->risalah_sidang->Visible = false;
-        $this->absen_peserta->Visible = false;
-        $this->neraca->Visible = false;
-        $this->lra->Visible = false;
-        $this->calk->Visible = false;
-        $this->lo->Visible = false;
-        $this->lpe->Visible = false;
-        $this->lpsal->Visible = false;
-        $this->lak->Visible = false;
-        $this->laporan_pemeriksaan->Visible = false;
+        $this->surat_pengantar->setVisibility();
+        $this->skd_rqanunpert->setVisibility();
+        $this->rqanun_apbkpert->setVisibility();
+        $this->rperbup_apbkpert->setVisibility();
+        $this->pbkdd_apbkpert->setVisibility();
+        $this->risalah_sidang->setVisibility();
+        $this->absen_peserta->setVisibility();
+        $this->neraca->setVisibility();
+        $this->lra->setVisibility();
+        $this->calk->setVisibility();
+        $this->lo->setVisibility();
+        $this->lpe->setVisibility();
+        $this->lpsal->setVisibility();
+        $this->lak->setVisibility();
+        $this->laporan_pemeriksaan->setVisibility();
         $this->status->setVisibility();
-        $this->idd_user->Visible = false;
+        $this->idd_user->setVisibility();
         $this->hideFieldsForAddEdit();
 
         // Global Page Loading event (in userfn*.php)
@@ -621,7 +617,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         }
 
         // Set up lookup cache
-        $this->setupLookupOptions($this->idd_wilayah);
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
         $this->setupLookupOptions($this->tahun_anggaran);
@@ -652,86 +647,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
                 $this->setupBreadcrumb();
             }
 
-            // Check QueryString parameters
-            if (Get("action") !== null) {
-                $this->CurrentAction = Get("action");
-
-                // Clear inline mode
-                if ($this->isCancel()) {
-                    $this->clearInlineMode();
-                }
-
-                // Switch to grid edit mode
-                if ($this->isGridEdit()) {
-                    $this->gridEditMode();
-                }
-
-                // Switch to inline edit mode
-                if ($this->isEdit()) {
-                    $this->inlineEditMode();
-                }
-
-                // Switch to inline add mode
-                if ($this->isAdd() || $this->isCopy()) {
-                    $this->inlineAddMode();
-                }
-
-                // Switch to grid add mode
-                if ($this->isGridAdd()) {
-                    $this->gridAddMode();
-                }
-            } else {
-                if (Post("action") !== null) {
-                    $this->CurrentAction = Post("action"); // Get action
-
-                    // Grid Update
-                    if (($this->isGridUpdate() || $this->isGridOverwrite()) && Session(SESSION_INLINE_MODE) == "gridedit") {
-                        if ($this->validateGridForm()) {
-                            $gridUpdate = $this->gridUpdate();
-                        } else {
-                            $gridUpdate = false;
-                        }
-                        if ($gridUpdate) {
-                        } else {
-                            $this->EventCancelled = true;
-                            $this->gridEditMode(); // Stay in Grid edit mode
-                        }
-                    }
-
-                    // Inline Update
-                    if (($this->isUpdate() || $this->isOverwrite()) && Session(SESSION_INLINE_MODE) == "edit") {
-                        $this->setKey(Post($this->OldKeyName));
-                        $this->inlineUpdate();
-                    }
-
-                    // Insert Inline
-                    if ($this->isInsert() && Session(SESSION_INLINE_MODE) == "add") {
-                        $this->setKey(Post($this->OldKeyName));
-                        $this->inlineInsert();
-                    }
-
-                    // Grid Insert
-                    if ($this->isGridInsert() && Session(SESSION_INLINE_MODE) == "gridadd") {
-                        if ($this->validateGridForm()) {
-                            $gridInsert = $this->gridInsert();
-                        } else {
-                            $gridInsert = false;
-                        }
-                        if ($gridInsert) {
-                        } else {
-                            $this->EventCancelled = true;
-                            $this->gridAddMode(); // Stay in Grid add mode
-                        }
-                    }
-                } elseif (Session(SESSION_INLINE_MODE) == "gridedit") { // Previously in grid edit mode
-                    if (Get(Config("TABLE_START_REC")) !== null || Get(Config("TABLE_PAGE_NO")) !== null) { // Stay in grid edit mode if paging
-                        $this->gridEditMode();
-                    } else { // Reset grid edit
-                        $this->clearInlineMode();
-                    }
-                }
-            }
-
             // Hide list options
             if ($this->isExport()) {
                 $this->ListOptions->hideAllOptions(["sequence"]);
@@ -753,16 +668,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             // Hide other options
             if ($this->isExport()) {
                 $this->OtherOptions->hideAllOptions();
-            }
-
-            // Show grid delete link for grid add / grid edit
-            if ($this->AllowAddDeleteRow) {
-                if ($this->isGridAdd() || $this->isGridEdit()) {
-                    $item = $this->ListOptions["griddelete"];
-                    if ($item) {
-                        $item->Visible = true;
-                    }
-                }
             }
 
             // Get default search criteria
@@ -940,258 +845,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         }
     }
 
-    // Exit inline mode
-    protected function clearInlineMode()
-    {
-        $this->LastAction = $this->CurrentAction; // Save last action
-        $this->CurrentAction = ""; // Clear action
-        $_SESSION[SESSION_INLINE_MODE] = ""; // Clear inline mode
-    }
-
-    // Switch to Grid Add mode
-    protected function gridAddMode()
-    {
-        $this->CurrentAction = "gridadd";
-        $_SESSION[SESSION_INLINE_MODE] = "gridadd";
-        $this->hideFieldsForAddEdit();
-    }
-
-    // Switch to Grid Edit mode
-    protected function gridEditMode()
-    {
-        $this->CurrentAction = "gridedit";
-        $_SESSION[SESSION_INLINE_MODE] = "gridedit";
-        $this->hideFieldsForAddEdit();
-    }
-
-    // Switch to Inline Edit mode
-    protected function inlineEditMode()
-    {
-        global $Security, $Language;
-        if (!$Security->canEdit()) {
-            return false; // Edit not allowed
-        }
-        $inlineEdit = true;
-        if (($keyValue = Get("idd_evaluasi") ?? Route("idd_evaluasi")) !== null) {
-            $this->idd_evaluasi->setQueryStringValue($keyValue);
-        } else {
-            $inlineEdit = false;
-        }
-        if ($inlineEdit) {
-            if ($this->loadRow()) {
-                    // Check if valid User ID
-                    if (!$this->showOptionLink("edit")) {
-                        $userIdMsg = $Language->phrase("NoEditPermission");
-                        $this->setFailureMessage($userIdMsg);
-                        $this->clearInlineMode(); // Clear inline edit mode
-                        return false;
-                    }
-                $this->OldKey = $this->getKey(true); // Get from CurrentValue
-                $this->setKey($this->OldKey); // Set to OldValue
-                $_SESSION[SESSION_INLINE_MODE] = "edit"; // Enable inline edit
-            }
-        }
-        return true;
-    }
-
-    // Perform update to Inline Edit record
-    protected function inlineUpdate()
-    {
-        global $Language, $CurrentForm;
-        $CurrentForm->Index = 1;
-        $this->loadFormValues(); // Get form values
-
-        // Validate form
-        $inlineUpdate = true;
-        if (!$this->validateForm()) {
-            $inlineUpdate = false; // Form error, reset action
-        } else {
-            $inlineUpdate = false;
-            $this->SendEmail = true; // Send email on update success
-            $inlineUpdate = $this->editRow(); // Update record
-        }
-        if ($inlineUpdate) { // Update success
-            if ($this->getSuccessMessage() == "") {
-                $this->setSuccessMessage($Language->phrase("UpdateSuccess")); // Set up success message
-            }
-            $this->clearInlineMode(); // Clear inline edit mode
-        } else {
-            if ($this->getFailureMessage() == "") {
-                $this->setFailureMessage($Language->phrase("UpdateFailed")); // Set update failed message
-            }
-            $this->EventCancelled = true; // Cancel event
-            $this->CurrentAction = "edit"; // Stay in edit mode
-        }
-    }
-
-    // Check Inline Edit key
-    public function checkInlineEditKey()
-    {
-        if (!SameString($this->idd_evaluasi->OldValue, $this->idd_evaluasi->CurrentValue)) {
-            return false;
-        }
-        return true;
-    }
-
-    // Switch to Inline Add mode
-    protected function inlineAddMode()
-    {
-        global $Security, $Language;
-        if (!$Security->canAdd()) {
-            return false; // Add not allowed
-        }
-        if ($this->isCopy()) {
-            if (($keyValue = Get("idd_evaluasi") ?? Route("idd_evaluasi")) !== null) {
-                $this->idd_evaluasi->setQueryStringValue($keyValue);
-            } else {
-                $this->CurrentAction = "add";
-            }
-            $this->OldKey = $this->getKey(true); // Get from CurrentValue
-        } else {
-            $this->OldKey = ""; // Clear old record key
-        }
-        $this->setKey($this->OldKey); // Set to OldValue
-
-        // Check if valid User ID
-        if ($this->loadRow() && !$this->showOptionLink("add")) {
-            $userIdMsg = $Language->phrase("NoAddPermission");
-            $this->setFailureMessage($userIdMsg);
-            $this->clearInlineMode(); // Clear inline edit mode
-            return false;
-        }
-        $_SESSION[SESSION_INLINE_MODE] = "add"; // Enable inline add
-        return true;
-    }
-
-    // Perform update to Inline Add/Copy record
-    protected function inlineInsert()
-    {
-        global $Language, $CurrentForm;
-        $this->loadOldRecord(); // Load old record
-        $CurrentForm->Index = 0;
-        $this->loadFormValues(); // Get form values
-
-        // Validate form
-        if (!$this->validateForm()) {
-            $this->EventCancelled = true; // Set event cancelled
-            $this->CurrentAction = "add"; // Stay in add mode
-            return;
-        }
-        $this->SendEmail = true; // Send email on add success
-        if ($this->addRow($this->OldRecordset)) { // Add record
-            if ($this->getSuccessMessage() == "") {
-                $this->setSuccessMessage($Language->phrase("AddSuccess")); // Set up add success message
-            }
-            $this->clearInlineMode(); // Clear inline add mode
-        } else { // Add failed
-            $this->EventCancelled = true; // Set event cancelled
-            $this->CurrentAction = "add"; // Stay in add mode
-        }
-    }
-
-    // Perform update to grid
-    public function gridUpdate()
-    {
-        global $Language, $CurrentForm;
-        $gridUpdate = true;
-
-        // Get old recordset
-        $this->CurrentFilter = $this->buildKeyFilter();
-        if ($this->CurrentFilter == "") {
-            $this->CurrentFilter = "0=1";
-        }
-        $sql = $this->getCurrentSql();
-        $conn = $this->getConnection();
-        if ($rs = $conn->executeQuery($sql)) {
-            $rsold = $rs->fetchAll();
-            $rs->closeCursor();
-        }
-
-        // Call Grid Updating event
-        if (!$this->gridUpdating($rsold)) {
-            if ($this->getFailureMessage() == "") {
-                $this->setFailureMessage($Language->phrase("GridEditCancelled")); // Set grid edit cancelled message
-            }
-            return false;
-        }
-
-        // Begin transaction
-        $conn->beginTransaction();
-        $key = "";
-
-        // Update row index and get row key
-        $CurrentForm->Index = -1;
-        $rowcnt = strval($CurrentForm->getValue($this->FormKeyCountName));
-        if ($rowcnt == "" || !is_numeric($rowcnt)) {
-            $rowcnt = 0;
-        }
-
-        // Update all rows based on key
-        for ($rowindex = 1; $rowindex <= $rowcnt; $rowindex++) {
-            $CurrentForm->Index = $rowindex;
-            $this->setKey($CurrentForm->getValue($this->OldKeyName));
-            $rowaction = strval($CurrentForm->getValue($this->FormActionName));
-
-            // Load all values and keys
-            if ($rowaction != "insertdelete") { // Skip insert then deleted rows
-                $this->loadFormValues(); // Get form values
-                if ($rowaction == "" || $rowaction == "edit" || $rowaction == "delete") {
-                    $gridUpdate = $this->OldKey != ""; // Key must not be empty
-                } else {
-                    $gridUpdate = true;
-                }
-
-                // Skip empty row
-                if ($rowaction == "insert" && $this->emptyRow()) {
-                // Validate form and insert/update/delete record
-                } elseif ($gridUpdate) {
-                    if ($rowaction == "delete") {
-                        $this->CurrentFilter = $this->getRecordFilter();
-                        $gridUpdate = $this->deleteRows(); // Delete this row
-                    //} elseif (!$this->validateForm()) { // Already done in validateGridForm
-                    //    $gridUpdate = false; // Form error, reset action
-                    } else {
-                        if ($rowaction == "insert") {
-                            $gridUpdate = $this->addRow(); // Insert this row
-                        } else {
-                            if ($this->OldKey != "") {
-                                $this->SendEmail = false; // Do not send email on update success
-                                $gridUpdate = $this->editRow(); // Update this row
-                            }
-                        } // End update
-                    }
-                }
-                if ($gridUpdate) {
-                    if ($key != "") {
-                        $key .= ", ";
-                    }
-                    $key .= $this->OldKey;
-                } else {
-                    break;
-                }
-            }
-        }
-        if ($gridUpdate) {
-            $conn->commit(); // Commit transaction
-
-            // Get new records
-            $rsnew = $conn->fetchAll($sql);
-
-            // Call Grid_Updated event
-            $this->gridUpdated($rsold, $rsnew);
-            if ($this->getSuccessMessage() == "") {
-                $this->setSuccessMessage($Language->phrase("UpdateSuccess")); // Set up update success message
-            }
-            $this->clearInlineMode(); // Clear inline edit mode
-        } else {
-            $conn->rollback(); // Rollback transaction
-            if ($this->getFailureMessage() == "") {
-                $this->setFailureMessage($Language->phrase("UpdateFailed")); // Set update failed message
-            }
-        }
-        return $gridUpdate;
-    }
-
     // Build filter for all keys
     protected function buildKeyFilter()
     {
@@ -1223,215 +876,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         return $wrkFilter;
     }
 
-    // Perform Grid Add
-    public function gridInsert()
-    {
-        global $Language, $CurrentForm;
-        $rowindex = 1;
-        $gridInsert = false;
-        $conn = $this->getConnection();
-
-        // Call Grid Inserting event
-        if (!$this->gridInserting()) {
-            if ($this->getFailureMessage() == "") {
-                $this->setFailureMessage($Language->phrase("GridAddCancelled")); // Set grid add cancelled message
-            }
-            return false;
-        }
-
-        // Begin transaction
-        $conn->beginTransaction();
-
-        // Init key filter
-        $wrkfilter = "";
-        $addcnt = 0;
-        $key = "";
-
-        // Get row count
-        $CurrentForm->Index = -1;
-        $rowcnt = strval($CurrentForm->getValue($this->FormKeyCountName));
-        if ($rowcnt == "" || !is_numeric($rowcnt)) {
-            $rowcnt = 0;
-        }
-
-        // Insert all rows
-        for ($rowindex = 1; $rowindex <= $rowcnt; $rowindex++) {
-            // Load current row values
-            $CurrentForm->Index = $rowindex;
-            $rowaction = strval($CurrentForm->getValue($this->FormActionName));
-            if ($rowaction != "" && $rowaction != "insert") {
-                continue; // Skip
-            }
-            if ($rowaction == "insert") {
-                $this->OldKey = strval($CurrentForm->getValue($this->OldKeyName));
-                $this->loadOldRecord(); // Load old record
-            }
-            $this->loadFormValues(); // Get form values
-            if (!$this->emptyRow()) {
-                $addcnt++;
-                $this->SendEmail = false; // Do not send email on insert success
-
-                // Validate form // Already done in validateGridForm
-                //if (!$this->validateForm()) {
-                //    $gridInsert = false; // Form error, reset action
-                //} else {
-                    $gridInsert = $this->addRow($this->OldRecordset); // Insert this row
-                //}
-                if ($gridInsert) {
-                    if ($key != "") {
-                        $key .= Config("COMPOSITE_KEY_SEPARATOR");
-                    }
-                    $key .= $this->idd_evaluasi->CurrentValue;
-
-                    // Add filter for this record
-                    $filter = $this->getRecordFilter();
-                    if ($wrkfilter != "") {
-                        $wrkfilter .= " OR ";
-                    }
-                    $wrkfilter .= $filter;
-                } else {
-                    break;
-                }
-            }
-        }
-        if ($addcnt == 0) { // No record inserted
-            $this->setFailureMessage($Language->phrase("NoAddRecord"));
-            $gridInsert = false;
-        }
-        if ($gridInsert) {
-            $conn->commit(); // Commit transaction
-
-            // Get new records
-            $this->CurrentFilter = $wrkfilter;
-            $sql = $this->getCurrentSql();
-            $rsnew = $conn->fetchAll($sql);
-
-            // Call Grid_Inserted event
-            $this->gridInserted($rsnew);
-            if ($this->getSuccessMessage() == "") {
-                $this->setSuccessMessage($Language->phrase("InsertSuccess")); // Set up insert success message
-            }
-            $this->clearInlineMode(); // Clear grid add mode
-        } else {
-            $conn->rollback(); // Rollback transaction
-            if ($this->getFailureMessage() == "") {
-                $this->setFailureMessage($Language->phrase("InsertFailed")); // Set insert failed message
-            }
-        }
-        return $gridInsert;
-    }
-
-    // Check if empty row
-    public function emptyRow()
-    {
-        global $CurrentForm;
-        if ($CurrentForm->hasValue("x_tanggal") && $CurrentForm->hasValue("o_tanggal") && $this->tanggal->CurrentValue != $this->tanggal->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_idd_wilayah") && $CurrentForm->hasValue("o_idd_wilayah") && $this->idd_wilayah->CurrentValue != $this->idd_wilayah->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_kd_satker") && $CurrentForm->hasValue("o_kd_satker") && $this->kd_satker->CurrentValue != $this->kd_satker->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_idd_tahapan") && $CurrentForm->hasValue("o_idd_tahapan") && $this->idd_tahapan->CurrentValue != $this->idd_tahapan->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_tahun_anggaran") && $CurrentForm->hasValue("o_tahun_anggaran") && $this->tahun_anggaran->CurrentValue != $this->tahun_anggaran->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_status") && $CurrentForm->hasValue("o_status") && $this->status->CurrentValue != $this->status->OldValue) {
-            return false;
-        }
-        return true;
-    }
-
-    // Validate grid form
-    public function validateGridForm()
-    {
-        global $CurrentForm;
-        // Get row count
-        $CurrentForm->Index = -1;
-        $rowcnt = strval($CurrentForm->getValue($this->FormKeyCountName));
-        if ($rowcnt == "" || !is_numeric($rowcnt)) {
-            $rowcnt = 0;
-        }
-
-        // Validate all records
-        for ($rowindex = 1; $rowindex <= $rowcnt; $rowindex++) {
-            // Load current row values
-            $CurrentForm->Index = $rowindex;
-            $rowaction = strval($CurrentForm->getValue($this->FormActionName));
-            if ($rowaction != "delete" && $rowaction != "insertdelete") {
-                $this->loadFormValues(); // Get form values
-                if ($rowaction == "insert" && $this->emptyRow()) {
-                    // Ignore
-                } elseif (!$this->validateForm()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    // Get all form values of the grid
-    public function getGridFormValues()
-    {
-        global $CurrentForm;
-        // Get row count
-        $CurrentForm->Index = -1;
-        $rowcnt = strval($CurrentForm->getValue($this->FormKeyCountName));
-        if ($rowcnt == "" || !is_numeric($rowcnt)) {
-            $rowcnt = 0;
-        }
-        $rows = [];
-
-        // Loop through all records
-        for ($rowindex = 1; $rowindex <= $rowcnt; $rowindex++) {
-            // Load current row values
-            $CurrentForm->Index = $rowindex;
-            $rowaction = strval($CurrentForm->getValue($this->FormActionName));
-            if ($rowaction != "delete" && $rowaction != "insertdelete") {
-                $this->loadFormValues(); // Get form values
-                if ($rowaction == "insert" && $this->emptyRow()) {
-                    // Ignore
-                } else {
-                    $rows[] = $this->getFieldValues("FormValue"); // Return row as array
-                }
-            }
-        }
-        return $rows; // Return as array of array
-    }
-
-    // Restore form values for current row
-    public function restoreCurrentRowFormValues($idx)
-    {
-        global $CurrentForm;
-
-        // Get row based on current index
-        $CurrentForm->Index = $idx;
-        $rowaction = strval($CurrentForm->getValue($this->FormActionName));
-        $this->loadFormValues(); // Load form values
-        // Set up invalid status correctly
-        $this->resetFormError();
-        if ($rowaction == "insert" && $this->emptyRow()) {
-            // Ignore
-        } else {
-            $this->validateForm();
-        }
-    }
-
-    // Reset form status
-    public function resetFormError()
-    {
-        $this->tanggal->clearErrorMessage();
-        $this->idd_wilayah->clearErrorMessage();
-        $this->kd_satker->clearErrorMessage();
-        $this->idd_tahapan->clearErrorMessage();
-        $this->tahun_anggaran->clearErrorMessage();
-        $this->status->clearErrorMessage();
-    }
-
     // Get list of filters
     public function getFilterList()
     {
@@ -1442,7 +886,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $savedFilterList = "";
         $filterList = Concat($filterList, $this->idd_evaluasi->AdvancedSearch->toJson(), ","); // Field idd_evaluasi
         $filterList = Concat($filterList, $this->tanggal->AdvancedSearch->toJson(), ","); // Field tanggal
-        $filterList = Concat($filterList, $this->idd_wilayah->AdvancedSearch->toJson(), ","); // Field idd_wilayah
         $filterList = Concat($filterList, $this->kd_satker->AdvancedSearch->toJson(), ","); // Field kd_satker
         $filterList = Concat($filterList, $this->idd_tahapan->AdvancedSearch->toJson(), ","); // Field idd_tahapan
         $filterList = Concat($filterList, $this->tahun_anggaran->AdvancedSearch->toJson(), ","); // Field tahun_anggaran
@@ -1484,7 +927,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
         global $UserProfile;
         if (Post("ajax") == "savefilters") { // Save filter request (Ajax)
             $filters = Post("filters");
-            $UserProfile->setSearchFilters(CurrentUserName(), "fpertanggungjawabanlistsrch", $filters);
+            $UserProfile->setSearchFilters(CurrentUserName(), "fpertanggungjawaban2022listsrch", $filters);
             WriteJson([["success" => true]]); // Success
             return true;
         } elseif (Post("cmd") == "resetfilter") {
@@ -1518,14 +961,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $this->tanggal->AdvancedSearch->SearchValue2 = @$filter["y_tanggal"];
         $this->tanggal->AdvancedSearch->SearchOperator2 = @$filter["w_tanggal"];
         $this->tanggal->AdvancedSearch->save();
-
-        // Field idd_wilayah
-        $this->idd_wilayah->AdvancedSearch->SearchValue = @$filter["x_idd_wilayah"];
-        $this->idd_wilayah->AdvancedSearch->SearchOperator = @$filter["z_idd_wilayah"];
-        $this->idd_wilayah->AdvancedSearch->SearchCondition = @$filter["v_idd_wilayah"];
-        $this->idd_wilayah->AdvancedSearch->SearchValue2 = @$filter["y_idd_wilayah"];
-        $this->idd_wilayah->AdvancedSearch->SearchOperator2 = @$filter["w_idd_wilayah"];
-        $this->idd_wilayah->AdvancedSearch->save();
 
         // Field kd_satker
         $this->kd_satker->AdvancedSearch->SearchValue = @$filter["x_kd_satker"];
@@ -1873,12 +1308,28 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if (Get("order") !== null) {
             $this->CurrentOrder = Get("order");
             $this->CurrentOrderType = Get("ordertype", "");
+            $this->updateSort($this->idd_evaluasi); // idd_evaluasi
             $this->updateSort($this->tanggal); // tanggal
-            $this->updateSort($this->idd_wilayah); // idd_wilayah
             $this->updateSort($this->kd_satker); // kd_satker
             $this->updateSort($this->idd_tahapan); // idd_tahapan
             $this->updateSort($this->tahun_anggaran); // tahun_anggaran
+            $this->updateSort($this->surat_pengantar); // surat_pengantar
+            $this->updateSort($this->skd_rqanunpert); // skd_rqanunpert
+            $this->updateSort($this->rqanun_apbkpert); // rqanun_apbkpert
+            $this->updateSort($this->rperbup_apbkpert); // rperbup_apbkpert
+            $this->updateSort($this->pbkdd_apbkpert); // pbkdd_apbkpert
+            $this->updateSort($this->risalah_sidang); // risalah_sidang
+            $this->updateSort($this->absen_peserta); // absen_peserta
+            $this->updateSort($this->neraca); // neraca
+            $this->updateSort($this->lra); // lra
+            $this->updateSort($this->calk); // calk
+            $this->updateSort($this->lo); // lo
+            $this->updateSort($this->lpe); // lpe
+            $this->updateSort($this->lpsal); // lpsal
+            $this->updateSort($this->lak); // lak
+            $this->updateSort($this->laporan_pemeriksaan); // laporan_pemeriksaan
             $this->updateSort($this->status); // status
+            $this->updateSort($this->idd_user); // idd_user
             $this->setStartRecordNumber(1); // Reset start position
         }
     }
@@ -1920,7 +1371,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
                 $this->setSessionOrderBy($orderBy);
                 $this->idd_evaluasi->setSort("");
                 $this->tanggal->setSort("");
-                $this->idd_wilayah->setSort("");
                 $this->kd_satker->setSort("");
                 $this->idd_tahapan->setSort("");
                 $this->tahun_anggaran->setSort("");
@@ -1953,14 +1403,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
     protected function setupListOptions()
     {
         global $Security, $Language;
-
-        // "griddelete"
-        if ($this->AllowAddDeleteRow) {
-            $item = &$this->ListOptions->add("griddelete");
-            $item->CssClass = "text-nowrap";
-            $item->OnLeft = false;
-            $item->Visible = false; // Default hidden
-        }
 
         // Add group option item
         $item = &$this->ListOptions->add($this->ListOptions->GroupOptionName);
@@ -2033,64 +1475,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
         // Call ListOptions_Rendering event
         $this->listOptionsRendering();
-
-        // Set up row action and key
-        if ($CurrentForm && is_numeric($this->RowIndex) && $this->RowType != "view") {
-            $CurrentForm->Index = $this->RowIndex;
-            $actionName = str_replace("k_", "k" . $this->RowIndex . "_", $this->FormActionName);
-            $oldKeyName = str_replace("k_", "k" . $this->RowIndex . "_", $this->OldKeyName);
-            $blankRowName = str_replace("k_", "k" . $this->RowIndex . "_", $this->FormBlankRowName);
-            if ($this->RowAction != "") {
-                $this->MultiSelectKey .= "<input type=\"hidden\" name=\"" . $actionName . "\" id=\"" . $actionName . "\" value=\"" . $this->RowAction . "\">";
-            }
-            $oldKey = $this->getKey(false); // Get from OldValue
-            if ($oldKeyName != "" && $oldKey != "") {
-                $this->MultiSelectKey .= "<input type=\"hidden\" name=\"" . $oldKeyName . "\" id=\"" . $oldKeyName . "\" value=\"" . HtmlEncode($oldKey) . "\">";
-            }
-            if ($this->RowAction == "insert" && $this->isConfirm() && $this->emptyRow()) {
-                $this->MultiSelectKey .= "<input type=\"hidden\" name=\"" . $blankRowName . "\" id=\"" . $blankRowName . "\" value=\"1\">";
-            }
-        }
-
-        // "delete"
-        if ($this->AllowAddDeleteRow) {
-            if ($this->isGridAdd() || $this->isGridEdit()) {
-                $options = &$this->ListOptions;
-                $options->UseButtonGroup = true; // Use button group for grid delete button
-                $opt = $options["griddelete"];
-                if (!$Security->canDelete() && is_numeric($this->RowIndex) && ($this->RowAction == "" || $this->RowAction == "edit")) { // Do not allow delete existing record
-                    $opt->Body = "&nbsp;";
-                } else {
-                    $opt->Body = "<a class=\"ew-grid-link ew-grid-delete\" title=\"" . HtmlTitle($Language->phrase("DeleteLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("DeleteLink")) . "\" onclick=\"return ew.deleteGridRow(this, " . $this->RowIndex . ");\">" . $Language->phrase("DeleteLink") . "</a>";
-                }
-            }
-        }
         $pageUrl = $this->pageUrl();
-
-        // "copy"
-        $opt = $this->ListOptions["copy"];
-        if ($this->isInlineAddRow() || $this->isInlineCopyRow()) { // Inline Add/Copy
-            $this->ListOptions->CustomItem = "copy"; // Show copy column only
-            $cancelurl = $this->addMasterUrl($pageUrl . "action=cancel");
-            $opt->Body = "<div" . (($opt->OnLeft) ? " class=\"text-right\"" : "") . ">" .
-            "<a class=\"ew-grid-link ew-inline-insert\" title=\"" . HtmlTitle($Language->phrase("InsertLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InsertLink")) . "\" href=\"#\" onclick=\"ew.forms.get(this).submit(event, '" . $this->pageName() . "'); return false;\">" . $Language->phrase("InsertLink") . "</a>&nbsp;" .
-            "<a class=\"ew-grid-link ew-inline-cancel\" title=\"" . HtmlTitle($Language->phrase("CancelLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("CancelLink")) . "\" href=\"" . $cancelurl . "\">" . $Language->phrase("CancelLink") . "</a>" .
-            "<input type=\"hidden\" name=\"action\" id=\"action\" value=\"insert\"></div>";
-            return;
-        }
-
-        // "edit"
-        $opt = $this->ListOptions["edit"];
-        if ($this->isInlineEditRow()) { // Inline-Edit
-            $this->ListOptions->CustomItem = "edit"; // Show edit column only
-            $cancelurl = $this->addMasterUrl($pageUrl . "action=cancel");
-                $opt->Body = "<div" . (($opt->OnLeft) ? " class=\"text-right\"" : "") . ">" .
-                "<a class=\"ew-grid-link ew-inline-update\" title=\"" . HtmlTitle($Language->phrase("UpdateLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("UpdateLink")) . "\" href=\"#\" onclick=\"ew.forms.get(this).submit(event, '" . UrlAddHash($this->pageName(), "r" . $this->RowCount . "_" . $this->TableVar) . "'); return false;\">" . $Language->phrase("UpdateLink") . "</a>&nbsp;" .
-                "<a class=\"ew-grid-link ew-inline-cancel\" title=\"" . HtmlTitle($Language->phrase("CancelLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("CancelLink")) . "\" href=\"" . $cancelurl . "\">" . $Language->phrase("CancelLink") . "</a>" .
-                "<input type=\"hidden\" name=\"action\" id=\"action\" value=\"update\"></div>";
-            $opt->Body .= "<input type=\"hidden\" name=\"k" . $this->RowIndex . "_key\" id=\"k" . $this->RowIndex . "_key\" value=\"" . HtmlEncode($this->idd_evaluasi->CurrentValue) . "\">";
-            return;
-        }
         if ($this->CurrentMode == "view") {
             // "view"
             $opt = $this->ListOptions["view"];
@@ -2106,7 +1491,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $editcaption = HtmlTitle($Language->phrase("EditLink"));
             if ($Security->canEdit() && $this->showOptionLink("edit")) {
                 $opt->Body = "<a class=\"ew-row-link ew-edit\" title=\"" . HtmlTitle($Language->phrase("EditLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("EditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->EditUrl)) . "\">" . $Language->phrase("EditLink") . "</a>";
-                $opt->Body .= "<a class=\"ew-row-link ew-inline-edit\" title=\"" . HtmlTitle($Language->phrase("InlineEditLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InlineEditLink")) . "\" href=\"" . HtmlEncode(UrlAddHash(GetUrl($this->InlineEditUrl), "r" . $this->RowCount . "_" . $this->TableVar)) . "\">" . $Language->phrase("InlineEditLink") . "</a>";
             } else {
                 $opt->Body = "";
             }
@@ -2116,7 +1500,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $copycaption = HtmlTitle($Language->phrase("CopyLink"));
             if ($Security->canAdd() && $this->showOptionLink("add")) {
                 $opt->Body = "<a class=\"ew-row-link ew-copy\" title=\"" . $copycaption . "\" data-caption=\"" . $copycaption . "\" href=\"" . HtmlEncode(GetUrl($this->CopyUrl)) . "\">" . $Language->phrase("CopyLink") . "</a>";
-                $opt->Body .= "<a class=\"ew-row-link ew-inline-copy\" title=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->InlineCopyUrl)) . "\">" . $Language->phrase("InlineCopyLink") . "</a>";
             } else {
                 $opt->Body = "";
             }
@@ -2182,20 +1565,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $addcaption = HtmlTitle($Language->phrase("AddLink"));
         $item->Body = "<a class=\"ew-add-edit ew-add\" title=\"" . $addcaption . "\" data-caption=\"" . $addcaption . "\" href=\"" . HtmlEncode(GetUrl($this->AddUrl)) . "\">" . $Language->phrase("AddLink") . "</a>";
         $item->Visible = $this->AddUrl != "" && $Security->canAdd();
-
-        // Inline Add
-        $item = &$option->add("inlineadd");
-        $item->Body = "<a class=\"ew-add-edit ew-inline-add\" title=\"" . HtmlTitle($Language->phrase("InlineAddLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InlineAddLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->InlineAddUrl)) . "\">" . $Language->phrase("InlineAddLink") . "</a>";
-        $item->Visible = $this->InlineAddUrl != "" && $Security->canAdd();
-        $item = &$option->add("gridadd");
-        $item->Body = "<a class=\"ew-add-edit ew-grid-add\" title=\"" . HtmlTitle($Language->phrase("GridAddLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridAddLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->GridAddUrl)) . "\">" . $Language->phrase("GridAddLink") . "</a>";
-        $item->Visible = $this->GridAddUrl != "" && $Security->canAdd();
-
-        // Add grid edit
-        $option = $options["addedit"];
-        $item = &$option->add("gridedit");
-        $item->Body = "<a class=\"ew-add-edit ew-grid-edit\" title=\"" . HtmlTitle($Language->phrase("GridEditLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridEditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->GridEditUrl)) . "\">" . $Language->phrase("GridEditLink") . "</a>";
-        $item->Visible = $this->GridEditUrl != "" && $Security->canEdit();
         $option = $options["action"];
 
         // Set up options default
@@ -2213,10 +1582,10 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
         // Filter button
         $item = &$this->FilterOptions->add("savecurrentfilter");
-        $item->Body = "<a class=\"ew-save-filter\" data-form=\"fpertanggungjawabanlistsrch\" href=\"#\" onclick=\"return false;\">" . $Language->phrase("SaveCurrentFilter") . "</a>";
+        $item->Body = "<a class=\"ew-save-filter\" data-form=\"fpertanggungjawaban2022listsrch\" href=\"#\" onclick=\"return false;\">" . $Language->phrase("SaveCurrentFilter") . "</a>";
         $item->Visible = true;
         $item = &$this->FilterOptions->add("deletefilter");
-        $item->Body = "<a class=\"ew-delete-filter\" data-form=\"fpertanggungjawabanlistsrch\" href=\"#\" onclick=\"return false;\">" . $Language->phrase("DeleteFilter") . "</a>";
+        $item->Body = "<a class=\"ew-delete-filter\" data-form=\"fpertanggungjawaban2022listsrch\" href=\"#\" onclick=\"return false;\">" . $Language->phrase("DeleteFilter") . "</a>";
         $item->Visible = true;
         $this->FilterOptions->UseDropDownButton = true;
         $this->FilterOptions->UseButtonGroup = !$this->FilterOptions->UseDropDownButton;
@@ -2233,75 +1602,27 @@ class PertanggungjawabanList extends Pertanggungjawaban
     {
         global $Language, $Security;
         $options = &$this->OtherOptions;
-        if (!$this->isGridAdd() && !$this->isGridEdit()) { // Not grid add/edit mode
+        $option = $options["action"];
+        // Set up list action buttons
+        foreach ($this->ListActions->Items as $listaction) {
+            if ($listaction->Select == ACTION_MULTIPLE) {
+                $item = &$option->add("custom_" . $listaction->Action);
+                $caption = $listaction->Caption;
+                $icon = ($listaction->Icon != "") ? '<i class="' . HtmlEncode($listaction->Icon) . '" data-caption="' . HtmlEncode($caption) . '"></i>' . $caption : $caption;
+                $item->Body = '<a class="ew-action ew-list-action" title="' . HtmlEncode($caption) . '" data-caption="' . HtmlEncode($caption) . '" href="#" onclick="return ew.submitAction(event,jQuery.extend({f:document.fpertanggungjawaban2022list},' . $listaction->toJson(true) . '));">' . $icon . '</a>';
+                $item->Visible = $listaction->Allow;
+            }
+        }
+
+        // Hide grid edit and other options
+        if ($this->TotalRecords <= 0) {
+            $option = $options["addedit"];
+            $item = $option["gridedit"];
+            if ($item) {
+                $item->Visible = false;
+            }
             $option = $options["action"];
-            // Set up list action buttons
-            foreach ($this->ListActions->Items as $listaction) {
-                if ($listaction->Select == ACTION_MULTIPLE) {
-                    $item = &$option->add("custom_" . $listaction->Action);
-                    $caption = $listaction->Caption;
-                    $icon = ($listaction->Icon != "") ? '<i class="' . HtmlEncode($listaction->Icon) . '" data-caption="' . HtmlEncode($caption) . '"></i>' . $caption : $caption;
-                    $item->Body = '<a class="ew-action ew-list-action" title="' . HtmlEncode($caption) . '" data-caption="' . HtmlEncode($caption) . '" href="#" onclick="return ew.submitAction(event,jQuery.extend({f:document.fpertanggungjawabanlist},' . $listaction->toJson(true) . '));">' . $icon . '</a>';
-                    $item->Visible = $listaction->Allow;
-                }
-            }
-
-            // Hide grid edit and other options
-            if ($this->TotalRecords <= 0) {
-                $option = $options["addedit"];
-                $item = $option["gridedit"];
-                if ($item) {
-                    $item->Visible = false;
-                }
-                $option = $options["action"];
-                $option->hideAllOptions();
-            }
-        } else { // Grid add/edit mode
-            // Hide all options first
-            foreach ($options as $option) {
-                $option->hideAllOptions();
-            }
-            $pageUrl = $this->pageUrl();
-
-            // Grid-Add
-            if ($this->isGridAdd()) {
-                if ($this->AllowAddDeleteRow) {
-                    // Add add blank row
-                    $option = $options["addedit"];
-                    $option->UseDropDownButton = false;
-                    $item = &$option->add("addblankrow");
-                    $item->Body = "<a class=\"ew-add-edit ew-add-blank-row\" title=\"" . HtmlTitle($Language->phrase("AddBlankRow")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("AddBlankRow")) . "\" href=\"#\" onclick=\"return ew.addGridRow(this);\">" . $Language->phrase("AddBlankRow") . "</a>";
-                    $item->Visible = $Security->canAdd();
-                }
-                $option = $options["action"];
-                $option->UseDropDownButton = false;
-                // Add grid insert
-                $item = &$option->add("gridinsert");
-                $item->Body = "<a class=\"ew-action ew-grid-insert\" title=\"" . HtmlTitle($Language->phrase("GridInsertLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridInsertLink")) . "\" href=\"#\" onclick=\"ew.forms.get(this).submit(event, '" . $this->pageName() . "'); return false;\">" . $Language->phrase("GridInsertLink") . "</a>";
-                // Add grid cancel
-                $item = &$option->add("gridcancel");
-                $cancelurl = $this->addMasterUrl($pageUrl . "action=cancel");
-                $item->Body = "<a class=\"ew-action ew-grid-cancel\" title=\"" . HtmlTitle($Language->phrase("GridCancelLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridCancelLink")) . "\" href=\"" . $cancelurl . "\">" . $Language->phrase("GridCancelLink") . "</a>";
-            }
-
-            // Grid-Edit
-            if ($this->isGridEdit()) {
-                if ($this->AllowAddDeleteRow) {
-                    // Add add blank row
-                    $option = $options["addedit"];
-                    $option->UseDropDownButton = false;
-                    $item = &$option->add("addblankrow");
-                    $item->Body = "<a class=\"ew-add-edit ew-add-blank-row\" title=\"" . HtmlTitle($Language->phrase("AddBlankRow")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("AddBlankRow")) . "\" href=\"#\" onclick=\"return ew.addGridRow(this);\">" . $Language->phrase("AddBlankRow") . "</a>";
-                    $item->Visible = $Security->canAdd();
-                }
-                $option = $options["action"];
-                $option->UseDropDownButton = false;
-                    $item = &$option->add("gridsave");
-                    $item->Body = "<a class=\"ew-action ew-grid-save\" title=\"" . HtmlTitle($Language->phrase("GridSaveLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridSaveLink")) . "\" href=\"#\" onclick=\"ew.forms.get(this).submit(event, '" . $this->pageName() . "'); return false;\">" . $Language->phrase("GridSaveLink") . "</a>";
-                    $item = &$option->add("gridcancel");
-                    $cancelurl = $this->addMasterUrl($pageUrl . "action=cancel");
-                    $item->Body = "<a class=\"ew-action ew-grid-cancel\" title=\"" . HtmlTitle($Language->phrase("GridCancelLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("GridCancelLink")) . "\" href=\"" . $cancelurl . "\">" . $Language->phrase("GridCancelLink") . "</a>";
-            }
+            $option->hideAllOptions();
         }
     }
 
@@ -2397,57 +1718,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
     {
     }
 
-    // Load default values
-    protected function loadDefaultValues()
-    {
-        $this->idd_evaluasi->CurrentValue = null;
-        $this->idd_evaluasi->OldValue = $this->idd_evaluasi->CurrentValue;
-        $this->tanggal->CurrentValue = null;
-        $this->tanggal->OldValue = $this->tanggal->CurrentValue;
-        $this->idd_wilayah->CurrentValue = null;
-        $this->idd_wilayah->OldValue = $this->idd_wilayah->CurrentValue;
-        $this->kd_satker->CurrentValue = null;
-        $this->kd_satker->OldValue = $this->kd_satker->CurrentValue;
-        $this->idd_tahapan->CurrentValue = null;
-        $this->idd_tahapan->OldValue = $this->idd_tahapan->CurrentValue;
-        $this->tahun_anggaran->CurrentValue = null;
-        $this->tahun_anggaran->OldValue = $this->tahun_anggaran->CurrentValue;
-        $this->surat_pengantar->Upload->DbValue = null;
-        $this->surat_pengantar->OldValue = $this->surat_pengantar->Upload->DbValue;
-        $this->skd_rqanunpert->Upload->DbValue = null;
-        $this->skd_rqanunpert->OldValue = $this->skd_rqanunpert->Upload->DbValue;
-        $this->rqanun_apbkpert->Upload->DbValue = null;
-        $this->rqanun_apbkpert->OldValue = $this->rqanun_apbkpert->Upload->DbValue;
-        $this->rperbup_apbkpert->Upload->DbValue = null;
-        $this->rperbup_apbkpert->OldValue = $this->rperbup_apbkpert->Upload->DbValue;
-        $this->pbkdd_apbkpert->Upload->DbValue = null;
-        $this->pbkdd_apbkpert->OldValue = $this->pbkdd_apbkpert->Upload->DbValue;
-        $this->risalah_sidang->Upload->DbValue = null;
-        $this->risalah_sidang->OldValue = $this->risalah_sidang->Upload->DbValue;
-        $this->absen_peserta->Upload->DbValue = null;
-        $this->absen_peserta->OldValue = $this->absen_peserta->Upload->DbValue;
-        $this->neraca->Upload->DbValue = null;
-        $this->neraca->OldValue = $this->neraca->Upload->DbValue;
-        $this->lra->Upload->DbValue = null;
-        $this->lra->OldValue = $this->lra->Upload->DbValue;
-        $this->calk->Upload->DbValue = null;
-        $this->calk->OldValue = $this->calk->Upload->DbValue;
-        $this->lo->Upload->DbValue = null;
-        $this->lo->OldValue = $this->lo->Upload->DbValue;
-        $this->lpe->Upload->DbValue = null;
-        $this->lpe->OldValue = $this->lpe->Upload->DbValue;
-        $this->lpsal->Upload->DbValue = null;
-        $this->lpsal->OldValue = $this->lpsal->Upload->DbValue;
-        $this->lak->Upload->DbValue = null;
-        $this->lak->OldValue = $this->lak->Upload->DbValue;
-        $this->laporan_pemeriksaan->Upload->DbValue = null;
-        $this->laporan_pemeriksaan->OldValue = $this->laporan_pemeriksaan->Upload->DbValue;
-        $this->status->CurrentValue = null;
-        $this->status->OldValue = $this->status->CurrentValue;
-        $this->idd_user->CurrentValue = CurrentUserID();
-        $this->idd_user->OldValue = $this->idd_user->CurrentValue;
-    }
-
     // Load basic search values
     protected function loadBasicSearchValues()
     {
@@ -2456,114 +1726,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->Command = "search";
         }
         $this->BasicSearch->setType(Get(Config("TABLE_BASIC_SEARCH_TYPE"), ""), false);
-    }
-
-    // Load form values
-    protected function loadFormValues()
-    {
-        // Load from form
-        global $CurrentForm;
-
-        // Check field name 'tanggal' first before field var 'x_tanggal'
-        $val = $CurrentForm->hasValue("tanggal") ? $CurrentForm->getValue("tanggal") : $CurrentForm->getValue("x_tanggal");
-        if (!$this->tanggal->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->tanggal->Visible = false; // Disable update for API request
-            } else {
-                $this->tanggal->setFormValue($val);
-            }
-            $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
-        }
-        if ($CurrentForm->hasValue("o_tanggal")) {
-            $this->tanggal->setOldValue($CurrentForm->getValue("o_tanggal"));
-        }
-
-        // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
-        $val = $CurrentForm->hasValue("idd_wilayah") ? $CurrentForm->getValue("idd_wilayah") : $CurrentForm->getValue("x_idd_wilayah");
-        if (!$this->idd_wilayah->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_wilayah->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_wilayah->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_idd_wilayah")) {
-            $this->idd_wilayah->setOldValue($CurrentForm->getValue("o_idd_wilayah"));
-        }
-
-        // Check field name 'kd_satker' first before field var 'x_kd_satker'
-        $val = $CurrentForm->hasValue("kd_satker") ? $CurrentForm->getValue("kd_satker") : $CurrentForm->getValue("x_kd_satker");
-        if (!$this->kd_satker->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->kd_satker->Visible = false; // Disable update for API request
-            } else {
-                $this->kd_satker->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_kd_satker")) {
-            $this->kd_satker->setOldValue($CurrentForm->getValue("o_kd_satker"));
-        }
-
-        // Check field name 'idd_tahapan' first before field var 'x_idd_tahapan'
-        $val = $CurrentForm->hasValue("idd_tahapan") ? $CurrentForm->getValue("idd_tahapan") : $CurrentForm->getValue("x_idd_tahapan");
-        if (!$this->idd_tahapan->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_tahapan->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_tahapan->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_idd_tahapan")) {
-            $this->idd_tahapan->setOldValue($CurrentForm->getValue("o_idd_tahapan"));
-        }
-
-        // Check field name 'tahun_anggaran' first before field var 'x_tahun_anggaran'
-        $val = $CurrentForm->hasValue("tahun_anggaran") ? $CurrentForm->getValue("tahun_anggaran") : $CurrentForm->getValue("x_tahun_anggaran");
-        if (!$this->tahun_anggaran->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->tahun_anggaran->Visible = false; // Disable update for API request
-            } else {
-                $this->tahun_anggaran->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_tahun_anggaran")) {
-            $this->tahun_anggaran->setOldValue($CurrentForm->getValue("o_tahun_anggaran"));
-        }
-
-        // Check field name 'status' first before field var 'x_status'
-        $val = $CurrentForm->hasValue("status") ? $CurrentForm->getValue("status") : $CurrentForm->getValue("x_status");
-        if (!$this->status->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->status->Visible = false; // Disable update for API request
-            } else {
-                $this->status->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_status")) {
-            $this->status->setOldValue($CurrentForm->getValue("o_status"));
-        }
-
-        // Check field name 'idd_evaluasi' first before field var 'x_idd_evaluasi'
-        $val = $CurrentForm->hasValue("idd_evaluasi") ? $CurrentForm->getValue("idd_evaluasi") : $CurrentForm->getValue("x_idd_evaluasi");
-        if (!$this->idd_evaluasi->IsDetailKey && !$this->isGridAdd() && !$this->isAdd()) {
-            $this->idd_evaluasi->setFormValue($val);
-        }
-    }
-
-    // Restore form values
-    public function restoreFormValues()
-    {
-        global $CurrentForm;
-        if (!$this->isGridAdd() && !$this->isAdd()) {
-            $this->idd_evaluasi->CurrentValue = $this->idd_evaluasi->FormValue;
-        }
-        $this->tanggal->CurrentValue = $this->tanggal->FormValue;
-        $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
-        $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
-        $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
-        $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
-        $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
-        $this->status->CurrentValue = $this->status->FormValue;
     }
 
     // Load recordset
@@ -2609,9 +1771,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if ($row) {
             $res = true;
             $this->loadRowValues($row); // Load row values
-            if (!$this->EventCancelled) {
-                $this->HashValue = $this->getRowHash($row); // Get hash value for record
-            }
         }
         return $res;
     }
@@ -2639,7 +1798,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
@@ -2680,31 +1838,29 @@ class PertanggungjawabanList extends Pertanggungjawaban
     // Return a row with default values
     protected function newRow()
     {
-        $this->loadDefaultValues();
         $row = [];
-        $row['idd_evaluasi'] = $this->idd_evaluasi->CurrentValue;
-        $row['tanggal'] = $this->tanggal->CurrentValue;
-        $row['idd_wilayah'] = $this->idd_wilayah->CurrentValue;
-        $row['kd_satker'] = $this->kd_satker->CurrentValue;
-        $row['idd_tahapan'] = $this->idd_tahapan->CurrentValue;
-        $row['tahun_anggaran'] = $this->tahun_anggaran->CurrentValue;
-        $row['surat_pengantar'] = $this->surat_pengantar->Upload->DbValue;
-        $row['skd_rqanunpert'] = $this->skd_rqanunpert->Upload->DbValue;
-        $row['rqanun_apbkpert'] = $this->rqanun_apbkpert->Upload->DbValue;
-        $row['rperbup_apbkpert'] = $this->rperbup_apbkpert->Upload->DbValue;
-        $row['pbkdd_apbkpert'] = $this->pbkdd_apbkpert->Upload->DbValue;
-        $row['risalah_sidang'] = $this->risalah_sidang->Upload->DbValue;
-        $row['absen_peserta'] = $this->absen_peserta->Upload->DbValue;
-        $row['neraca'] = $this->neraca->Upload->DbValue;
-        $row['lra'] = $this->lra->Upload->DbValue;
-        $row['calk'] = $this->calk->Upload->DbValue;
-        $row['lo'] = $this->lo->Upload->DbValue;
-        $row['lpe'] = $this->lpe->Upload->DbValue;
-        $row['lpsal'] = $this->lpsal->Upload->DbValue;
-        $row['lak'] = $this->lak->Upload->DbValue;
-        $row['laporan_pemeriksaan'] = $this->laporan_pemeriksaan->Upload->DbValue;
-        $row['status'] = $this->status->CurrentValue;
-        $row['idd_user'] = $this->idd_user->CurrentValue;
+        $row['idd_evaluasi'] = null;
+        $row['tanggal'] = null;
+        $row['kd_satker'] = null;
+        $row['idd_tahapan'] = null;
+        $row['tahun_anggaran'] = null;
+        $row['surat_pengantar'] = null;
+        $row['skd_rqanunpert'] = null;
+        $row['rqanun_apbkpert'] = null;
+        $row['rperbup_apbkpert'] = null;
+        $row['pbkdd_apbkpert'] = null;
+        $row['risalah_sidang'] = null;
+        $row['absen_peserta'] = null;
+        $row['neraca'] = null;
+        $row['lra'] = null;
+        $row['calk'] = null;
+        $row['lo'] = null;
+        $row['lpe'] = null;
+        $row['lpsal'] = null;
+        $row['lak'] = null;
+        $row['laporan_pemeriksaan'] = null;
+        $row['status'] = null;
+        $row['idd_user'] = null;
         return $row;
     }
 
@@ -2745,8 +1901,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
         // idd_evaluasi
 
         // tanggal
-
-        // idd_wilayah
 
         // kd_satker
 
@@ -2796,27 +1950,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
             $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
             $this->tanggal->ViewCustomAttributes = "";
-
-            // idd_wilayah
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
-                    } else {
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-                    }
-                }
-            } else {
-                $this->idd_wilayah->ViewValue = null;
-            }
-            $this->idd_wilayah->ViewCustomAttributes = "";
 
             // kd_satker
             $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -3030,15 +2163,15 @@ class PertanggungjawabanList extends Pertanggungjawaban
             }
             $this->idd_user->ViewCustomAttributes = "";
 
+            // idd_evaluasi
+            $this->idd_evaluasi->LinkCustomAttributes = "";
+            $this->idd_evaluasi->HrefValue = "";
+            $this->idd_evaluasi->TooltipValue = "";
+
             // tanggal
             $this->tanggal->LinkCustomAttributes = "";
             $this->tanggal->HrefValue = "";
             $this->tanggal->TooltipValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -3055,624 +2188,111 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->tahun_anggaran->HrefValue = "";
             $this->tahun_anggaran->TooltipValue = "";
 
+            // surat_pengantar
+            $this->surat_pengantar->LinkCustomAttributes = "";
+            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
+            $this->surat_pengantar->TooltipValue = "";
+
+            // skd_rqanunpert
+            $this->skd_rqanunpert->LinkCustomAttributes = "";
+            $this->skd_rqanunpert->HrefValue = "";
+            $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
+            $this->skd_rqanunpert->TooltipValue = "";
+
+            // rqanun_apbkpert
+            $this->rqanun_apbkpert->LinkCustomAttributes = "";
+            $this->rqanun_apbkpert->HrefValue = "";
+            $this->rqanun_apbkpert->ExportHrefValue = $this->rqanun_apbkpert->UploadPath . $this->rqanun_apbkpert->Upload->DbValue;
+            $this->rqanun_apbkpert->TooltipValue = "";
+
+            // rperbup_apbkpert
+            $this->rperbup_apbkpert->LinkCustomAttributes = "";
+            $this->rperbup_apbkpert->HrefValue = "";
+            $this->rperbup_apbkpert->ExportHrefValue = $this->rperbup_apbkpert->UploadPath . $this->rperbup_apbkpert->Upload->DbValue;
+            $this->rperbup_apbkpert->TooltipValue = "";
+
+            // pbkdd_apbkpert
+            $this->pbkdd_apbkpert->LinkCustomAttributes = "";
+            $this->pbkdd_apbkpert->HrefValue = "";
+            $this->pbkdd_apbkpert->ExportHrefValue = $this->pbkdd_apbkpert->UploadPath . $this->pbkdd_apbkpert->Upload->DbValue;
+            $this->pbkdd_apbkpert->TooltipValue = "";
+
+            // risalah_sidang
+            $this->risalah_sidang->LinkCustomAttributes = "";
+            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
+            $this->risalah_sidang->TooltipValue = "";
+
+            // absen_peserta
+            $this->absen_peserta->LinkCustomAttributes = "";
+            $this->absen_peserta->HrefValue = "";
+            $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
+            $this->absen_peserta->TooltipValue = "";
+
+            // neraca
+            $this->neraca->LinkCustomAttributes = "";
+            $this->neraca->HrefValue = "";
+            $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
+            $this->neraca->TooltipValue = "";
+
+            // lra
+            $this->lra->LinkCustomAttributes = "";
+            $this->lra->HrefValue = "";
+            $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
+            $this->lra->TooltipValue = "";
+
+            // calk
+            $this->calk->LinkCustomAttributes = "";
+            $this->calk->HrefValue = "";
+            $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
+            $this->calk->TooltipValue = "";
+
+            // lo
+            $this->lo->LinkCustomAttributes = "";
+            $this->lo->HrefValue = "";
+            $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
+            $this->lo->TooltipValue = "";
+
+            // lpe
+            $this->lpe->LinkCustomAttributes = "";
+            $this->lpe->HrefValue = "";
+            $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
+            $this->lpe->TooltipValue = "";
+
+            // lpsal
+            $this->lpsal->LinkCustomAttributes = "";
+            $this->lpsal->HrefValue = "";
+            $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
+            $this->lpsal->TooltipValue = "";
+
+            // lak
+            $this->lak->LinkCustomAttributes = "";
+            $this->lak->HrefValue = "";
+            $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
+            $this->lak->TooltipValue = "";
+
+            // laporan_pemeriksaan
+            $this->laporan_pemeriksaan->LinkCustomAttributes = "";
+            $this->laporan_pemeriksaan->HrefValue = "";
+            $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
+            $this->laporan_pemeriksaan->TooltipValue = "";
+
             // status
             $this->status->LinkCustomAttributes = "";
             $this->status->HrefValue = "";
             $this->status->TooltipValue = "";
-        } elseif ($this->RowType == ROWTYPE_ADD) {
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
 
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
-
-            // kd_satker
-            $this->kd_satker->EditAttrs["class"] = "form-control";
-            $this->kd_satker->EditCustomAttributes = "";
-            $curVal = trim(strval($this->kd_satker->CurrentValue));
-            if ($curVal != "") {
-                $this->kd_satker->ViewValue = $this->kd_satker->lookupCacheOption($curVal);
-            } else {
-                $this->kd_satker->ViewValue = $this->kd_satker->Lookup !== null && is_array($this->kd_satker->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->kd_satker->ViewValue !== null) { // Load from cache
-                $this->kd_satker->EditValue = array_values($this->kd_satker->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $this->kd_satker->CurrentValue, DATATYPE_STRING, "");
-                }
-                $sqlWrk = $this->kd_satker->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->kd_satker->EditValue = $arwrk;
-            }
-            $this->kd_satker->PlaceHolder = RemoveHtml($this->kd_satker->caption());
-
-            // idd_tahapan
-            $this->idd_tahapan->EditAttrs["class"] = "form-control";
-            $this->idd_tahapan->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_tahapan->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_tahapan->ViewValue = $this->idd_tahapan->lookupCacheOption($curVal);
-            } else {
-                $this->idd_tahapan->ViewValue = $this->idd_tahapan->Lookup !== null && is_array($this->idd_tahapan->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_tahapan->ViewValue !== null) { // Load from cache
-                $this->idd_tahapan->EditValue = array_values($this->idd_tahapan->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_tahapan`" . SearchString("=", $this->idd_tahapan->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_tahapan->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_tahapan->EditValue = $arwrk;
-            }
-            $this->idd_tahapan->PlaceHolder = RemoveHtml($this->idd_tahapan->caption());
-
-            // tahun_anggaran
-            $this->tahun_anggaran->EditAttrs["class"] = "form-control";
-            $this->tahun_anggaran->EditCustomAttributes = "";
-            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
-            if ($curVal != "") {
-                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
-            } else {
-                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->Lookup !== null && is_array($this->tahun_anggaran->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->tahun_anggaran->ViewValue !== null) { // Load from cache
-                $this->tahun_anggaran->EditValue = array_values($this->tahun_anggaran->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`id_tahun`" . SearchString("=", $this->tahun_anggaran->CurrentValue, DATATYPE_STRING, "");
-                }
-                $sqlWrk = $this->tahun_anggaran->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->tahun_anggaran->EditValue = $arwrk;
-            }
-            $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
-
-            // status
-            $this->status->EditAttrs["class"] = "form-control";
-            $this->status->EditCustomAttributes = "";
-            $this->status->EditValue = $this->status->options(true);
-            $this->status->PlaceHolder = RemoveHtml($this->status->caption());
-
-            // Add refer script
-
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-
-            // kd_satker
-            $this->kd_satker->LinkCustomAttributes = "";
-            $this->kd_satker->HrefValue = "";
-
-            // idd_tahapan
-            $this->idd_tahapan->LinkCustomAttributes = "";
-            $this->idd_tahapan->HrefValue = "";
-
-            // tahun_anggaran
-            $this->tahun_anggaran->LinkCustomAttributes = "";
-            $this->tahun_anggaran->HrefValue = "";
-
-            // status
-            $this->status->LinkCustomAttributes = "";
-            $this->status->HrefValue = "";
-        } elseif ($this->RowType == ROWTYPE_EDIT) {
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
-
-            // kd_satker
-            $this->kd_satker->EditAttrs["class"] = "form-control";
-            $this->kd_satker->EditCustomAttributes = "";
-            $curVal = trim(strval($this->kd_satker->CurrentValue));
-            if ($curVal != "") {
-                $this->kd_satker->ViewValue = $this->kd_satker->lookupCacheOption($curVal);
-            } else {
-                $this->kd_satker->ViewValue = $this->kd_satker->Lookup !== null && is_array($this->kd_satker->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->kd_satker->ViewValue !== null) { // Load from cache
-                $this->kd_satker->EditValue = array_values($this->kd_satker->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`kode_pemda`" . SearchString("=", $this->kd_satker->CurrentValue, DATATYPE_STRING, "");
-                }
-                $sqlWrk = $this->kd_satker->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->kd_satker->EditValue = $arwrk;
-            }
-            $this->kd_satker->PlaceHolder = RemoveHtml($this->kd_satker->caption());
-
-            // idd_tahapan
-            $this->idd_tahapan->EditAttrs["class"] = "form-control";
-            $this->idd_tahapan->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_tahapan->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_tahapan->ViewValue = $this->idd_tahapan->lookupCacheOption($curVal);
-            } else {
-                $this->idd_tahapan->ViewValue = $this->idd_tahapan->Lookup !== null && is_array($this->idd_tahapan->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_tahapan->ViewValue !== null) { // Load from cache
-                $this->idd_tahapan->EditValue = array_values($this->idd_tahapan->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_tahapan`" . SearchString("=", $this->idd_tahapan->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_tahapan->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_tahapan->EditValue = $arwrk;
-            }
-            $this->idd_tahapan->PlaceHolder = RemoveHtml($this->idd_tahapan->caption());
-
-            // tahun_anggaran
-            $this->tahun_anggaran->EditAttrs["class"] = "form-control";
-            $this->tahun_anggaran->EditCustomAttributes = "";
-            $curVal = trim(strval($this->tahun_anggaran->CurrentValue));
-            if ($curVal != "") {
-                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->lookupCacheOption($curVal);
-            } else {
-                $this->tahun_anggaran->ViewValue = $this->tahun_anggaran->Lookup !== null && is_array($this->tahun_anggaran->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->tahun_anggaran->ViewValue !== null) { // Load from cache
-                $this->tahun_anggaran->EditValue = array_values($this->tahun_anggaran->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`id_tahun`" . SearchString("=", $this->tahun_anggaran->CurrentValue, DATATYPE_STRING, "");
-                }
-                $sqlWrk = $this->tahun_anggaran->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->tahun_anggaran->EditValue = $arwrk;
-            }
-            $this->tahun_anggaran->PlaceHolder = RemoveHtml($this->tahun_anggaran->caption());
-
-            // status
-            $this->status->EditAttrs["class"] = "form-control";
-            $this->status->EditCustomAttributes = "";
-            $this->status->EditValue = $this->status->options(true);
-            $this->status->PlaceHolder = RemoveHtml($this->status->caption());
-
-            // Edit refer script
-
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-
-            // kd_satker
-            $this->kd_satker->LinkCustomAttributes = "";
-            $this->kd_satker->HrefValue = "";
-
-            // idd_tahapan
-            $this->idd_tahapan->LinkCustomAttributes = "";
-            $this->idd_tahapan->HrefValue = "";
-
-            // tahun_anggaran
-            $this->tahun_anggaran->LinkCustomAttributes = "";
-            $this->tahun_anggaran->HrefValue = "";
-
-            // status
-            $this->status->LinkCustomAttributes = "";
-            $this->status->HrefValue = "";
-        }
-        if ($this->RowType == ROWTYPE_ADD || $this->RowType == ROWTYPE_EDIT || $this->RowType == ROWTYPE_SEARCH) { // Add/Edit/Search row
-            $this->setupFieldTitles();
+            // idd_user
+            $this->idd_user->LinkCustomAttributes = "";
+            $this->idd_user->HrefValue = "";
+            $this->idd_user->TooltipValue = "";
         }
 
         // Call Row Rendered event
         if ($this->RowType != ROWTYPE_AGGREGATEINIT) {
             $this->rowRendered();
         }
-    }
-
-    // Validate form
-    protected function validateForm()
-    {
-        global $Language;
-
-        // Check if validation required
-        if (!Config("SERVER_VALIDATE")) {
-            return true;
-        }
-        if ($this->tanggal->Required) {
-            if (!$this->tanggal->IsDetailKey && EmptyValue($this->tanggal->FormValue)) {
-                $this->tanggal->addErrorMessage(str_replace("%s", $this->tanggal->caption(), $this->tanggal->RequiredErrorMessage));
-            }
-        }
-        if (!CheckDate($this->tanggal->FormValue)) {
-            $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
-        }
-        if ($this->idd_wilayah->Required) {
-            if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
-                $this->idd_wilayah->addErrorMessage(str_replace("%s", $this->idd_wilayah->caption(), $this->idd_wilayah->RequiredErrorMessage));
-            }
-        }
-        if ($this->kd_satker->Required) {
-            if (!$this->kd_satker->IsDetailKey && EmptyValue($this->kd_satker->FormValue)) {
-                $this->kd_satker->addErrorMessage(str_replace("%s", $this->kd_satker->caption(), $this->kd_satker->RequiredErrorMessage));
-            }
-        }
-        if ($this->idd_tahapan->Required) {
-            if (!$this->idd_tahapan->IsDetailKey && EmptyValue($this->idd_tahapan->FormValue)) {
-                $this->idd_tahapan->addErrorMessage(str_replace("%s", $this->idd_tahapan->caption(), $this->idd_tahapan->RequiredErrorMessage));
-            }
-        }
-        if ($this->tahun_anggaran->Required) {
-            if (!$this->tahun_anggaran->IsDetailKey && EmptyValue($this->tahun_anggaran->FormValue)) {
-                $this->tahun_anggaran->addErrorMessage(str_replace("%s", $this->tahun_anggaran->caption(), $this->tahun_anggaran->RequiredErrorMessage));
-            }
-        }
-        if ($this->status->Required) {
-            if (!$this->status->IsDetailKey && EmptyValue($this->status->FormValue)) {
-                $this->status->addErrorMessage(str_replace("%s", $this->status->caption(), $this->status->RequiredErrorMessage));
-            }
-        }
-
-        // Return validate result
-        $validateForm = !$this->hasInvalidFields();
-
-        // Call Form_CustomValidate event
-        $formCustomError = "";
-        $validateForm = $validateForm && $this->formCustomValidate($formCustomError);
-        if ($formCustomError != "") {
-            $this->setFailureMessage($formCustomError);
-        }
-        return $validateForm;
-    }
-
-    // Delete records based on current filter
-    protected function deleteRows()
-    {
-        global $Language, $Security;
-        if (!$Security->canDelete()) {
-            $this->setFailureMessage($Language->phrase("NoDeletePermission")); // No delete permission
-            return false;
-        }
-        $deleteRows = true;
-        $sql = $this->getCurrentSql();
-        $conn = $this->getConnection();
-        $rows = $conn->fetchAll($sql);
-        if (count($rows) == 0) {
-            $this->setFailureMessage($Language->phrase("NoRecord")); // No record found
-            return false;
-        }
-
-        // Clone old rows
-        $rsold = $rows;
-
-        // Call row deleting event
-        if ($deleteRows) {
-            foreach ($rsold as $row) {
-                $deleteRows = $this->rowDeleting($row);
-                if (!$deleteRows) {
-                    break;
-                }
-            }
-        }
-        if ($deleteRows) {
-            $key = "";
-            foreach ($rsold as $row) {
-                $thisKey = "";
-                if ($thisKey != "") {
-                    $thisKey .= Config("COMPOSITE_KEY_SEPARATOR");
-                }
-                $thisKey .= $row['idd_evaluasi'];
-                if (Config("DELETE_UPLOADED_FILES")) { // Delete old files
-                    $this->deleteUploadedFiles($row);
-                }
-                $deleteRows = $this->delete($row); // Delete
-                if ($deleteRows === false) {
-                    break;
-                }
-                if ($key != "") {
-                    $key .= ", ";
-                }
-                $key .= $thisKey;
-            }
-        }
-        if (!$deleteRows) {
-            // Set up error message
-            if ($this->getSuccessMessage() != "" || $this->getFailureMessage() != "") {
-                // Use the message, do nothing
-            } elseif ($this->CancelMessage != "") {
-                $this->setFailureMessage($this->CancelMessage);
-                $this->CancelMessage = "";
-            } else {
-                $this->setFailureMessage($Language->phrase("DeleteCancelled"));
-            }
-        }
-
-        // Call Row Deleted event
-        if ($deleteRows) {
-            foreach ($rsold as $row) {
-                $this->rowDeleted($row);
-            }
-        }
-
-        // Write JSON for API request
-        if (IsApi() && $deleteRows) {
-            $row = $this->getRecordsFromRecordset($rsold);
-            WriteJson(["success" => true, $this->TableVar => $row]);
-        }
-        return $deleteRows;
-    }
-
-    // Update record based on key values
-    protected function editRow()
-    {
-        global $Security, $Language;
-        $oldKeyFilter = $this->getRecordFilter();
-        $filter = $this->applyUserIDFilters($oldKeyFilter);
-        $conn = $this->getConnection();
-        $this->CurrentFilter = $filter;
-        $sql = $this->getCurrentSql();
-        $rsold = $conn->fetchAssoc($sql);
-        $editRow = false;
-        if (!$rsold) {
-            $this->setFailureMessage($Language->phrase("NoRecord")); // Set no record message
-            $editRow = false; // Update Failed
-        } else {
-            // Save old values
-            $this->loadDbValues($rsold);
-            $rsnew = [];
-
-            // tanggal
-            $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), $this->tanggal->ReadOnly);
-
-            // idd_wilayah
-            $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, $this->idd_wilayah->ReadOnly);
-
-            // kd_satker
-            $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", $this->kd_satker->ReadOnly);
-
-            // idd_tahapan
-            $this->idd_tahapan->setDbValueDef($rsnew, $this->idd_tahapan->CurrentValue, 0, $this->idd_tahapan->ReadOnly);
-
-            // tahun_anggaran
-            $this->tahun_anggaran->setDbValueDef($rsnew, $this->tahun_anggaran->CurrentValue, "", $this->tahun_anggaran->ReadOnly);
-
-            // status
-            $this->status->setDbValueDef($rsnew, $this->status->CurrentValue, 0, $this->status->ReadOnly);
-
-            // Call Row Updating event
-            $updateRow = $this->rowUpdating($rsold, $rsnew);
-            if ($updateRow) {
-                if (count($rsnew) > 0) {
-                    try {
-                        $editRow = $this->update($rsnew, "", $rsold);
-                    } catch (\Exception $e) {
-                        $this->setFailureMessage($e->getMessage());
-                    }
-                } else {
-                    $editRow = true; // No field to update
-                }
-                if ($editRow) {
-                }
-            } else {
-                if ($this->getSuccessMessage() != "" || $this->getFailureMessage() != "") {
-                    // Use the message, do nothing
-                } elseif ($this->CancelMessage != "") {
-                    $this->setFailureMessage($this->CancelMessage);
-                    $this->CancelMessage = "";
-                } else {
-                    $this->setFailureMessage($Language->phrase("UpdateCancelled"));
-                }
-                $editRow = false;
-            }
-        }
-
-        // Call Row_Updated event
-        if ($editRow) {
-            $this->rowUpdated($rsold, $rsnew);
-        }
-
-        // Clean upload path if any
-        if ($editRow) {
-        }
-
-        // Write JSON for API request
-        if (IsApi() && $editRow) {
-            $row = $this->getRecordsFromRecordset([$rsnew], true);
-            WriteJson(["success" => true, $this->TableVar => $row]);
-        }
-        return $editRow;
-    }
-
-    // Load row hash
-    protected function loadRowHash()
-    {
-        $filter = $this->getRecordFilter();
-
-        // Load SQL based on filter
-        $this->CurrentFilter = $filter;
-        $sql = $this->getCurrentSql();
-        $conn = $this->getConnection();
-        $row = $conn->fetchAssoc($sql);
-        $this->HashValue = $row ? $this->getRowHash($row) : ""; // Get hash value for record
-    }
-
-    // Get Row Hash
-    public function getRowHash(&$rs)
-    {
-        if (!$rs) {
-            return "";
-        }
-        $row = ($rs instanceof Recordset) ? $rs->fields : $rs;
-        $hash = "";
-        $hash .= GetFieldHash($row['tanggal']); // tanggal
-        $hash .= GetFieldHash($row['idd_wilayah']); // idd_wilayah
-        $hash .= GetFieldHash($row['kd_satker']); // kd_satker
-        $hash .= GetFieldHash($row['idd_tahapan']); // idd_tahapan
-        $hash .= GetFieldHash($row['tahun_anggaran']); // tahun_anggaran
-        $hash .= GetFieldHash($row['status']); // status
-        return md5($hash);
-    }
-
-    // Add record
-    protected function addRow($rsold = null)
-    {
-        global $Language, $Security;
-
-        // Check if valid User ID
-        $validUser = false;
-        if ($Security->currentUserID() != "" && !EmptyValue($this->idd_user->CurrentValue) && !$Security->isAdmin()) { // Non system admin
-            $validUser = $Security->isValidUserID($this->idd_user->CurrentValue);
-            if (!$validUser) {
-                $userIdMsg = str_replace("%c", CurrentUserID(), $Language->phrase("UnAuthorizedUserID"));
-                $userIdMsg = str_replace("%u", $this->idd_user->CurrentValue, $userIdMsg);
-                $this->setFailureMessage($userIdMsg);
-                return false;
-            }
-        }
-        $conn = $this->getConnection();
-
-        // Load db values from rsold
-        $this->loadDbValues($rsold);
-        if ($rsold) {
-        }
-        $rsnew = [];
-
-        // tanggal
-        $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), false);
-
-        // idd_wilayah
-        $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, false);
-
-        // kd_satker
-        $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", false);
-
-        // idd_tahapan
-        $this->idd_tahapan->setDbValueDef($rsnew, $this->idd_tahapan->CurrentValue, 0, false);
-
-        // tahun_anggaran
-        $this->tahun_anggaran->setDbValueDef($rsnew, $this->tahun_anggaran->CurrentValue, "", false);
-
-        // status
-        $this->status->setDbValueDef($rsnew, $this->status->CurrentValue, 0, false);
-
-        // idd_user
-        if (!$Security->isAdmin() && $Security->isLoggedIn()) { // Non system admin
-            $rsnew['idd_user'] = CurrentUserID();
-        }
-
-        // Call Row Inserting event
-        $insertRow = $this->rowInserting($rsold, $rsnew);
-        $addRow = false;
-        if ($insertRow) {
-            try {
-                $addRow = $this->insert($rsnew);
-            } catch (\Exception $e) {
-                $this->setFailureMessage($e->getMessage());
-            }
-            if ($addRow) {
-            }
-        } else {
-            if ($this->getSuccessMessage() != "" || $this->getFailureMessage() != "") {
-                // Use the message, do nothing
-            } elseif ($this->CancelMessage != "") {
-                $this->setFailureMessage($this->CancelMessage);
-                $this->CancelMessage = "";
-            } else {
-                $this->setFailureMessage($Language->phrase("InsertCancelled"));
-            }
-            $addRow = false;
-        }
-        if ($addRow) {
-            // Call Row Inserted event
-            $this->rowInserted($rsold, $rsnew);
-        }
-
-        // Clean upload path if any
-        if ($addRow) {
-        }
-
-        // Write JSON for API request
-        if (IsApi() && $addRow) {
-            $row = $this->getRecordsFromRecordset([$rsnew], true);
-            WriteJson(["success" => true, $this->TableVar => $row]);
-        }
-        return $addRow;
     }
 
     // Set up search options
@@ -3686,7 +2306,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
         // Search button
         $item = &$this->SearchOptions->add("searchtoggle");
         $searchToggleClass = ($this->SearchWhere != "") ? " active" : " active";
-        $item->Body = "<a class=\"btn btn-default ew-search-toggle" . $searchToggleClass . "\" href=\"#\" role=\"button\" title=\"" . $Language->phrase("SearchPanel") . "\" data-caption=\"" . $Language->phrase("SearchPanel") . "\" data-toggle=\"button\" data-form=\"fpertanggungjawabanlistsrch\" aria-pressed=\"" . ($searchToggleClass == " active" ? "true" : "false") . "\">" . $Language->phrase("SearchLink") . "</a>";
+        $item->Body = "<a class=\"btn btn-default ew-search-toggle" . $searchToggleClass . "\" href=\"#\" role=\"button\" title=\"" . $Language->phrase("SearchPanel") . "\" data-caption=\"" . $Language->phrase("SearchPanel") . "\" data-toggle=\"button\" data-form=\"fpertanggungjawaban2022listsrch\" aria-pressed=\"" . ($searchToggleClass == " active" ? "true" : "false") . "\">" . $Language->phrase("SearchLink") . "</a>";
         $item->Visible = true;
 
         // Show all button
@@ -3747,8 +2367,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
             // Set up lookup SQL and connection
             switch ($fld->FieldVar) {
-                case "x_idd_wilayah":
-                    break;
                 case "x_kd_satker":
                     break;
                 case "x_idd_tahapan":

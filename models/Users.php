@@ -99,16 +99,12 @@ class Users extends DbTable
 
         // email
         $this->_email = new DbField('users', 'users', 'x__email', 'email', '`email`', '`email`', 200, 200, -1, false, '`email`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->_email->Nullable = false; // NOT NULL field
-        $this->_email->Required = true; // Required field
         $this->_email->Sortable = true; // Allow sort
         $this->_email->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->_email->Param, "CustomMsg");
         $this->Fields['email'] = &$this->_email;
 
         // photo
         $this->photo = new DbField('users', 'users', 'x_photo', 'photo', '`photo`', '`photo`', 200, 100, -1, true, '`photo`', false, false, false, 'IMAGE', 'FILE');
-        $this->photo->Nullable = false; // NOT NULL field
-        $this->photo->Required = true; // Required field
         $this->photo->Sortable = true; // Allow sort
         $this->photo->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->photo->Param, "CustomMsg");
         $this->Fields['photo'] = &$this->photo;

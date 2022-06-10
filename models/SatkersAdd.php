@@ -629,8 +629,7 @@ class SatkersAdd extends Satkers
         $this->nama_satker->OldValue = $this->nama_satker->CurrentValue;
         $this->wilayah->CurrentValue = null;
         $this->wilayah->OldValue = $this->wilayah->CurrentValue;
-        $this->idd_user->CurrentValue = null;
-        $this->idd_user->OldValue = $this->idd_user->CurrentValue;
+        $this->idd_user->CurrentValue = CurrentUserID();
         $this->no_telepon->CurrentValue = null;
         $this->no_telepon->OldValue = $this->no_telepon->CurrentValue;
     }
@@ -739,6 +738,15 @@ class SatkersAdd extends Satkers
         if ($row) {
             $res = true;
             $this->loadRowValues($row); // Load row values
+        }
+
+        // Check if valid User ID
+        if ($res) {
+            $res = $this->showOptionLink("add");
+            if (!$res) {
+                $userIdMsg = DeniedMessage();
+                $this->setFailureMessage($userIdMsg);
+            }
         }
         return $res;
     }
@@ -993,27 +1001,50 @@ class SatkersAdd extends Satkers
             // idd_user
             $this->idd_user->EditAttrs["class"] = "form-control";
             $this->idd_user->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_user->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
-            } else {
-                $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_user->ViewValue !== null) { // Load from cache
-                $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
+            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("add")) { // Non system admin
+                $this->idd_user->CurrentValue = CurrentUserID();
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
+                    if ($this->idd_user->EditValue === null) { // Lookup from database
+                        $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
+                        $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
+                        $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                        $ari = count($rswrk);
+                        if ($ari > 0) { // Lookup values found
+                            $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
+                            $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
+                        } else {
+                            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
+                        }
+                    }
                 } else {
-                    $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    $this->idd_user->EditValue = null;
                 }
-                $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_user->EditValue = $arwrk;
+                $this->idd_user->ViewCustomAttributes = "";
+            } else {
+                $curVal = trim(strval($this->idd_user->CurrentValue));
+                if ($curVal != "") {
+                    $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
+                } else {
+                    $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
+                }
+                if ($this->idd_user->ViewValue !== null) { // Load from cache
+                    $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
+                } else { // Lookup from database
+                    if ($curVal == "") {
+                        $filterWrk = "0=1";
+                    } else {
+                        $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
+                    }
+                    $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
+                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
+                    $ari = count($rswrk);
+                    $arwrk = $rswrk;
+                    $this->idd_user->EditValue = $arwrk;
+                }
+                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
             }
-            $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
 
             // no_telepon
             $this->no_telepon->EditAttrs["class"] = "form-control";
@@ -1127,6 +1158,18 @@ class SatkersAdd extends Satkers
     protected function addRow($rsold = null)
     {
         global $Language, $Security;
+
+        // Check if valid User ID
+        $validUser = false;
+        if ($Security->currentUserID() != "" && !EmptyValue($this->idd_user->CurrentValue) && !$Security->isAdmin()) { // Non system admin
+            $validUser = $Security->isValidUserID($this->idd_user->CurrentValue);
+            if (!$validUser) {
+                $userIdMsg = str_replace("%c", CurrentUserID(), $Language->phrase("UnAuthorizedUserID"));
+                $userIdMsg = str_replace("%u", $this->idd_user->CurrentValue, $userIdMsg);
+                $this->setFailureMessage($userIdMsg);
+                return false;
+            }
+        }
         $conn = $this->getConnection();
 
         // Load db values from rsold
@@ -1151,7 +1194,7 @@ class SatkersAdd extends Satkers
         $this->idd_user->setDbValueDef($rsnew, $this->idd_user->CurrentValue, 0, false);
 
         // no_telepon
-        $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, "", false);
+        $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, null, false);
 
         // Call Row Inserting event
         $insertRow = $this->rowInserting($rsold, $rsnew);
@@ -1190,6 +1233,16 @@ class SatkersAdd extends Satkers
             WriteJson(["success" => true, $this->TableVar => $row]);
         }
         return $addRow;
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb

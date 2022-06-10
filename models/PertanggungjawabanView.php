@@ -526,8 +526,9 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $this->tahun_anggaran->setVisibility();
         $this->surat_pengantar->setVisibility();
         $this->skd_rqanunpert->setVisibility();
-        $this->rq_apbkpert->setVisibility();
-        $this->bap_apbkpert->setVisibility();
+        $this->rqanun_apbkpert->setVisibility();
+        $this->rperbup_apbkpert->setVisibility();
+        $this->pbkdd_apbkpert->setVisibility();
         $this->risalah_sidang->setVisibility();
         $this->absen_peserta->setVisibility();
         $this->neraca->setVisibility();
@@ -538,7 +539,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $this->lpsal->setVisibility();
         $this->lak->setVisibility();
         $this->laporan_pemeriksaan->setVisibility();
-        $this->softcopy_rqanun->setVisibility();
         $this->status->setVisibility();
         $this->idd_user->setVisibility();
         $this->hideFieldsForAddEdit();
@@ -769,10 +769,12 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $this->surat_pengantar->setDbValue($this->surat_pengantar->Upload->DbValue);
         $this->skd_rqanunpert->Upload->DbValue = $row['skd_rqanunpert'];
         $this->skd_rqanunpert->setDbValue($this->skd_rqanunpert->Upload->DbValue);
-        $this->rq_apbkpert->Upload->DbValue = $row['rq_apbkpert'];
-        $this->rq_apbkpert->setDbValue($this->rq_apbkpert->Upload->DbValue);
-        $this->bap_apbkpert->Upload->DbValue = $row['bap_apbkpert'];
-        $this->bap_apbkpert->setDbValue($this->bap_apbkpert->Upload->DbValue);
+        $this->rqanun_apbkpert->Upload->DbValue = $row['rqanun_apbkpert'];
+        $this->rqanun_apbkpert->setDbValue($this->rqanun_apbkpert->Upload->DbValue);
+        $this->rperbup_apbkpert->Upload->DbValue = $row['rperbup_apbkpert'];
+        $this->rperbup_apbkpert->setDbValue($this->rperbup_apbkpert->Upload->DbValue);
+        $this->pbkdd_apbkpert->Upload->DbValue = $row['pbkdd_apbkpert'];
+        $this->pbkdd_apbkpert->setDbValue($this->pbkdd_apbkpert->Upload->DbValue);
         $this->risalah_sidang->Upload->DbValue = $row['risalah_sidang'];
         $this->risalah_sidang->setDbValue($this->risalah_sidang->Upload->DbValue);
         $this->absen_peserta->Upload->DbValue = $row['absen_peserta'];
@@ -793,8 +795,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $this->lak->setDbValue($this->lak->Upload->DbValue);
         $this->laporan_pemeriksaan->Upload->DbValue = $row['laporan_pemeriksaan'];
         $this->laporan_pemeriksaan->setDbValue($this->laporan_pemeriksaan->Upload->DbValue);
-        $this->softcopy_rqanun->Upload->DbValue = $row['softcopy_rqanun'];
-        $this->softcopy_rqanun->setDbValue($this->softcopy_rqanun->Upload->DbValue);
         $this->status->setDbValue($row['status']);
         $this->idd_user->setDbValue($row['idd_user']);
     }
@@ -811,8 +811,9 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $row['tahun_anggaran'] = null;
         $row['surat_pengantar'] = null;
         $row['skd_rqanunpert'] = null;
-        $row['rq_apbkpert'] = null;
-        $row['bap_apbkpert'] = null;
+        $row['rqanun_apbkpert'] = null;
+        $row['rperbup_apbkpert'] = null;
+        $row['pbkdd_apbkpert'] = null;
         $row['risalah_sidang'] = null;
         $row['absen_peserta'] = null;
         $row['neraca'] = null;
@@ -823,7 +824,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $row['lpsal'] = null;
         $row['lak'] = null;
         $row['laporan_pemeriksaan'] = null;
-        $row['softcopy_rqanun'] = null;
         $row['status'] = null;
         $row['idd_user'] = null;
         return $row;
@@ -863,9 +863,11 @@ class PertanggungjawabanView extends Pertanggungjawaban
 
         // skd_rqanunpert
 
-        // rq_apbkpert
+        // rqanun_apbkpert
 
-        // bap_apbkpert
+        // rperbup_apbkpert
+
+        // pbkdd_apbkpert
 
         // risalah_sidang
 
@@ -886,8 +888,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
         // lak
 
         // laporan_pemeriksaan
-
-        // softcopy_rqanun
 
         // status
 
@@ -1002,21 +1002,29 @@ class PertanggungjawabanView extends Pertanggungjawaban
             }
             $this->skd_rqanunpert->ViewCustomAttributes = "";
 
-            // rq_apbkpert
-            if (!EmptyValue($this->rq_apbkpert->Upload->DbValue)) {
-                $this->rq_apbkpert->ViewValue = $this->rq_apbkpert->Upload->DbValue;
+            // rqanun_apbkpert
+            if (!EmptyValue($this->rqanun_apbkpert->Upload->DbValue)) {
+                $this->rqanun_apbkpert->ViewValue = $this->rqanun_apbkpert->Upload->DbValue;
             } else {
-                $this->rq_apbkpert->ViewValue = "";
+                $this->rqanun_apbkpert->ViewValue = "";
             }
-            $this->rq_apbkpert->ViewCustomAttributes = "";
+            $this->rqanun_apbkpert->ViewCustomAttributes = "";
 
-            // bap_apbkpert
-            if (!EmptyValue($this->bap_apbkpert->Upload->DbValue)) {
-                $this->bap_apbkpert->ViewValue = $this->bap_apbkpert->Upload->DbValue;
+            // rperbup_apbkpert
+            if (!EmptyValue($this->rperbup_apbkpert->Upload->DbValue)) {
+                $this->rperbup_apbkpert->ViewValue = $this->rperbup_apbkpert->Upload->DbValue;
             } else {
-                $this->bap_apbkpert->ViewValue = "";
+                $this->rperbup_apbkpert->ViewValue = "";
             }
-            $this->bap_apbkpert->ViewCustomAttributes = "";
+            $this->rperbup_apbkpert->ViewCustomAttributes = "";
+
+            // pbkdd_apbkpert
+            if (!EmptyValue($this->pbkdd_apbkpert->Upload->DbValue)) {
+                $this->pbkdd_apbkpert->ViewValue = $this->pbkdd_apbkpert->Upload->DbValue;
+            } else {
+                $this->pbkdd_apbkpert->ViewValue = "";
+            }
+            $this->pbkdd_apbkpert->ViewCustomAttributes = "";
 
             // risalah_sidang
             if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
@@ -1098,14 +1106,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
             }
             $this->laporan_pemeriksaan->ViewCustomAttributes = "";
 
-            // softcopy_rqanun
-            if (!EmptyValue($this->softcopy_rqanun->Upload->DbValue)) {
-                $this->softcopy_rqanun->ViewValue = $this->softcopy_rqanun->Upload->DbValue;
-            } else {
-                $this->softcopy_rqanun->ViewValue = "";
-            }
-            $this->softcopy_rqanun->ViewCustomAttributes = "";
-
             // status
             if (strval($this->status->CurrentValue) != "") {
                 $this->status->ViewValue = $this->status->optionCaption($this->status->CurrentValue);
@@ -1134,11 +1134,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
                 $this->idd_user->ViewValue = null;
             }
             $this->idd_user->ViewCustomAttributes = "";
-
-            // idd_evaluasi
-            $this->idd_evaluasi->LinkCustomAttributes = "";
-            $this->idd_evaluasi->HrefValue = "";
-            $this->idd_evaluasi->TooltipValue = "";
 
             // tanggal
             $this->tanggal->LinkCustomAttributes = "";
@@ -1177,17 +1172,23 @@ class PertanggungjawabanView extends Pertanggungjawaban
             $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
             $this->skd_rqanunpert->TooltipValue = "";
 
-            // rq_apbkpert
-            $this->rq_apbkpert->LinkCustomAttributes = "";
-            $this->rq_apbkpert->HrefValue = "";
-            $this->rq_apbkpert->ExportHrefValue = $this->rq_apbkpert->UploadPath . $this->rq_apbkpert->Upload->DbValue;
-            $this->rq_apbkpert->TooltipValue = "";
+            // rqanun_apbkpert
+            $this->rqanun_apbkpert->LinkCustomAttributes = "";
+            $this->rqanun_apbkpert->HrefValue = "";
+            $this->rqanun_apbkpert->ExportHrefValue = $this->rqanun_apbkpert->UploadPath . $this->rqanun_apbkpert->Upload->DbValue;
+            $this->rqanun_apbkpert->TooltipValue = "";
 
-            // bap_apbkpert
-            $this->bap_apbkpert->LinkCustomAttributes = "";
-            $this->bap_apbkpert->HrefValue = "";
-            $this->bap_apbkpert->ExportHrefValue = $this->bap_apbkpert->UploadPath . $this->bap_apbkpert->Upload->DbValue;
-            $this->bap_apbkpert->TooltipValue = "";
+            // rperbup_apbkpert
+            $this->rperbup_apbkpert->LinkCustomAttributes = "";
+            $this->rperbup_apbkpert->HrefValue = "";
+            $this->rperbup_apbkpert->ExportHrefValue = $this->rperbup_apbkpert->UploadPath . $this->rperbup_apbkpert->Upload->DbValue;
+            $this->rperbup_apbkpert->TooltipValue = "";
+
+            // pbkdd_apbkpert
+            $this->pbkdd_apbkpert->LinkCustomAttributes = "";
+            $this->pbkdd_apbkpert->HrefValue = "";
+            $this->pbkdd_apbkpert->ExportHrefValue = $this->pbkdd_apbkpert->UploadPath . $this->pbkdd_apbkpert->Upload->DbValue;
+            $this->pbkdd_apbkpert->TooltipValue = "";
 
             // risalah_sidang
             $this->risalah_sidang->LinkCustomAttributes = "";
@@ -1248,12 +1249,6 @@ class PertanggungjawabanView extends Pertanggungjawaban
             $this->laporan_pemeriksaan->HrefValue = "";
             $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
             $this->laporan_pemeriksaan->TooltipValue = "";
-
-            // softcopy_rqanun
-            $this->softcopy_rqanun->LinkCustomAttributes = "";
-            $this->softcopy_rqanun->HrefValue = "";
-            $this->softcopy_rqanun->ExportHrefValue = $this->softcopy_rqanun->UploadPath . $this->softcopy_rqanun->Upload->DbValue;
-            $this->softcopy_rqanun->TooltipValue = "";
 
             // status
             $this->status->LinkCustomAttributes = "";

@@ -47,11 +47,14 @@ $Page->showMessage();
 <?php if ($Page->_username->Visible) { // username ?>
         <th class="<?= $Page->_username->headerCellClass() ?>"><span id="elh_users__username" class="users__username"><?= $Page->_username->caption() ?></span></th>
 <?php } ?>
+<?php if ($Page->_password->Visible) { // password ?>
+        <th class="<?= $Page->_password->headerCellClass() ?>"><span id="elh_users__password" class="users__password"><?= $Page->_password->caption() ?></span></th>
+<?php } ?>
 <?php if ($Page->_email->Visible) { // email ?>
         <th class="<?= $Page->_email->headerCellClass() ?>"><span id="elh_users__email" class="users__email"><?= $Page->_email->caption() ?></span></th>
 <?php } ?>
-<?php if ($Page->photo->Visible) { // photo ?>
-        <th class="<?= $Page->photo->headerCellClass() ?>"><span id="elh_users_photo" class="users_photo"><?= $Page->photo->caption() ?></span></th>
+<?php if ($Page->level->Visible) { // level ?>
+        <th class="<?= $Page->level->headerCellClass() ?>"><span id="elh_users_level" class="users_level"><?= $Page->level->caption() ?></span></th>
 <?php } ?>
     </tr>
     </thead>
@@ -82,6 +85,14 @@ while (!$Page->Recordset->EOF) {
 </span>
 </td>
 <?php } ?>
+<?php if ($Page->_password->Visible) { // password ?>
+        <td <?= $Page->_password->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_users__password" class="users__password">
+<span<?= $Page->_password->viewAttributes() ?>>
+<?= $Page->_password->getViewValue() ?></span>
+</span>
+</td>
+<?php } ?>
 <?php if ($Page->_email->Visible) { // email ?>
         <td <?= $Page->_email->cellAttributes() ?>>
 <span id="el<?= $Page->RowCount ?>_users__email" class="users__email">
@@ -90,12 +101,11 @@ while (!$Page->Recordset->EOF) {
 </span>
 </td>
 <?php } ?>
-<?php if ($Page->photo->Visible) { // photo ?>
-        <td <?= $Page->photo->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_users_photo" class="users_photo">
-<span>
-<?= GetFileViewTag($Page->photo, $Page->photo->getViewValue(), false) ?>
-</span>
+<?php if ($Page->level->Visible) { // level ?>
+        <td <?= $Page->level->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_users_level" class="users_level">
+<span<?= $Page->level->viewAttributes() ?>>
+<?= $Page->level->getViewValue() ?></span>
 </span>
 </td>
 <?php } ?>

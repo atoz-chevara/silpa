@@ -1181,7 +1181,7 @@ class EvaluatorsAdd extends Evaluators
         $this->idd_user->setDbValueDef($rsnew, $this->idd_user->CurrentValue, 0, false);
 
         // no_telepon
-        $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, "", false);
+        $this->no_telepon->setDbValueDef($rsnew, $this->no_telepon->CurrentValue, null, false);
 
         // Call Row Inserting event
         $insertRow = $this->rowInserting($rsold, $rsnew);

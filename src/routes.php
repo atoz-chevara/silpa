@@ -192,6 +192,23 @@ return function (App $app) {
         }
     );
 
+    // pertanggungjawaban2022
+    $app->any('/pertanggungjawaban2022list[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':list')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022list-pertanggungjawaban2022-list'); // list
+    $app->any('/pertanggungjawaban2022add[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':add')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022add-pertanggungjawaban2022-add'); // add
+    $app->any('/pertanggungjawaban2022view[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':view')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022view-pertanggungjawaban2022-view'); // view
+    $app->any('/pertanggungjawaban2022edit[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':edit')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022edit-pertanggungjawaban2022-edit'); // edit
+    $app->any('/pertanggungjawaban2022delete[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':delete')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022delete-pertanggungjawaban2022-delete'); // delete
+    $app->group(
+        '/pertanggungjawaban2022',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':list')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/list-pertanggungjawaban2022-list-2'); // list
+            $group->any('/' . Config("ADD_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':add')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/add-pertanggungjawaban2022-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':view')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/view-pertanggungjawaban2022-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':edit')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/edit-pertanggungjawaban2022-edit-2'); // edit
+            $group->any('/' . Config("DELETE_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':delete')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/delete-pertanggungjawaban2022-delete-2'); // delete
+        }
+    );
+
     // error
     $app->any('/error', OthersController::class . ':error')->add(PermissionMiddleware::class)->setName('error');
 

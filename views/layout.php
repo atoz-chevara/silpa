@@ -277,8 +277,8 @@ loadjs.ready("datetimepicker", function() {
     {{/if}}
 {{/if}}
 </script>
-<link rel="shortcut icon" type="image/x-icon" href="<?= BasePath() ?>/favicon.ico">
-<link rel="icon" type="image/x-icon" href="<?= BasePath() ?>/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="<?= BasePath() ?>/lgpemda.ico">
+<link rel="icon" type="image/x-icon" href="<?= BasePath() ?>/lgpemda.ico">
 <meta name="generator" content="PHPMaker 2021.0.9">
 </head>
 <body class="<?= Config("BODY_CLASS") ?>" dir="<?= IsRTL() ? "rtl" : "ltr" ?>">

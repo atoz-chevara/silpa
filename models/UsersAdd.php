@@ -1111,7 +1111,7 @@ class UsersAdd extends Users
         }
 
         // email
-        $this->_email->setDbValueDef($rsnew, $this->_email->CurrentValue, "", false);
+        $this->_email->setDbValueDef($rsnew, $this->_email->CurrentValue, null, false);
 
         // photo
         if ($this->photo->Visible && !$this->photo->Upload->KeepFile) {
@@ -1168,7 +1168,7 @@ class UsersAdd extends Users
                 }
                 $this->photo->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
                 $this->photo->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                $this->photo->setDbValueDef($rsnew, $this->photo->Upload->FileName, "", false);
+                $this->photo->setDbValueDef($rsnew, $this->photo->Upload->FileName, null, false);
             }
         }
 

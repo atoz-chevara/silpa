@@ -53,14 +53,8 @@ $Page->showMessage();
 <?php if ($Page->nama_satker->Visible) { // nama_satker ?>
         <th class="<?= $Page->nama_satker->headerCellClass() ?>"><span id="elh_satkers_nama_satker" class="satkers_nama_satker"><?= $Page->nama_satker->caption() ?></span></th>
 <?php } ?>
-<?php if ($Page->wilayah->Visible) { // wilayah ?>
-        <th class="<?= $Page->wilayah->headerCellClass() ?>"><span id="elh_satkers_wilayah" class="satkers_wilayah"><?= $Page->wilayah->caption() ?></span></th>
-<?php } ?>
 <?php if ($Page->idd_user->Visible) { // idd_user ?>
         <th class="<?= $Page->idd_user->headerCellClass() ?>"><span id="elh_satkers_idd_user" class="satkers_idd_user"><?= $Page->idd_user->caption() ?></span></th>
-<?php } ?>
-<?php if ($Page->no_telepon->Visible) { // no_telepon ?>
-        <th class="<?= $Page->no_telepon->headerCellClass() ?>"><span id="elh_satkers_no_telepon" class="satkers_no_telepon"><?= $Page->no_telepon->caption() ?></span></th>
 <?php } ?>
     </tr>
     </thead>
@@ -107,32 +101,11 @@ while (!$Page->Recordset->EOF) {
 </span>
 </td>
 <?php } ?>
-<?php if ($Page->wilayah->Visible) { // wilayah ?>
-        <td <?= $Page->wilayah->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_satkers_wilayah" class="satkers_wilayah">
-<span<?= $Page->wilayah->viewAttributes() ?>>
-<?= $Page->wilayah->getViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
 <?php if ($Page->idd_user->Visible) { // idd_user ?>
         <td <?= $Page->idd_user->cellAttributes() ?>>
 <span id="el<?= $Page->RowCount ?>_satkers_idd_user" class="satkers_idd_user">
 <span<?= $Page->idd_user->viewAttributes() ?>>
 <?= $Page->idd_user->getViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
-<?php if ($Page->no_telepon->Visible) { // no_telepon ?>
-        <td <?= $Page->no_telepon->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_satkers_no_telepon" class="satkers_no_telepon">
-<span<?= $Page->no_telepon->viewAttributes() ?>>
-<?php if (!EmptyString($Page->no_telepon->getViewValue()) && $Page->no_telepon->linkAttributes() != "") { ?>
-<a<?= $Page->no_telepon->linkAttributes() ?>><?= $Page->no_telepon->getViewValue() ?></a>
-<?php } else { ?>
-<?= $Page->no_telepon->getViewValue() ?>
-<?php } ?>
-</span>
 </span>
 </td>
 <?php } ?>

@@ -3,25 +3,25 @@
 namespace PHPMaker2021\silpa;
 
 // Page object
-$PertanggungjawabanEdit = &$Page;
+$Pertanggungjawaban2022Edit = &$Page;
 ?>
 <script>
 var currentForm, currentPageID;
-var fpertanggungjawabanedit;
+var fpertanggungjawaban2022edit;
 loadjs.ready("head", function () {
     var $ = jQuery;
     // Form object
     currentPageID = ew.PAGE_ID = "edit";
-    fpertanggungjawabanedit = currentForm = new ew.Form("fpertanggungjawabanedit", "edit");
+    fpertanggungjawaban2022edit = currentForm = new ew.Form("fpertanggungjawaban2022edit", "edit");
 
     // Add fields
-    var currentTable = <?= JsonEncode(GetClientVar("tables", "pertanggungjawaban")) ?>,
+    var currentTable = <?= JsonEncode(GetClientVar("tables", "pertanggungjawaban2022")) ?>,
         fields = currentTable.fields;
-    if (!ew.vars.tables.pertanggungjawaban)
-        ew.vars.tables.pertanggungjawaban = currentTable;
-    fpertanggungjawabanedit.addFields([
+    if (!ew.vars.tables.pertanggungjawaban2022)
+        ew.vars.tables.pertanggungjawaban2022 = currentTable;
+    fpertanggungjawaban2022edit.addFields([
+        ["idd_evaluasi", [fields.idd_evaluasi.visible && fields.idd_evaluasi.required ? ew.Validators.required(fields.idd_evaluasi.caption) : null], fields.idd_evaluasi.isInvalid],
         ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
-        ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null], fields.idd_wilayah.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
         ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
         ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
@@ -46,7 +46,7 @@ loadjs.ready("head", function () {
 
     // Set invalid fields
     $(function() {
-        var f = fpertanggungjawabanedit,
+        var f = fpertanggungjawaban2022edit,
             fobj = f.getForm(),
             $fobj = $(fobj),
             $k = $fobj.find("#" + f.formKeyCountName), // Get key_count
@@ -59,7 +59,7 @@ loadjs.ready("head", function () {
     });
 
     // Validate form
-    fpertanggungjawabanedit.validate = function () {
+    fpertanggungjawaban2022edit.validate = function () {
         if (!this.validateRequired)
             return true; // Ignore validation
         var fobj = this.getForm(),
@@ -99,22 +99,21 @@ loadjs.ready("head", function () {
     }
 
     // Form_CustomValidate
-    fpertanggungjawabanedit.customValidate = function(fobj) { // DO NOT CHANGE THIS LINE!
+    fpertanggungjawaban2022edit.customValidate = function(fobj) { // DO NOT CHANGE THIS LINE!
         // Your custom validation code here, return false if invalid.
         return true;
     }
 
     // Use JavaScript validation or not
-    fpertanggungjawabanedit.validateRequired = <?= Config("CLIENT_VALIDATE") ? "true" : "false" ?>;
+    fpertanggungjawaban2022edit.validateRequired = <?= Config("CLIENT_VALIDATE") ? "true" : "false" ?>;
 
     // Dynamic selection lists
-    fpertanggungjawabanedit.lists.idd_wilayah = <?= $Page->idd_wilayah->toClientList($Page) ?>;
-    fpertanggungjawabanedit.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
-    fpertanggungjawabanedit.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
-    fpertanggungjawabanedit.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
-    fpertanggungjawabanedit.lists.status = <?= $Page->status->toClientList($Page) ?>;
-    fpertanggungjawabanedit.lists.idd_user = <?= $Page->idd_user->toClientList($Page) ?>;
-    loadjs.done("fpertanggungjawabanedit");
+    fpertanggungjawaban2022edit.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
+    fpertanggungjawaban2022edit.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
+    fpertanggungjawaban2022edit.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
+    fpertanggungjawaban2022edit.lists.status = <?= $Page->status->toClientList($Page) ?>;
+    fpertanggungjawaban2022edit.lists.idd_user = <?= $Page->idd_user->toClientList($Page) ?>;
+    loadjs.done("fpertanggungjawaban2022edit");
 });
 </script>
 <script>
@@ -126,79 +125,58 @@ loadjs.ready("head", function () {
 <?php
 $Page->showMessage();
 ?>
-<form name="fpertanggungjawabanedit" id="fpertanggungjawabanedit" class="<?= $Page->FormClassName ?>" action="<?= CurrentPageUrl(false) ?>" method="post">
+<form name="fpertanggungjawaban2022edit" id="fpertanggungjawaban2022edit" class="<?= $Page->FormClassName ?>" action="<?= CurrentPageUrl(false) ?>" method="post">
 <?php if (Config("CHECK_TOKEN")) { ?>
 <input type="hidden" name="<?= $TokenNameKey ?>" value="<?= $TokenName ?>"><!-- CSRF token name -->
 <input type="hidden" name="<?= $TokenValueKey ?>" value="<?= $TokenValue ?>"><!-- CSRF token value -->
 <?php } ?>
-<input type="hidden" name="t" value="pertanggungjawaban">
+<input type="hidden" name="t" value="pertanggungjawaban2022">
 <input type="hidden" name="action" id="action" value="update">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
 <div class="ew-edit-div"><!-- page* -->
+<?php if ($Page->idd_evaluasi->Visible) { // idd_evaluasi ?>
+    <div id="r_idd_evaluasi" class="form-group row">
+        <label id="elh_pertanggungjawaban2022_idd_evaluasi" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_evaluasi->caption() ?><?= $Page->idd_evaluasi->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_evaluasi->cellAttributes() ?>>
+<span id="el_pertanggungjawaban2022_idd_evaluasi">
+<span<?= $Page->idd_evaluasi->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_evaluasi->getDisplayValue($Page->idd_evaluasi->EditValue))) ?>"></span>
+</span>
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_evaluasi" data-hidden="1" name="x_idd_evaluasi" id="x_idd_evaluasi" value="<?= HtmlEncode($Page->idd_evaluasi->CurrentValue) ?>">
+</div></div>
+    </div>
+<?php } ?>
 <?php if ($Page->tanggal->Visible) { // tanggal ?>
     <div id="r_tanggal" class="form-group row">
-        <label id="elh_pertanggungjawaban_tanggal" for="x_tanggal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal->caption() ?><?= $Page->tanggal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_tanggal" for="x_tanggal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal->caption() ?><?= $Page->tanggal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x_tanggal" id="x_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?> aria-describedby="x_tanggal_help">
+<span id="el_pertanggungjawaban2022_tanggal">
+<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban2022" data-field="x_tanggal" name="x_tanggal" id="x_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?> aria-describedby="x_tanggal_help">
 <?= $Page->tanggal->getCustomMessage() ?>
 <div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
 <?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
 <script>
-loadjs.ready(["fpertanggungjawabanedit", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanedit", "x_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
+loadjs.ready(["fpertanggungjawaban2022edit", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpertanggungjawaban2022edit", "x_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
 });
 </script>
 <?php } ?>
-</span>
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-    <div id="r_idd_wilayah" class="form-group row">
-        <label id="elh_pertanggungjawaban_idd_wilayah" for="x_idd_wilayah" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_wilayah->caption() ?><?= $Page->idd_wilayah->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_idd_wilayah">
-    <select
-        id="x_idd_wilayah"
-        name="x_idd_wilayah"
-        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_idd_wilayah"
-        data-table="pertanggungjawaban"
-        data-field="x_idd_wilayah"
-        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
-        <?= $Page->idd_wilayah->editAttributes() ?>>
-        <?= $Page->idd_wilayah->selectOptionListHtml("x_idd_wilayah") ?>
-    </select>
-    <?= $Page->idd_wilayah->getCustomMessage() ?>
-    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
-<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x_idd_wilayah") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_wilayah']"),
-        options = { name: "x_idd_wilayah", selectId: "pertanggungjawaban_x_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
-    ew.createSelect(options);
-});
-</script>
 </span>
 </div></div>
     </div>
 <?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <div id="r_kd_satker" class="form-group row">
-        <label id="elh_pertanggungjawaban_kd_satker" for="x_kd_satker" class="<?= $Page->LeftColumnClass ?>"><?= $Page->kd_satker->caption() ?><?= $Page->kd_satker->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_kd_satker" for="x_kd_satker" class="<?= $Page->LeftColumnClass ?>"><?= $Page->kd_satker->caption() ?><?= $Page->kd_satker->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->kd_satker->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_kd_satker">
+<span id="el_pertanggungjawaban2022_kd_satker">
     <select
         id="x_kd_satker"
         name="x_kd_satker"
         class="form-control ew-select<?= $Page->kd_satker->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_kd_satker"
-        data-table="pertanggungjawaban"
+        data-select2-id="pertanggungjawaban2022_x_kd_satker"
+        data-table="pertanggungjawaban2022"
         data-field="x_kd_satker"
         data-value-separator="<?= $Page->kd_satker->displayValueSeparatorAttribute() ?>"
         data-placeholder="<?= HtmlEncode($Page->kd_satker->getPlaceHolder()) ?>"
@@ -210,10 +188,10 @@ loadjs.ready("head", function() {
 <?= $Page->kd_satker->Lookup->getParamTag($Page, "p_x_kd_satker") ?>
 <script>
 loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_kd_satker']"),
-        options = { name: "x_kd_satker", selectId: "pertanggungjawaban_x_kd_satker", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_kd_satker']"),
+        options = { name: "x_kd_satker", selectId: "pertanggungjawaban2022_x_kd_satker", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
     options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.kd_satker.selectOptions);
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.kd_satker.selectOptions);
     ew.createSelect(options);
 });
 </script>
@@ -223,15 +201,15 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->idd_tahapan->Visible) { // idd_tahapan ?>
     <div id="r_idd_tahapan" class="form-group row">
-        <label id="elh_pertanggungjawaban_idd_tahapan" for="x_idd_tahapan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_tahapan->caption() ?><?= $Page->idd_tahapan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_idd_tahapan" for="x_idd_tahapan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_tahapan->caption() ?><?= $Page->idd_tahapan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_tahapan->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_idd_tahapan">
+<span id="el_pertanggungjawaban2022_idd_tahapan">
     <select
         id="x_idd_tahapan"
         name="x_idd_tahapan"
         class="form-control ew-select<?= $Page->idd_tahapan->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_idd_tahapan"
-        data-table="pertanggungjawaban"
+        data-select2-id="pertanggungjawaban2022_x_idd_tahapan"
+        data-table="pertanggungjawaban2022"
         data-field="x_idd_tahapan"
         data-value-separator="<?= $Page->idd_tahapan->displayValueSeparatorAttribute() ?>"
         data-placeholder="<?= HtmlEncode($Page->idd_tahapan->getPlaceHolder()) ?>"
@@ -243,10 +221,10 @@ loadjs.ready("head", function() {
 <?= $Page->idd_tahapan->Lookup->getParamTag($Page, "p_x_idd_tahapan") ?>
 <script>
 loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_tahapan']"),
-        options = { name: "x_idd_tahapan", selectId: "pertanggungjawaban_x_idd_tahapan", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_idd_tahapan']"),
+        options = { name: "x_idd_tahapan", selectId: "pertanggungjawaban2022_x_idd_tahapan", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
     options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_tahapan.selectOptions);
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.idd_tahapan.selectOptions);
     ew.createSelect(options);
 });
 </script>
@@ -256,15 +234,15 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->tahun_anggaran->Visible) { // tahun_anggaran ?>
     <div id="r_tahun_anggaran" class="form-group row">
-        <label id="elh_pertanggungjawaban_tahun_anggaran" for="x_tahun_anggaran" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tahun_anggaran->caption() ?><?= $Page->tahun_anggaran->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_tahun_anggaran" for="x_tahun_anggaran" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tahun_anggaran->caption() ?><?= $Page->tahun_anggaran->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tahun_anggaran->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_tahun_anggaran">
+<span id="el_pertanggungjawaban2022_tahun_anggaran">
     <select
         id="x_tahun_anggaran"
         name="x_tahun_anggaran"
         class="form-control ew-select<?= $Page->tahun_anggaran->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_tahun_anggaran"
-        data-table="pertanggungjawaban"
+        data-select2-id="pertanggungjawaban2022_x_tahun_anggaran"
+        data-table="pertanggungjawaban2022"
         data-field="x_tahun_anggaran"
         data-value-separator="<?= $Page->tahun_anggaran->displayValueSeparatorAttribute() ?>"
         data-placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>"
@@ -276,10 +254,10 @@ loadjs.ready("head", function() {
 <?= $Page->tahun_anggaran->Lookup->getParamTag($Page, "p_x_tahun_anggaran") ?>
 <script>
 loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_tahun_anggaran']"),
-        options = { name: "x_tahun_anggaran", selectId: "pertanggungjawaban_x_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_tahun_anggaran']"),
+        options = { name: "x_tahun_anggaran", selectId: "pertanggungjawaban2022_x_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
     options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.tahun_anggaran.selectOptions);
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.tahun_anggaran.selectOptions);
     ew.createSelect(options);
 });
 </script>
@@ -289,13 +267,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
     <div id="r_surat_pengantar" class="form-group row">
-        <label id="elh_pertanggungjawaban_surat_pengantar" class="<?= $Page->LeftColumnClass ?>"><?= $Page->surat_pengantar->caption() ?><?= $Page->surat_pengantar->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_surat_pengantar" class="<?= $Page->LeftColumnClass ?>"><?= $Page->surat_pengantar->caption() ?><?= $Page->surat_pengantar->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->surat_pengantar->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_surat_pengantar">
+<span id="el_pertanggungjawaban2022_surat_pengantar">
 <div id="fd_x_surat_pengantar">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->surat_pengantar->title() ?>" data-table="pertanggungjawaban" data-field="x_surat_pengantar" name="x_surat_pengantar" id="x_surat_pengantar" lang="<?= CurrentLanguageID() ?>"<?= $Page->surat_pengantar->editAttributes() ?><?= ($Page->surat_pengantar->ReadOnly || $Page->surat_pengantar->Disabled) ? " disabled" : "" ?> aria-describedby="x_surat_pengantar_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->surat_pengantar->title() ?>" data-table="pertanggungjawaban2022" data-field="x_surat_pengantar" name="x_surat_pengantar" id="x_surat_pengantar" lang="<?= CurrentLanguageID() ?>"<?= $Page->surat_pengantar->editAttributes() ?><?= ($Page->surat_pengantar->ReadOnly || $Page->surat_pengantar->Disabled) ? " disabled" : "" ?> aria-describedby="x_surat_pengantar_help">
         <label class="custom-file-label ew-file-label" for="x_surat_pengantar"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -314,13 +292,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
     <div id="r_skd_rqanunpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_skd_rqanunpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->skd_rqanunpert->caption() ?><?= $Page->skd_rqanunpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_skd_rqanunpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->skd_rqanunpert->caption() ?><?= $Page->skd_rqanunpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->skd_rqanunpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_skd_rqanunpert">
+<span id="el_pertanggungjawaban2022_skd_rqanunpert">
 <div id="fd_x_skd_rqanunpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->skd_rqanunpert->title() ?>" data-table="pertanggungjawaban" data-field="x_skd_rqanunpert" name="x_skd_rqanunpert" id="x_skd_rqanunpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->skd_rqanunpert->editAttributes() ?><?= ($Page->skd_rqanunpert->ReadOnly || $Page->skd_rqanunpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_skd_rqanunpert_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->skd_rqanunpert->title() ?>" data-table="pertanggungjawaban2022" data-field="x_skd_rqanunpert" name="x_skd_rqanunpert" id="x_skd_rqanunpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->skd_rqanunpert->editAttributes() ?><?= ($Page->skd_rqanunpert->ReadOnly || $Page->skd_rqanunpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_skd_rqanunpert_help">
         <label class="custom-file-label ew-file-label" for="x_skd_rqanunpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -339,13 +317,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->rqanun_apbkpert->Visible) { // rqanun_apbkpert ?>
     <div id="r_rqanun_apbkpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_rqanun_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rqanun_apbkpert->caption() ?><?= $Page->rqanun_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_rqanun_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rqanun_apbkpert->caption() ?><?= $Page->rqanun_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rqanun_apbkpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_rqanun_apbkpert">
+<span id="el_pertanggungjawaban2022_rqanun_apbkpert">
 <div id="fd_x_rqanun_apbkpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->rqanun_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rqanun_apbkpert" name="x_rqanun_apbkpert" id="x_rqanun_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rqanun_apbkpert->editAttributes() ?><?= ($Page->rqanun_apbkpert->ReadOnly || $Page->rqanun_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rqanun_apbkpert_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->rqanun_apbkpert->title() ?>" data-table="pertanggungjawaban2022" data-field="x_rqanun_apbkpert" name="x_rqanun_apbkpert" id="x_rqanun_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rqanun_apbkpert->editAttributes() ?><?= ($Page->rqanun_apbkpert->ReadOnly || $Page->rqanun_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rqanun_apbkpert_help">
         <label class="custom-file-label ew-file-label" for="x_rqanun_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -364,13 +342,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->rperbup_apbkpert->Visible) { // rperbup_apbkpert ?>
     <div id="r_rperbup_apbkpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_rperbup_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rperbup_apbkpert->caption() ?><?= $Page->rperbup_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_rperbup_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->rperbup_apbkpert->caption() ?><?= $Page->rperbup_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->rperbup_apbkpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_rperbup_apbkpert">
+<span id="el_pertanggungjawaban2022_rperbup_apbkpert">
 <div id="fd_x_rperbup_apbkpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->rperbup_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_rperbup_apbkpert" name="x_rperbup_apbkpert" id="x_rperbup_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rperbup_apbkpert->editAttributes() ?><?= ($Page->rperbup_apbkpert->ReadOnly || $Page->rperbup_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rperbup_apbkpert_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->rperbup_apbkpert->title() ?>" data-table="pertanggungjawaban2022" data-field="x_rperbup_apbkpert" name="x_rperbup_apbkpert" id="x_rperbup_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->rperbup_apbkpert->editAttributes() ?><?= ($Page->rperbup_apbkpert->ReadOnly || $Page->rperbup_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_rperbup_apbkpert_help">
         <label class="custom-file-label ew-file-label" for="x_rperbup_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -389,13 +367,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->pbkdd_apbkpert->Visible) { // pbkdd_apbkpert ?>
     <div id="r_pbkdd_apbkpert" class="form-group row">
-        <label id="elh_pertanggungjawaban_pbkdd_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->pbkdd_apbkpert->caption() ?><?= $Page->pbkdd_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_pbkdd_apbkpert" class="<?= $Page->LeftColumnClass ?>"><?= $Page->pbkdd_apbkpert->caption() ?><?= $Page->pbkdd_apbkpert->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->pbkdd_apbkpert->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_pbkdd_apbkpert">
+<span id="el_pertanggungjawaban2022_pbkdd_apbkpert">
 <div id="fd_x_pbkdd_apbkpert">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->pbkdd_apbkpert->title() ?>" data-table="pertanggungjawaban" data-field="x_pbkdd_apbkpert" name="x_pbkdd_apbkpert" id="x_pbkdd_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->pbkdd_apbkpert->editAttributes() ?><?= ($Page->pbkdd_apbkpert->ReadOnly || $Page->pbkdd_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_pbkdd_apbkpert_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->pbkdd_apbkpert->title() ?>" data-table="pertanggungjawaban2022" data-field="x_pbkdd_apbkpert" name="x_pbkdd_apbkpert" id="x_pbkdd_apbkpert" lang="<?= CurrentLanguageID() ?>"<?= $Page->pbkdd_apbkpert->editAttributes() ?><?= ($Page->pbkdd_apbkpert->ReadOnly || $Page->pbkdd_apbkpert->Disabled) ? " disabled" : "" ?> aria-describedby="x_pbkdd_apbkpert_help">
         <label class="custom-file-label ew-file-label" for="x_pbkdd_apbkpert"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -414,13 +392,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
     <div id="r_risalah_sidang" class="form-group row">
-        <label id="elh_pertanggungjawaban_risalah_sidang" class="<?= $Page->LeftColumnClass ?>"><?= $Page->risalah_sidang->caption() ?><?= $Page->risalah_sidang->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_risalah_sidang" class="<?= $Page->LeftColumnClass ?>"><?= $Page->risalah_sidang->caption() ?><?= $Page->risalah_sidang->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->risalah_sidang->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_risalah_sidang">
+<span id="el_pertanggungjawaban2022_risalah_sidang">
 <div id="fd_x_risalah_sidang">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->risalah_sidang->title() ?>" data-table="pertanggungjawaban" data-field="x_risalah_sidang" name="x_risalah_sidang" id="x_risalah_sidang" lang="<?= CurrentLanguageID() ?>"<?= $Page->risalah_sidang->editAttributes() ?><?= ($Page->risalah_sidang->ReadOnly || $Page->risalah_sidang->Disabled) ? " disabled" : "" ?> aria-describedby="x_risalah_sidang_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->risalah_sidang->title() ?>" data-table="pertanggungjawaban2022" data-field="x_risalah_sidang" name="x_risalah_sidang" id="x_risalah_sidang" lang="<?= CurrentLanguageID() ?>"<?= $Page->risalah_sidang->editAttributes() ?><?= ($Page->risalah_sidang->ReadOnly || $Page->risalah_sidang->Disabled) ? " disabled" : "" ?> aria-describedby="x_risalah_sidang_help">
         <label class="custom-file-label ew-file-label" for="x_risalah_sidang"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -439,13 +417,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
     <div id="r_absen_peserta" class="form-group row">
-        <label id="elh_pertanggungjawaban_absen_peserta" class="<?= $Page->LeftColumnClass ?>"><?= $Page->absen_peserta->caption() ?><?= $Page->absen_peserta->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_absen_peserta" class="<?= $Page->LeftColumnClass ?>"><?= $Page->absen_peserta->caption() ?><?= $Page->absen_peserta->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->absen_peserta->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_absen_peserta">
+<span id="el_pertanggungjawaban2022_absen_peserta">
 <div id="fd_x_absen_peserta">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->absen_peserta->title() ?>" data-table="pertanggungjawaban" data-field="x_absen_peserta" name="x_absen_peserta" id="x_absen_peserta" lang="<?= CurrentLanguageID() ?>"<?= $Page->absen_peserta->editAttributes() ?><?= ($Page->absen_peserta->ReadOnly || $Page->absen_peserta->Disabled) ? " disabled" : "" ?> aria-describedby="x_absen_peserta_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->absen_peserta->title() ?>" data-table="pertanggungjawaban2022" data-field="x_absen_peserta" name="x_absen_peserta" id="x_absen_peserta" lang="<?= CurrentLanguageID() ?>"<?= $Page->absen_peserta->editAttributes() ?><?= ($Page->absen_peserta->ReadOnly || $Page->absen_peserta->Disabled) ? " disabled" : "" ?> aria-describedby="x_absen_peserta_help">
         <label class="custom-file-label ew-file-label" for="x_absen_peserta"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -464,13 +442,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->neraca->Visible) { // neraca ?>
     <div id="r_neraca" class="form-group row">
-        <label id="elh_pertanggungjawaban_neraca" class="<?= $Page->LeftColumnClass ?>"><?= $Page->neraca->caption() ?><?= $Page->neraca->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_neraca" class="<?= $Page->LeftColumnClass ?>"><?= $Page->neraca->caption() ?><?= $Page->neraca->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->neraca->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_neraca">
+<span id="el_pertanggungjawaban2022_neraca">
 <div id="fd_x_neraca">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->neraca->title() ?>" data-table="pertanggungjawaban" data-field="x_neraca" name="x_neraca" id="x_neraca" lang="<?= CurrentLanguageID() ?>"<?= $Page->neraca->editAttributes() ?><?= ($Page->neraca->ReadOnly || $Page->neraca->Disabled) ? " disabled" : "" ?> aria-describedby="x_neraca_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->neraca->title() ?>" data-table="pertanggungjawaban2022" data-field="x_neraca" name="x_neraca" id="x_neraca" lang="<?= CurrentLanguageID() ?>"<?= $Page->neraca->editAttributes() ?><?= ($Page->neraca->ReadOnly || $Page->neraca->Disabled) ? " disabled" : "" ?> aria-describedby="x_neraca_help">
         <label class="custom-file-label ew-file-label" for="x_neraca"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -489,13 +467,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->lra->Visible) { // lra ?>
     <div id="r_lra" class="form-group row">
-        <label id="elh_pertanggungjawaban_lra" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lra->caption() ?><?= $Page->lra->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_lra" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lra->caption() ?><?= $Page->lra->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lra->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_lra">
+<span id="el_pertanggungjawaban2022_lra">
 <div id="fd_x_lra">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->lra->title() ?>" data-table="pertanggungjawaban" data-field="x_lra" name="x_lra" id="x_lra" lang="<?= CurrentLanguageID() ?>"<?= $Page->lra->editAttributes() ?><?= ($Page->lra->ReadOnly || $Page->lra->Disabled) ? " disabled" : "" ?> aria-describedby="x_lra_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->lra->title() ?>" data-table="pertanggungjawaban2022" data-field="x_lra" name="x_lra" id="x_lra" lang="<?= CurrentLanguageID() ?>"<?= $Page->lra->editAttributes() ?><?= ($Page->lra->ReadOnly || $Page->lra->Disabled) ? " disabled" : "" ?> aria-describedby="x_lra_help">
         <label class="custom-file-label ew-file-label" for="x_lra"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -514,13 +492,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->calk->Visible) { // calk ?>
     <div id="r_calk" class="form-group row">
-        <label id="elh_pertanggungjawaban_calk" class="<?= $Page->LeftColumnClass ?>"><?= $Page->calk->caption() ?><?= $Page->calk->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_calk" class="<?= $Page->LeftColumnClass ?>"><?= $Page->calk->caption() ?><?= $Page->calk->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->calk->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_calk">
+<span id="el_pertanggungjawaban2022_calk">
 <div id="fd_x_calk">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->calk->title() ?>" data-table="pertanggungjawaban" data-field="x_calk" name="x_calk" id="x_calk" lang="<?= CurrentLanguageID() ?>"<?= $Page->calk->editAttributes() ?><?= ($Page->calk->ReadOnly || $Page->calk->Disabled) ? " disabled" : "" ?> aria-describedby="x_calk_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->calk->title() ?>" data-table="pertanggungjawaban2022" data-field="x_calk" name="x_calk" id="x_calk" lang="<?= CurrentLanguageID() ?>"<?= $Page->calk->editAttributes() ?><?= ($Page->calk->ReadOnly || $Page->calk->Disabled) ? " disabled" : "" ?> aria-describedby="x_calk_help">
         <label class="custom-file-label ew-file-label" for="x_calk"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -539,13 +517,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->lo->Visible) { // lo ?>
     <div id="r_lo" class="form-group row">
-        <label id="elh_pertanggungjawaban_lo" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lo->caption() ?><?= $Page->lo->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_lo" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lo->caption() ?><?= $Page->lo->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lo->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_lo">
+<span id="el_pertanggungjawaban2022_lo">
 <div id="fd_x_lo">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->lo->title() ?>" data-table="pertanggungjawaban" data-field="x_lo" name="x_lo" id="x_lo" lang="<?= CurrentLanguageID() ?>"<?= $Page->lo->editAttributes() ?><?= ($Page->lo->ReadOnly || $Page->lo->Disabled) ? " disabled" : "" ?> aria-describedby="x_lo_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->lo->title() ?>" data-table="pertanggungjawaban2022" data-field="x_lo" name="x_lo" id="x_lo" lang="<?= CurrentLanguageID() ?>"<?= $Page->lo->editAttributes() ?><?= ($Page->lo->ReadOnly || $Page->lo->Disabled) ? " disabled" : "" ?> aria-describedby="x_lo_help">
         <label class="custom-file-label ew-file-label" for="x_lo"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -564,13 +542,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->lpe->Visible) { // lpe ?>
     <div id="r_lpe" class="form-group row">
-        <label id="elh_pertanggungjawaban_lpe" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpe->caption() ?><?= $Page->lpe->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_lpe" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpe->caption() ?><?= $Page->lpe->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lpe->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_lpe">
+<span id="el_pertanggungjawaban2022_lpe">
 <div id="fd_x_lpe">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->lpe->title() ?>" data-table="pertanggungjawaban" data-field="x_lpe" name="x_lpe" id="x_lpe" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpe->editAttributes() ?><?= ($Page->lpe->ReadOnly || $Page->lpe->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpe_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->lpe->title() ?>" data-table="pertanggungjawaban2022" data-field="x_lpe" name="x_lpe" id="x_lpe" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpe->editAttributes() ?><?= ($Page->lpe->ReadOnly || $Page->lpe->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpe_help">
         <label class="custom-file-label ew-file-label" for="x_lpe"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -589,13 +567,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->lpsal->Visible) { // lpsal ?>
     <div id="r_lpsal" class="form-group row">
-        <label id="elh_pertanggungjawaban_lpsal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpsal->caption() ?><?= $Page->lpsal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_lpsal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lpsal->caption() ?><?= $Page->lpsal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lpsal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_lpsal">
+<span id="el_pertanggungjawaban2022_lpsal">
 <div id="fd_x_lpsal">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->lpsal->title() ?>" data-table="pertanggungjawaban" data-field="x_lpsal" name="x_lpsal" id="x_lpsal" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpsal->editAttributes() ?><?= ($Page->lpsal->ReadOnly || $Page->lpsal->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpsal_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->lpsal->title() ?>" data-table="pertanggungjawaban2022" data-field="x_lpsal" name="x_lpsal" id="x_lpsal" lang="<?= CurrentLanguageID() ?>"<?= $Page->lpsal->editAttributes() ?><?= ($Page->lpsal->ReadOnly || $Page->lpsal->Disabled) ? " disabled" : "" ?> aria-describedby="x_lpsal_help">
         <label class="custom-file-label ew-file-label" for="x_lpsal"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -614,13 +592,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->lak->Visible) { // lak ?>
     <div id="r_lak" class="form-group row">
-        <label id="elh_pertanggungjawaban_lak" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lak->caption() ?><?= $Page->lak->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_lak" class="<?= $Page->LeftColumnClass ?>"><?= $Page->lak->caption() ?><?= $Page->lak->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->lak->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_lak">
+<span id="el_pertanggungjawaban2022_lak">
 <div id="fd_x_lak">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->lak->title() ?>" data-table="pertanggungjawaban" data-field="x_lak" name="x_lak" id="x_lak" lang="<?= CurrentLanguageID() ?>"<?= $Page->lak->editAttributes() ?><?= ($Page->lak->ReadOnly || $Page->lak->Disabled) ? " disabled" : "" ?> aria-describedby="x_lak_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->lak->title() ?>" data-table="pertanggungjawaban2022" data-field="x_lak" name="x_lak" id="x_lak" lang="<?= CurrentLanguageID() ?>"<?= $Page->lak->editAttributes() ?><?= ($Page->lak->ReadOnly || $Page->lak->Disabled) ? " disabled" : "" ?> aria-describedby="x_lak_help">
         <label class="custom-file-label ew-file-label" for="x_lak"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -639,13 +617,13 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
     <div id="r_laporan_pemeriksaan" class="form-group row">
-        <label id="elh_pertanggungjawaban_laporan_pemeriksaan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->laporan_pemeriksaan->caption() ?><?= $Page->laporan_pemeriksaan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_laporan_pemeriksaan" class="<?= $Page->LeftColumnClass ?>"><?= $Page->laporan_pemeriksaan->caption() ?><?= $Page->laporan_pemeriksaan->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->laporan_pemeriksaan->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_laporan_pemeriksaan">
+<span id="el_pertanggungjawaban2022_laporan_pemeriksaan">
 <div id="fd_x_laporan_pemeriksaan">
 <div class="input-group">
     <div class="custom-file">
-        <input type="file" class="custom-file-input" title="<?= $Page->laporan_pemeriksaan->title() ?>" data-table="pertanggungjawaban" data-field="x_laporan_pemeriksaan" name="x_laporan_pemeriksaan" id="x_laporan_pemeriksaan" lang="<?= CurrentLanguageID() ?>"<?= $Page->laporan_pemeriksaan->editAttributes() ?><?= ($Page->laporan_pemeriksaan->ReadOnly || $Page->laporan_pemeriksaan->Disabled) ? " disabled" : "" ?> aria-describedby="x_laporan_pemeriksaan_help">
+        <input type="file" class="custom-file-input" title="<?= $Page->laporan_pemeriksaan->title() ?>" data-table="pertanggungjawaban2022" data-field="x_laporan_pemeriksaan" name="x_laporan_pemeriksaan" id="x_laporan_pemeriksaan" lang="<?= CurrentLanguageID() ?>"<?= $Page->laporan_pemeriksaan->editAttributes() ?><?= ($Page->laporan_pemeriksaan->ReadOnly || $Page->laporan_pemeriksaan->Disabled) ? " disabled" : "" ?> aria-describedby="x_laporan_pemeriksaan_help">
         <label class="custom-file-label ew-file-label" for="x_laporan_pemeriksaan"><?= $Language->phrase("ChooseFile") ?></label>
     </div>
 </div>
@@ -664,15 +642,15 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->status->Visible) { // status ?>
     <div id="r_status" class="form-group row">
-        <label id="elh_pertanggungjawaban_status" for="x_status" class="<?= $Page->LeftColumnClass ?>"><?= $Page->status->caption() ?><?= $Page->status->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_status" for="x_status" class="<?= $Page->LeftColumnClass ?>"><?= $Page->status->caption() ?><?= $Page->status->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->status->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_status">
+<span id="el_pertanggungjawaban2022_status">
     <select
         id="x_status"
         name="x_status"
         class="form-control ew-select<?= $Page->status->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_status"
-        data-table="pertanggungjawaban"
+        data-select2-id="pertanggungjawaban2022_x_status"
+        data-table="pertanggungjawaban2022"
         data-field="x_status"
         data-value-separator="<?= $Page->status->displayValueSeparatorAttribute() ?>"
         data-placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>"
@@ -683,11 +661,11 @@ loadjs.ready("head", function() {
     <div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
 <script>
 loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_status']"),
-        options = { name: "x_status", selectId: "pertanggungjawaban_x_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.data = ew.vars.tables.pertanggungjawaban.fields.status.lookupOptions;
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_status']"),
+        options = { name: "x_status", selectId: "pertanggungjawaban2022_x_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.data = ew.vars.tables.pertanggungjawaban2022.fields.status.lookupOptions;
     options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.status.selectOptions);
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.status.selectOptions);
     ew.createSelect(options);
 });
 </script>
@@ -697,22 +675,22 @@ loadjs.ready("head", function() {
 <?php } ?>
 <?php if ($Page->idd_user->Visible) { // idd_user ?>
     <div id="r_idd_user" class="form-group row">
-        <label id="elh_pertanggungjawaban_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <label id="elh_pertanggungjawaban2022_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_user->cellAttributes() ?>>
 <?php if (!$Security->isAdmin() && $Security->isLoggedIn() && !$Page->userIDAllow("edit")) { // Non system admin ?>
-<span id="el_pertanggungjawaban_idd_user">
+<span id="el_pertanggungjawaban2022_idd_user">
 <span<?= $Page->idd_user->viewAttributes() ?>>
 <input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_user->getDisplayValue($Page->idd_user->EditValue))) ?>"></span>
 </span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
 <?php } else { ?>
-<span id="el_pertanggungjawaban_idd_user">
+<span id="el_pertanggungjawaban2022_idd_user">
     <select
         id="x_idd_user"
         name="x_idd_user"
         class="form-control ew-select<?= $Page->idd_user->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x_idd_user"
-        data-table="pertanggungjawaban"
+        data-select2-id="pertanggungjawaban2022_x_idd_user"
+        data-table="pertanggungjawaban2022"
         data-field="x_idd_user"
         data-value-separator="<?= $Page->idd_user->displayValueSeparatorAttribute() ?>"
         data-placeholder="<?= HtmlEncode($Page->idd_user->getPlaceHolder()) ?>"
@@ -724,10 +702,10 @@ loadjs.ready("head", function() {
 <?= $Page->idd_user->Lookup->getParamTag($Page, "p_x_idd_user") ?>
 <script>
 loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x_idd_user']"),
-        options = { name: "x_idd_user", selectId: "pertanggungjawaban_x_idd_user", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_idd_user']"),
+        options = { name: "x_idd_user", selectId: "pertanggungjawaban2022_x_idd_user", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
     options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_user.selectOptions);
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.idd_user.selectOptions);
     ew.createSelect(options);
 });
 </script>
@@ -737,7 +715,6 @@ loadjs.ready("head", function() {
     </div>
 <?php } ?>
 </div><!-- /page* -->
-    <input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_evaluasi" data-hidden="1" name="x_idd_evaluasi" id="x_idd_evaluasi" value="<?= HtmlEncode($Page->idd_evaluasi->CurrentValue) ?>">
 <?php if (!$Page->IsModal) { ?>
 <div class="form-group row"><!-- buttons .form-group -->
     <div class="<?= $Page->OffsetColumnClass ?>"><!-- buttons offset -->
@@ -754,7 +731,7 @@ echo GetDebugMessage();
 <script>
 // Field event handlers
 loadjs.ready("head", function() {
-    ew.addEventHandlers("pertanggungjawaban");
+    ew.addEventHandlers("pertanggungjawaban2022");
 });
 </script>
 <script>

@@ -1126,7 +1126,7 @@ class UsersEdit extends Users
             }
 
             // email
-            $this->_email->setDbValueDef($rsnew, $this->_email->CurrentValue, "", $this->_email->ReadOnly);
+            $this->_email->setDbValueDef($rsnew, $this->_email->CurrentValue, null, $this->_email->ReadOnly);
 
             // photo
             if ($this->photo->Visible && !$this->photo->ReadOnly && !$this->photo->Upload->KeepFile) {
@@ -1181,7 +1181,7 @@ class UsersEdit extends Users
                     }
                     $this->photo->Upload->DbValue = empty($oldFiles) ? "" : implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $oldFiles);
                     $this->photo->Upload->FileName = implode(Config("MULTIPLE_UPLOAD_SEPARATOR"), $newFiles);
-                    $this->photo->setDbValueDef($rsnew, $this->photo->Upload->FileName, "", $this->photo->ReadOnly);
+                    $this->photo->setDbValueDef($rsnew, $this->photo->Upload->FileName, null, $this->photo->ReadOnly);
                 }
             }
 

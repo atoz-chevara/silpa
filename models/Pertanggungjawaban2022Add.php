@@ -7,7 +7,7 @@ use Doctrine\DBAL\ParameterType;
 /**
  * Page class
  */
-class PertanggungjawabanAdd extends Pertanggungjawaban
+class Pertanggungjawaban2022Add extends Pertanggungjawaban2022
 {
     use MessagesTrait;
 
@@ -18,10 +18,10 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
     public $ProjectID = PROJECT_ID;
 
     // Table name
-    public $TableName = 'pertanggungjawaban';
+    public $TableName = 'pertanggungjawaban2022';
 
     // Page object name
-    public $PageObjName = "PertanggungjawabanAdd";
+    public $PageObjName = "Pertanggungjawaban2022Add";
 
     // Rendering View
     public $RenderingView = false;
@@ -127,9 +127,9 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         // Parent constuctor
         parent::__construct();
 
-        // Table object (pertanggungjawaban)
-        if (!isset($GLOBALS["pertanggungjawaban"]) || get_class($GLOBALS["pertanggungjawaban"]) == PROJECT_NAMESPACE . "pertanggungjawaban") {
-            $GLOBALS["pertanggungjawaban"] = &$this;
+        // Table object (pertanggungjawaban2022)
+        if (!isset($GLOBALS["pertanggungjawaban2022"]) || get_class($GLOBALS["pertanggungjawaban2022"]) == PROJECT_NAMESPACE . "pertanggungjawaban2022") {
+            $GLOBALS["pertanggungjawaban2022"] = &$this;
         }
 
         // Page URL
@@ -137,7 +137,7 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
         // Table name (for backward compatibility only)
         if (!defined(PROJECT_NAMESPACE . "TABLE_NAME")) {
-            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban');
+            define(PROJECT_NAMESPACE . "TABLE_NAME", 'pertanggungjawaban2022');
         }
 
         // Start timer
@@ -222,7 +222,7 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             }
             $class = PROJECT_NAMESPACE . Config("EXPORT_CLASSES." . $this->CustomExport);
             if (class_exists($class)) {
-                $doc = new $class(Container("pertanggungjawaban"));
+                $doc = new $class(Container("pertanggungjawaban2022"));
                 $doc->Text = @$content;
                 if ($this->isExport("email")) {
                     echo $this->exportEmail($doc->Text);
@@ -266,7 +266,7 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
                 $pageName = GetPageName($url);
                 if ($pageName != $this->getListUrl()) { // Not List page
                     $row["caption"] = $this->getModalCaption($pageName);
-                    if ($pageName == "pertanggungjawabanview") {
+                    if ($pageName == "pertanggungjawaban2022view") {
                         $row["view"] = "1";
                     }
                 } else { // List page should not be shown as modal => error
@@ -466,7 +466,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_evaluasi->Visible = false;
         $this->tanggal->setVisibility();
-        $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
@@ -501,7 +500,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         }
 
         // Set up lookup cache
-        $this->setupLookupOptions($this->idd_wilayah);
         $this->setupLookupOptions($this->kd_satker);
         $this->setupLookupOptions($this->idd_tahapan);
         $this->setupLookupOptions($this->tahun_anggaran);
@@ -566,7 +564,7 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
                     if ($this->getFailureMessage() == "") {
                         $this->setFailureMessage($Language->phrase("NoRecord")); // No record found
                     }
-                    $this->terminate("pertanggungjawabanlist"); // No matching record, return to list
+                    $this->terminate("pertanggungjawaban2022list"); // No matching record, return to list
                     return;
                 }
                 break;
@@ -577,9 +575,9 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
                         $this->setSuccessMessage($Language->phrase("AddSuccess")); // Set up success message
                     }
                     $returnUrl = $this->getReturnUrl();
-                    if (GetPageName($returnUrl) == "pertanggungjawabanlist") {
+                    if (GetPageName($returnUrl) == "pertanggungjawaban2022list") {
                         $returnUrl = $this->addMasterUrl($returnUrl); // List page, return to List page with correct master key if necessary
-                    } elseif (GetPageName($returnUrl) == "pertanggungjawabanview") {
+                    } elseif (GetPageName($returnUrl) == "pertanggungjawaban2022view") {
                         $returnUrl = $this->getViewUrl(); // View page, return to View page with keyurl directly
                     }
                     if (IsApi()) { // Return to caller
@@ -687,8 +685,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         $this->idd_evaluasi->OldValue = $this->idd_evaluasi->CurrentValue;
         $this->tanggal->CurrentValue = null;
         $this->tanggal->OldValue = $this->tanggal->CurrentValue;
-        $this->idd_wilayah->CurrentValue = null;
-        $this->idd_wilayah->OldValue = $this->idd_wilayah->CurrentValue;
         $this->kd_satker->CurrentValue = null;
         $this->kd_satker->OldValue = $this->kd_satker->CurrentValue;
         $this->idd_tahapan->CurrentValue = null;
@@ -762,16 +758,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
         }
 
-        // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
-        $val = $CurrentForm->hasValue("idd_wilayah") ? $CurrentForm->getValue("idd_wilayah") : $CurrentForm->getValue("x_idd_wilayah");
-        if (!$this->idd_wilayah->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_wilayah->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_wilayah->setFormValue($val);
-            }
-        }
-
         // Check field name 'kd_satker' first before field var 'x_kd_satker'
         $val = $CurrentForm->hasValue("kd_satker") ? $CurrentForm->getValue("kd_satker") : $CurrentForm->getValue("x_kd_satker");
         if (!$this->kd_satker->IsDetailKey) {
@@ -833,7 +819,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         global $CurrentForm;
         $this->tanggal->CurrentValue = $this->tanggal->FormValue;
         $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
-        $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
         $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
         $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
@@ -899,7 +884,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
         $this->tanggal->setDbValue($row['tanggal']);
-        $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
@@ -944,7 +928,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         $row = [];
         $row['idd_evaluasi'] = $this->idd_evaluasi->CurrentValue;
         $row['tanggal'] = $this->tanggal->CurrentValue;
-        $row['idd_wilayah'] = $this->idd_wilayah->CurrentValue;
         $row['kd_satker'] = $this->kd_satker->CurrentValue;
         $row['idd_tahapan'] = $this->idd_tahapan->CurrentValue;
         $row['tahun_anggaran'] = $this->tahun_anggaran->CurrentValue;
@@ -1000,8 +983,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
         // tanggal
 
-        // idd_wilayah
-
         // kd_satker
 
         // idd_tahapan
@@ -1050,27 +1031,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
             $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
             $this->tanggal->ViewCustomAttributes = "";
-
-            // idd_wilayah
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-                if ($this->idd_wilayah->ViewValue === null) { // Lookup from database
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                    $sqlWrk = $this->idd_wilayah->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    if ($ari > 0) { // Lookup values found
-                        $arwrk = $this->idd_wilayah->Lookup->renderViewRow($rswrk[0]);
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->displayValue($arwrk);
-                    } else {
-                        $this->idd_wilayah->ViewValue = $this->idd_wilayah->CurrentValue;
-                    }
-                }
-            } else {
-                $this->idd_wilayah->ViewValue = null;
-            }
-            $this->idd_wilayah->ViewCustomAttributes = "";
 
             // kd_satker
             $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -1289,11 +1249,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->tanggal->HrefValue = "";
             $this->tanggal->TooltipValue = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
-
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
             $this->kd_satker->HrefValue = "";
@@ -1414,31 +1369,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->tanggal->EditCustomAttributes = "";
             $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
             $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
 
             // kd_satker
             $this->kd_satker->EditAttrs["class"] = "form-control";
@@ -1800,10 +1730,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->tanggal->LinkCustomAttributes = "";
             $this->tanggal->HrefValue = "";
 
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
             $this->kd_satker->HrefValue = "";
@@ -1925,11 +1851,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         }
         if (!CheckDate($this->tanggal->FormValue)) {
             $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
-        }
-        if ($this->idd_wilayah->Required) {
-            if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
-                $this->idd_wilayah->addErrorMessage(str_replace("%s", $this->idd_wilayah->caption(), $this->idd_wilayah->RequiredErrorMessage));
-            }
         }
         if ($this->kd_satker->Required) {
             if (!$this->kd_satker->IsDetailKey && EmptyValue($this->kd_satker->FormValue)) {
@@ -2070,9 +1991,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
         // tanggal
         $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), false);
-
-        // idd_wilayah
-        $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, false);
 
         // kd_satker
         $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", false);
@@ -3418,7 +3336,7 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         global $Breadcrumb, $Language;
         $Breadcrumb = new Breadcrumb("index");
         $url = CurrentUrl();
-        $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("pertanggungjawabanlist"), "", $this->TableVar, true);
+        $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("pertanggungjawaban2022list"), "", $this->TableVar, true);
         $pageId = ($this->isCopy()) ? "Copy" : "Add";
         $Breadcrumb->add("add", $pageId, $url);
     }
@@ -3436,8 +3354,6 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
             // Set up lookup SQL and connection
             switch ($fld->FieldVar) {
-                case "x_idd_wilayah":
-                    break;
                 case "x_kd_satker":
                     break;
                 case "x_idd_tahapan":

@@ -378,10 +378,10 @@ class UsersDelete extends Users
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_user->Visible = false;
         $this->_username->setVisibility();
-        $this->_password->Visible = false;
+        $this->_password->setVisibility();
         $this->_email->setVisibility();
-        $this->photo->setVisibility();
-        $this->level->Visible = false;
+        $this->photo->Visible = false;
+        $this->level->setVisibility();
         $this->hideFieldsForAddEdit();
 
         // Do not use lookup cache
@@ -666,32 +666,20 @@ class UsersDelete extends Users
             $this->_username->HrefValue = "";
             $this->_username->TooltipValue = "";
 
+            // password
+            $this->_password->LinkCustomAttributes = "";
+            $this->_password->HrefValue = "";
+            $this->_password->TooltipValue = "";
+
             // email
             $this->_email->LinkCustomAttributes = "";
             $this->_email->HrefValue = "";
             $this->_email->TooltipValue = "";
 
-            // photo
-            $this->photo->LinkCustomAttributes = "";
-            $this->photo->UploadPath = "files/photo";
-            if (!EmptyValue($this->photo->Upload->DbValue)) {
-                $this->photo->HrefValue = GetFileUploadUrl($this->photo, $this->photo->htmlDecode($this->photo->Upload->DbValue)); // Add prefix/suffix
-                $this->photo->LinkAttrs["target"] = ""; // Add target
-                if ($this->isExport()) {
-                    $this->photo->HrefValue = FullUrl($this->photo->HrefValue, "href");
-                }
-            } else {
-                $this->photo->HrefValue = "";
-            }
-            $this->photo->ExportHrefValue = $this->photo->UploadPath . $this->photo->Upload->DbValue;
-            $this->photo->TooltipValue = "";
-            if ($this->photo->UseColorbox) {
-                if (EmptyValue($this->photo->TooltipValue)) {
-                    $this->photo->LinkAttrs["title"] = $Language->phrase("ViewImageGallery");
-                }
-                $this->photo->LinkAttrs["data-rel"] = "users_x_photo";
-                $this->photo->LinkAttrs->appendClass("ew-lightbox");
-            }
+            // level
+            $this->level->LinkCustomAttributes = "";
+            $this->level->HrefValue = "";
+            $this->level->TooltipValue = "";
         }
 
         // Call Row Rendered event

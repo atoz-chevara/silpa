@@ -378,9 +378,9 @@ class SatkersDelete extends Satkers
         $this->kode_pemda->setVisibility();
         $this->kode_satker->setVisibility();
         $this->nama_satker->setVisibility();
-        $this->wilayah->setVisibility();
+        $this->wilayah->Visible = false;
         $this->idd_user->setVisibility();
-        $this->no_telepon->setVisibility();
+        $this->no_telepon->Visible = false;
         $this->hideFieldsForAddEdit();
 
         // Do not use lookup cache
@@ -411,6 +411,25 @@ class SatkersDelete extends Satkers
 
         // Set up filter (WHERE Clause)
         $this->CurrentFilter = $filter;
+
+        // Check if valid User ID
+        $conn = $this->getConnection();
+        $sql = $this->getSql($this->CurrentFilter);
+        $rows = $conn->fetchAll($sql);
+        $res = true;
+        foreach ($rows as $row) {
+            $this->loadRowValues($row);
+            if (!$this->showOptionLink("delete")) {
+                $userIdMsg = $Language->phrase("NoDeletePermission");
+                $this->setFailureMessage($userIdMsg);
+                $res = false;
+                break;
+            }
+        }
+        if (!$res) {
+            $this->terminate("satkerslist"); // Return to list
+            return;
+        }
 
         // Get action
         if (IsApi()) {
@@ -682,28 +701,10 @@ class SatkersDelete extends Satkers
             $this->nama_satker->HrefValue = "";
             $this->nama_satker->TooltipValue = "";
 
-            // wilayah
-            $this->wilayah->LinkCustomAttributes = "";
-            $this->wilayah->HrefValue = "";
-            $this->wilayah->TooltipValue = "";
-
             // idd_user
             $this->idd_user->LinkCustomAttributes = "";
             $this->idd_user->HrefValue = "";
             $this->idd_user->TooltipValue = "";
-
-            // no_telepon
-            $this->no_telepon->LinkCustomAttributes = "";
-            if (!EmptyValue($this->no_telepon->CurrentValue)) {
-                $this->no_telepon->HrefValue = "https://wa.me/" . (!empty($this->no_telepon->ViewValue) && !is_array($this->no_telepon->ViewValue) ? RemoveHtml($this->no_telepon->ViewValue) : $this->no_telepon->CurrentValue) . "?text=Assalamu'alaikum"; // Add prefix/suffix
-                $this->no_telepon->LinkAttrs["target"] = "_blank"; // Add target
-                if ($this->isExport()) {
-                    $this->no_telepon->HrefValue = FullUrl($this->no_telepon->HrefValue, "href");
-                }
-            } else {
-                $this->no_telepon->HrefValue = "";
-            }
-            $this->no_telepon->TooltipValue = "";
         }
 
         // Call Row Rendered event
@@ -793,6 +794,16 @@ class SatkersDelete extends Satkers
             WriteJson(["success" => true, $this->TableVar => $row]);
         }
         return $deleteRows;
+    }
+
+    // Show link optionally based on User ID
+    protected function showOptionLink($id = "")
+    {
+        global $Security;
+        if ($Security->isLoggedIn() && !$Security->isAdmin() && !$this->userIDAllow($id)) {
+            return $Security->isValidUserID($this->idd_user->CurrentValue);
+        }
+        return true;
     }
 
     // Set up Breadcrumb
