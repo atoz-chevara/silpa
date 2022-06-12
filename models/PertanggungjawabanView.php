@@ -519,7 +519,8 @@ class PertanggungjawabanView extends Pertanggungjawaban
         $this->IsModal = Param("modal") == "1";
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_evaluasi->setVisibility();
-        $this->tanggal->setVisibility();
+        $this->tanggal_upload->setVisibility();
+        $this->tanggal_update->setVisibility();
         $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
@@ -760,7 +761,8 @@ class PertanggungjawabanView extends Pertanggungjawaban
             return;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
-        $this->tanggal->setDbValue($row['tanggal']);
+        $this->tanggal_upload->setDbValue($row['tanggal_upload']);
+        $this->tanggal_update->setDbValue($row['tanggal_update']);
         $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
@@ -804,7 +806,8 @@ class PertanggungjawabanView extends Pertanggungjawaban
     {
         $row = [];
         $row['idd_evaluasi'] = null;
-        $row['tanggal'] = null;
+        $row['tanggal_upload'] = null;
+        $row['tanggal_update'] = null;
         $row['idd_wilayah'] = null;
         $row['kd_satker'] = null;
         $row['idd_tahapan'] = null;
@@ -849,7 +852,9 @@ class PertanggungjawabanView extends Pertanggungjawaban
 
         // idd_evaluasi
 
-        // tanggal
+        // tanggal_upload
+
+        // tanggal_update
 
         // idd_wilayah
 
@@ -897,10 +902,15 @@ class PertanggungjawabanView extends Pertanggungjawaban
             $this->idd_evaluasi->ViewValue = $this->idd_evaluasi->CurrentValue;
             $this->idd_evaluasi->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
-            $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
-            $this->tanggal->ViewCustomAttributes = "";
+            // tanggal_upload
+            $this->tanggal_upload->ViewValue = $this->tanggal_upload->CurrentValue;
+            $this->tanggal_upload->ViewValue = FormatDateTime($this->tanggal_upload->ViewValue, 1);
+            $this->tanggal_upload->ViewCustomAttributes = "";
+
+            // tanggal_update
+            $this->tanggal_update->ViewValue = $this->tanggal_update->CurrentValue;
+            $this->tanggal_update->ViewValue = FormatDateTime($this->tanggal_update->ViewValue, 1);
+            $this->tanggal_update->ViewCustomAttributes = "";
 
             // idd_wilayah
             $curVal = trim(strval($this->idd_wilayah->CurrentValue));
@@ -1135,10 +1145,15 @@ class PertanggungjawabanView extends Pertanggungjawaban
             }
             $this->idd_user->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-            $this->tanggal->TooltipValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
+            $this->tanggal_upload->TooltipValue = "";
+
+            // tanggal_update
+            $this->tanggal_update->LinkCustomAttributes = "";
+            $this->tanggal_update->HrefValue = "";
+            $this->tanggal_update->TooltipValue = "";
 
             // idd_wilayah
             $this->idd_wilayah->LinkCustomAttributes = "";

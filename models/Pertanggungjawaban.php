@@ -29,7 +29,8 @@ class Pertanggungjawaban extends DbTable
 
     // Fields
     public $idd_evaluasi;
-    public $tanggal;
+    public $tanggal_upload;
+    public $tanggal_update;
     public $idd_wilayah;
     public $kd_satker;
     public $idd_tahapan;
@@ -95,14 +96,19 @@ class Pertanggungjawaban extends DbTable
         $this->idd_evaluasi->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->idd_evaluasi->Param, "CustomMsg");
         $this->Fields['idd_evaluasi'] = &$this->idd_evaluasi;
 
-        // tanggal
-        $this->tanggal = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tanggal', 'tanggal', '`tanggal`', CastDateFieldForLike("`tanggal`", 0, "DB"), 133, 10, 0, false, '`tanggal`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->tanggal->Nullable = false; // NOT NULL field
-        $this->tanggal->Required = true; // Required field
-        $this->tanggal->Sortable = true; // Allow sort
-        $this->tanggal->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_FORMAT"], $Language->phrase("IncorrectDate"));
-        $this->tanggal->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tanggal->Param, "CustomMsg");
-        $this->Fields['tanggal'] = &$this->tanggal;
+        // tanggal_upload
+        $this->tanggal_upload = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tanggal_upload', 'tanggal_upload', '`tanggal_upload`', CastDateFieldForLike("`tanggal_upload`", 1, "DB"), 135, 19, 1, false, '`tanggal_upload`', false, false, false, 'FORMATTED TEXT', 'HIDDEN');
+        $this->tanggal_upload->Sortable = true; // Allow sort
+        $this->tanggal_upload->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_FORMAT"], $Language->phrase("IncorrectDate"));
+        $this->tanggal_upload->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tanggal_upload->Param, "CustomMsg");
+        $this->Fields['tanggal_upload'] = &$this->tanggal_upload;
+
+        // tanggal_update
+        $this->tanggal_update = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_tanggal_update', 'tanggal_update', '`tanggal_update`', CastDateFieldForLike("`tanggal_update`", 1, "DB"), 135, 19, 1, false, '`tanggal_update`', false, false, false, 'FORMATTED TEXT', 'HIDDEN');
+        $this->tanggal_update->Sortable = true; // Allow sort
+        $this->tanggal_update->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_FORMAT"], $Language->phrase("IncorrectDate"));
+        $this->tanggal_update->CustomMsg = $Language->FieldPhrase($this->TableVar, $this->tanggal_update->Param, "CustomMsg");
+        $this->Fields['tanggal_update'] = &$this->tanggal_update;
 
         // idd_wilayah
         $this->idd_wilayah = new DbField('pertanggungjawaban', 'pertanggungjawaban', 'x_idd_wilayah', 'idd_wilayah', '`idd_wilayah`', '`idd_wilayah`', 3, 100, -1, false, '`idd_wilayah`', false, false, false, 'FORMATTED TEXT', 'SELECT');
@@ -725,7 +731,8 @@ class Pertanggungjawaban extends DbTable
             return;
         }
         $this->idd_evaluasi->DbValue = $row['idd_evaluasi'];
-        $this->tanggal->DbValue = $row['tanggal'];
+        $this->tanggal_upload->DbValue = $row['tanggal_upload'];
+        $this->tanggal_update->DbValue = $row['tanggal_update'];
         $this->idd_wilayah->DbValue = $row['idd_wilayah'];
         $this->kd_satker->DbValue = $row['kd_satker'];
         $this->idd_tahapan->DbValue = $row['idd_tahapan'];
@@ -1158,7 +1165,8 @@ SORTHTML;
             return;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
-        $this->tanggal->setDbValue($row['tanggal']);
+        $this->tanggal_upload->setDbValue($row['tanggal_upload']);
+        $this->tanggal_update->setDbValue($row['tanggal_update']);
         $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
@@ -1209,7 +1217,9 @@ SORTHTML;
 
         // idd_evaluasi
 
-        // tanggal
+        // tanggal_upload
+
+        // tanggal_update
 
         // idd_wilayah
 
@@ -1257,10 +1267,15 @@ SORTHTML;
         $this->idd_evaluasi->ViewValue = $this->idd_evaluasi->CurrentValue;
         $this->idd_evaluasi->ViewCustomAttributes = "";
 
-        // tanggal
-        $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
-        $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
-        $this->tanggal->ViewCustomAttributes = "";
+        // tanggal_upload
+        $this->tanggal_upload->ViewValue = $this->tanggal_upload->CurrentValue;
+        $this->tanggal_upload->ViewValue = FormatDateTime($this->tanggal_upload->ViewValue, 1);
+        $this->tanggal_upload->ViewCustomAttributes = "";
+
+        // tanggal_update
+        $this->tanggal_update->ViewValue = $this->tanggal_update->CurrentValue;
+        $this->tanggal_update->ViewValue = FormatDateTime($this->tanggal_update->ViewValue, 1);
+        $this->tanggal_update->ViewCustomAttributes = "";
 
         // idd_wilayah
         $curVal = trim(strval($this->idd_wilayah->CurrentValue));
@@ -1500,10 +1515,15 @@ SORTHTML;
         $this->idd_evaluasi->HrefValue = "";
         $this->idd_evaluasi->TooltipValue = "";
 
-        // tanggal
-        $this->tanggal->LinkCustomAttributes = "";
-        $this->tanggal->HrefValue = "";
-        $this->tanggal->TooltipValue = "";
+        // tanggal_upload
+        $this->tanggal_upload->LinkCustomAttributes = "";
+        $this->tanggal_upload->HrefValue = "";
+        $this->tanggal_upload->TooltipValue = "";
+
+        // tanggal_update
+        $this->tanggal_update->LinkCustomAttributes = "";
+        $this->tanggal_update->HrefValue = "";
+        $this->tanggal_update->TooltipValue = "";
 
         // idd_wilayah
         $this->idd_wilayah->LinkCustomAttributes = "";
@@ -1646,11 +1666,15 @@ SORTHTML;
         $this->idd_evaluasi->EditValue = $this->idd_evaluasi->CurrentValue;
         $this->idd_evaluasi->ViewCustomAttributes = "";
 
-        // tanggal
-        $this->tanggal->EditAttrs["class"] = "form-control";
-        $this->tanggal->EditCustomAttributes = "";
-        $this->tanggal->EditValue = FormatDateTime($this->tanggal->CurrentValue, 8);
-        $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
+        // tanggal_upload
+        $this->tanggal_upload->EditAttrs["class"] = "form-control";
+        $this->tanggal_upload->EditCustomAttributes = "";
+        $this->tanggal_upload->CurrentValue = FormatDateTime($this->tanggal_upload->CurrentValue, 8);
+
+        // tanggal_update
+        $this->tanggal_update->EditAttrs["class"] = "form-control";
+        $this->tanggal_update->EditCustomAttributes = "";
+        $this->tanggal_update->CurrentValue = FormatDateTime($this->tanggal_update->CurrentValue, 8);
 
         // idd_wilayah
         $this->idd_wilayah->EditAttrs["class"] = "form-control";
@@ -1914,7 +1938,8 @@ SORTHTML;
             if ($doc->Horizontal) { // Horizontal format, write header
                 $doc->beginExportRow();
                 if ($exportPageType == "view") {
-                    $doc->exportCaption($this->tanggal);
+                    $doc->exportCaption($this->tanggal_upload);
+                    $doc->exportCaption($this->tanggal_update);
                     $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
@@ -1938,7 +1963,8 @@ SORTHTML;
                     $doc->exportCaption($this->idd_user);
                 } else {
                     $doc->exportCaption($this->idd_evaluasi);
-                    $doc->exportCaption($this->tanggal);
+                    $doc->exportCaption($this->tanggal_upload);
+                    $doc->exportCaption($this->tanggal_update);
                     $doc->exportCaption($this->idd_wilayah);
                     $doc->exportCaption($this->kd_satker);
                     $doc->exportCaption($this->idd_tahapan);
@@ -1989,7 +2015,8 @@ SORTHTML;
                 if (!$doc->ExportCustom) {
                     $doc->beginExportRow($rowCnt); // Allow CSS styles if enabled
                     if ($exportPageType == "view") {
-                        $doc->exportField($this->tanggal);
+                        $doc->exportField($this->tanggal_upload);
+                        $doc->exportField($this->tanggal_update);
                         $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);
@@ -2013,7 +2040,8 @@ SORTHTML;
                         $doc->exportField($this->idd_user);
                     } else {
                         $doc->exportField($this->idd_evaluasi);
-                        $doc->exportField($this->tanggal);
+                        $doc->exportField($this->tanggal_upload);
+                        $doc->exportField($this->tanggal_update);
                         $doc->exportField($this->idd_wilayah);
                         $doc->exportField($this->kd_satker);
                         $doc->exportField($this->idd_tahapan);

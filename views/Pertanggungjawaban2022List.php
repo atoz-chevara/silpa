@@ -15,6 +15,77 @@ loadjs.ready("head", function () {
     currentPageID = ew.PAGE_ID = "list";
     fpertanggungjawaban2022list = currentForm = new ew.Form("fpertanggungjawaban2022list", "list");
     fpertanggungjawaban2022list.formKeyCountName = '<?= $Page->FormKeyCountName ?>';
+
+    // Add fields
+    var currentTable = <?= JsonEncode(GetClientVar("tables", "pertanggungjawaban2022")) ?>,
+        fields = currentTable.fields;
+    if (!ew.vars.tables.pertanggungjawaban2022)
+        ew.vars.tables.pertanggungjawaban2022 = currentTable;
+    fpertanggungjawaban2022list.addFields([
+        ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
+        ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
+        ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
+        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid]
+    ]);
+
+    // Set invalid fields
+    $(function() {
+        var f = fpertanggungjawaban2022list,
+            fobj = f.getForm(),
+            $fobj = $(fobj),
+            $k = $fobj.find("#" + f.formKeyCountName), // Get key_count
+            rowcnt = ($k[0]) ? parseInt($k.val(), 10) : 1,
+            startcnt = (rowcnt == 0) ? 0 : 1; // Check rowcnt == 0 => Inline-Add
+        for (var i = startcnt; i <= rowcnt; i++) {
+            var rowIndex = ($k[0]) ? String(i) : "";
+            f.setInvalid(rowIndex);
+        }
+    });
+
+    // Validate form
+    fpertanggungjawaban2022list.validate = function () {
+        if (!this.validateRequired)
+            return true; // Ignore validation
+        var fobj = this.getForm(),
+            $fobj = $(fobj);
+        if ($fobj.find("#confirm").val() == "confirm")
+            return true;
+        var addcnt = 0,
+            $k = $fobj.find("#" + this.formKeyCountName), // Get key_count
+            rowcnt = ($k[0]) ? parseInt($k.val(), 10) : 1,
+            startcnt = (rowcnt == 0) ? 0 : 1, // Check rowcnt == 0 => Inline-Add
+            gridinsert = ["insert", "gridinsert"].includes($fobj.find("#action").val()) && $k[0];
+        for (var i = startcnt; i <= rowcnt; i++) {
+            var rowIndex = ($k[0]) ? String(i) : "";
+            $fobj.data("rowindex", rowIndex);
+
+            // Validate fields
+            if (!this.validateFields(rowIndex))
+                return false;
+
+            // Call Form_CustomValidate event
+            if (!this.customValidate(fobj)) {
+                this.focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Form_CustomValidate
+    fpertanggungjawaban2022list.customValidate = function(fobj) { // DO NOT CHANGE THIS LINE!
+        // Your custom validation code here, return false if invalid.
+        return true;
+    }
+
+    // Use JavaScript validation or not
+    fpertanggungjawaban2022list.validateRequired = <?= Config("CLIENT_VALIDATE") ? "true" : "false" ?>;
+
+    // Dynamic selection lists
+    fpertanggungjawaban2022list.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
+    fpertanggungjawaban2022list.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
+    fpertanggungjawaban2022list.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
+    fpertanggungjawaban2022list.lists.status = <?= $Page->status->toClientList($Page) ?>;
     loadjs.done("fpertanggungjawaban2022list");
 });
 var fpertanggungjawaban2022listsrch, currentSearchForm, currentAdvancedSearchForm;
@@ -97,7 +168,7 @@ $Page->showMessage();
 <?php } ?>
 <input type="hidden" name="t" value="pertanggungjawaban2022">
 <div id="gmp_pertanggungjawaban2022" class="<?= ResponsiveTableClass() ?>card-body ew-grid-middle-panel">
-<?php if ($Page->TotalRecords > 0 || $Page->isGridEdit()) { ?>
+<?php if ($Page->TotalRecords > 0 || $Page->isAdd() || $Page->isCopy() || $Page->isGridEdit()) { ?>
 <table id="tbl_pertanggungjawaban2022list" class="table ew-table"><!-- .ew-table -->
 <thead>
     <tr class="ew-table-header">
@@ -111,12 +182,6 @@ $Page->renderListOptions();
 // Render list options (header, left)
 $Page->ListOptions->render("header", "left");
 ?>
-<?php if ($Page->idd_evaluasi->Visible) { // idd_evaluasi ?>
-        <th data-name="idd_evaluasi" class="<?= $Page->idd_evaluasi->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_idd_evaluasi" class="pertanggungjawaban2022_idd_evaluasi"><?= $Page->renderSort($Page->idd_evaluasi) ?></div></th>
-<?php } ?>
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <th data-name="tanggal" class="<?= $Page->tanggal->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_tanggal" class="pertanggungjawaban2022_tanggal"><?= $Page->renderSort($Page->tanggal) ?></div></th>
-<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <th data-name="kd_satker" class="<?= $Page->kd_satker->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_kd_satker" class="pertanggungjawaban2022_kd_satker"><?= $Page->renderSort($Page->kd_satker) ?></div></th>
 <?php } ?>
@@ -126,56 +191,8 @@ $Page->ListOptions->render("header", "left");
 <?php if ($Page->tahun_anggaran->Visible) { // tahun_anggaran ?>
         <th data-name="tahun_anggaran" class="<?= $Page->tahun_anggaran->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_tahun_anggaran" class="pertanggungjawaban2022_tahun_anggaran"><?= $Page->renderSort($Page->tahun_anggaran) ?></div></th>
 <?php } ?>
-<?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
-        <th data-name="surat_pengantar" class="<?= $Page->surat_pengantar->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_surat_pengantar" class="pertanggungjawaban2022_surat_pengantar"><?= $Page->renderSort($Page->surat_pengantar) ?></div></th>
-<?php } ?>
-<?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
-        <th data-name="skd_rqanunpert" class="<?= $Page->skd_rqanunpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_skd_rqanunpert" class="pertanggungjawaban2022_skd_rqanunpert"><?= $Page->renderSort($Page->skd_rqanunpert) ?></div></th>
-<?php } ?>
-<?php if ($Page->rqanun_apbkpert->Visible) { // rqanun_apbkpert ?>
-        <th data-name="rqanun_apbkpert" class="<?= $Page->rqanun_apbkpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_rqanun_apbkpert" class="pertanggungjawaban2022_rqanun_apbkpert"><?= $Page->renderSort($Page->rqanun_apbkpert) ?></div></th>
-<?php } ?>
-<?php if ($Page->rperbup_apbkpert->Visible) { // rperbup_apbkpert ?>
-        <th data-name="rperbup_apbkpert" class="<?= $Page->rperbup_apbkpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_rperbup_apbkpert" class="pertanggungjawaban2022_rperbup_apbkpert"><?= $Page->renderSort($Page->rperbup_apbkpert) ?></div></th>
-<?php } ?>
-<?php if ($Page->pbkdd_apbkpert->Visible) { // pbkdd_apbkpert ?>
-        <th data-name="pbkdd_apbkpert" class="<?= $Page->pbkdd_apbkpert->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_pbkdd_apbkpert" class="pertanggungjawaban2022_pbkdd_apbkpert"><?= $Page->renderSort($Page->pbkdd_apbkpert) ?></div></th>
-<?php } ?>
-<?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
-        <th data-name="risalah_sidang" class="<?= $Page->risalah_sidang->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_risalah_sidang" class="pertanggungjawaban2022_risalah_sidang"><?= $Page->renderSort($Page->risalah_sidang) ?></div></th>
-<?php } ?>
-<?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
-        <th data-name="absen_peserta" class="<?= $Page->absen_peserta->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_absen_peserta" class="pertanggungjawaban2022_absen_peserta"><?= $Page->renderSort($Page->absen_peserta) ?></div></th>
-<?php } ?>
-<?php if ($Page->neraca->Visible) { // neraca ?>
-        <th data-name="neraca" class="<?= $Page->neraca->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_neraca" class="pertanggungjawaban2022_neraca"><?= $Page->renderSort($Page->neraca) ?></div></th>
-<?php } ?>
-<?php if ($Page->lra->Visible) { // lra ?>
-        <th data-name="lra" class="<?= $Page->lra->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_lra" class="pertanggungjawaban2022_lra"><?= $Page->renderSort($Page->lra) ?></div></th>
-<?php } ?>
-<?php if ($Page->calk->Visible) { // calk ?>
-        <th data-name="calk" class="<?= $Page->calk->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_calk" class="pertanggungjawaban2022_calk"><?= $Page->renderSort($Page->calk) ?></div></th>
-<?php } ?>
-<?php if ($Page->lo->Visible) { // lo ?>
-        <th data-name="lo" class="<?= $Page->lo->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_lo" class="pertanggungjawaban2022_lo"><?= $Page->renderSort($Page->lo) ?></div></th>
-<?php } ?>
-<?php if ($Page->lpe->Visible) { // lpe ?>
-        <th data-name="lpe" class="<?= $Page->lpe->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_lpe" class="pertanggungjawaban2022_lpe"><?= $Page->renderSort($Page->lpe) ?></div></th>
-<?php } ?>
-<?php if ($Page->lpsal->Visible) { // lpsal ?>
-        <th data-name="lpsal" class="<?= $Page->lpsal->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_lpsal" class="pertanggungjawaban2022_lpsal"><?= $Page->renderSort($Page->lpsal) ?></div></th>
-<?php } ?>
-<?php if ($Page->lak->Visible) { // lak ?>
-        <th data-name="lak" class="<?= $Page->lak->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_lak" class="pertanggungjawaban2022_lak"><?= $Page->renderSort($Page->lak) ?></div></th>
-<?php } ?>
-<?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
-        <th data-name="laporan_pemeriksaan" class="<?= $Page->laporan_pemeriksaan->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_laporan_pemeriksaan" class="pertanggungjawaban2022_laporan_pemeriksaan"><?= $Page->renderSort($Page->laporan_pemeriksaan) ?></div></th>
-<?php } ?>
 <?php if ($Page->status->Visible) { // status ?>
         <th data-name="status" class="<?= $Page->status->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_status" class="pertanggungjawaban2022_status"><?= $Page->renderSort($Page->status) ?></div></th>
-<?php } ?>
-<?php if ($Page->idd_user->Visible) { // idd_user ?>
-        <th data-name="idd_user" class="<?= $Page->idd_user->headerCellClass() ?>"><div id="elh_pertanggungjawaban2022_idd_user" class="pertanggungjawaban2022_idd_user"><?= $Page->renderSort($Page->idd_user) ?></div></th>
 <?php } ?>
 <?php
 // Render list options (header, right)
@@ -185,6 +202,165 @@ $Page->ListOptions->render("header", "right");
 </thead>
 <tbody>
 <?php
+    if ($Page->isAdd() || $Page->isCopy()) {
+        $Page->RowIndex = 0;
+        $Page->KeyCount = $Page->RowIndex;
+        if ($Page->isAdd())
+            $Page->loadRowValues();
+        if ($Page->EventCancelled) // Insert failed
+            $Page->restoreFormValues(); // Restore form values
+
+        // Set row properties
+        $Page->resetAttributes();
+        $Page->RowAttrs->merge(["data-rowindex" => 0, "id" => "r0_pertanggungjawaban2022", "data-rowtype" => ROWTYPE_ADD]);
+        $Page->RowType = ROWTYPE_ADD;
+
+        // Render row
+        $Page->renderRow();
+
+        // Render list options
+        $Page->renderListOptions();
+        $Page->StartRowCount = 0;
+?>
+    <tr <?= $Page->rowAttributes() ?>>
+<?php
+// Render list options (body, left)
+$Page->ListOptions->render("body", "left", $Page->RowCount);
+?>
+    <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
+        <td data-name="kd_satker">
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_kd_satker" class="form-group pertanggungjawaban2022_kd_satker">
+    <select
+        id="x<?= $Page->RowIndex ?>_kd_satker"
+        name="x<?= $Page->RowIndex ?>_kd_satker"
+        class="form-control ew-select<?= $Page->kd_satker->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker"
+        data-table="pertanggungjawaban2022"
+        data-field="x_kd_satker"
+        data-value-separator="<?= $Page->kd_satker->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->kd_satker->getPlaceHolder()) ?>"
+        <?= $Page->kd_satker->editAttributes() ?>>
+        <?= $Page->kd_satker->selectOptionListHtml("x{$Page->RowIndex}_kd_satker") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->kd_satker->getErrorMessage() ?></div>
+<?= $Page->kd_satker->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_kd_satker") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker']"),
+        options = { name: "x<?= $Page->RowIndex ?>_kd_satker", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.kd_satker.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_kd_satker" data-hidden="1" name="o<?= $Page->RowIndex ?>_kd_satker" id="o<?= $Page->RowIndex ?>_kd_satker" value="<?= HtmlEncode($Page->kd_satker->OldValue) ?>">
+</td>
+    <?php } ?>
+    <?php if ($Page->idd_tahapan->Visible) { // idd_tahapan ?>
+        <td data-name="idd_tahapan">
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_idd_tahapan" class="form-group pertanggungjawaban2022_idd_tahapan">
+    <select
+        id="x<?= $Page->RowIndex ?>_idd_tahapan"
+        name="x<?= $Page->RowIndex ?>_idd_tahapan"
+        class="form-control ew-select<?= $Page->idd_tahapan->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan"
+        data-table="pertanggungjawaban2022"
+        data-field="x_idd_tahapan"
+        data-value-separator="<?= $Page->idd_tahapan->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->idd_tahapan->getPlaceHolder()) ?>"
+        <?= $Page->idd_tahapan->editAttributes() ?>>
+        <?= $Page->idd_tahapan->selectOptionListHtml("x{$Page->RowIndex}_idd_tahapan") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->idd_tahapan->getErrorMessage() ?></div>
+<?= $Page->idd_tahapan->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_tahapan") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan']"),
+        options = { name: "x<?= $Page->RowIndex ?>_idd_tahapan", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.idd_tahapan.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_tahapan" data-hidden="1" name="o<?= $Page->RowIndex ?>_idd_tahapan" id="o<?= $Page->RowIndex ?>_idd_tahapan" value="<?= HtmlEncode($Page->idd_tahapan->OldValue) ?>">
+</td>
+    <?php } ?>
+    <?php if ($Page->tahun_anggaran->Visible) { // tahun_anggaran ?>
+        <td data-name="tahun_anggaran">
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_tahun_anggaran" class="form-group pertanggungjawaban2022_tahun_anggaran">
+    <select
+        id="x<?= $Page->RowIndex ?>_tahun_anggaran"
+        name="x<?= $Page->RowIndex ?>_tahun_anggaran"
+        class="form-control ew-select<?= $Page->tahun_anggaran->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran"
+        data-table="pertanggungjawaban2022"
+        data-field="x_tahun_anggaran"
+        data-value-separator="<?= $Page->tahun_anggaran->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>"
+        <?= $Page->tahun_anggaran->editAttributes() ?>>
+        <?= $Page->tahun_anggaran->selectOptionListHtml("x{$Page->RowIndex}_tahun_anggaran") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+<?= $Page->tahun_anggaran->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_tahun_anggaran") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran']"),
+        options = { name: "x<?= $Page->RowIndex ?>_tahun_anggaran", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.tahun_anggaran.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_tahun_anggaran" data-hidden="1" name="o<?= $Page->RowIndex ?>_tahun_anggaran" id="o<?= $Page->RowIndex ?>_tahun_anggaran" value="<?= HtmlEncode($Page->tahun_anggaran->OldValue) ?>">
+</td>
+    <?php } ?>
+    <?php if ($Page->status->Visible) { // status ?>
+        <td data-name="status">
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_status" class="form-group pertanggungjawaban2022_status">
+    <select
+        id="x<?= $Page->RowIndex ?>_status"
+        name="x<?= $Page->RowIndex ?>_status"
+        class="form-control ew-select<?= $Page->status->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status"
+        data-table="pertanggungjawaban2022"
+        data-field="x_status"
+        data-value-separator="<?= $Page->status->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>"
+        <?= $Page->status->editAttributes() ?>>
+        <?= $Page->status->selectOptionListHtml("x{$Page->RowIndex}_status") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status']"),
+        options = { name: "x<?= $Page->RowIndex ?>_status", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.data = ew.vars.tables.pertanggungjawaban2022.fields.status.lookupOptions;
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.status.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_status" data-hidden="1" name="o<?= $Page->RowIndex ?>_status" id="o<?= $Page->RowIndex ?>_status" value="<?= HtmlEncode($Page->status->OldValue) ?>">
+</td>
+    <?php } ?>
+<?php
+// Render list options (body, right)
+$Page->ListOptions->render("body", "right", $Page->RowCount);
+?>
+<script>
+loadjs.ready(["fpertanggungjawaban2022list","load"], function() {
+    fpertanggungjawaban2022list.updateLists(<?= $Page->RowIndex ?>);
+});
+</script>
+    </tr>
+<?php
+    }
+?>
+<?php
 if ($Page->ExportAll && $Page->isExport()) {
     $Page->StopRecord = $Page->TotalRecords;
 } else {
@@ -193,6 +369,15 @@ if ($Page->ExportAll && $Page->isExport()) {
         $Page->StopRecord = $Page->StartRecord + $Page->DisplayRecords - 1;
     } else {
         $Page->StopRecord = $Page->TotalRecords;
+    }
+}
+
+// Restore number of post back records
+if ($CurrentForm && ($Page->isConfirm() || $Page->EventCancelled)) {
+    $CurrentForm->Index = -1;
+    if ($CurrentForm->hasValue($Page->FormKeyCountName) && ($Page->isGridAdd() || $Page->isGridEdit() || $Page->isConfirm())) {
+        $Page->KeyCount = $CurrentForm->getValue($Page->FormKeyCountName);
+        $Page->StopRecord = $Page->StartRecord + $Page->KeyCount - 1;
     }
 }
 $Page->RecordCount = $Page->StartRecord - 1;
@@ -206,6 +391,9 @@ if ($Page->Recordset && !$Page->Recordset->EOF) {
 $Page->RowType = ROWTYPE_AGGREGATEINIT;
 $Page->resetAttributes();
 $Page->renderRow();
+$Page->EditRowCount = 0;
+if ($Page->isEdit())
+    $Page->RowIndex = 1;
 while ($Page->RecordCount < $Page->StopRecord) {
     $Page->RecordCount++;
     if ($Page->RecordCount >= $Page->StartRecord) {
@@ -229,6 +417,18 @@ while ($Page->RecordCount < $Page->StopRecord) {
             }
         }
         $Page->RowType = ROWTYPE_VIEW; // Render view
+        if ($Page->isEdit()) {
+            if ($Page->checkInlineEditKey() && $Page->EditRowCount == 0) { // Inline edit
+                $Page->RowType = ROWTYPE_EDIT; // Render edit
+            }
+        }
+        if ($Page->isEdit() && $Page->RowType == ROWTYPE_EDIT && $Page->EventCancelled) { // Update failed
+            $CurrentForm->Index = 1;
+            $Page->restoreFormValues(); // Restore form values
+        }
+        if ($Page->RowType == ROWTYPE_EDIT) { // Edit row
+            $Page->EditRowCount++;
+        }
 
         // Set up row id / data-rowindex
         $Page->RowAttrs->merge(["data-rowindex" => $Page->RowCount, "id" => "r" . $Page->RowCount . "_pertanggungjawaban2022", "data-rowtype" => $Page->RowType]);
@@ -244,195 +444,152 @@ while ($Page->RecordCount < $Page->StopRecord) {
 // Render list options (body, left)
 $Page->ListOptions->render("body", "left", $Page->RowCount);
 ?>
-    <?php if ($Page->idd_evaluasi->Visible) { // idd_evaluasi ?>
-        <td data-name="idd_evaluasi" <?= $Page->idd_evaluasi->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_idd_evaluasi">
-<span<?= $Page->idd_evaluasi->viewAttributes() ?>>
-<?= $Page->idd_evaluasi->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <td data-name="tanggal" <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_tanggal">
-<span<?= $Page->tanggal->viewAttributes() ?>>
-<?= $Page->tanggal->getViewValue() ?></span>
-</span>
-</td>
-    <?php } ?>
     <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <td data-name="kd_satker" <?= $Page->kd_satker->cellAttributes() ?>>
+<?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_kd_satker" class="form-group">
+    <select
+        id="x<?= $Page->RowIndex ?>_kd_satker"
+        name="x<?= $Page->RowIndex ?>_kd_satker"
+        class="form-control ew-select<?= $Page->kd_satker->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker"
+        data-table="pertanggungjawaban2022"
+        data-field="x_kd_satker"
+        data-value-separator="<?= $Page->kd_satker->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->kd_satker->getPlaceHolder()) ?>"
+        <?= $Page->kd_satker->editAttributes() ?>>
+        <?= $Page->kd_satker->selectOptionListHtml("x{$Page->RowIndex}_kd_satker") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->kd_satker->getErrorMessage() ?></div>
+<?= $Page->kd_satker->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_kd_satker") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker']"),
+        options = { name: "x<?= $Page->RowIndex ?>_kd_satker", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_kd_satker", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.kd_satker.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<?php } ?>
+<?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
 <span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_kd_satker">
 <span<?= $Page->kd_satker->viewAttributes() ?>>
 <?= $Page->kd_satker->getViewValue() ?></span>
 </span>
+<?php } ?>
 </td>
     <?php } ?>
     <?php if ($Page->idd_tahapan->Visible) { // idd_tahapan ?>
         <td data-name="idd_tahapan" <?= $Page->idd_tahapan->cellAttributes() ?>>
+<?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_idd_tahapan" class="form-group">
+    <select
+        id="x<?= $Page->RowIndex ?>_idd_tahapan"
+        name="x<?= $Page->RowIndex ?>_idd_tahapan"
+        class="form-control ew-select<?= $Page->idd_tahapan->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan"
+        data-table="pertanggungjawaban2022"
+        data-field="x_idd_tahapan"
+        data-value-separator="<?= $Page->idd_tahapan->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->idd_tahapan->getPlaceHolder()) ?>"
+        <?= $Page->idd_tahapan->editAttributes() ?>>
+        <?= $Page->idd_tahapan->selectOptionListHtml("x{$Page->RowIndex}_idd_tahapan") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->idd_tahapan->getErrorMessage() ?></div>
+<?= $Page->idd_tahapan->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_tahapan") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan']"),
+        options = { name: "x<?= $Page->RowIndex ?>_idd_tahapan", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_idd_tahapan", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.idd_tahapan.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<?php } ?>
+<?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
 <span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_idd_tahapan">
 <span<?= $Page->idd_tahapan->viewAttributes() ?>>
 <?= $Page->idd_tahapan->getViewValue() ?></span>
 </span>
+<?php } ?>
 </td>
     <?php } ?>
     <?php if ($Page->tahun_anggaran->Visible) { // tahun_anggaran ?>
         <td data-name="tahun_anggaran" <?= $Page->tahun_anggaran->cellAttributes() ?>>
+<?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_tahun_anggaran" class="form-group">
+    <select
+        id="x<?= $Page->RowIndex ?>_tahun_anggaran"
+        name="x<?= $Page->RowIndex ?>_tahun_anggaran"
+        class="form-control ew-select<?= $Page->tahun_anggaran->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran"
+        data-table="pertanggungjawaban2022"
+        data-field="x_tahun_anggaran"
+        data-value-separator="<?= $Page->tahun_anggaran->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->tahun_anggaran->getPlaceHolder()) ?>"
+        <?= $Page->tahun_anggaran->editAttributes() ?>>
+        <?= $Page->tahun_anggaran->selectOptionListHtml("x{$Page->RowIndex}_tahun_anggaran") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->tahun_anggaran->getErrorMessage() ?></div>
+<?= $Page->tahun_anggaran->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_tahun_anggaran") ?>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran']"),
+        options = { name: "x<?= $Page->RowIndex ?>_tahun_anggaran", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_tahun_anggaran", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.tahun_anggaran.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<?php } ?>
+<?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
 <span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_tahun_anggaran">
 <span<?= $Page->tahun_anggaran->viewAttributes() ?>>
 <?= $Page->tahun_anggaran->getViewValue() ?></span>
 </span>
-</td>
-    <?php } ?>
-    <?php if ($Page->surat_pengantar->Visible) { // surat_pengantar ?>
-        <td data-name="surat_pengantar" <?= $Page->surat_pengantar->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_surat_pengantar">
-<span<?= $Page->surat_pengantar->viewAttributes() ?>>
-<?= GetFileViewTag($Page->surat_pengantar, $Page->surat_pengantar->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->skd_rqanunpert->Visible) { // skd_rqanunpert ?>
-        <td data-name="skd_rqanunpert" <?= $Page->skd_rqanunpert->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_skd_rqanunpert">
-<span<?= $Page->skd_rqanunpert->viewAttributes() ?>>
-<?= GetFileViewTag($Page->skd_rqanunpert, $Page->skd_rqanunpert->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->rqanun_apbkpert->Visible) { // rqanun_apbkpert ?>
-        <td data-name="rqanun_apbkpert" <?= $Page->rqanun_apbkpert->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_rqanun_apbkpert">
-<span<?= $Page->rqanun_apbkpert->viewAttributes() ?>>
-<?= GetFileViewTag($Page->rqanun_apbkpert, $Page->rqanun_apbkpert->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->rperbup_apbkpert->Visible) { // rperbup_apbkpert ?>
-        <td data-name="rperbup_apbkpert" <?= $Page->rperbup_apbkpert->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_rperbup_apbkpert">
-<span<?= $Page->rperbup_apbkpert->viewAttributes() ?>>
-<?= GetFileViewTag($Page->rperbup_apbkpert, $Page->rperbup_apbkpert->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->pbkdd_apbkpert->Visible) { // pbkdd_apbkpert ?>
-        <td data-name="pbkdd_apbkpert" <?= $Page->pbkdd_apbkpert->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_pbkdd_apbkpert">
-<span<?= $Page->pbkdd_apbkpert->viewAttributes() ?>>
-<?= GetFileViewTag($Page->pbkdd_apbkpert, $Page->pbkdd_apbkpert->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->risalah_sidang->Visible) { // risalah_sidang ?>
-        <td data-name="risalah_sidang" <?= $Page->risalah_sidang->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_risalah_sidang">
-<span<?= $Page->risalah_sidang->viewAttributes() ?>>
-<?= GetFileViewTag($Page->risalah_sidang, $Page->risalah_sidang->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->absen_peserta->Visible) { // absen_peserta ?>
-        <td data-name="absen_peserta" <?= $Page->absen_peserta->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_absen_peserta">
-<span<?= $Page->absen_peserta->viewAttributes() ?>>
-<?= GetFileViewTag($Page->absen_peserta, $Page->absen_peserta->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->neraca->Visible) { // neraca ?>
-        <td data-name="neraca" <?= $Page->neraca->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_neraca">
-<span<?= $Page->neraca->viewAttributes() ?>>
-<?= GetFileViewTag($Page->neraca, $Page->neraca->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->lra->Visible) { // lra ?>
-        <td data-name="lra" <?= $Page->lra->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_lra">
-<span<?= $Page->lra->viewAttributes() ?>>
-<?= GetFileViewTag($Page->lra, $Page->lra->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->calk->Visible) { // calk ?>
-        <td data-name="calk" <?= $Page->calk->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_calk">
-<span<?= $Page->calk->viewAttributes() ?>>
-<?= GetFileViewTag($Page->calk, $Page->calk->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->lo->Visible) { // lo ?>
-        <td data-name="lo" <?= $Page->lo->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_lo">
-<span<?= $Page->lo->viewAttributes() ?>>
-<?= GetFileViewTag($Page->lo, $Page->lo->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->lpe->Visible) { // lpe ?>
-        <td data-name="lpe" <?= $Page->lpe->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_lpe">
-<span<?= $Page->lpe->viewAttributes() ?>>
-<?= GetFileViewTag($Page->lpe, $Page->lpe->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->lpsal->Visible) { // lpsal ?>
-        <td data-name="lpsal" <?= $Page->lpsal->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_lpsal">
-<span<?= $Page->lpsal->viewAttributes() ?>>
-<?= GetFileViewTag($Page->lpsal, $Page->lpsal->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->lak->Visible) { // lak ?>
-        <td data-name="lak" <?= $Page->lak->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_lak">
-<span<?= $Page->lak->viewAttributes() ?>>
-<?= GetFileViewTag($Page->lak, $Page->lak->getViewValue(), false) ?>
-</span>
-</span>
-</td>
-    <?php } ?>
-    <?php if ($Page->laporan_pemeriksaan->Visible) { // laporan_pemeriksaan ?>
-        <td data-name="laporan_pemeriksaan" <?= $Page->laporan_pemeriksaan->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_laporan_pemeriksaan">
-<span<?= $Page->laporan_pemeriksaan->viewAttributes() ?>>
-<?= GetFileViewTag($Page->laporan_pemeriksaan, $Page->laporan_pemeriksaan->getViewValue(), false) ?>
-</span>
-</span>
+<?php } ?>
 </td>
     <?php } ?>
     <?php if ($Page->status->Visible) { // status ?>
         <td data-name="status" <?= $Page->status->cellAttributes() ?>>
+<?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_status" class="form-group">
+    <select
+        id="x<?= $Page->RowIndex ?>_status"
+        name="x<?= $Page->RowIndex ?>_status"
+        class="form-control ew-select<?= $Page->status->isInvalidClass() ?>"
+        data-select2-id="pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status"
+        data-table="pertanggungjawaban2022"
+        data-field="x_status"
+        data-value-separator="<?= $Page->status->displayValueSeparatorAttribute() ?>"
+        data-placeholder="<?= HtmlEncode($Page->status->getPlaceHolder()) ?>"
+        <?= $Page->status->editAttributes() ?>>
+        <?= $Page->status->selectOptionListHtml("x{$Page->RowIndex}_status") ?>
+    </select>
+    <div class="invalid-feedback"><?= $Page->status->getErrorMessage() ?></div>
+<script>
+loadjs.ready("head", function() {
+    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status']"),
+        options = { name: "x<?= $Page->RowIndex ?>_status", selectId: "pertanggungjawaban2022_x<?= $Page->RowIndex ?>_status", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
+    options.data = ew.vars.tables.pertanggungjawaban2022.fields.status.lookupOptions;
+    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
+    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.status.selectOptions);
+    ew.createSelect(options);
+});
+</script>
+</span>
+<?php } ?>
+<?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
 <span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_status">
 <span<?= $Page->status->viewAttributes() ?>>
 <?= $Page->status->getViewValue() ?></span>
 </span>
-</td>
-    <?php } ?>
-    <?php if ($Page->idd_user->Visible) { // idd_user ?>
-        <td data-name="idd_user" <?= $Page->idd_user->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban2022_idd_user">
-<span<?= $Page->idd_user->viewAttributes() ?>>
-<?= $Page->idd_user->getViewValue() ?></span>
-</span>
+<?php } ?>
 </td>
     <?php } ?>
 <?php
@@ -440,6 +597,13 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
 $Page->ListOptions->render("body", "right", $Page->RowCount);
 ?>
     </tr>
+<?php if ($Page->RowType == ROWTYPE_ADD || $Page->RowType == ROWTYPE_EDIT) { ?>
+<script>
+loadjs.ready(["fpertanggungjawaban2022list","load"], function () {
+    fpertanggungjawaban2022list.updateLists(<?= $Page->RowIndex ?>);
+});
+</script>
+<?php } ?>
 <?php
     }
     if (!$Page->isGridAdd()) {
@@ -451,6 +615,14 @@ $Page->ListOptions->render("body", "right", $Page->RowCount);
 </table><!-- /.ew-table -->
 <?php } ?>
 </div><!-- /.ew-grid-middle-panel -->
+<?php if ($Page->isAdd() || $Page->isCopy()) { ?>
+<input type="hidden" name="<?= $Page->FormKeyCountName ?>" id="<?= $Page->FormKeyCountName ?>" value="<?= $Page->KeyCount ?>">
+<input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
+<?php } ?>
+<?php if ($Page->isEdit()) { ?>
+<input type="hidden" name="<?= $Page->FormKeyCountName ?>" id="<?= $Page->FormKeyCountName ?>" value="<?= $Page->KeyCount ?>">
+<input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
+<?php } ?>
 <?php if (!$Page->CurrentAction) { ?>
 <input type="hidden" name="action" id="action" value="">
 <?php } ?>

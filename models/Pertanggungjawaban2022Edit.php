@@ -289,6 +289,36 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         if (is_object($rs)) { // Recordset
             while ($rs && !$rs->EOF) {
                 $this->loadRowValues($rs); // Set up DbValue/CurrentValue
+		        $this->surat_pengantar->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->surat_pengantar->UploadPath = $this->surat_pengantar->OldUploadPath;
+		        $this->skd_rqanunpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->skd_rqanunpert->UploadPath = $this->skd_rqanunpert->OldUploadPath;
+		        $this->rqanun_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->rqanun_apbkpert->UploadPath = $this->rqanun_apbkpert->OldUploadPath;
+		        $this->rperbup_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->rperbup_apbkpert->UploadPath = $this->rperbup_apbkpert->OldUploadPath;
+		        $this->pbkdd_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->pbkdd_apbkpert->UploadPath = $this->pbkdd_apbkpert->OldUploadPath;
+		        $this->risalah_sidang->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->risalah_sidang->UploadPath = $this->risalah_sidang->OldUploadPath;
+		        $this->absen_peserta->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->absen_peserta->UploadPath = $this->absen_peserta->OldUploadPath;
+		        $this->neraca->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->neraca->UploadPath = $this->neraca->OldUploadPath;
+		        $this->lra->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->lra->UploadPath = $this->lra->OldUploadPath;
+		        $this->calk->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->calk->UploadPath = $this->calk->OldUploadPath;
+		        $this->lo->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->lo->UploadPath = $this->lo->OldUploadPath;
+		        $this->lpe->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->lpe->UploadPath = $this->lpe->OldUploadPath;
+		        $this->lpsal->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->lpsal->UploadPath = $this->lpsal->OldUploadPath;
+		        $this->lak->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->lak->UploadPath = $this->lak->OldUploadPath;
+		        $this->laporan_pemeriksaan->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		        $this->laporan_pemeriksaan->UploadPath = $this->laporan_pemeriksaan->OldUploadPath;
                 $row = $this->getRecordFromArray($rs->fields);
                 if ($current) {
                     return $row;
@@ -467,8 +497,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         // Create form object
         $CurrentForm = new HttpForm();
         $this->CurrentAction = Param("action"); // Set up current action
-        $this->idd_evaluasi->setVisibility();
-        $this->tanggal->setVisibility();
+        $this->idd_evaluasi->Visible = false;
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
@@ -488,7 +517,9 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         $this->lak->setVisibility();
         $this->laporan_pemeriksaan->setVisibility();
         $this->status->setVisibility();
-        $this->idd_user->setVisibility();
+        $this->tanggal_upload->Visible = false;
+        $this->tanggal_update->Visible = false;
+        $this->idd_user->Visible = false;
         $this->hideFieldsForAddEdit();
 
         // Do not use lookup cache
@@ -718,23 +749,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         // Load from form
         global $CurrentForm;
 
-        // Check field name 'idd_evaluasi' first before field var 'x_idd_evaluasi'
-        $val = $CurrentForm->hasValue("idd_evaluasi") ? $CurrentForm->getValue("idd_evaluasi") : $CurrentForm->getValue("x_idd_evaluasi");
-        if (!$this->idd_evaluasi->IsDetailKey) {
-            $this->idd_evaluasi->setFormValue($val);
-        }
-
-        // Check field name 'tanggal' first before field var 'x_tanggal'
-        $val = $CurrentForm->hasValue("tanggal") ? $CurrentForm->getValue("tanggal") : $CurrentForm->getValue("x_tanggal");
-        if (!$this->tanggal->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->tanggal->Visible = false; // Disable update for API request
-            } else {
-                $this->tanggal->setFormValue($val);
-            }
-            $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
-        }
-
         // Check field name 'kd_satker' first before field var 'x_kd_satker'
         $val = $CurrentForm->hasValue("kd_satker") ? $CurrentForm->getValue("kd_satker") : $CurrentForm->getValue("x_kd_satker");
         if (!$this->kd_satker->IsDetailKey) {
@@ -775,15 +789,41 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             }
         }
 
-        // Check field name 'idd_user' first before field var 'x_idd_user'
-        $val = $CurrentForm->hasValue("idd_user") ? $CurrentForm->getValue("idd_user") : $CurrentForm->getValue("x_idd_user");
-        if (!$this->idd_user->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_user->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_user->setFormValue($val);
-            }
+        // Check field name 'idd_evaluasi' first before field var 'x_idd_evaluasi'
+        $val = $CurrentForm->hasValue("idd_evaluasi") ? $CurrentForm->getValue("idd_evaluasi") : $CurrentForm->getValue("x_idd_evaluasi");
+        if (!$this->idd_evaluasi->IsDetailKey) {
+            $this->idd_evaluasi->setFormValue($val);
         }
+		$this->surat_pengantar->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->surat_pengantar->UploadPath = $this->surat_pengantar->OldUploadPath;
+		$this->skd_rqanunpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->skd_rqanunpert->UploadPath = $this->skd_rqanunpert->OldUploadPath;
+		$this->rqanun_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->rqanun_apbkpert->UploadPath = $this->rqanun_apbkpert->OldUploadPath;
+		$this->rperbup_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->rperbup_apbkpert->UploadPath = $this->rperbup_apbkpert->OldUploadPath;
+		$this->pbkdd_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->pbkdd_apbkpert->UploadPath = $this->pbkdd_apbkpert->OldUploadPath;
+		$this->risalah_sidang->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->risalah_sidang->UploadPath = $this->risalah_sidang->OldUploadPath;
+		$this->absen_peserta->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->absen_peserta->UploadPath = $this->absen_peserta->OldUploadPath;
+		$this->neraca->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->neraca->UploadPath = $this->neraca->OldUploadPath;
+		$this->lra->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->lra->UploadPath = $this->lra->OldUploadPath;
+		$this->calk->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->calk->UploadPath = $this->calk->OldUploadPath;
+		$this->lo->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->lo->UploadPath = $this->lo->OldUploadPath;
+		$this->lpe->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->lpe->UploadPath = $this->lpe->OldUploadPath;
+		$this->lpsal->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->lpsal->UploadPath = $this->lpsal->OldUploadPath;
+		$this->lak->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->lak->UploadPath = $this->lak->OldUploadPath;
+		$this->laporan_pemeriksaan->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+		$this->laporan_pemeriksaan->UploadPath = $this->laporan_pemeriksaan->OldUploadPath;
         $this->getUploadFiles(); // Get upload files
     }
 
@@ -792,13 +832,10 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
     {
         global $CurrentForm;
         $this->idd_evaluasi->CurrentValue = $this->idd_evaluasi->FormValue;
-        $this->tanggal->CurrentValue = $this->tanggal->FormValue;
-        $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
         $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
         $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
         $this->status->CurrentValue = $this->status->FormValue;
-        $this->idd_user->CurrentValue = $this->idd_user->FormValue;
     }
 
     /**
@@ -858,7 +895,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             return;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
-        $this->tanggal->setDbValue($row['tanggal']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
         $this->tahun_anggaran->setDbValue($row['tahun_anggaran']);
@@ -893,6 +929,8 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         $this->laporan_pemeriksaan->Upload->DbValue = $row['laporan_pemeriksaan'];
         $this->laporan_pemeriksaan->setDbValue($this->laporan_pemeriksaan->Upload->DbValue);
         $this->status->setDbValue($row['status']);
+        $this->tanggal_upload->setDbValue($row['tanggal_upload']);
+        $this->tanggal_update->setDbValue($row['tanggal_update']);
         $this->idd_user->setDbValue($row['idd_user']);
     }
 
@@ -901,7 +939,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
     {
         $row = [];
         $row['idd_evaluasi'] = null;
-        $row['tanggal'] = null;
         $row['kd_satker'] = null;
         $row['idd_tahapan'] = null;
         $row['tahun_anggaran'] = null;
@@ -921,6 +958,8 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         $row['lak'] = null;
         $row['laporan_pemeriksaan'] = null;
         $row['status'] = null;
+        $row['tanggal_upload'] = null;
+        $row['tanggal_update'] = null;
         $row['idd_user'] = null;
         return $row;
     }
@@ -954,8 +993,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         // Common render codes for all row types
 
         // idd_evaluasi
-
-        // tanggal
 
         // kd_satker
 
@@ -995,16 +1032,15 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
 
         // status
 
+        // tanggal_upload
+
+        // tanggal_update
+
         // idd_user
         if ($this->RowType == ROWTYPE_VIEW) {
             // idd_evaluasi
             $this->idd_evaluasi->ViewValue = $this->idd_evaluasi->CurrentValue;
             $this->idd_evaluasi->ViewCustomAttributes = "";
-
-            // tanggal
-            $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
-            $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
-            $this->tanggal->ViewCustomAttributes = "";
 
             // kd_satker
             $curVal = trim(strval($this->kd_satker->CurrentValue));
@@ -1070,123 +1106,153 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             $this->tahun_anggaran->ViewCustomAttributes = "";
 
             // surat_pengantar
+            $this->surat_pengantar->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
                 $this->surat_pengantar->ViewValue = $this->surat_pengantar->Upload->DbValue;
             } else {
                 $this->surat_pengantar->ViewValue = "";
             }
+            $this->surat_pengantar->CssClass = "font-italic";
             $this->surat_pengantar->ViewCustomAttributes = "";
 
             // skd_rqanunpert
+            $this->skd_rqanunpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
                 $this->skd_rqanunpert->ViewValue = $this->skd_rqanunpert->Upload->DbValue;
             } else {
                 $this->skd_rqanunpert->ViewValue = "";
             }
+            $this->skd_rqanunpert->CssClass = "font-italic";
             $this->skd_rqanunpert->ViewCustomAttributes = "";
 
             // rqanun_apbkpert
+            $this->rqanun_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->rqanun_apbkpert->Upload->DbValue)) {
                 $this->rqanun_apbkpert->ViewValue = $this->rqanun_apbkpert->Upload->DbValue;
             } else {
                 $this->rqanun_apbkpert->ViewValue = "";
             }
+            $this->rqanun_apbkpert->CssClass = "font-italic";
             $this->rqanun_apbkpert->ViewCustomAttributes = "";
 
             // rperbup_apbkpert
+            $this->rperbup_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->rperbup_apbkpert->Upload->DbValue)) {
                 $this->rperbup_apbkpert->ViewValue = $this->rperbup_apbkpert->Upload->DbValue;
             } else {
                 $this->rperbup_apbkpert->ViewValue = "";
             }
+            $this->rperbup_apbkpert->CssClass = "font-italic";
             $this->rperbup_apbkpert->ViewCustomAttributes = "";
 
             // pbkdd_apbkpert
+            $this->pbkdd_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->pbkdd_apbkpert->Upload->DbValue)) {
                 $this->pbkdd_apbkpert->ViewValue = $this->pbkdd_apbkpert->Upload->DbValue;
             } else {
                 $this->pbkdd_apbkpert->ViewValue = "";
             }
+            $this->pbkdd_apbkpert->CssClass = "font-italic";
             $this->pbkdd_apbkpert->ViewCustomAttributes = "";
 
             // risalah_sidang
+            $this->risalah_sidang->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
                 $this->risalah_sidang->ViewValue = $this->risalah_sidang->Upload->DbValue;
             } else {
                 $this->risalah_sidang->ViewValue = "";
             }
+            $this->risalah_sidang->CssClass = "font-italic";
             $this->risalah_sidang->ViewCustomAttributes = "";
 
             // absen_peserta
+            $this->absen_peserta->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
                 $this->absen_peserta->ViewValue = $this->absen_peserta->Upload->DbValue;
             } else {
                 $this->absen_peserta->ViewValue = "";
             }
+            $this->absen_peserta->CssClass = "font-italic";
             $this->absen_peserta->ViewCustomAttributes = "";
 
             // neraca
+            $this->neraca->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->neraca->Upload->DbValue)) {
                 $this->neraca->ViewValue = $this->neraca->Upload->DbValue;
             } else {
                 $this->neraca->ViewValue = "";
             }
+            $this->neraca->CssClass = "font-italic";
             $this->neraca->ViewCustomAttributes = "";
 
             // lra
+            $this->lra->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lra->Upload->DbValue)) {
                 $this->lra->ViewValue = $this->lra->Upload->DbValue;
             } else {
                 $this->lra->ViewValue = "";
             }
+            $this->lra->CssClass = "font-italic";
             $this->lra->ViewCustomAttributes = "";
 
             // calk
+            $this->calk->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->calk->Upload->DbValue)) {
                 $this->calk->ViewValue = $this->calk->Upload->DbValue;
             } else {
                 $this->calk->ViewValue = "";
             }
+            $this->calk->CssClass = "font-italic";
             $this->calk->ViewCustomAttributes = "";
 
             // lo
+            $this->lo->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lo->Upload->DbValue)) {
                 $this->lo->ViewValue = $this->lo->Upload->DbValue;
             } else {
                 $this->lo->ViewValue = "";
             }
+            $this->lo->CssClass = "font-italic";
             $this->lo->ViewCustomAttributes = "";
 
             // lpe
+            $this->lpe->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lpe->Upload->DbValue)) {
                 $this->lpe->ViewValue = $this->lpe->Upload->DbValue;
             } else {
                 $this->lpe->ViewValue = "";
             }
+            $this->lpe->CssClass = "font-italic";
             $this->lpe->ViewCustomAttributes = "";
 
             // lpsal
+            $this->lpsal->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lpsal->Upload->DbValue)) {
                 $this->lpsal->ViewValue = $this->lpsal->Upload->DbValue;
             } else {
                 $this->lpsal->ViewValue = "";
             }
+            $this->lpsal->CssClass = "font-italic";
             $this->lpsal->ViewCustomAttributes = "";
 
             // lak
+            $this->lak->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lak->Upload->DbValue)) {
                 $this->lak->ViewValue = $this->lak->Upload->DbValue;
             } else {
                 $this->lak->ViewValue = "";
             }
+            $this->lak->CssClass = "font-italic";
             $this->lak->ViewCustomAttributes = "";
 
             // laporan_pemeriksaan
+            $this->laporan_pemeriksaan->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
                 $this->laporan_pemeriksaan->ViewValue = $this->laporan_pemeriksaan->Upload->DbValue;
             } else {
                 $this->laporan_pemeriksaan->ViewValue = "";
             }
+            $this->laporan_pemeriksaan->CssClass = "font-italic";
             $this->laporan_pemeriksaan->ViewCustomAttributes = "";
 
             // status
@@ -1197,7 +1263,16 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             }
             $this->status->ViewCustomAttributes = "";
 
+            // tanggal_upload
+            $this->tanggal_upload->ViewValue = $this->tanggal_upload->CurrentValue;
+            $this->tanggal_upload->ViewCustomAttributes = "";
+
+            // tanggal_update
+            $this->tanggal_update->ViewValue = $this->tanggal_update->CurrentValue;
+            $this->tanggal_update->ViewCustomAttributes = "";
+
             // idd_user
+            $this->idd_user->ViewValue = $this->idd_user->CurrentValue;
             $curVal = trim(strval($this->idd_user->CurrentValue));
             if ($curVal != "") {
                 $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
@@ -1218,16 +1293,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             }
             $this->idd_user->ViewCustomAttributes = "";
 
-            // idd_evaluasi
-            $this->idd_evaluasi->LinkCustomAttributes = "";
-            $this->idd_evaluasi->HrefValue = "";
-            $this->idd_evaluasi->TooltipValue = "";
-
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-            $this->tanggal->TooltipValue = "";
-
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
             $this->kd_satker->HrefValue = "";
@@ -1245,91 +1310,226 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
 
             // surat_pengantar
             $this->surat_pengantar->LinkCustomAttributes = "";
-            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+                $this->surat_pengantar->HrefValue = GetFileUploadUrl($this->surat_pengantar, $this->surat_pengantar->htmlDecode($this->surat_pengantar->Upload->DbValue)); // Add prefix/suffix
+                $this->surat_pengantar->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->surat_pengantar->HrefValue = FullUrl($this->surat_pengantar->HrefValue, "href");
+                }
+            } else {
+                $this->surat_pengantar->HrefValue = "";
+            }
             $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
             $this->surat_pengantar->TooltipValue = "";
 
             // skd_rqanunpert
             $this->skd_rqanunpert->LinkCustomAttributes = "";
-            $this->skd_rqanunpert->HrefValue = "";
+            $this->skd_rqanunpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
+                $this->skd_rqanunpert->HrefValue = GetFileUploadUrl($this->skd_rqanunpert, $this->skd_rqanunpert->htmlDecode($this->skd_rqanunpert->Upload->DbValue)); // Add prefix/suffix
+                $this->skd_rqanunpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->skd_rqanunpert->HrefValue = FullUrl($this->skd_rqanunpert->HrefValue, "href");
+                }
+            } else {
+                $this->skd_rqanunpert->HrefValue = "";
+            }
             $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
             $this->skd_rqanunpert->TooltipValue = "";
 
             // rqanun_apbkpert
             $this->rqanun_apbkpert->LinkCustomAttributes = "";
-            $this->rqanun_apbkpert->HrefValue = "";
+            $this->rqanun_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->rqanun_apbkpert->Upload->DbValue)) {
+                $this->rqanun_apbkpert->HrefValue = GetFileUploadUrl($this->rqanun_apbkpert, $this->rqanun_apbkpert->htmlDecode($this->rqanun_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->rqanun_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->rqanun_apbkpert->HrefValue = FullUrl($this->rqanun_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->rqanun_apbkpert->HrefValue = "";
+            }
             $this->rqanun_apbkpert->ExportHrefValue = $this->rqanun_apbkpert->UploadPath . $this->rqanun_apbkpert->Upload->DbValue;
             $this->rqanun_apbkpert->TooltipValue = "";
 
             // rperbup_apbkpert
             $this->rperbup_apbkpert->LinkCustomAttributes = "";
-            $this->rperbup_apbkpert->HrefValue = "";
+            $this->rperbup_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->rperbup_apbkpert->Upload->DbValue)) {
+                $this->rperbup_apbkpert->HrefValue = GetFileUploadUrl($this->rperbup_apbkpert, $this->rperbup_apbkpert->htmlDecode($this->rperbup_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->rperbup_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->rperbup_apbkpert->HrefValue = FullUrl($this->rperbup_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->rperbup_apbkpert->HrefValue = "";
+            }
             $this->rperbup_apbkpert->ExportHrefValue = $this->rperbup_apbkpert->UploadPath . $this->rperbup_apbkpert->Upload->DbValue;
             $this->rperbup_apbkpert->TooltipValue = "";
 
             // pbkdd_apbkpert
             $this->pbkdd_apbkpert->LinkCustomAttributes = "";
-            $this->pbkdd_apbkpert->HrefValue = "";
+            $this->pbkdd_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->pbkdd_apbkpert->Upload->DbValue)) {
+                $this->pbkdd_apbkpert->HrefValue = GetFileUploadUrl($this->pbkdd_apbkpert, $this->pbkdd_apbkpert->htmlDecode($this->pbkdd_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->pbkdd_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->pbkdd_apbkpert->HrefValue = FullUrl($this->pbkdd_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->pbkdd_apbkpert->HrefValue = "";
+            }
             $this->pbkdd_apbkpert->ExportHrefValue = $this->pbkdd_apbkpert->UploadPath . $this->pbkdd_apbkpert->Upload->DbValue;
             $this->pbkdd_apbkpert->TooltipValue = "";
 
             // risalah_sidang
             $this->risalah_sidang->LinkCustomAttributes = "";
-            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+                $this->risalah_sidang->HrefValue = GetFileUploadUrl($this->risalah_sidang, $this->risalah_sidang->htmlDecode($this->risalah_sidang->Upload->DbValue)); // Add prefix/suffix
+                $this->risalah_sidang->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->risalah_sidang->HrefValue = FullUrl($this->risalah_sidang->HrefValue, "href");
+                }
+            } else {
+                $this->risalah_sidang->HrefValue = "";
+            }
             $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
             $this->risalah_sidang->TooltipValue = "";
 
             // absen_peserta
             $this->absen_peserta->LinkCustomAttributes = "";
-            $this->absen_peserta->HrefValue = "";
+            $this->absen_peserta->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
+                $this->absen_peserta->HrefValue = GetFileUploadUrl($this->absen_peserta, $this->absen_peserta->htmlDecode($this->absen_peserta->Upload->DbValue)); // Add prefix/suffix
+                $this->absen_peserta->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->absen_peserta->HrefValue = FullUrl($this->absen_peserta->HrefValue, "href");
+                }
+            } else {
+                $this->absen_peserta->HrefValue = "";
+            }
             $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
             $this->absen_peserta->TooltipValue = "";
 
             // neraca
             $this->neraca->LinkCustomAttributes = "";
-            $this->neraca->HrefValue = "";
+            $this->neraca->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->neraca->Upload->DbValue)) {
+                $this->neraca->HrefValue = GetFileUploadUrl($this->neraca, $this->neraca->htmlDecode($this->neraca->Upload->DbValue)); // Add prefix/suffix
+                $this->neraca->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->neraca->HrefValue = FullUrl($this->neraca->HrefValue, "href");
+                }
+            } else {
+                $this->neraca->HrefValue = "";
+            }
             $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
             $this->neraca->TooltipValue = "";
 
             // lra
             $this->lra->LinkCustomAttributes = "";
-            $this->lra->HrefValue = "";
+            $this->lra->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lra->Upload->DbValue)) {
+                $this->lra->HrefValue = GetFileUploadUrl($this->lra, $this->lra->htmlDecode($this->lra->Upload->DbValue)); // Add prefix/suffix
+                $this->lra->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lra->HrefValue = FullUrl($this->lra->HrefValue, "href");
+                }
+            } else {
+                $this->lra->HrefValue = "";
+            }
             $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
             $this->lra->TooltipValue = "";
 
             // calk
             $this->calk->LinkCustomAttributes = "";
-            $this->calk->HrefValue = "";
+            $this->calk->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->calk->Upload->DbValue)) {
+                $this->calk->HrefValue = GetFileUploadUrl($this->calk, $this->calk->htmlDecode($this->calk->Upload->DbValue)); // Add prefix/suffix
+                $this->calk->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->calk->HrefValue = FullUrl($this->calk->HrefValue, "href");
+                }
+            } else {
+                $this->calk->HrefValue = "";
+            }
             $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
             $this->calk->TooltipValue = "";
 
             // lo
             $this->lo->LinkCustomAttributes = "";
-            $this->lo->HrefValue = "";
+            $this->lo->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lo->Upload->DbValue)) {
+                $this->lo->HrefValue = GetFileUploadUrl($this->lo, $this->lo->htmlDecode($this->lo->Upload->DbValue)); // Add prefix/suffix
+                $this->lo->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lo->HrefValue = FullUrl($this->lo->HrefValue, "href");
+                }
+            } else {
+                $this->lo->HrefValue = "";
+            }
             $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
             $this->lo->TooltipValue = "";
 
             // lpe
             $this->lpe->LinkCustomAttributes = "";
-            $this->lpe->HrefValue = "";
+            $this->lpe->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lpe->Upload->DbValue)) {
+                $this->lpe->HrefValue = GetFileUploadUrl($this->lpe, $this->lpe->htmlDecode($this->lpe->Upload->DbValue)); // Add prefix/suffix
+                $this->lpe->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lpe->HrefValue = FullUrl($this->lpe->HrefValue, "href");
+                }
+            } else {
+                $this->lpe->HrefValue = "";
+            }
             $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
             $this->lpe->TooltipValue = "";
 
             // lpsal
             $this->lpsal->LinkCustomAttributes = "";
-            $this->lpsal->HrefValue = "";
+            $this->lpsal->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lpsal->Upload->DbValue)) {
+                $this->lpsal->HrefValue = GetFileUploadUrl($this->lpsal, $this->lpsal->htmlDecode($this->lpsal->Upload->DbValue)); // Add prefix/suffix
+                $this->lpsal->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lpsal->HrefValue = FullUrl($this->lpsal->HrefValue, "href");
+                }
+            } else {
+                $this->lpsal->HrefValue = "";
+            }
             $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
             $this->lpsal->TooltipValue = "";
 
             // lak
             $this->lak->LinkCustomAttributes = "";
-            $this->lak->HrefValue = "";
+            $this->lak->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lak->Upload->DbValue)) {
+                $this->lak->HrefValue = GetFileUploadUrl($this->lak, $this->lak->htmlDecode($this->lak->Upload->DbValue)); // Add prefix/suffix
+                $this->lak->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lak->HrefValue = FullUrl($this->lak->HrefValue, "href");
+                }
+            } else {
+                $this->lak->HrefValue = "";
+            }
             $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
             $this->lak->TooltipValue = "";
 
             // laporan_pemeriksaan
             $this->laporan_pemeriksaan->LinkCustomAttributes = "";
-            $this->laporan_pemeriksaan->HrefValue = "";
+            $this->laporan_pemeriksaan->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
+                $this->laporan_pemeriksaan->HrefValue = GetFileUploadUrl($this->laporan_pemeriksaan, $this->laporan_pemeriksaan->htmlDecode($this->laporan_pemeriksaan->Upload->DbValue)); // Add prefix/suffix
+                $this->laporan_pemeriksaan->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->laporan_pemeriksaan->HrefValue = FullUrl($this->laporan_pemeriksaan->HrefValue, "href");
+                }
+            } else {
+                $this->laporan_pemeriksaan->HrefValue = "";
+            }
             $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
             $this->laporan_pemeriksaan->TooltipValue = "";
 
@@ -1337,24 +1537,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             $this->status->LinkCustomAttributes = "";
             $this->status->HrefValue = "";
             $this->status->TooltipValue = "";
-
-            // idd_user
-            $this->idd_user->LinkCustomAttributes = "";
-            $this->idd_user->HrefValue = "";
-            $this->idd_user->TooltipValue = "";
         } elseif ($this->RowType == ROWTYPE_EDIT) {
-            // idd_evaluasi
-            $this->idd_evaluasi->EditAttrs["class"] = "form-control";
-            $this->idd_evaluasi->EditCustomAttributes = "";
-            $this->idd_evaluasi->EditValue = $this->idd_evaluasi->CurrentValue;
-            $this->idd_evaluasi->ViewCustomAttributes = "";
-
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
             // kd_satker
             $this->kd_satker->EditAttrs["class"] = "form-control";
             $this->kd_satker->EditCustomAttributes = "";
@@ -1433,6 +1616,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // surat_pengantar
             $this->surat_pengantar->EditAttrs["class"] = "form-control";
             $this->surat_pengantar->EditCustomAttributes = "";
+            $this->surat_pengantar->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
                 $this->surat_pengantar->EditValue = $this->surat_pengantar->Upload->DbValue;
             } else {
@@ -1448,6 +1632,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // skd_rqanunpert
             $this->skd_rqanunpert->EditAttrs["class"] = "form-control";
             $this->skd_rqanunpert->EditCustomAttributes = "";
+            $this->skd_rqanunpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
                 $this->skd_rqanunpert->EditValue = $this->skd_rqanunpert->Upload->DbValue;
             } else {
@@ -1463,6 +1648,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // rqanun_apbkpert
             $this->rqanun_apbkpert->EditAttrs["class"] = "form-control";
             $this->rqanun_apbkpert->EditCustomAttributes = "";
+            $this->rqanun_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->rqanun_apbkpert->Upload->DbValue)) {
                 $this->rqanun_apbkpert->EditValue = $this->rqanun_apbkpert->Upload->DbValue;
             } else {
@@ -1478,6 +1664,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // rperbup_apbkpert
             $this->rperbup_apbkpert->EditAttrs["class"] = "form-control";
             $this->rperbup_apbkpert->EditCustomAttributes = "";
+            $this->rperbup_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->rperbup_apbkpert->Upload->DbValue)) {
                 $this->rperbup_apbkpert->EditValue = $this->rperbup_apbkpert->Upload->DbValue;
             } else {
@@ -1493,6 +1680,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // pbkdd_apbkpert
             $this->pbkdd_apbkpert->EditAttrs["class"] = "form-control";
             $this->pbkdd_apbkpert->EditCustomAttributes = "";
+            $this->pbkdd_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->pbkdd_apbkpert->Upload->DbValue)) {
                 $this->pbkdd_apbkpert->EditValue = $this->pbkdd_apbkpert->Upload->DbValue;
             } else {
@@ -1508,6 +1696,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // risalah_sidang
             $this->risalah_sidang->EditAttrs["class"] = "form-control";
             $this->risalah_sidang->EditCustomAttributes = "";
+            $this->risalah_sidang->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
                 $this->risalah_sidang->EditValue = $this->risalah_sidang->Upload->DbValue;
             } else {
@@ -1523,6 +1712,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // absen_peserta
             $this->absen_peserta->EditAttrs["class"] = "form-control";
             $this->absen_peserta->EditCustomAttributes = "";
+            $this->absen_peserta->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
                 $this->absen_peserta->EditValue = $this->absen_peserta->Upload->DbValue;
             } else {
@@ -1538,6 +1728,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // neraca
             $this->neraca->EditAttrs["class"] = "form-control";
             $this->neraca->EditCustomAttributes = "";
+            $this->neraca->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->neraca->Upload->DbValue)) {
                 $this->neraca->EditValue = $this->neraca->Upload->DbValue;
             } else {
@@ -1553,6 +1744,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // lra
             $this->lra->EditAttrs["class"] = "form-control";
             $this->lra->EditCustomAttributes = "";
+            $this->lra->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lra->Upload->DbValue)) {
                 $this->lra->EditValue = $this->lra->Upload->DbValue;
             } else {
@@ -1568,6 +1760,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // calk
             $this->calk->EditAttrs["class"] = "form-control";
             $this->calk->EditCustomAttributes = "";
+            $this->calk->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->calk->Upload->DbValue)) {
                 $this->calk->EditValue = $this->calk->Upload->DbValue;
             } else {
@@ -1583,6 +1776,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // lo
             $this->lo->EditAttrs["class"] = "form-control";
             $this->lo->EditCustomAttributes = "";
+            $this->lo->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lo->Upload->DbValue)) {
                 $this->lo->EditValue = $this->lo->Upload->DbValue;
             } else {
@@ -1598,6 +1792,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // lpe
             $this->lpe->EditAttrs["class"] = "form-control";
             $this->lpe->EditCustomAttributes = "";
+            $this->lpe->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lpe->Upload->DbValue)) {
                 $this->lpe->EditValue = $this->lpe->Upload->DbValue;
             } else {
@@ -1613,6 +1808,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // lpsal
             $this->lpsal->EditAttrs["class"] = "form-control";
             $this->lpsal->EditCustomAttributes = "";
+            $this->lpsal->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lpsal->Upload->DbValue)) {
                 $this->lpsal->EditValue = $this->lpsal->Upload->DbValue;
             } else {
@@ -1628,6 +1824,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // lak
             $this->lak->EditAttrs["class"] = "form-control";
             $this->lak->EditCustomAttributes = "";
+            $this->lak->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->lak->Upload->DbValue)) {
                 $this->lak->EditValue = $this->lak->Upload->DbValue;
             } else {
@@ -1643,6 +1840,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             // laporan_pemeriksaan
             $this->laporan_pemeriksaan->EditAttrs["class"] = "form-control";
             $this->laporan_pemeriksaan->EditCustomAttributes = "";
+            $this->laporan_pemeriksaan->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
             if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
                 $this->laporan_pemeriksaan->EditValue = $this->laporan_pemeriksaan->Upload->DbValue;
             } else {
@@ -1661,63 +1859,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
             $this->status->EditValue = $this->status->options(true);
             $this->status->PlaceHolder = RemoveHtml($this->status->caption());
 
-            // idd_user
-            $this->idd_user->EditAttrs["class"] = "form-control";
-            $this->idd_user->EditCustomAttributes = "";
-            if (!$Security->isAdmin() && $Security->isLoggedIn() && !$this->userIDAllow("edit")) { // Non system admin
-                $this->idd_user->CurrentValue = CurrentUserID();
-                $curVal = trim(strval($this->idd_user->CurrentValue));
-                if ($curVal != "") {
-                    $this->idd_user->EditValue = $this->idd_user->lookupCacheOption($curVal);
-                    if ($this->idd_user->EditValue === null) { // Lookup from database
-                        $filterWrk = "`idd_user`" . SearchString("=", $curVal, DATATYPE_NUMBER, "");
-                        $sqlWrk = $this->idd_user->Lookup->getSql(false, $filterWrk, '', $this, true, true);
-                        $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                        $ari = count($rswrk);
-                        if ($ari > 0) { // Lookup values found
-                            $arwrk = $this->idd_user->Lookup->renderViewRow($rswrk[0]);
-                            $this->idd_user->EditValue = $this->idd_user->displayValue($arwrk);
-                        } else {
-                            $this->idd_user->EditValue = $this->idd_user->CurrentValue;
-                        }
-                    }
-                } else {
-                    $this->idd_user->EditValue = null;
-                }
-                $this->idd_user->ViewCustomAttributes = "";
-            } else {
-                $curVal = trim(strval($this->idd_user->CurrentValue));
-                if ($curVal != "") {
-                    $this->idd_user->ViewValue = $this->idd_user->lookupCacheOption($curVal);
-                } else {
-                    $this->idd_user->ViewValue = $this->idd_user->Lookup !== null && is_array($this->idd_user->Lookup->Options) ? $curVal : null;
-                }
-                if ($this->idd_user->ViewValue !== null) { // Load from cache
-                    $this->idd_user->EditValue = array_values($this->idd_user->Lookup->Options);
-                } else { // Lookup from database
-                    if ($curVal == "") {
-                        $filterWrk = "0=1";
-                    } else {
-                        $filterWrk = "`idd_user`" . SearchString("=", $this->idd_user->CurrentValue, DATATYPE_NUMBER, "");
-                    }
-                    $sqlWrk = $this->idd_user->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                    $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                    $ari = count($rswrk);
-                    $arwrk = $rswrk;
-                    $this->idd_user->EditValue = $arwrk;
-                }
-                $this->idd_user->PlaceHolder = RemoveHtml($this->idd_user->caption());
-            }
-
             // Edit refer script
-
-            // idd_evaluasi
-            $this->idd_evaluasi->LinkCustomAttributes = "";
-            $this->idd_evaluasi->HrefValue = "";
-
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -1733,86 +1875,217 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
 
             // surat_pengantar
             $this->surat_pengantar->LinkCustomAttributes = "";
-            $this->surat_pengantar->HrefValue = "";
+            $this->surat_pengantar->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->surat_pengantar->Upload->DbValue)) {
+                $this->surat_pengantar->HrefValue = GetFileUploadUrl($this->surat_pengantar, $this->surat_pengantar->htmlDecode($this->surat_pengantar->Upload->DbValue)); // Add prefix/suffix
+                $this->surat_pengantar->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->surat_pengantar->HrefValue = FullUrl($this->surat_pengantar->HrefValue, "href");
+                }
+            } else {
+                $this->surat_pengantar->HrefValue = "";
+            }
             $this->surat_pengantar->ExportHrefValue = $this->surat_pengantar->UploadPath . $this->surat_pengantar->Upload->DbValue;
 
             // skd_rqanunpert
             $this->skd_rqanunpert->LinkCustomAttributes = "";
-            $this->skd_rqanunpert->HrefValue = "";
+            $this->skd_rqanunpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->skd_rqanunpert->Upload->DbValue)) {
+                $this->skd_rqanunpert->HrefValue = GetFileUploadUrl($this->skd_rqanunpert, $this->skd_rqanunpert->htmlDecode($this->skd_rqanunpert->Upload->DbValue)); // Add prefix/suffix
+                $this->skd_rqanunpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->skd_rqanunpert->HrefValue = FullUrl($this->skd_rqanunpert->HrefValue, "href");
+                }
+            } else {
+                $this->skd_rqanunpert->HrefValue = "";
+            }
             $this->skd_rqanunpert->ExportHrefValue = $this->skd_rqanunpert->UploadPath . $this->skd_rqanunpert->Upload->DbValue;
 
             // rqanun_apbkpert
             $this->rqanun_apbkpert->LinkCustomAttributes = "";
-            $this->rqanun_apbkpert->HrefValue = "";
+            $this->rqanun_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->rqanun_apbkpert->Upload->DbValue)) {
+                $this->rqanun_apbkpert->HrefValue = GetFileUploadUrl($this->rqanun_apbkpert, $this->rqanun_apbkpert->htmlDecode($this->rqanun_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->rqanun_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->rqanun_apbkpert->HrefValue = FullUrl($this->rqanun_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->rqanun_apbkpert->HrefValue = "";
+            }
             $this->rqanun_apbkpert->ExportHrefValue = $this->rqanun_apbkpert->UploadPath . $this->rqanun_apbkpert->Upload->DbValue;
 
             // rperbup_apbkpert
             $this->rperbup_apbkpert->LinkCustomAttributes = "";
-            $this->rperbup_apbkpert->HrefValue = "";
+            $this->rperbup_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->rperbup_apbkpert->Upload->DbValue)) {
+                $this->rperbup_apbkpert->HrefValue = GetFileUploadUrl($this->rperbup_apbkpert, $this->rperbup_apbkpert->htmlDecode($this->rperbup_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->rperbup_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->rperbup_apbkpert->HrefValue = FullUrl($this->rperbup_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->rperbup_apbkpert->HrefValue = "";
+            }
             $this->rperbup_apbkpert->ExportHrefValue = $this->rperbup_apbkpert->UploadPath . $this->rperbup_apbkpert->Upload->DbValue;
 
             // pbkdd_apbkpert
             $this->pbkdd_apbkpert->LinkCustomAttributes = "";
-            $this->pbkdd_apbkpert->HrefValue = "";
+            $this->pbkdd_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->pbkdd_apbkpert->Upload->DbValue)) {
+                $this->pbkdd_apbkpert->HrefValue = GetFileUploadUrl($this->pbkdd_apbkpert, $this->pbkdd_apbkpert->htmlDecode($this->pbkdd_apbkpert->Upload->DbValue)); // Add prefix/suffix
+                $this->pbkdd_apbkpert->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->pbkdd_apbkpert->HrefValue = FullUrl($this->pbkdd_apbkpert->HrefValue, "href");
+                }
+            } else {
+                $this->pbkdd_apbkpert->HrefValue = "";
+            }
             $this->pbkdd_apbkpert->ExportHrefValue = $this->pbkdd_apbkpert->UploadPath . $this->pbkdd_apbkpert->Upload->DbValue;
 
             // risalah_sidang
             $this->risalah_sidang->LinkCustomAttributes = "";
-            $this->risalah_sidang->HrefValue = "";
+            $this->risalah_sidang->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->risalah_sidang->Upload->DbValue)) {
+                $this->risalah_sidang->HrefValue = GetFileUploadUrl($this->risalah_sidang, $this->risalah_sidang->htmlDecode($this->risalah_sidang->Upload->DbValue)); // Add prefix/suffix
+                $this->risalah_sidang->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->risalah_sidang->HrefValue = FullUrl($this->risalah_sidang->HrefValue, "href");
+                }
+            } else {
+                $this->risalah_sidang->HrefValue = "";
+            }
             $this->risalah_sidang->ExportHrefValue = $this->risalah_sidang->UploadPath . $this->risalah_sidang->Upload->DbValue;
 
             // absen_peserta
             $this->absen_peserta->LinkCustomAttributes = "";
-            $this->absen_peserta->HrefValue = "";
+            $this->absen_peserta->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->absen_peserta->Upload->DbValue)) {
+                $this->absen_peserta->HrefValue = GetFileUploadUrl($this->absen_peserta, $this->absen_peserta->htmlDecode($this->absen_peserta->Upload->DbValue)); // Add prefix/suffix
+                $this->absen_peserta->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->absen_peserta->HrefValue = FullUrl($this->absen_peserta->HrefValue, "href");
+                }
+            } else {
+                $this->absen_peserta->HrefValue = "";
+            }
             $this->absen_peserta->ExportHrefValue = $this->absen_peserta->UploadPath . $this->absen_peserta->Upload->DbValue;
 
             // neraca
             $this->neraca->LinkCustomAttributes = "";
-            $this->neraca->HrefValue = "";
+            $this->neraca->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->neraca->Upload->DbValue)) {
+                $this->neraca->HrefValue = GetFileUploadUrl($this->neraca, $this->neraca->htmlDecode($this->neraca->Upload->DbValue)); // Add prefix/suffix
+                $this->neraca->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->neraca->HrefValue = FullUrl($this->neraca->HrefValue, "href");
+                }
+            } else {
+                $this->neraca->HrefValue = "";
+            }
             $this->neraca->ExportHrefValue = $this->neraca->UploadPath . $this->neraca->Upload->DbValue;
 
             // lra
             $this->lra->LinkCustomAttributes = "";
-            $this->lra->HrefValue = "";
+            $this->lra->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lra->Upload->DbValue)) {
+                $this->lra->HrefValue = GetFileUploadUrl($this->lra, $this->lra->htmlDecode($this->lra->Upload->DbValue)); // Add prefix/suffix
+                $this->lra->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lra->HrefValue = FullUrl($this->lra->HrefValue, "href");
+                }
+            } else {
+                $this->lra->HrefValue = "";
+            }
             $this->lra->ExportHrefValue = $this->lra->UploadPath . $this->lra->Upload->DbValue;
 
             // calk
             $this->calk->LinkCustomAttributes = "";
-            $this->calk->HrefValue = "";
+            $this->calk->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->calk->Upload->DbValue)) {
+                $this->calk->HrefValue = GetFileUploadUrl($this->calk, $this->calk->htmlDecode($this->calk->Upload->DbValue)); // Add prefix/suffix
+                $this->calk->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->calk->HrefValue = FullUrl($this->calk->HrefValue, "href");
+                }
+            } else {
+                $this->calk->HrefValue = "";
+            }
             $this->calk->ExportHrefValue = $this->calk->UploadPath . $this->calk->Upload->DbValue;
 
             // lo
             $this->lo->LinkCustomAttributes = "";
-            $this->lo->HrefValue = "";
+            $this->lo->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lo->Upload->DbValue)) {
+                $this->lo->HrefValue = GetFileUploadUrl($this->lo, $this->lo->htmlDecode($this->lo->Upload->DbValue)); // Add prefix/suffix
+                $this->lo->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lo->HrefValue = FullUrl($this->lo->HrefValue, "href");
+                }
+            } else {
+                $this->lo->HrefValue = "";
+            }
             $this->lo->ExportHrefValue = $this->lo->UploadPath . $this->lo->Upload->DbValue;
 
             // lpe
             $this->lpe->LinkCustomAttributes = "";
-            $this->lpe->HrefValue = "";
+            $this->lpe->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lpe->Upload->DbValue)) {
+                $this->lpe->HrefValue = GetFileUploadUrl($this->lpe, $this->lpe->htmlDecode($this->lpe->Upload->DbValue)); // Add prefix/suffix
+                $this->lpe->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lpe->HrefValue = FullUrl($this->lpe->HrefValue, "href");
+                }
+            } else {
+                $this->lpe->HrefValue = "";
+            }
             $this->lpe->ExportHrefValue = $this->lpe->UploadPath . $this->lpe->Upload->DbValue;
 
             // lpsal
             $this->lpsal->LinkCustomAttributes = "";
-            $this->lpsal->HrefValue = "";
+            $this->lpsal->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lpsal->Upload->DbValue)) {
+                $this->lpsal->HrefValue = GetFileUploadUrl($this->lpsal, $this->lpsal->htmlDecode($this->lpsal->Upload->DbValue)); // Add prefix/suffix
+                $this->lpsal->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lpsal->HrefValue = FullUrl($this->lpsal->HrefValue, "href");
+                }
+            } else {
+                $this->lpsal->HrefValue = "";
+            }
             $this->lpsal->ExportHrefValue = $this->lpsal->UploadPath . $this->lpsal->Upload->DbValue;
 
             // lak
             $this->lak->LinkCustomAttributes = "";
-            $this->lak->HrefValue = "";
+            $this->lak->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->lak->Upload->DbValue)) {
+                $this->lak->HrefValue = GetFileUploadUrl($this->lak, $this->lak->htmlDecode($this->lak->Upload->DbValue)); // Add prefix/suffix
+                $this->lak->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->lak->HrefValue = FullUrl($this->lak->HrefValue, "href");
+                }
+            } else {
+                $this->lak->HrefValue = "";
+            }
             $this->lak->ExportHrefValue = $this->lak->UploadPath . $this->lak->Upload->DbValue;
 
             // laporan_pemeriksaan
             $this->laporan_pemeriksaan->LinkCustomAttributes = "";
-            $this->laporan_pemeriksaan->HrefValue = "";
+            $this->laporan_pemeriksaan->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            if (!EmptyValue($this->laporan_pemeriksaan->Upload->DbValue)) {
+                $this->laporan_pemeriksaan->HrefValue = GetFileUploadUrl($this->laporan_pemeriksaan, $this->laporan_pemeriksaan->htmlDecode($this->laporan_pemeriksaan->Upload->DbValue)); // Add prefix/suffix
+                $this->laporan_pemeriksaan->LinkAttrs["target"] = "_blank"; // Add target
+                if ($this->isExport()) {
+                    $this->laporan_pemeriksaan->HrefValue = FullUrl($this->laporan_pemeriksaan->HrefValue, "href");
+                }
+            } else {
+                $this->laporan_pemeriksaan->HrefValue = "";
+            }
             $this->laporan_pemeriksaan->ExportHrefValue = $this->laporan_pemeriksaan->UploadPath . $this->laporan_pemeriksaan->Upload->DbValue;
 
             // status
             $this->status->LinkCustomAttributes = "";
             $this->status->HrefValue = "";
-
-            // idd_user
-            $this->idd_user->LinkCustomAttributes = "";
-            $this->idd_user->HrefValue = "";
         }
         if ($this->RowType == ROWTYPE_ADD || $this->RowType == ROWTYPE_EDIT || $this->RowType == ROWTYPE_SEARCH) { // Add/Edit/Search row
             $this->setupFieldTitles();
@@ -1832,19 +2105,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         // Check if validation required
         if (!Config("SERVER_VALIDATE")) {
             return true;
-        }
-        if ($this->idd_evaluasi->Required) {
-            if (!$this->idd_evaluasi->IsDetailKey && EmptyValue($this->idd_evaluasi->FormValue)) {
-                $this->idd_evaluasi->addErrorMessage(str_replace("%s", $this->idd_evaluasi->caption(), $this->idd_evaluasi->RequiredErrorMessage));
-            }
-        }
-        if ($this->tanggal->Required) {
-            if (!$this->tanggal->IsDetailKey && EmptyValue($this->tanggal->FormValue)) {
-                $this->tanggal->addErrorMessage(str_replace("%s", $this->tanggal->caption(), $this->tanggal->RequiredErrorMessage));
-            }
-        }
-        if (!CheckDate($this->tanggal->FormValue)) {
-            $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
         }
         if ($this->kd_satker->Required) {
             if (!$this->kd_satker->IsDetailKey && EmptyValue($this->kd_satker->FormValue)) {
@@ -1941,11 +2201,6 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 $this->status->addErrorMessage(str_replace("%s", $this->status->caption(), $this->status->RequiredErrorMessage));
             }
         }
-        if ($this->idd_user->Required) {
-            if (!$this->idd_user->IsDetailKey && EmptyValue($this->idd_user->FormValue)) {
-                $this->idd_user->addErrorMessage(str_replace("%s", $this->idd_user->caption(), $this->idd_user->RequiredErrorMessage));
-            }
-        }
 
         // Return validate result
         $validateForm = !$this->hasInvalidFields();
@@ -1976,10 +2231,37 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
         } else {
             // Save old values
             $this->loadDbValues($rsold);
+            $this->surat_pengantar->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->surat_pengantar->UploadPath = $this->surat_pengantar->OldUploadPath;
+            $this->skd_rqanunpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->skd_rqanunpert->UploadPath = $this->skd_rqanunpert->OldUploadPath;
+            $this->rqanun_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->rqanun_apbkpert->UploadPath = $this->rqanun_apbkpert->OldUploadPath;
+            $this->rperbup_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->rperbup_apbkpert->UploadPath = $this->rperbup_apbkpert->OldUploadPath;
+            $this->pbkdd_apbkpert->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->pbkdd_apbkpert->UploadPath = $this->pbkdd_apbkpert->OldUploadPath;
+            $this->risalah_sidang->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->risalah_sidang->UploadPath = $this->risalah_sidang->OldUploadPath;
+            $this->absen_peserta->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->absen_peserta->UploadPath = $this->absen_peserta->OldUploadPath;
+            $this->neraca->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->neraca->UploadPath = $this->neraca->OldUploadPath;
+            $this->lra->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->lra->UploadPath = $this->lra->OldUploadPath;
+            $this->calk->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->calk->UploadPath = $this->calk->OldUploadPath;
+            $this->lo->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->lo->UploadPath = $this->lo->OldUploadPath;
+            $this->lpe->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->lpe->UploadPath = $this->lpe->OldUploadPath;
+            $this->lpsal->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->lpsal->UploadPath = $this->lpsal->OldUploadPath;
+            $this->lak->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->lak->UploadPath = $this->lak->OldUploadPath;
+            $this->laporan_pemeriksaan->OldUploadPath = "files/evaluasi/2022/pertanggungjawaban";
+            $this->laporan_pemeriksaan->UploadPath = $this->laporan_pemeriksaan->OldUploadPath;
             $rsnew = [];
-
-            // tanggal
-            $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), $this->tanggal->ReadOnly);
 
             // kd_satker
             $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", $this->kd_satker->ReadOnly);
@@ -2142,10 +2424,8 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
 
             // status
             $this->status->setDbValueDef($rsnew, $this->status->CurrentValue, 0, $this->status->ReadOnly);
-
-            // idd_user
-            $this->idd_user->setDbValueDef($rsnew, $this->idd_user->CurrentValue, 0, $this->idd_user->ReadOnly);
             if ($this->surat_pengantar->Visible && !$this->surat_pengantar->Upload->KeepFile) {
+                $this->surat_pengantar->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->surat_pengantar->Upload->DbValue) ? [] : [$this->surat_pengantar->htmlDecode($this->surat_pengantar->Upload->DbValue)];
                 if (!EmptyValue($this->surat_pengantar->Upload->FileName)) {
                     $newFiles = [$this->surat_pengantar->Upload->FileName];
@@ -2187,6 +2467,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->skd_rqanunpert->Visible && !$this->skd_rqanunpert->Upload->KeepFile) {
+                $this->skd_rqanunpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->skd_rqanunpert->Upload->DbValue) ? [] : [$this->skd_rqanunpert->htmlDecode($this->skd_rqanunpert->Upload->DbValue)];
                 if (!EmptyValue($this->skd_rqanunpert->Upload->FileName)) {
                     $newFiles = [$this->skd_rqanunpert->Upload->FileName];
@@ -2228,6 +2509,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->rqanun_apbkpert->Visible && !$this->rqanun_apbkpert->Upload->KeepFile) {
+                $this->rqanun_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->rqanun_apbkpert->Upload->DbValue) ? [] : [$this->rqanun_apbkpert->htmlDecode($this->rqanun_apbkpert->Upload->DbValue)];
                 if (!EmptyValue($this->rqanun_apbkpert->Upload->FileName)) {
                     $newFiles = [$this->rqanun_apbkpert->Upload->FileName];
@@ -2269,6 +2551,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->rperbup_apbkpert->Visible && !$this->rperbup_apbkpert->Upload->KeepFile) {
+                $this->rperbup_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->rperbup_apbkpert->Upload->DbValue) ? [] : [$this->rperbup_apbkpert->htmlDecode($this->rperbup_apbkpert->Upload->DbValue)];
                 if (!EmptyValue($this->rperbup_apbkpert->Upload->FileName)) {
                     $newFiles = [$this->rperbup_apbkpert->Upload->FileName];
@@ -2310,6 +2593,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->pbkdd_apbkpert->Visible && !$this->pbkdd_apbkpert->Upload->KeepFile) {
+                $this->pbkdd_apbkpert->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->pbkdd_apbkpert->Upload->DbValue) ? [] : [$this->pbkdd_apbkpert->htmlDecode($this->pbkdd_apbkpert->Upload->DbValue)];
                 if (!EmptyValue($this->pbkdd_apbkpert->Upload->FileName)) {
                     $newFiles = [$this->pbkdd_apbkpert->Upload->FileName];
@@ -2351,6 +2635,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->risalah_sidang->Visible && !$this->risalah_sidang->Upload->KeepFile) {
+                $this->risalah_sidang->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->risalah_sidang->Upload->DbValue) ? [] : [$this->risalah_sidang->htmlDecode($this->risalah_sidang->Upload->DbValue)];
                 if (!EmptyValue($this->risalah_sidang->Upload->FileName)) {
                     $newFiles = [$this->risalah_sidang->Upload->FileName];
@@ -2392,6 +2677,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->absen_peserta->Visible && !$this->absen_peserta->Upload->KeepFile) {
+                $this->absen_peserta->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->absen_peserta->Upload->DbValue) ? [] : [$this->absen_peserta->htmlDecode($this->absen_peserta->Upload->DbValue)];
                 if (!EmptyValue($this->absen_peserta->Upload->FileName)) {
                     $newFiles = [$this->absen_peserta->Upload->FileName];
@@ -2433,6 +2719,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->neraca->Visible && !$this->neraca->Upload->KeepFile) {
+                $this->neraca->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->neraca->Upload->DbValue) ? [] : [$this->neraca->htmlDecode($this->neraca->Upload->DbValue)];
                 if (!EmptyValue($this->neraca->Upload->FileName)) {
                     $newFiles = [$this->neraca->Upload->FileName];
@@ -2474,6 +2761,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->lra->Visible && !$this->lra->Upload->KeepFile) {
+                $this->lra->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->lra->Upload->DbValue) ? [] : [$this->lra->htmlDecode($this->lra->Upload->DbValue)];
                 if (!EmptyValue($this->lra->Upload->FileName)) {
                     $newFiles = [$this->lra->Upload->FileName];
@@ -2515,6 +2803,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->calk->Visible && !$this->calk->Upload->KeepFile) {
+                $this->calk->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->calk->Upload->DbValue) ? [] : [$this->calk->htmlDecode($this->calk->Upload->DbValue)];
                 if (!EmptyValue($this->calk->Upload->FileName)) {
                     $newFiles = [$this->calk->Upload->FileName];
@@ -2556,6 +2845,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->lo->Visible && !$this->lo->Upload->KeepFile) {
+                $this->lo->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->lo->Upload->DbValue) ? [] : [$this->lo->htmlDecode($this->lo->Upload->DbValue)];
                 if (!EmptyValue($this->lo->Upload->FileName)) {
                     $newFiles = [$this->lo->Upload->FileName];
@@ -2597,6 +2887,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->lpe->Visible && !$this->lpe->Upload->KeepFile) {
+                $this->lpe->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->lpe->Upload->DbValue) ? [] : [$this->lpe->htmlDecode($this->lpe->Upload->DbValue)];
                 if (!EmptyValue($this->lpe->Upload->FileName)) {
                     $newFiles = [$this->lpe->Upload->FileName];
@@ -2638,6 +2929,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->lpsal->Visible && !$this->lpsal->Upload->KeepFile) {
+                $this->lpsal->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->lpsal->Upload->DbValue) ? [] : [$this->lpsal->htmlDecode($this->lpsal->Upload->DbValue)];
                 if (!EmptyValue($this->lpsal->Upload->FileName)) {
                     $newFiles = [$this->lpsal->Upload->FileName];
@@ -2679,6 +2971,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->lak->Visible && !$this->lak->Upload->KeepFile) {
+                $this->lak->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->lak->Upload->DbValue) ? [] : [$this->lak->htmlDecode($this->lak->Upload->DbValue)];
                 if (!EmptyValue($this->lak->Upload->FileName)) {
                     $newFiles = [$this->lak->Upload->FileName];
@@ -2720,6 +3013,7 @@ class Pertanggungjawaban2022Edit extends Pertanggungjawaban2022
                 }
             }
             if ($this->laporan_pemeriksaan->Visible && !$this->laporan_pemeriksaan->Upload->KeepFile) {
+                $this->laporan_pemeriksaan->UploadPath = "files/evaluasi/2022/pertanggungjawaban";
                 $oldFiles = EmptyValue($this->laporan_pemeriksaan->Upload->DbValue) ? [] : [$this->laporan_pemeriksaan->htmlDecode($this->laporan_pemeriksaan->Upload->DbValue)];
                 if (!EmptyValue($this->laporan_pemeriksaan->Upload->FileName)) {
                     $newFiles = [$this->laporan_pemeriksaan->Upload->FileName];

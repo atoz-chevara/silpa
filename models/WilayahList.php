@@ -819,10 +819,14 @@ class WilayahList extends Wilayah
     {
         $orderBy = $this->getSessionOrderBy(); // Get ORDER BY from Session
         if ($orderBy == "") {
-            $this->DefaultSort = "";
+            $this->DefaultSort = "`nama_wilayah` ASC";
             if ($this->getSqlOrderBy() != "") {
                 $useDefaultSort = true;
+                if ($this->nama_wilayah->getSort() != "") {
+                    $useDefaultSort = false;
+                }
                 if ($useDefaultSort) {
+                    $this->nama_wilayah->setSort("ASC");
                     $orderBy = $this->getSqlOrderBy();
                     $this->setSessionOrderBy($orderBy);
                 } else {

@@ -96,7 +96,7 @@ class Evaluators extends DbTable
         $this->Fields['nama_lengkap'] = &$this->nama_lengkap;
 
         // alamat
-        $this->alamat = new DbField('evaluators', 'evaluators', 'x_alamat', 'alamat', '`alamat`', '`alamat`', 201, 65535, -1, false, '`alamat`', false, false, false, 'FORMATTED TEXT', 'TEXTAREA');
+        $this->alamat = new DbField('evaluators', 'evaluators', 'x_alamat', 'alamat', '`alamat`', '`alamat`', 201, 16777215, -1, false, '`alamat`', false, false, false, 'FORMATTED TEXT', 'TEXTAREA');
         $this->alamat->Nullable = false; // NOT NULL field
         $this->alamat->Required = true; // Required field
         $this->alamat->Sortable = true; // Allow sort

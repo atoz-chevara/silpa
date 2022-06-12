@@ -19,4 +19,22 @@ class EvaluatorsController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "EvaluatorsAdd");
     }
+
+    // view
+    public function view(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EvaluatorsView");
+    }
+
+    // edit
+    public function edit(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EvaluatorsEdit");
+    }
+
+    // delete
+    public function delete(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EvaluatorsDelete");
+    }
 }

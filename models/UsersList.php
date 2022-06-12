@@ -573,6 +573,9 @@ class UsersList extends Users
 
         // Set up list options
         $this->setupListOptions();
+
+        // Setup import options
+        $this->setupImportOptions();
         $this->idd_user->Visible = false;
         $this->_username->setVisibility();
         $this->_password->setVisibility();
@@ -664,6 +667,13 @@ class UsersList extends Users
             } else {
                 if (Post("action") !== null) {
                     $this->CurrentAction = Post("action"); // Get action
+
+                    // Process import
+                    if ($this->isImport()) {
+                        $this->import(Post(Config("API_FILE_TOKEN_NAME")));
+                        $this->terminate();
+                        return;
+                    }
 
                     // Grid Update
                     if (($this->isGridUpdate() || $this->isGridOverwrite()) && Session(SESSION_INLINE_MODE) == "gridedit") {
@@ -1021,25 +1031,7 @@ class UsersList extends Users
         if (!$Security->canAdd()) {
             return false; // Add not allowed
         }
-        if ($this->isCopy()) {
-            if (($keyValue = Get("idd_user") ?? Route("idd_user")) !== null) {
-                $this->idd_user->setQueryStringValue($keyValue);
-            } else {
-                $this->CurrentAction = "add";
-            }
-            $this->OldKey = $this->getKey(true); // Get from CurrentValue
-        } else {
-            $this->OldKey = ""; // Clear old record key
-        }
-        $this->setKey($this->OldKey); // Set to OldValue
-
-        // Check if valid User ID
-        if ($this->loadRow() && !$this->showOptionLink("add")) {
-            $userIdMsg = $Language->phrase("NoAddPermission");
-            $this->setFailureMessage($userIdMsg);
-            $this->clearInlineMode(); // Clear inline edit mode
-            return false;
-        }
+        $this->CurrentAction = "add";
         $_SESSION[SESSION_INLINE_MODE] = "add"; // Enable inline add
         return true;
     }
@@ -1884,7 +1876,11 @@ class UsersList extends Users
             $opt = $this->ListOptions["view"];
             $viewcaption = HtmlTitle($Language->phrase("ViewLink"));
             if ($Security->canView() && $this->showOptionLink("view")) {
-                $opt->Body = "<a class=\"ew-row-link ew-view\" title=\"" . $viewcaption . "\" data-caption=\"" . $viewcaption . "\" href=\"" . HtmlEncode(GetUrl($this->ViewUrl)) . "\">" . $Language->phrase("ViewLink") . "</a>";
+                if (IsMobile()) {
+                    $opt->Body = "<a class=\"ew-row-link ew-view\" title=\"" . $viewcaption . "\" data-caption=\"" . $viewcaption . "\" href=\"" . HtmlEncode(GetUrl($this->ViewUrl)) . "\">" . $Language->phrase("ViewLink") . "</a>";
+                } else {
+                    $opt->Body = "<a class=\"ew-row-link ew-view\" title=\"" . $viewcaption . "\" data-table=\"users\" data-caption=\"" . $viewcaption . "\" href=\"#\" onclick=\"return ew.modalDialogShow({lnk:this,url:'" . HtmlEncode(GetUrl($this->ViewUrl)) . "',btn:null});\">" . $Language->phrase("ViewLink") . "</a>";
+                }
             } else {
                 $opt->Body = "";
             }
@@ -1904,7 +1900,6 @@ class UsersList extends Users
             $copycaption = HtmlTitle($Language->phrase("CopyLink"));
             if ($Security->canAdd() && $this->showOptionLink("add")) {
                 $opt->Body = "<a class=\"ew-row-link ew-copy\" title=\"" . $copycaption . "\" data-caption=\"" . $copycaption . "\" href=\"" . HtmlEncode(GetUrl($this->CopyUrl)) . "\">" . $Language->phrase("CopyLink") . "</a>";
-                $opt->Body .= "<a class=\"ew-row-link ew-inline-copy\" title=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->InlineCopyUrl)) . "\">" . $Language->phrase("InlineCopyLink") . "</a>";
             } else {
                 $opt->Body = "";
             }
@@ -2873,6 +2868,327 @@ class UsersList extends Users
         return $editRow;
     }
 
+    /**
+     * Import file
+     *
+     * @param string $filetoken File token to locate the uploaded import file
+     * @return bool
+     */
+    public function import($filetoken)
+    {
+        global $Security, $Language;
+        if (!$Security->canImport()) {
+            return false; // Import not allowed
+        }
+
+        // Check if valid token
+        if (EmptyValue($filetoken)) {
+            return false;
+        }
+
+        // Get uploaded files by token
+        $files = GetUploadedFileNames($filetoken);
+        $exts = explode(",", Config("IMPORT_FILE_ALLOWED_EXT"));
+        $totCnt = 0;
+        $totSuccessCnt = 0;
+        $totFailCnt = 0;
+        $result = [Config("API_FILE_TOKEN_NAME") => $filetoken, "files" => [], "success" => false];
+
+        // Import records
+        foreach ($files as $file) {
+            $res = [Config("API_FILE_TOKEN_NAME") => $filetoken, "file" => basename($file)];
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+            // Ignore log file
+            if ($ext == "txt") {
+                continue;
+            }
+            if (!in_array($ext, $exts)) {
+                $res = array_merge($res, ["error" => str_replace("%e", $ext, $Language->phrase("ImportMessageInvalidFileExtension"))]);
+                WriteJson($res);
+                return false;
+            }
+
+            // Set up options for Page Importing event
+
+            // Get optional data from $_POST first
+            $ar = array_keys($_POST);
+            $options = [];
+            foreach ($ar as $key) {
+                if (!in_array($key, ["action", "filetoken"])) {
+                    $options[$key] = $_POST[$key];
+                }
+            }
+
+            // Merge default options
+            $options = array_merge(["maxExecutionTime" => $this->ImportMaxExecutionTime, "file" => $file, "activeSheet" => 0, "headerRowNumber" => 0, "headers" => [], "offset" => 0, "limit" => 0], $options);
+            if ($ext == "csv") {
+                $options = array_merge(["inputEncoding" => $this->ImportCsvEncoding, "delimiter" => $this->ImportCsvDelimiter, "enclosure" => $this->ImportCsvQuoteCharacter], $options);
+            }
+            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader(ucfirst($ext));
+
+            // Call Page Importing server event
+            if (!$this->pageImporting($reader, $options)) {
+                WriteJson($res);
+                return false;
+            }
+
+            // Set max execution time
+            if ($options["maxExecutionTime"] > 0) {
+                ini_set("max_execution_time", $options["maxExecutionTime"]);
+            }
+            try {
+                if ($ext == "csv") {
+                    if ($options["inputEncoding"] != '') {
+                        $reader->setInputEncoding($options["inputEncoding"]);
+                    }
+                    if ($options["delimiter"] != '') {
+                        $reader->setDelimiter($options["delimiter"]);
+                    }
+                    if ($options["enclosure"] != '') {
+                        $reader->setEnclosure($options["enclosure"]);
+                    }
+                }
+                $spreadsheet = @$reader->load($file);
+            } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
+                $res = array_merge($res, ["error" => $e->getMessage()]);
+                WriteJson($res);
+                return false;
+            }
+
+            // Get active worksheet
+            $spreadsheet->setActiveSheetIndex($options["activeSheet"]);
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            // Get row and column indexes
+            $highestRow = $worksheet->getHighestRow();
+            $highestColumn = $worksheet->getHighestColumn();
+            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+
+            // Get column headers
+            $headers = $options["headers"];
+            $headerRow = 0;
+            if (count($headers) == 0) { // Undetermined, load from header row
+                $headerRow = $options["headerRowNumber"] + 1;
+                $headers = $this->getImportHeaders($worksheet, $headerRow, $highestColumn);
+            }
+            if (count($headers) == 0) { // Unable to load header
+                $res["error"] = $Language->phrase("ImportMessageNoHeaderRow");
+                WriteJson($res);
+                return false;
+            }
+            $checkValue = true; // Clear blank header values at end
+            $headers = array_reverse(array_reduce(array_reverse($headers), function ($res, $name) use ($checkValue) {
+                if (!EmptyValue($name) || !$checkValue) {
+                    $res[] = $name;
+                    $checkValue = false; // Skip further checking
+                }
+                return $res;
+            }, []));
+            foreach ($headers as $name) {
+                if (!array_key_exists($name, $this->Fields)) { // Unidentified field, not header row
+                    $res["error"] = str_replace('%f', $name, $Language->phrase("ImportMessageInvalidFieldName"));
+                    WriteJson($res);
+                    return false;
+                }
+            }
+            $startRow = $headerRow + 1;
+            $endRow = $highestRow;
+            if ($options["offset"] > 0) {
+                $startRow += $options["offset"];
+            }
+            if ($options["limit"] > 0) {
+                $endRow = $startRow + $options["limit"] - 1;
+                if ($endRow > $highestRow) {
+                    $endRow = $highestRow;
+                }
+            }
+            if ($endRow >= $startRow) {
+                $records = $this->getImportRecords($worksheet, $startRow, $endRow, $highestColumn);
+            } else {
+                $records = [];
+            }
+            $recordCnt = count($records);
+            $cnt = 0;
+            $successCnt = 0;
+            $failCnt = 0;
+            $failList = [];
+            $relLogFile = IncludeTrailingDelimiter(UploadPath(false) . Config("UPLOAD_TEMP_FOLDER_PREFIX") . $filetoken, false) . $filetoken . ".txt";
+            $res = array_merge($res, ["totalCount" => $recordCnt, "count" => $cnt, "successCount" => $successCnt, "failCount" => 0]);
+
+            // Begin transaction
+            if ($this->ImportUseTransaction) {
+                $conn = $this->getConnection();
+                $conn->beginTransaction();
+            }
+
+            // Process records
+            foreach ($records as $values) {
+                $importSuccess = false;
+                try {
+                    if (count($values) > count($headers)) { // Make sure headers / values count matched
+                        array_splice($values, count($headers));
+                    }
+                    $row = array_combine($headers, $values);
+                    $cnt++;
+                    $res["count"] = $cnt;
+                    if ($this->importRow($row, $cnt)) {
+                        $successCnt++;
+                        $importSuccess = true;
+                    } else {
+                        $failCnt++;
+                        $failList["row" . $cnt] = $this->getFailureMessage();
+                        $this->clearFailureMessage(); // Clear error message
+                    }
+                } catch (\Throwable $e) {
+                    $failCnt++;
+                    if ($failList["row" . $cnt] == "") {
+                        $failList["row" . $cnt] = $e->getMessage();
+                    }
+                }
+
+                // Reset count if import fail + use transaction
+                if (!$importSuccess && $this->ImportUseTransaction) {
+                    $successCnt = 0;
+                    $failCnt = $cnt;
+                }
+
+                // Save progress to cache
+                $res["successCount"] = $successCnt;
+                $res["failCount"] = $failCnt;
+                SetCache($filetoken, $res);
+
+                // No need to process further if import fail + use transaction
+                if (!$importSuccess && $this->ImportUseTransaction) {
+                    break;
+                }
+            }
+            $res["failList"] = $failList;
+
+            // Commit/Rollback transaction
+            if ($this->ImportUseTransaction) {
+                $conn = $this->getConnection();
+                if ($failCnt > 0) { // Rollback
+                    $conn->rollback();
+                } else { // Commit
+                    $conn->commit();
+                }
+            }
+            $totCnt += $cnt;
+            $totSuccessCnt += $successCnt;
+            $totFailCnt += $failCnt;
+
+            // Call Page Imported server event
+            $this->pageImported($reader, $res);
+            if ($totCnt > 0 && $totFailCnt == 0) { // Clean up if all records imported
+                $res["success"] = true;
+                $result["success"] = true;
+            } else {
+                $res["log"] = $relLogFile;
+                $result["success"] = false;
+            }
+            $result["files"][] = $res;
+        }
+        if ($result["success"]) {
+            CleanUploadTempPaths($filetoken);
+        }
+        WriteJson($result);
+        return $result["success"];
+    }
+
+    /**
+     * Get import header
+     *
+     * @param object $ws PhpSpreadsheet worksheet
+     * @param int $rowIdx Row index for header row (1-based)
+     * @param string $endColName End column Name (e.g. "F")
+     * @return array
+     */
+    protected function getImportHeaders($ws, $rowIdx, $endColName)
+    {
+        $ar = $ws->rangeToArray("A" . $rowIdx . ":" . $endColName . $rowIdx);
+        return $ar[0];
+    }
+
+    /**
+     * Get import records
+     *
+     * @param object $ws PhpSpreadsheet worksheet
+     * @param int $startRowIdx Start row index
+     * @param int $endRowIdx End row index
+     * @param string $endColName End column Name (e.g. "F")
+     * @return array
+     */
+    protected function getImportRecords($ws, $startRowIdx, $endRowIdx, $endColName)
+    {
+        $ar = $ws->rangeToArray("A" . $startRowIdx . ":" . $endColName . $endRowIdx);
+        return $ar;
+    }
+
+    /**
+     * Import a row
+     *
+     * @param array $row
+     * @param int $cnt
+     * @return bool
+     */
+    protected function importRow($row, $cnt)
+    {
+        global $Language;
+
+        // Call Row Import server event
+        if (!$this->rowImport($row, $cnt)) {
+            return false;
+        }
+
+        // Check field values
+        foreach ($row as $name => $value) {
+            $fld = $this->Fields[$name];
+            if (!$this->checkValue($fld, $value)) {
+                $this->setFailureMessage(str_replace(["%f", "%v"], [$fld->Name, $value], $Language->phrase("ImportMessageInvalidFieldValue")));
+                return false;
+            }
+        }
+
+        // Insert/Update to database
+        if (!$this->ImportInsertOnly && $oldrow = $this->load($row)) {
+            $res = $this->update($row, "", $oldrow);
+        } else {
+            $res = $this->insert($row);
+        }
+        return $res;
+    }
+
+    /**
+     * Check field value
+     *
+     * @param object $fld Field object
+     * @param object $value
+     * @return bool
+     */
+    protected function checkValue($fld, $value)
+    {
+        if ($fld->DataType == DATATYPE_NUMBER && !is_numeric($value)) {
+            return false;
+        } elseif ($fld->DataType == DATATYPE_DATE && !CheckDate($value)) {
+            return false;
+        }
+        return true;
+    }
+
+    // Load row
+    protected function load($row)
+    {
+        $filter = $this->getRecordFilter($row);
+        if (!$filter) {
+            return null;
+        }
+        $this->CurrentFilter = $filter;
+        $sql = $this->getCurrentSql();
+        $conn = $this->getConnection();
+        return $conn->fetchAssoc($sql);
+    }
+
     // Load row hash
     protected function loadRowHash()
     {
@@ -3021,6 +3337,25 @@ class UsersList extends Users
             $this->SearchOptions->hideAllOptions();
             $this->FilterOptions->hideAllOptions();
         }
+    }
+
+    // Set up import options
+    protected function setupImportOptions()
+    {
+        global $Security, $Language;
+
+        // Import
+        $item = &$this->ImportOptions->add("import");
+        $item->Body = "<a class=\"ew-import-link ew-import\" href=\"#\" role=\"button\" title=\"" . $Language->phrase("ImportText") . "\" data-caption=\"" . $Language->phrase("ImportText") . "\" onclick=\"return ew.importDialogShow({lnk:this,hdr:ew.language.phrase('ImportText')});\">" . $Language->phrase("Import") . "</a>";
+        $item->Visible = $Security->canImport();
+        $this->ImportOptions->UseButtonGroup = true;
+        $this->ImportOptions->UseDropDownButton = false;
+        $this->ImportOptions->DropDownButtonPhrase = $Language->phrase("ButtonImport");
+
+        // Add group option item
+        $item = &$this->ImportOptions->add($this->ImportOptions->GroupOptionName);
+        $item->Body = "";
+        $item->Visible = false;
     }
 
     // Show link optionally based on User ID

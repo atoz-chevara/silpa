@@ -45,28 +45,6 @@ $Page->showMessage();
 <input type="hidden" name="t" value="pertanggungjawaban2022">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <table class="table table-striped table-sm ew-view-table">
-<?php if ($Page->idd_evaluasi->Visible) { // idd_evaluasi ?>
-    <tr id="r_idd_evaluasi">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_idd_evaluasi"><?= $Page->idd_evaluasi->caption() ?></span></td>
-        <td data-name="idd_evaluasi" <?= $Page->idd_evaluasi->cellAttributes() ?>>
-<span id="el_pertanggungjawaban2022_idd_evaluasi">
-<span<?= $Page->idd_evaluasi->viewAttributes() ?>>
-<?= $Page->idd_evaluasi->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-    <tr id="r_tanggal">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_tanggal"><?= $Page->tanggal->caption() ?></span></td>
-        <td data-name="tanggal" <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban2022_tanggal">
-<span<?= $Page->tanggal->viewAttributes() ?>>
-<?= $Page->tanggal->getViewValue() ?></span>
-</span>
-</td>
-    </tr>
-<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <tr id="r_kd_satker">
         <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_kd_satker"><?= $Page->kd_satker->caption() ?></span></td>
@@ -291,13 +269,24 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->idd_user->Visible) { // idd_user ?>
-    <tr id="r_idd_user">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_idd_user"><?= $Page->idd_user->caption() ?></span></td>
-        <td data-name="idd_user" <?= $Page->idd_user->cellAttributes() ?>>
-<span id="el_pertanggungjawaban2022_idd_user">
-<span<?= $Page->idd_user->viewAttributes() ?>>
-<?= $Page->idd_user->getViewValue() ?></span>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+    <tr id="r_tanggal_upload">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_tanggal_upload"><?= $Page->tanggal_upload->caption() ?></span></td>
+        <td data-name="tanggal_upload" <?= $Page->tanggal_upload->cellAttributes() ?>>
+<span id="el_pertanggungjawaban2022_tanggal_upload">
+<span<?= $Page->tanggal_upload->viewAttributes() ?>>
+<?= $Page->tanggal_upload->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->tanggal_update->Visible) { // tanggal_update ?>
+    <tr id="r_tanggal_update">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban2022_tanggal_update"><?= $Page->tanggal_update->caption() ?></span></td>
+        <td data-name="tanggal_update" <?= $Page->tanggal_update->cellAttributes() ?>>
+<span id="el_pertanggungjawaban2022_tanggal_update">
+<span<?= $Page->tanggal_update->viewAttributes() ?>>
+<?= $Page->tanggal_update->getViewValue() ?></span>
 </span>
 </td>
     </tr>

@@ -224,8 +224,6 @@ $Page->ListOptions->render("header", "right");
     if ($Page->isAdd() || $Page->isCopy()) {
         $Page->RowIndex = 0;
         $Page->KeyCount = $Page->RowIndex;
-        if ($Page->isCopy() && !$Page->loadRow())
-            $Page->CurrentAction = "add";
         if ($Page->isAdd())
             $Page->loadRowValues();
         if ($Page->EventCancelled) // Insert failed

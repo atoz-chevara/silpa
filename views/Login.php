@@ -116,7 +116,7 @@ $Page->showMessage();
 <?php } ?>
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <div class="ew-login-box" style="margin-top: 220px;">
-<div class="login-logo-fix"><img src="<?= GetUrl("images/logo_register.png") ?>" alt="" class="brand-image ew-brand-image"></div>
+<div class="login-logo-fix"><img src="<?= GetUrl("images/logo_text.png") ?>" alt="" class="brand-image ew-brand-image"></div>
 <div class="login-card-fix">
     <div class="card-body-fix">
     <p class="login-box-msg"><?= $Language->phrase("LoginMsg") ?></p>

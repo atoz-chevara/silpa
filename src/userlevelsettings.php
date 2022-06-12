@@ -37,7 +37,9 @@ $USER_LEVEL_PRIVS = [["{8FB2C16F-E090-4B20-9B83-115D69E60354}levels","-2","0"],
     ["{8FB2C16F-E090-4B20-9B83-115D69E60354}tahun","-2","0"],
     ["{8FB2C16F-E090-4B20-9B83-115D69E60354}tahun","0","0"],
     ["{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban2022","-2","0"],
-    ["{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban2022","0","0"]];
+    ["{8FB2C16F-E090-4B20-9B83-115D69E60354}pertanggungjawaban2022","0","0"],
+    ["{8FB2C16F-E090-4B20-9B83-115D69E60354}view_pertanggungjawaban_2022_ev","-2","0"],
+    ["{8FB2C16F-E090-4B20-9B83-115D69E60354}view_pertanggungjawaban_2022_ev","0","0"]];
 // User level table info
 $USER_LEVEL_TABLES = [["levels","levels","Levels",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","levelslist"],
     ["permissions","permissions2","Permissions",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","permissions2list"],
@@ -53,4 +55,5 @@ $USER_LEVEL_TABLES = [["levels","levels","Levels",true,"{8FB2C16F-E090-4B20-9B83
     ["pertanggungjawaban","pertanggungjawaban","Evaluasi APBK Pertanggungjawaban",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","pertanggungjawabanlist"],
     ["rapbk","rapbk","Evaluasi R-APBK",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","rapbklist"],
     ["tahun","tahun","Tahun Anggaran",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","tahunlist"],
-    ["pertanggungjawaban2022","pertanggungjawaban2022","Pertanggungjawaban",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","pertanggungjawaban2022list"]];
+    ["pertanggungjawaban2022","pertanggungjawaban2022","Pertanggungjawaban TA 2022",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","pertanggungjawaban2022list"],
+    ["view_pertanggungjawaban_2022_ev","view_pertanggungjawaban_2022_ev","Pertanggungjawaban TA 2022",true,"{8FB2C16F-E090-4B20-9B83-115D69E60354}","viewpertanggungjawaban2022evlist"]];

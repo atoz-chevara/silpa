@@ -47,11 +47,17 @@ return function (App $app) {
     // evaluators
     $app->any('/evaluatorslist[/{idd_evaluator}]', EvaluatorsController::class . ':list')->add(PermissionMiddleware::class)->setName('evaluatorslist-evaluators-list'); // list
     $app->any('/evaluatorsadd[/{idd_evaluator}]', EvaluatorsController::class . ':add')->add(PermissionMiddleware::class)->setName('evaluatorsadd-evaluators-add'); // add
+    $app->any('/evaluatorsview[/{idd_evaluator}]', EvaluatorsController::class . ':view')->add(PermissionMiddleware::class)->setName('evaluatorsview-evaluators-view'); // view
+    $app->any('/evaluatorsedit[/{idd_evaluator}]', EvaluatorsController::class . ':edit')->add(PermissionMiddleware::class)->setName('evaluatorsedit-evaluators-edit'); // edit
+    $app->any('/evaluatorsdelete[/{idd_evaluator}]', EvaluatorsController::class . ':delete')->add(PermissionMiddleware::class)->setName('evaluatorsdelete-evaluators-delete'); // delete
     $app->group(
         '/evaluators',
         function (RouteCollectorProxy $group) {
             $group->any('/' . Config("LIST_ACTION") . '[/{idd_evaluator}]', EvaluatorsController::class . ':list')->add(PermissionMiddleware::class)->setName('evaluators/list-evaluators-list-2'); // list
             $group->any('/' . Config("ADD_ACTION") . '[/{idd_evaluator}]', EvaluatorsController::class . ':add')->add(PermissionMiddleware::class)->setName('evaluators/add-evaluators-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{idd_evaluator}]', EvaluatorsController::class . ':view')->add(PermissionMiddleware::class)->setName('evaluators/view-evaluators-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{idd_evaluator}]', EvaluatorsController::class . ':edit')->add(PermissionMiddleware::class)->setName('evaluators/edit-evaluators-edit-2'); // edit
+            $group->any('/' . Config("DELETE_ACTION") . '[/{idd_evaluator}]', EvaluatorsController::class . ':delete')->add(PermissionMiddleware::class)->setName('evaluators/delete-evaluators-delete-2'); // delete
         }
     );
 
@@ -206,6 +212,15 @@ return function (App $app) {
             $group->any('/' . Config("VIEW_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':view')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/view-pertanggungjawaban2022-view-2'); // view
             $group->any('/' . Config("EDIT_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':edit')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/edit-pertanggungjawaban2022-edit-2'); // edit
             $group->any('/' . Config("DELETE_ACTION") . '[/{idd_evaluasi}]', Pertanggungjawaban2022Controller::class . ':delete')->add(PermissionMiddleware::class)->setName('pertanggungjawaban2022/delete-pertanggungjawaban2022-delete-2'); // delete
+        }
+    );
+
+    // view_pertanggungjawaban_2022_ev
+    $app->any('/viewpertanggungjawaban2022evlist', ViewPertanggungjawaban2022EvController::class . ':list')->add(PermissionMiddleware::class)->setName('viewpertanggungjawaban2022evlist-view_pertanggungjawaban_2022_ev-list'); // list
+    $app->group(
+        '/view_pertanggungjawaban_2022_ev',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '', ViewPertanggungjawaban2022EvController::class . ':list')->add(PermissionMiddleware::class)->setName('view_pertanggungjawaban_2022_ev/list-view_pertanggungjawaban_2022_ev-list-2'); // list
         }
     );
 

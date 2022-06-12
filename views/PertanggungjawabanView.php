@@ -45,13 +45,24 @@ $Page->showMessage();
 <input type="hidden" name="t" value="pertanggungjawaban">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <table class="table table-striped table-sm ew-view-table">
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-    <tr id="r_tanggal">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_tanggal"><?= $Page->tanggal->caption() ?></span></td>
-        <td data-name="tanggal" <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_tanggal">
-<span<?= $Page->tanggal->viewAttributes() ?>>
-<?= $Page->tanggal->getViewValue() ?></span>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+    <tr id="r_tanggal_upload">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_tanggal_upload"><?= $Page->tanggal_upload->caption() ?></span></td>
+        <td data-name="tanggal_upload" <?= $Page->tanggal_upload->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_tanggal_upload">
+<span<?= $Page->tanggal_upload->viewAttributes() ?>>
+<?= $Page->tanggal_upload->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->tanggal_update->Visible) { // tanggal_update ?>
+    <tr id="r_tanggal_update">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_pertanggungjawaban_tanggal_update"><?= $Page->tanggal_update->caption() ?></span></td>
+        <td data-name="tanggal_update" <?= $Page->tanggal_update->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_tanggal_update">
+<span<?= $Page->tanggal_update->viewAttributes() ?>>
+<?= $Page->tanggal_update->getViewValue() ?></span>
 </span>
 </td>
     </tr>

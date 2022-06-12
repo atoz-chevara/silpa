@@ -572,8 +572,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
         // Set up list options
         $this->setupListOptions();
         $this->idd_evaluasi->Visible = false;
-        $this->tanggal->setVisibility();
-        $this->idd_wilayah->setVisibility();
+        $this->tanggal_upload->setVisibility();
+        $this->tanggal_update->Visible = false;
+        $this->idd_wilayah->Visible = false;
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
         $this->tahun_anggaran->setVisibility();
@@ -1040,25 +1041,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if (!$Security->canAdd()) {
             return false; // Add not allowed
         }
-        if ($this->isCopy()) {
-            if (($keyValue = Get("idd_evaluasi") ?? Route("idd_evaluasi")) !== null) {
-                $this->idd_evaluasi->setQueryStringValue($keyValue);
-            } else {
-                $this->CurrentAction = "add";
-            }
-            $this->OldKey = $this->getKey(true); // Get from CurrentValue
-        } else {
-            $this->OldKey = ""; // Clear old record key
-        }
-        $this->setKey($this->OldKey); // Set to OldValue
-
-        // Check if valid User ID
-        if ($this->loadRow() && !$this->showOptionLink("add")) {
-            $userIdMsg = $Language->phrase("NoAddPermission");
-            $this->setFailureMessage($userIdMsg);
-            $this->clearInlineMode(); // Clear inline edit mode
-            return false;
-        }
+        $this->CurrentAction = "add";
         $_SESSION[SESSION_INLINE_MODE] = "add"; // Enable inline add
         return true;
     }
@@ -1325,10 +1308,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
     public function emptyRow()
     {
         global $CurrentForm;
-        if ($CurrentForm->hasValue("x_tanggal") && $CurrentForm->hasValue("o_tanggal") && $this->tanggal->CurrentValue != $this->tanggal->OldValue) {
-            return false;
-        }
-        if ($CurrentForm->hasValue("x_idd_wilayah") && $CurrentForm->hasValue("o_idd_wilayah") && $this->idd_wilayah->CurrentValue != $this->idd_wilayah->OldValue) {
+        if ($CurrentForm->hasValue("x_tanggal_upload") && $CurrentForm->hasValue("o_tanggal_upload") && $this->tanggal_upload->CurrentValue != $this->tanggal_upload->OldValue) {
             return false;
         }
         if ($CurrentForm->hasValue("x_kd_satker") && $CurrentForm->hasValue("o_kd_satker") && $this->kd_satker->CurrentValue != $this->kd_satker->OldValue) {
@@ -1424,8 +1404,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
     // Reset form status
     public function resetFormError()
     {
-        $this->tanggal->clearErrorMessage();
-        $this->idd_wilayah->clearErrorMessage();
+        $this->tanggal_upload->clearErrorMessage();
         $this->kd_satker->clearErrorMessage();
         $this->idd_tahapan->clearErrorMessage();
         $this->tahun_anggaran->clearErrorMessage();
@@ -1441,7 +1420,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $filterList = "";
         $savedFilterList = "";
         $filterList = Concat($filterList, $this->idd_evaluasi->AdvancedSearch->toJson(), ","); // Field idd_evaluasi
-        $filterList = Concat($filterList, $this->tanggal->AdvancedSearch->toJson(), ","); // Field tanggal
+        $filterList = Concat($filterList, $this->tanggal_upload->AdvancedSearch->toJson(), ","); // Field tanggal_upload
+        $filterList = Concat($filterList, $this->tanggal_update->AdvancedSearch->toJson(), ","); // Field tanggal_update
         $filterList = Concat($filterList, $this->idd_wilayah->AdvancedSearch->toJson(), ","); // Field idd_wilayah
         $filterList = Concat($filterList, $this->kd_satker->AdvancedSearch->toJson(), ","); // Field kd_satker
         $filterList = Concat($filterList, $this->idd_tahapan->AdvancedSearch->toJson(), ","); // Field idd_tahapan
@@ -1511,13 +1491,21 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $this->idd_evaluasi->AdvancedSearch->SearchOperator2 = @$filter["w_idd_evaluasi"];
         $this->idd_evaluasi->AdvancedSearch->save();
 
-        // Field tanggal
-        $this->tanggal->AdvancedSearch->SearchValue = @$filter["x_tanggal"];
-        $this->tanggal->AdvancedSearch->SearchOperator = @$filter["z_tanggal"];
-        $this->tanggal->AdvancedSearch->SearchCondition = @$filter["v_tanggal"];
-        $this->tanggal->AdvancedSearch->SearchValue2 = @$filter["y_tanggal"];
-        $this->tanggal->AdvancedSearch->SearchOperator2 = @$filter["w_tanggal"];
-        $this->tanggal->AdvancedSearch->save();
+        // Field tanggal_upload
+        $this->tanggal_upload->AdvancedSearch->SearchValue = @$filter["x_tanggal_upload"];
+        $this->tanggal_upload->AdvancedSearch->SearchOperator = @$filter["z_tanggal_upload"];
+        $this->tanggal_upload->AdvancedSearch->SearchCondition = @$filter["v_tanggal_upload"];
+        $this->tanggal_upload->AdvancedSearch->SearchValue2 = @$filter["y_tanggal_upload"];
+        $this->tanggal_upload->AdvancedSearch->SearchOperator2 = @$filter["w_tanggal_upload"];
+        $this->tanggal_upload->AdvancedSearch->save();
+
+        // Field tanggal_update
+        $this->tanggal_update->AdvancedSearch->SearchValue = @$filter["x_tanggal_update"];
+        $this->tanggal_update->AdvancedSearch->SearchOperator = @$filter["z_tanggal_update"];
+        $this->tanggal_update->AdvancedSearch->SearchCondition = @$filter["v_tanggal_update"];
+        $this->tanggal_update->AdvancedSearch->SearchValue2 = @$filter["y_tanggal_update"];
+        $this->tanggal_update->AdvancedSearch->SearchOperator2 = @$filter["w_tanggal_update"];
+        $this->tanggal_update->AdvancedSearch->save();
 
         // Field idd_wilayah
         $this->idd_wilayah->AdvancedSearch->SearchValue = @$filter["x_idd_wilayah"];
@@ -1873,8 +1861,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if (Get("order") !== null) {
             $this->CurrentOrder = Get("order");
             $this->CurrentOrderType = Get("ordertype", "");
-            $this->updateSort($this->tanggal); // tanggal
-            $this->updateSort($this->idd_wilayah); // idd_wilayah
+            $this->updateSort($this->tanggal_upload); // tanggal_upload
             $this->updateSort($this->kd_satker); // kd_satker
             $this->updateSort($this->idd_tahapan); // idd_tahapan
             $this->updateSort($this->tahun_anggaran); // tahun_anggaran
@@ -1919,7 +1906,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
                 $orderBy = "";
                 $this->setSessionOrderBy($orderBy);
                 $this->idd_evaluasi->setSort("");
-                $this->tanggal->setSort("");
+                $this->tanggal_upload->setSort("");
+                $this->tanggal_update->setSort("");
                 $this->idd_wilayah->setSort("");
                 $this->kd_satker->setSort("");
                 $this->idd_tahapan->setSort("");
@@ -2116,7 +2104,6 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $copycaption = HtmlTitle($Language->phrase("CopyLink"));
             if ($Security->canAdd() && $this->showOptionLink("add")) {
                 $opt->Body = "<a class=\"ew-row-link ew-copy\" title=\"" . $copycaption . "\" data-caption=\"" . $copycaption . "\" href=\"" . HtmlEncode(GetUrl($this->CopyUrl)) . "\">" . $Language->phrase("CopyLink") . "</a>";
-                $opt->Body .= "<a class=\"ew-row-link ew-inline-copy\" title=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" data-caption=\"" . HtmlTitle($Language->phrase("InlineCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->InlineCopyUrl)) . "\">" . $Language->phrase("InlineCopyLink") . "</a>";
             } else {
                 $opt->Body = "";
             }
@@ -2402,8 +2389,10 @@ class PertanggungjawabanList extends Pertanggungjawaban
     {
         $this->idd_evaluasi->CurrentValue = null;
         $this->idd_evaluasi->OldValue = $this->idd_evaluasi->CurrentValue;
-        $this->tanggal->CurrentValue = null;
-        $this->tanggal->OldValue = $this->tanggal->CurrentValue;
+        $this->tanggal_upload->CurrentValue = null;
+        $this->tanggal_upload->OldValue = $this->tanggal_upload->CurrentValue;
+        $this->tanggal_update->CurrentValue = null;
+        $this->tanggal_update->OldValue = $this->tanggal_update->CurrentValue;
         $this->idd_wilayah->CurrentValue = null;
         $this->idd_wilayah->OldValue = $this->idd_wilayah->CurrentValue;
         $this->kd_satker->CurrentValue = null;
@@ -2464,31 +2453,18 @@ class PertanggungjawabanList extends Pertanggungjawaban
         // Load from form
         global $CurrentForm;
 
-        // Check field name 'tanggal' first before field var 'x_tanggal'
-        $val = $CurrentForm->hasValue("tanggal") ? $CurrentForm->getValue("tanggal") : $CurrentForm->getValue("x_tanggal");
-        if (!$this->tanggal->IsDetailKey) {
+        // Check field name 'tanggal_upload' first before field var 'x_tanggal_upload'
+        $val = $CurrentForm->hasValue("tanggal_upload") ? $CurrentForm->getValue("tanggal_upload") : $CurrentForm->getValue("x_tanggal_upload");
+        if (!$this->tanggal_upload->IsDetailKey) {
             if (IsApi() && $val === null) {
-                $this->tanggal->Visible = false; // Disable update for API request
+                $this->tanggal_upload->Visible = false; // Disable update for API request
             } else {
-                $this->tanggal->setFormValue($val);
+                $this->tanggal_upload->setFormValue($val);
             }
-            $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
+            $this->tanggal_upload->CurrentValue = UnFormatDateTime($this->tanggal_upload->CurrentValue, 1);
         }
-        if ($CurrentForm->hasValue("o_tanggal")) {
-            $this->tanggal->setOldValue($CurrentForm->getValue("o_tanggal"));
-        }
-
-        // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
-        $val = $CurrentForm->hasValue("idd_wilayah") ? $CurrentForm->getValue("idd_wilayah") : $CurrentForm->getValue("x_idd_wilayah");
-        if (!$this->idd_wilayah->IsDetailKey) {
-            if (IsApi() && $val === null) {
-                $this->idd_wilayah->Visible = false; // Disable update for API request
-            } else {
-                $this->idd_wilayah->setFormValue($val);
-            }
-        }
-        if ($CurrentForm->hasValue("o_idd_wilayah")) {
-            $this->idd_wilayah->setOldValue($CurrentForm->getValue("o_idd_wilayah"));
+        if ($CurrentForm->hasValue("o_tanggal_upload")) {
+            $this->tanggal_upload->setOldValue($CurrentForm->getValue("o_tanggal_upload"));
         }
 
         // Check field name 'kd_satker' first before field var 'x_kd_satker'
@@ -2557,9 +2533,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if (!$this->isGridAdd() && !$this->isAdd()) {
             $this->idd_evaluasi->CurrentValue = $this->idd_evaluasi->FormValue;
         }
-        $this->tanggal->CurrentValue = $this->tanggal->FormValue;
-        $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
-        $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
+        $this->tanggal_upload->CurrentValue = $this->tanggal_upload->FormValue;
+        $this->tanggal_upload->CurrentValue = UnFormatDateTime($this->tanggal_upload->CurrentValue, 1);
         $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
         $this->tahun_anggaran->CurrentValue = $this->tahun_anggaran->FormValue;
@@ -2638,7 +2613,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
             return;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
-        $this->tanggal->setDbValue($row['tanggal']);
+        $this->tanggal_upload->setDbValue($row['tanggal_upload']);
+        $this->tanggal_update->setDbValue($row['tanggal_update']);
         $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
@@ -2683,7 +2659,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
         $this->loadDefaultValues();
         $row = [];
         $row['idd_evaluasi'] = $this->idd_evaluasi->CurrentValue;
-        $row['tanggal'] = $this->tanggal->CurrentValue;
+        $row['tanggal_upload'] = $this->tanggal_upload->CurrentValue;
+        $row['tanggal_update'] = $this->tanggal_update->CurrentValue;
         $row['idd_wilayah'] = $this->idd_wilayah->CurrentValue;
         $row['kd_satker'] = $this->kd_satker->CurrentValue;
         $row['idd_tahapan'] = $this->idd_tahapan->CurrentValue;
@@ -2744,7 +2721,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
         // idd_evaluasi
 
-        // tanggal
+        // tanggal_upload
+
+        // tanggal_update
 
         // idd_wilayah
 
@@ -2792,10 +2771,15 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->idd_evaluasi->ViewValue = $this->idd_evaluasi->CurrentValue;
             $this->idd_evaluasi->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
-            $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
-            $this->tanggal->ViewCustomAttributes = "";
+            // tanggal_upload
+            $this->tanggal_upload->ViewValue = $this->tanggal_upload->CurrentValue;
+            $this->tanggal_upload->ViewValue = FormatDateTime($this->tanggal_upload->ViewValue, 1);
+            $this->tanggal_upload->ViewCustomAttributes = "";
+
+            // tanggal_update
+            $this->tanggal_update->ViewValue = $this->tanggal_update->CurrentValue;
+            $this->tanggal_update->ViewValue = FormatDateTime($this->tanggal_update->ViewValue, 1);
+            $this->tanggal_update->ViewCustomAttributes = "";
 
             // idd_wilayah
             $curVal = trim(strval($this->idd_wilayah->CurrentValue));
@@ -3030,15 +3014,10 @@ class PertanggungjawabanList extends Pertanggungjawaban
             }
             $this->idd_user->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-            $this->tanggal->TooltipValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
-            $this->idd_wilayah->TooltipValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
+            $this->tanggal_upload->TooltipValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -3060,36 +3039,11 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->status->HrefValue = "";
             $this->status->TooltipValue = "";
         } elseif ($this->RowType == ROWTYPE_ADD) {
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
+            // tanggal_upload
+            $this->tanggal_upload->EditAttrs["class"] = "form-control";
+            $this->tanggal_upload->EditCustomAttributes = "";
+            $this->tanggal_upload->EditValue = HtmlEncode(FormatDateTime($this->tanggal_upload->CurrentValue, 8));
+            $this->tanggal_upload->PlaceHolder = RemoveHtml($this->tanggal_upload->caption());
 
             // kd_satker
             $this->kd_satker->EditAttrs["class"] = "form-control";
@@ -3174,13 +3128,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
             // Add refer script
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -3198,36 +3148,10 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->status->LinkCustomAttributes = "";
             $this->status->HrefValue = "";
         } elseif ($this->RowType == ROWTYPE_EDIT) {
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
-
-            // idd_wilayah
-            $this->idd_wilayah->EditAttrs["class"] = "form-control";
-            $this->idd_wilayah->EditCustomAttributes = "";
-            $curVal = trim(strval($this->idd_wilayah->CurrentValue));
-            if ($curVal != "") {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->lookupCacheOption($curVal);
-            } else {
-                $this->idd_wilayah->ViewValue = $this->idd_wilayah->Lookup !== null && is_array($this->idd_wilayah->Lookup->Options) ? $curVal : null;
-            }
-            if ($this->idd_wilayah->ViewValue !== null) { // Load from cache
-                $this->idd_wilayah->EditValue = array_values($this->idd_wilayah->Lookup->Options);
-            } else { // Lookup from database
-                if ($curVal == "") {
-                    $filterWrk = "0=1";
-                } else {
-                    $filterWrk = "`idd_wilayah`" . SearchString("=", $this->idd_wilayah->CurrentValue, DATATYPE_NUMBER, "");
-                }
-                $sqlWrk = $this->idd_wilayah->Lookup->getSql(true, $filterWrk, '', $this, false, true);
-                $rswrk = Conn()->executeQuery($sqlWrk)->fetchAll(\PDO::FETCH_BOTH);
-                $ari = count($rswrk);
-                $arwrk = $rswrk;
-                $this->idd_wilayah->EditValue = $arwrk;
-            }
-            $this->idd_wilayah->PlaceHolder = RemoveHtml($this->idd_wilayah->caption());
+            // tanggal_upload
+            $this->tanggal_upload->EditAttrs["class"] = "form-control";
+            $this->tanggal_upload->EditCustomAttributes = "";
+            $this->tanggal_upload->CurrentValue = FormatDateTime($this->tanggal_upload->CurrentValue, 8);
 
             // kd_satker
             $this->kd_satker->EditAttrs["class"] = "form-control";
@@ -3312,13 +3236,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
 
             // Edit refer script
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-
-            // idd_wilayah
-            $this->idd_wilayah->LinkCustomAttributes = "";
-            $this->idd_wilayah->HrefValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
 
             // kd_satker
             $this->kd_satker->LinkCustomAttributes = "";
@@ -3355,17 +3275,9 @@ class PertanggungjawabanList extends Pertanggungjawaban
         if (!Config("SERVER_VALIDATE")) {
             return true;
         }
-        if ($this->tanggal->Required) {
-            if (!$this->tanggal->IsDetailKey && EmptyValue($this->tanggal->FormValue)) {
-                $this->tanggal->addErrorMessage(str_replace("%s", $this->tanggal->caption(), $this->tanggal->RequiredErrorMessage));
-            }
-        }
-        if (!CheckDate($this->tanggal->FormValue)) {
-            $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
-        }
-        if ($this->idd_wilayah->Required) {
-            if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
-                $this->idd_wilayah->addErrorMessage(str_replace("%s", $this->idd_wilayah->caption(), $this->idd_wilayah->RequiredErrorMessage));
+        if ($this->tanggal_upload->Required) {
+            if (!$this->tanggal_upload->IsDetailKey && EmptyValue($this->tanggal_upload->FormValue)) {
+                $this->tanggal_upload->addErrorMessage(str_replace("%s", $this->tanggal_upload->caption(), $this->tanggal_upload->RequiredErrorMessage));
             }
         }
         if ($this->kd_satker->Required) {
@@ -3497,11 +3409,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
             $this->loadDbValues($rsold);
             $rsnew = [];
 
-            // tanggal
-            $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), $this->tanggal->ReadOnly);
-
-            // idd_wilayah
-            $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, $this->idd_wilayah->ReadOnly);
+            // tanggal_upload
+            $this->tanggal_upload->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal_upload->CurrentValue, 1), null, $this->tanggal_upload->ReadOnly);
 
             // kd_satker
             $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", $this->kd_satker->ReadOnly);
@@ -3580,8 +3489,7 @@ class PertanggungjawabanList extends Pertanggungjawaban
         }
         $row = ($rs instanceof Recordset) ? $rs->fields : $rs;
         $hash = "";
-        $hash .= GetFieldHash($row['tanggal']); // tanggal
-        $hash .= GetFieldHash($row['idd_wilayah']); // idd_wilayah
+        $hash .= GetFieldHash($row['tanggal_upload']); // tanggal_upload
         $hash .= GetFieldHash($row['kd_satker']); // kd_satker
         $hash .= GetFieldHash($row['idd_tahapan']); // idd_tahapan
         $hash .= GetFieldHash($row['tahun_anggaran']); // tahun_anggaran
@@ -3613,11 +3521,8 @@ class PertanggungjawabanList extends Pertanggungjawaban
         }
         $rsnew = [];
 
-        // tanggal
-        $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), false);
-
-        // idd_wilayah
-        $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, false);
+        // tanggal_upload
+        $this->tanggal_upload->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal_upload->CurrentValue, 1), null, false);
 
         // kd_satker
         $this->kd_satker->setDbValueDef($rsnew, $this->kd_satker->CurrentValue, "", false);

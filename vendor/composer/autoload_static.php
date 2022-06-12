@@ -7,19 +7,26 @@ namespace Composer\Autoload;
 class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
 {
     public static $files = array (
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
-        'f9e61f18f0291090ecf3f67a829046de' => __DIR__ . '/..' . '/athari/yalinqo/YaLinqo/Linq.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
+        'f9e61f18f0291090ecf3f67a829046de' => __DIR__ . '/..' . '/athari/yalinqo/YaLinqo/Linq.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'ZipStream\\' => 10,
+        ),
         'Y' => 
         array (
             'YaLinqo\\' => 8,
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Svg\\' => 4,
             'Soundasleep\\' => 12,
             'Slim\\Views\\' => 11,
@@ -33,13 +40,20 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Server\\' => 16,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
             'PhpDocReader\\' => 13,
             'PHPMaker2021\\silpa\\' => 19,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'O' => 
+        array (
+            'Opis\\Closure\\' => 13,
         ),
         'N' => 
         array (
@@ -48,11 +62,9 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         ),
         'M' => 
         array (
+            'MyCLabs\\Enum\\' => 13,
             'Monolog\\' => 8,
-        ),
-        'L' => 
-        array (
-            'Laravel\\SerializableClosure\\' => 28,
+            'Matrix\\' => 7,
         ),
         'I' => 
         array (
@@ -81,12 +93,24 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
             'Defuse\\Crypto\\' => 14,
             'DI\\' => 3,
         ),
+        'C' => 
+        array (
+            'Complex\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'ZipStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
         'YaLinqo\\' => 
         array (
             0 => __DIR__ . '/..' . '/athari/yalinqo/YaLinqo',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
         'Svg\\' => 
         array (
@@ -128,6 +152,10 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -142,9 +170,17 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpOffice\\PhpSpreadsheet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
         'PhpDocReader\\' => 
         array (
@@ -160,6 +196,10 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Opis\\Closure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/closure/src',
+        ),
         'Nyholm\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7/src',
@@ -168,13 +208,17 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7-server/src',
         ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Laravel\\SerializableClosure\\' => 
+        'Matrix\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+            0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
         'Invoker\\' => 
         array (
@@ -235,6 +279,10 @@ class ComposerStaticInit52b4a4cbaf4f12cb9e8ae606cf082761
         'DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src',
+        ),
+        'Complex\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
     );
 

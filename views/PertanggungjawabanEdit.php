@@ -20,7 +20,8 @@ loadjs.ready("head", function () {
     if (!ew.vars.tables.pertanggungjawaban)
         ew.vars.tables.pertanggungjawaban = currentTable;
     fpertanggungjawabanedit.addFields([
-        ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
+        ["tanggal_upload", [fields.tanggal_upload.visible && fields.tanggal_upload.required ? ew.Validators.required(fields.tanggal_upload.caption) : null], fields.tanggal_upload.isInvalid],
+        ["tanggal_update", [fields.tanggal_update.visible && fields.tanggal_update.required ? ew.Validators.required(fields.tanggal_update.caption) : null], fields.tanggal_update.isInvalid],
         ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null], fields.idd_wilayah.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
         ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
@@ -136,25 +137,6 @@ $Page->showMessage();
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
 <div class="ew-edit-div"><!-- page* -->
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-    <div id="r_tanggal" class="form-group row">
-        <label id="elh_pertanggungjawaban_tanggal" for="x_tanggal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal->caption() ?><?= $Page->tanggal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x_tanggal" id="x_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?> aria-describedby="x_tanggal_help">
-<?= $Page->tanggal->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanedit", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanedit", "x_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
-</span>
-</div></div>
-    </div>
-<?php } ?>
 <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
     <div id="r_idd_wilayah" class="form-group row">
         <label id="elh_pertanggungjawaban_idd_wilayah" for="x_idd_wilayah" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_wilayah->caption() ?><?= $Page->idd_wilayah->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
@@ -737,6 +719,12 @@ loadjs.ready("head", function() {
     </div>
 <?php } ?>
 </div><!-- /page* -->
+<span id="el_pertanggungjawaban_tanggal_upload">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-hidden="1" name="x_tanggal_upload" id="x_tanggal_upload" value="<?= HtmlEncode($Page->tanggal_upload->CurrentValue) ?>">
+</span>
+<span id="el_pertanggungjawaban_tanggal_update">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_update" data-hidden="1" name="x_tanggal_update" id="x_tanggal_update" value="<?= HtmlEncode($Page->tanggal_update->CurrentValue) ?>">
+</span>
     <input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_evaluasi" data-hidden="1" name="x_idd_evaluasi" id="x_idd_evaluasi" value="<?= HtmlEncode($Page->idd_evaluasi->CurrentValue) ?>">
 <?php if (!$Page->IsModal) { ?>
 <div class="form-group row"><!-- buttons .form-group -->

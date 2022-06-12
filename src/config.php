@@ -171,7 +171,7 @@ $CONFIG = [
 
     // General
     "UNFORMAT_YEAR" => 50, // Unformat year
-    "RANDOM_KEY" => 'vlVQM1NdY2ynzlE7', // Random key for encryption
+    "RANDOM_KEY" => 'ReDF3g556a9Vb1Tr', // Random key for encryption
     "ENCRYPTION_KEY" => '', // Encryption key for data protection
     "PROJECT_STYLESHEET_FILENAME" => "css/silpa.css", // Project stylesheet file name
     "PROJECT_CHARSET" => "utf-8", // Project charset
@@ -417,8 +417,8 @@ $CONFIG = [
     "UPLOAD_ALLOWED_FILE_EXT" => "gif,jpg,jpeg,bmp,png,doc,docx,xls,xlsx,pdf,zip", // Allowed file extensions
     "IMAGE_ALLOWED_FILE_EXT" => "gif,jpe,jpeg,jpg,png,bmp", // Allowed file extensions for images
     "DOWNLOAD_ALLOWED_FILE_EXT" => "csv,pdf,xls,doc,xlsx,docx", // Allowed file extensions for download (non-image)
-    "ENCRYPT_FILE_PATH" => true, // Encrypt file path
-    "MAX_FILE_SIZE" => 2000000, // Max file size
+    "ENCRYPT_FILE_PATH" => false, // Encrypt file path
+    "MAX_FILE_SIZE" => 999999999, // Max file size
     "MAX_FILE_COUNT" => 0, // Max file count
     "THUMBNAIL_DEFAULT_WIDTH" => 100, // Thumbnail default width
     "THUMBNAIL_DEFAULT_HEIGHT" => 0, // Thumbnail default height
@@ -1093,7 +1093,7 @@ $CONFIG = [
     "DOWNLOAD_PDF_FILE" => false,
 
     // Embed PDF documents
-    "EMBED_PDF" => true,
+    "EMBED_PDF" => false,
 
     // Advanced Filters
     "REPORT_ADVANCED_FILTERS" => [

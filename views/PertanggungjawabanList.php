@@ -22,8 +22,7 @@ loadjs.ready("head", function () {
     if (!ew.vars.tables.pertanggungjawaban)
         ew.vars.tables.pertanggungjawaban = currentTable;
     fpertanggungjawabanlist.addFields([
-        ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
-        ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null], fields.idd_wilayah.isInvalid],
+        ["tanggal_upload", [fields.tanggal_upload.visible && fields.tanggal_upload.required ? ew.Validators.required(fields.tanggal_upload.caption) : null], fields.tanggal_upload.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
         ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
         ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
@@ -85,9 +84,7 @@ loadjs.ready("head", function () {
     // Check empty row
     fpertanggungjawabanlist.emptyRow = function (rowIndex) {
         var fobj = this.getForm();
-        if (ew.valueChanged(fobj, rowIndex, "tanggal", false))
-            return false;
-        if (ew.valueChanged(fobj, rowIndex, "idd_wilayah", false))
+        if (ew.valueChanged(fobj, rowIndex, "tanggal_upload", false))
             return false;
         if (ew.valueChanged(fobj, rowIndex, "kd_satker", false))
             return false;
@@ -110,7 +107,6 @@ loadjs.ready("head", function () {
     fpertanggungjawabanlist.validateRequired = <?= Config("CLIENT_VALIDATE") ? "true" : "false" ?>;
 
     // Dynamic selection lists
-    fpertanggungjawabanlist.lists.idd_wilayah = <?= $Page->idd_wilayah->toClientList($Page) ?>;
     fpertanggungjawabanlist.lists.kd_satker = <?= $Page->kd_satker->toClientList($Page) ?>;
     fpertanggungjawabanlist.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
     fpertanggungjawabanlist.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
@@ -211,11 +207,8 @@ $Page->renderListOptions();
 // Render list options (header, left)
 $Page->ListOptions->render("header", "left");
 ?>
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <th data-name="tanggal" class="<?= $Page->tanggal->headerCellClass() ?>"><div id="elh_pertanggungjawaban_tanggal" class="pertanggungjawaban_tanggal"><?= $Page->renderSort($Page->tanggal) ?></div></th>
-<?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <th data-name="idd_wilayah" class="<?= $Page->idd_wilayah->headerCellClass() ?>"><div id="elh_pertanggungjawaban_idd_wilayah" class="pertanggungjawaban_idd_wilayah"><?= $Page->renderSort($Page->idd_wilayah) ?></div></th>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <th data-name="tanggal_upload" class="<?= $Page->tanggal_upload->headerCellClass() ?>"><div id="elh_pertanggungjawaban_tanggal_upload" class="pertanggungjawaban_tanggal_upload"><?= $Page->renderSort($Page->tanggal_upload) ?></div></th>
 <?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <th data-name="kd_satker" class="<?= $Page->kd_satker->headerCellClass() ?>"><div id="elh_pertanggungjawaban_kd_satker" class="pertanggungjawaban_kd_satker"><?= $Page->renderSort($Page->kd_satker) ?></div></th>
@@ -240,8 +233,6 @@ $Page->ListOptions->render("header", "right");
     if ($Page->isAdd() || $Page->isCopy()) {
         $Page->RowIndex = 0;
         $Page->KeyCount = $Page->RowIndex;
-        if ($Page->isCopy() && !$Page->loadRow())
-            $Page->CurrentAction = "add";
         if ($Page->isAdd())
             $Page->loadRowValues();
         if ($Page->EventCancelled) // Insert failed
@@ -264,50 +255,13 @@ $Page->ListOptions->render("header", "right");
 // Render list options (body, left)
 $Page->ListOptions->render("body", "left", $Page->RowCount);
 ?>
-    <?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <td data-name="tanggal">
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal" class="form-group pertanggungjawaban_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x<?= $Page->RowIndex ?>_tanggal" id="x<?= $Page->RowIndex ?>_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanlist", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanlist", "x<?= $Page->RowIndex ?>_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
+    <?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <td data-name="tanggal_upload">
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal_upload" class="form-group pertanggungjawaban_tanggal_upload">
+<input type="<?= $Page->tanggal_upload->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-format="1" name="x<?= $Page->RowIndex ?>_tanggal_upload" id="x<?= $Page->RowIndex ?>_tanggal_upload" placeholder="<?= HtmlEncode($Page->tanggal_upload->getPlaceHolder()) ?>" value="<?= $Page->tanggal_upload->EditValue ?>"<?= $Page->tanggal_upload->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->tanggal_upload->getErrorMessage() ?></div>
 </span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal" id="o<?= $Page->RowIndex ?>_tanggal" value="<?= HtmlEncode($Page->tanggal->OldValue) ?>">
-</td>
-    <?php } ?>
-    <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <td data-name="idd_wilayah">
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah" class="form-group pertanggungjawaban_idd_wilayah">
-    <select
-        id="x<?= $Page->RowIndex ?>_idd_wilayah"
-        name="x<?= $Page->RowIndex ?>_idd_wilayah"
-        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah"
-        data-table="pertanggungjawaban"
-        data-field="x_idd_wilayah"
-        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
-        <?= $Page->idd_wilayah->editAttributes() ?>>
-        <?= $Page->idd_wilayah->selectOptionListHtml("x{$Page->RowIndex}_idd_wilayah") ?>
-    </select>
-    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
-<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_wilayah") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah']"),
-        options = { name: "x<?= $Page->RowIndex ?>_idd_wilayah", selectId: "pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
-    ew.createSelect(options);
-});
-</script>
-</span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_wilayah" data-hidden="1" name="o<?= $Page->RowIndex ?>_idd_wilayah" id="o<?= $Page->RowIndex ?>_idd_wilayah" value="<?= HtmlEncode($Page->idd_wilayah->OldValue) ?>">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal_upload" id="o<?= $Page->RowIndex ?>_tanggal_upload" value="<?= HtmlEncode($Page->tanggal_upload->OldValue) ?>">
 </td>
     <?php } ?>
     <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
@@ -564,104 +518,24 @@ while ($Page->RecordCount < $Page->StopRecord) {
 // Render list options (body, left)
 $Page->ListOptions->render("body", "left", $Page->RowCount);
 ?>
-    <?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <td data-name="tanggal" <?= $Page->tanggal->cellAttributes() ?>>
+    <?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <td data-name="tanggal_upload" <?= $Page->tanggal_upload->cellAttributes() ?>>
 <?php if ($Page->RowType == ROWTYPE_ADD) { // Add record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal" class="form-group">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x<?= $Page->RowIndex ?>_tanggal" id="x<?= $Page->RowIndex ?>_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanlist", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanlist", "x<?= $Page->RowIndex ?>_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal_upload" class="form-group">
+<input type="<?= $Page->tanggal_upload->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-format="1" name="x<?= $Page->RowIndex ?>_tanggal_upload" id="x<?= $Page->RowIndex ?>_tanggal_upload" placeholder="<?= HtmlEncode($Page->tanggal_upload->getPlaceHolder()) ?>" value="<?= $Page->tanggal_upload->EditValue ?>"<?= $Page->tanggal_upload->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->tanggal_upload->getErrorMessage() ?></div>
 </span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal" id="o<?= $Page->RowIndex ?>_tanggal" value="<?= HtmlEncode($Page->tanggal->OldValue) ?>">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal_upload" id="o<?= $Page->RowIndex ?>_tanggal_upload" value="<?= HtmlEncode($Page->tanggal_upload->OldValue) ?>">
 <?php } ?>
 <?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal" class="form-group">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x<?= $Page->RowIndex ?>_tanggal" id="x<?= $Page->RowIndex ?>_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanlist", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanlist", "x<?= $Page->RowIndex ?>_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal_upload" class="form-group">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-hidden="1" name="x<?= $Page->RowIndex ?>_tanggal_upload" id="x<?= $Page->RowIndex ?>_tanggal_upload" value="<?= HtmlEncode($Page->tanggal_upload->CurrentValue) ?>">
 </span>
 <?php } ?>
 <?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal">
-<span<?= $Page->tanggal->viewAttributes() ?>>
-<?= $Page->tanggal->getViewValue() ?></span>
-</span>
-<?php } ?>
-</td>
-    <?php } ?>
-    <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <td data-name="idd_wilayah" <?= $Page->idd_wilayah->cellAttributes() ?>>
-<?php if ($Page->RowType == ROWTYPE_ADD) { // Add record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah" class="form-group">
-    <select
-        id="x<?= $Page->RowIndex ?>_idd_wilayah"
-        name="x<?= $Page->RowIndex ?>_idd_wilayah"
-        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah"
-        data-table="pertanggungjawaban"
-        data-field="x_idd_wilayah"
-        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
-        <?= $Page->idd_wilayah->editAttributes() ?>>
-        <?= $Page->idd_wilayah->selectOptionListHtml("x{$Page->RowIndex}_idd_wilayah") ?>
-    </select>
-    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
-<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_wilayah") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah']"),
-        options = { name: "x<?= $Page->RowIndex ?>_idd_wilayah", selectId: "pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
-    ew.createSelect(options);
-});
-</script>
-</span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_wilayah" data-hidden="1" name="o<?= $Page->RowIndex ?>_idd_wilayah" id="o<?= $Page->RowIndex ?>_idd_wilayah" value="<?= HtmlEncode($Page->idd_wilayah->OldValue) ?>">
-<?php } ?>
-<?php if ($Page->RowType == ROWTYPE_EDIT) { // Edit record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah" class="form-group">
-    <select
-        id="x<?= $Page->RowIndex ?>_idd_wilayah"
-        name="x<?= $Page->RowIndex ?>_idd_wilayah"
-        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah"
-        data-table="pertanggungjawaban"
-        data-field="x_idd_wilayah"
-        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
-        <?= $Page->idd_wilayah->editAttributes() ?>>
-        <?= $Page->idd_wilayah->selectOptionListHtml("x{$Page->RowIndex}_idd_wilayah") ?>
-    </select>
-    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
-<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_wilayah") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah']"),
-        options = { name: "x<?= $Page->RowIndex ?>_idd_wilayah", selectId: "pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
-    ew.createSelect(options);
-});
-</script>
-</span>
-<?php } ?>
-<?php if ($Page->RowType == ROWTYPE_VIEW) { // View record ?>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah">
-<span<?= $Page->idd_wilayah->viewAttributes() ?>>
-<?= $Page->idd_wilayah->getViewValue() ?></span>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal_upload">
+<span<?= $Page->tanggal_upload->viewAttributes() ?>>
+<?= $Page->tanggal_upload->getViewValue() ?></span>
 </span>
 <?php } ?>
 </td>
@@ -970,50 +844,13 @@ loadjs.ready(["fpertanggungjawabanlist","load"], function () {
 // Render list options (body, left)
 $Page->ListOptions->render("body", "left", $Page->RowIndex);
 ?>
-    <?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <td data-name="tanggal">
-<span id="el$rowindex$_pertanggungjawaban_tanggal" class="form-group pertanggungjawaban_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x<?= $Page->RowIndex ?>_tanggal" id="x<?= $Page->RowIndex ?>_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanlist", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanlist", "x<?= $Page->RowIndex ?>_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
+    <?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <td data-name="tanggal_upload">
+<span id="el$rowindex$_pertanggungjawaban_tanggal_upload" class="form-group pertanggungjawaban_tanggal_upload">
+<input type="<?= $Page->tanggal_upload->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-format="1" name="x<?= $Page->RowIndex ?>_tanggal_upload" id="x<?= $Page->RowIndex ?>_tanggal_upload" placeholder="<?= HtmlEncode($Page->tanggal_upload->getPlaceHolder()) ?>" value="<?= $Page->tanggal_upload->EditValue ?>"<?= $Page->tanggal_upload->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->tanggal_upload->getErrorMessage() ?></div>
 </span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal" id="o<?= $Page->RowIndex ?>_tanggal" value="<?= HtmlEncode($Page->tanggal->OldValue) ?>">
-</td>
-    <?php } ?>
-    <?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <td data-name="idd_wilayah">
-<span id="el$rowindex$_pertanggungjawaban_idd_wilayah" class="form-group pertanggungjawaban_idd_wilayah">
-    <select
-        id="x<?= $Page->RowIndex ?>_idd_wilayah"
-        name="x<?= $Page->RowIndex ?>_idd_wilayah"
-        class="form-control ew-select<?= $Page->idd_wilayah->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah"
-        data-table="pertanggungjawaban"
-        data-field="x_idd_wilayah"
-        data-value-separator="<?= $Page->idd_wilayah->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_wilayah->getPlaceHolder()) ?>"
-        <?= $Page->idd_wilayah->editAttributes() ?>>
-        <?= $Page->idd_wilayah->selectOptionListHtml("x{$Page->RowIndex}_idd_wilayah") ?>
-    </select>
-    <div class="invalid-feedback"><?= $Page->idd_wilayah->getErrorMessage() ?></div>
-<?= $Page->idd_wilayah->Lookup->getParamTag($Page, "p_x" . $Page->RowIndex . "_idd_wilayah") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah']"),
-        options = { name: "x<?= $Page->RowIndex ?>_idd_wilayah", selectId: "pertanggungjawaban_x<?= $Page->RowIndex ?>_idd_wilayah", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban.fields.idd_wilayah.selectOptions);
-    ew.createSelect(options);
-});
-</script>
-</span>
-<input type="hidden" data-table="pertanggungjawaban" data-field="x_idd_wilayah" data-hidden="1" name="o<?= $Page->RowIndex ?>_idd_wilayah" id="o<?= $Page->RowIndex ?>_idd_wilayah" value="<?= HtmlEncode($Page->idd_wilayah->OldValue) ?>">
+<input type="hidden" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-hidden="1" name="o<?= $Page->RowIndex ?>_tanggal_upload" id="o<?= $Page->RowIndex ?>_tanggal_upload" value="<?= HtmlEncode($Page->tanggal_upload->OldValue) ?>">
 </td>
     <?php } ?>
     <?php if ($Page->kd_satker->Visible) { // kd_satker ?>

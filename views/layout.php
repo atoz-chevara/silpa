@@ -139,7 +139,6 @@ var jqueryjs = [
     ew.PATH_BASE + "jquery/typeahead.jquery.min.js"
 ];
 jqueryjs.push(ew.PATH_BASE + "colorbox/jquery.colorbox-min.js");
-jqueryjs.push(ew.PATH_BASE + "js/pdfobject.min.js");
 jqueryjs.push(ew.PATH_BASE + "jquery/jquery.ewjtable.min.js");
 ew.ready(["jquery", "widget", "scrollbars", "moment", "others"], [jqueryjs, ew.PATH_BASE + "js/ew.min.js"], "makerjs");
 ew.ready("makerjs", [
@@ -277,8 +276,6 @@ loadjs.ready("datetimepicker", function() {
     {{/if}}
 {{/if}}
 </script>
-<link rel="shortcut icon" type="image/x-icon" href="<?= BasePath() ?>/lgpemda.ico">
-<link rel="icon" type="image/x-icon" href="<?= BasePath() ?>/lgpemda.ico">
 <meta name="generator" content="PHPMaker 2021.0.9">
 </head>
 <body class="<?= Config("BODY_CLASS") ?>" dir="<?= IsRTL() ? "rtl" : "ltr" ?>">
@@ -357,69 +354,12 @@ if (isset($DebugTimer)) {
     <!-- Menampilkan User Status -->
     <script type="text/html" class="ew-js-template" data-name="myDropdown" data-method="prependTo" data-target="#ew-menu" data-seq="10">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-    	<div class="image"> <img src="<?= GetUrl("images/avatar.png") ?>" class="img-circle elevation-2" alt="User Image"> </div>
+    	<div class="image"> <img src="<?= GetUrl("images/anonim.png") ?>" class="img-circle elevation-2" alt="User Image"> </div>
     	<div class="info"> <a href="#" class="d-block"><?= JsEncode(CurrentUserName()) ?></a> </div>
     </div>
     </script>
     <!-- // Menampilkan User Status -->
-    <!-- Menampilkan Sidebar Kanan -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <div class="p-3">Sidebar Kanan<!-- Control sidebar content goes here --></div>
-    </aside>
     <script type="text/html" class="ew-js-template" data-name="myControlSidebar" data-method="prependTo" data-target="#ew-navbar-right" data-seq="10">
-    <li class="nav-item">
-    	<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-th-large"></i></a>
-    </li>
-    <!-- // Menampilkan Sidebar Kanan -->
-    <!-- Menampilkan Notifikasi Pesan -->
-    <li class="nav-item dropdown">
-    	<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false"> <i class="far fa-comments"></i> <span class="badge badge-danger navbar-badge">3</span> </a>
-    	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-    		<a href="#" class="dropdown-item">
-    			<div class="media"> <img src="<?= GetUrl("images/user1-128x128.jpg") ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-    				<div class="media-body">
-    					<h3 class="dropdown-item-title">Brad Diesel<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span></h3>
-    					<p class="text-sm">Call me whenever you can...</p>
-    					<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-    				</div>
-    			</div>
-    		</a>
-    		<div class="dropdown-divider"></div>
-    		<a href="#" class="dropdown-item">
-    			<div class="media"> <img src="<?= GetUrl("images/user8-128x128.jpg") ?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
-    				<div class="media-body">
-    					<h3 class="dropdown-item-title">John Pierce<span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span></h3>
-    					<p class="text-sm">I got your message bro</p>
-    					<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-    				</div>
-    			</div>
-    		</a>
-    		<div class="dropdown-divider"></div>
-    		<a href="#" class="dropdown-item">
-    			<div class="media"> <img src="<?= GetUrl("images/user3-128x128.jpg") ?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
-    				<div class="media-body">
-    					<h3 class="dropdown-item-title">Nora Silvester<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span></h3>
-    					<p class="text-sm">The subject goes here</p>
-    					<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-    				</div>
-    			</div>
-    		</a>
-    		<div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a> </div>
-    </li>
-    <!-- //Menampilkan Notifikasi Pesan -->
-    <!-- Menampilkan Notifikasi -->
-    <li class="nav-item dropdown">
-    	<a class="nav-link" data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span class="badge badge-warning navbar-badge">15</span> </a>
-    	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <span class="dropdown-item dropdown-header">15 Notifications</span>
-    		<div class="dropdown-divider"></div>
-    		<a href="#" class="dropdown-item"> <i class="fas fa-envelope mr-2"></i> 4 new messages <span class="float-right text-muted text-sm">3 mins</span> </a>
-    		<div class="dropdown-divider"></div>
-    		<a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i> 8 friend requests <span class="float-right text-muted text-sm">12 hours</span> </a>
-    		<div class="dropdown-divider"></div>
-    		<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> 3 new reports <span class="float-right text-muted text-sm">2 days</span> </a>
-    		<div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> </div>
-    </li>
-    <!-- // Menampilkan Notifikasi -->
     <!-- Menampilkan Tombol Fullscreen -->
     <li class="nav-item">
     	<a class="nav-link" data-widget="fullscreen" href="#" role="button"> <i class="fas fa-expand-arrows-alt"></i> </a>

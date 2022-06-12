@@ -465,7 +465,8 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         $CurrentForm = new HttpForm();
         $this->CurrentAction = Param("action"); // Set up current action
         $this->idd_evaluasi->Visible = false;
-        $this->tanggal->setVisibility();
+        $this->tanggal_upload->setVisibility();
+        $this->tanggal_update->setVisibility();
         $this->idd_wilayah->setVisibility();
         $this->kd_satker->setVisibility();
         $this->idd_tahapan->setVisibility();
@@ -685,8 +686,10 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
     {
         $this->idd_evaluasi->CurrentValue = null;
         $this->idd_evaluasi->OldValue = $this->idd_evaluasi->CurrentValue;
-        $this->tanggal->CurrentValue = null;
-        $this->tanggal->OldValue = $this->tanggal->CurrentValue;
+        $this->tanggal_upload->CurrentValue = null;
+        $this->tanggal_upload->OldValue = $this->tanggal_upload->CurrentValue;
+        $this->tanggal_update->CurrentValue = null;
+        $this->tanggal_update->OldValue = $this->tanggal_update->CurrentValue;
         $this->idd_wilayah->CurrentValue = null;
         $this->idd_wilayah->OldValue = $this->idd_wilayah->CurrentValue;
         $this->kd_satker->CurrentValue = null;
@@ -751,15 +754,26 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         // Load from form
         global $CurrentForm;
 
-        // Check field name 'tanggal' first before field var 'x_tanggal'
-        $val = $CurrentForm->hasValue("tanggal") ? $CurrentForm->getValue("tanggal") : $CurrentForm->getValue("x_tanggal");
-        if (!$this->tanggal->IsDetailKey) {
+        // Check field name 'tanggal_upload' first before field var 'x_tanggal_upload'
+        $val = $CurrentForm->hasValue("tanggal_upload") ? $CurrentForm->getValue("tanggal_upload") : $CurrentForm->getValue("x_tanggal_upload");
+        if (!$this->tanggal_upload->IsDetailKey) {
             if (IsApi() && $val === null) {
-                $this->tanggal->Visible = false; // Disable update for API request
+                $this->tanggal_upload->Visible = false; // Disable update for API request
             } else {
-                $this->tanggal->setFormValue($val);
+                $this->tanggal_upload->setFormValue($val);
             }
-            $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
+            $this->tanggal_upload->CurrentValue = UnFormatDateTime($this->tanggal_upload->CurrentValue, 1);
+        }
+
+        // Check field name 'tanggal_update' first before field var 'x_tanggal_update'
+        $val = $CurrentForm->hasValue("tanggal_update") ? $CurrentForm->getValue("tanggal_update") : $CurrentForm->getValue("x_tanggal_update");
+        if (!$this->tanggal_update->IsDetailKey) {
+            if (IsApi() && $val === null) {
+                $this->tanggal_update->Visible = false; // Disable update for API request
+            } else {
+                $this->tanggal_update->setFormValue($val);
+            }
+            $this->tanggal_update->CurrentValue = UnFormatDateTime($this->tanggal_update->CurrentValue, 1);
         }
 
         // Check field name 'idd_wilayah' first before field var 'x_idd_wilayah'
@@ -831,8 +845,10 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
     public function restoreFormValues()
     {
         global $CurrentForm;
-        $this->tanggal->CurrentValue = $this->tanggal->FormValue;
-        $this->tanggal->CurrentValue = UnFormatDateTime($this->tanggal->CurrentValue, 0);
+        $this->tanggal_upload->CurrentValue = $this->tanggal_upload->FormValue;
+        $this->tanggal_upload->CurrentValue = UnFormatDateTime($this->tanggal_upload->CurrentValue, 1);
+        $this->tanggal_update->CurrentValue = $this->tanggal_update->FormValue;
+        $this->tanggal_update->CurrentValue = UnFormatDateTime($this->tanggal_update->CurrentValue, 1);
         $this->idd_wilayah->CurrentValue = $this->idd_wilayah->FormValue;
         $this->kd_satker->CurrentValue = $this->kd_satker->FormValue;
         $this->idd_tahapan->CurrentValue = $this->idd_tahapan->FormValue;
@@ -898,7 +914,8 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             return;
         }
         $this->idd_evaluasi->setDbValue($row['idd_evaluasi']);
-        $this->tanggal->setDbValue($row['tanggal']);
+        $this->tanggal_upload->setDbValue($row['tanggal_upload']);
+        $this->tanggal_update->setDbValue($row['tanggal_update']);
         $this->idd_wilayah->setDbValue($row['idd_wilayah']);
         $this->kd_satker->setDbValue($row['kd_satker']);
         $this->idd_tahapan->setDbValue($row['idd_tahapan']);
@@ -943,7 +960,8 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         $this->loadDefaultValues();
         $row = [];
         $row['idd_evaluasi'] = $this->idd_evaluasi->CurrentValue;
-        $row['tanggal'] = $this->tanggal->CurrentValue;
+        $row['tanggal_upload'] = $this->tanggal_upload->CurrentValue;
+        $row['tanggal_update'] = $this->tanggal_update->CurrentValue;
         $row['idd_wilayah'] = $this->idd_wilayah->CurrentValue;
         $row['kd_satker'] = $this->kd_satker->CurrentValue;
         $row['idd_tahapan'] = $this->idd_tahapan->CurrentValue;
@@ -998,7 +1016,9 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
         // idd_evaluasi
 
-        // tanggal
+        // tanggal_upload
+
+        // tanggal_update
 
         // idd_wilayah
 
@@ -1046,10 +1066,15 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->idd_evaluasi->ViewValue = $this->idd_evaluasi->CurrentValue;
             $this->idd_evaluasi->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->ViewValue = $this->tanggal->CurrentValue;
-            $this->tanggal->ViewValue = FormatDateTime($this->tanggal->ViewValue, 0);
-            $this->tanggal->ViewCustomAttributes = "";
+            // tanggal_upload
+            $this->tanggal_upload->ViewValue = $this->tanggal_upload->CurrentValue;
+            $this->tanggal_upload->ViewValue = FormatDateTime($this->tanggal_upload->ViewValue, 1);
+            $this->tanggal_upload->ViewCustomAttributes = "";
+
+            // tanggal_update
+            $this->tanggal_update->ViewValue = $this->tanggal_update->CurrentValue;
+            $this->tanggal_update->ViewValue = FormatDateTime($this->tanggal_update->ViewValue, 1);
+            $this->tanggal_update->ViewCustomAttributes = "";
 
             // idd_wilayah
             $curVal = trim(strval($this->idd_wilayah->CurrentValue));
@@ -1284,10 +1309,15 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             }
             $this->idd_user->ViewCustomAttributes = "";
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
-            $this->tanggal->TooltipValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
+            $this->tanggal_upload->TooltipValue = "";
+
+            // tanggal_update
+            $this->tanggal_update->LinkCustomAttributes = "";
+            $this->tanggal_update->HrefValue = "";
+            $this->tanggal_update->TooltipValue = "";
 
             // idd_wilayah
             $this->idd_wilayah->LinkCustomAttributes = "";
@@ -1409,11 +1439,17 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
             $this->idd_user->HrefValue = "";
             $this->idd_user->TooltipValue = "";
         } elseif ($this->RowType == ROWTYPE_ADD) {
-            // tanggal
-            $this->tanggal->EditAttrs["class"] = "form-control";
-            $this->tanggal->EditCustomAttributes = "";
-            $this->tanggal->EditValue = HtmlEncode(FormatDateTime($this->tanggal->CurrentValue, 8));
-            $this->tanggal->PlaceHolder = RemoveHtml($this->tanggal->caption());
+            // tanggal_upload
+            $this->tanggal_upload->EditAttrs["class"] = "form-control";
+            $this->tanggal_upload->EditCustomAttributes = "";
+            $this->tanggal_upload->EditValue = HtmlEncode(FormatDateTime($this->tanggal_upload->CurrentValue, 8));
+            $this->tanggal_upload->PlaceHolder = RemoveHtml($this->tanggal_upload->caption());
+
+            // tanggal_update
+            $this->tanggal_update->EditAttrs["class"] = "form-control";
+            $this->tanggal_update->EditCustomAttributes = "";
+            $this->tanggal_update->EditValue = HtmlEncode(FormatDateTime($this->tanggal_update->CurrentValue, 8));
+            $this->tanggal_update->PlaceHolder = RemoveHtml($this->tanggal_update->caption());
 
             // idd_wilayah
             $this->idd_wilayah->EditAttrs["class"] = "form-control";
@@ -1796,9 +1832,13 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
 
             // Add refer script
 
-            // tanggal
-            $this->tanggal->LinkCustomAttributes = "";
-            $this->tanggal->HrefValue = "";
+            // tanggal_upload
+            $this->tanggal_upload->LinkCustomAttributes = "";
+            $this->tanggal_upload->HrefValue = "";
+
+            // tanggal_update
+            $this->tanggal_update->LinkCustomAttributes = "";
+            $this->tanggal_update->HrefValue = "";
 
             // idd_wilayah
             $this->idd_wilayah->LinkCustomAttributes = "";
@@ -1918,13 +1958,15 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         if (!Config("SERVER_VALIDATE")) {
             return true;
         }
-        if ($this->tanggal->Required) {
-            if (!$this->tanggal->IsDetailKey && EmptyValue($this->tanggal->FormValue)) {
-                $this->tanggal->addErrorMessage(str_replace("%s", $this->tanggal->caption(), $this->tanggal->RequiredErrorMessage));
+        if ($this->tanggal_upload->Required) {
+            if (!$this->tanggal_upload->IsDetailKey && EmptyValue($this->tanggal_upload->FormValue)) {
+                $this->tanggal_upload->addErrorMessage(str_replace("%s", $this->tanggal_upload->caption(), $this->tanggal_upload->RequiredErrorMessage));
             }
         }
-        if (!CheckDate($this->tanggal->FormValue)) {
-            $this->tanggal->addErrorMessage($this->tanggal->getErrorMessage(false));
+        if ($this->tanggal_update->Required) {
+            if (!$this->tanggal_update->IsDetailKey && EmptyValue($this->tanggal_update->FormValue)) {
+                $this->tanggal_update->addErrorMessage(str_replace("%s", $this->tanggal_update->caption(), $this->tanggal_update->RequiredErrorMessage));
+            }
         }
         if ($this->idd_wilayah->Required) {
             if (!$this->idd_wilayah->IsDetailKey && EmptyValue($this->idd_wilayah->FormValue)) {
@@ -2068,8 +2110,11 @@ class PertanggungjawabanAdd extends Pertanggungjawaban
         }
         $rsnew = [];
 
-        // tanggal
-        $this->tanggal->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal->CurrentValue, 0), CurrentDate(), false);
+        // tanggal_upload
+        $this->tanggal_upload->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal_upload->CurrentValue, 1), null, false);
+
+        // tanggal_update
+        $this->tanggal_update->setDbValueDef($rsnew, UnFormatDateTime($this->tanggal_update->CurrentValue, 1), null, false);
 
         // idd_wilayah
         $this->idd_wilayah->setDbValueDef($rsnew, $this->idd_wilayah->CurrentValue, 0, false);

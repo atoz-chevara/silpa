@@ -44,11 +44,8 @@ $Page->showMessage();
 <table class="table ew-table">
     <thead>
     <tr class="ew-table-header">
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <th class="<?= $Page->tanggal->headerCellClass() ?>"><span id="elh_pertanggungjawaban_tanggal" class="pertanggungjawaban_tanggal"><?= $Page->tanggal->caption() ?></span></th>
-<?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <th class="<?= $Page->idd_wilayah->headerCellClass() ?>"><span id="elh_pertanggungjawaban_idd_wilayah" class="pertanggungjawaban_idd_wilayah"><?= $Page->idd_wilayah->caption() ?></span></th>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <th class="<?= $Page->tanggal_upload->headerCellClass() ?>"><span id="elh_pertanggungjawaban_tanggal_upload" class="pertanggungjawaban_tanggal_upload"><?= $Page->tanggal_upload->caption() ?></span></th>
 <?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
         <th class="<?= $Page->kd_satker->headerCellClass() ?>"><span id="elh_pertanggungjawaban_kd_satker" class="pertanggungjawaban_kd_satker"><?= $Page->kd_satker->caption() ?></span></th>
@@ -83,19 +80,11 @@ while (!$Page->Recordset->EOF) {
     $Page->renderRow();
 ?>
     <tr <?= $Page->rowAttributes() ?>>
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-        <td <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal" class="pertanggungjawaban_tanggal">
-<span<?= $Page->tanggal->viewAttributes() ?>>
-<?= $Page->tanggal->getViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
-<?php if ($Page->idd_wilayah->Visible) { // idd_wilayah ?>
-        <td <?= $Page->idd_wilayah->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_idd_wilayah" class="pertanggungjawaban_idd_wilayah">
-<span<?= $Page->idd_wilayah->viewAttributes() ?>>
-<?= $Page->idd_wilayah->getViewValue() ?></span>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+        <td <?= $Page->tanggal_upload->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_pertanggungjawaban_tanggal_upload" class="pertanggungjawaban_tanggal_upload">
+<span<?= $Page->tanggal_upload->viewAttributes() ?>>
+<?= $Page->tanggal_upload->getViewValue() ?></span>
 </span>
 </td>
 <?php } ?>

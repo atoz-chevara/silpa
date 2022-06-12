@@ -20,8 +20,6 @@ loadjs.ready("head", function () {
     if (!ew.vars.tables.pertanggungjawaban2022)
         ew.vars.tables.pertanggungjawaban2022 = currentTable;
     fpertanggungjawaban2022edit.addFields([
-        ["idd_evaluasi", [fields.idd_evaluasi.visible && fields.idd_evaluasi.required ? ew.Validators.required(fields.idd_evaluasi.caption) : null], fields.idd_evaluasi.isInvalid],
-        ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
         ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
         ["tahun_anggaran", [fields.tahun_anggaran.visible && fields.tahun_anggaran.required ? ew.Validators.required(fields.tahun_anggaran.caption) : null], fields.tahun_anggaran.isInvalid],
@@ -40,8 +38,7 @@ loadjs.ready("head", function () {
         ["lpsal", [fields.lpsal.visible && fields.lpsal.required ? ew.Validators.fileRequired(fields.lpsal.caption) : null], fields.lpsal.isInvalid],
         ["lak", [fields.lak.visible && fields.lak.required ? ew.Validators.fileRequired(fields.lak.caption) : null], fields.lak.isInvalid],
         ["laporan_pemeriksaan", [fields.laporan_pemeriksaan.visible && fields.laporan_pemeriksaan.required ? ew.Validators.fileRequired(fields.laporan_pemeriksaan.caption) : null], fields.laporan_pemeriksaan.isInvalid],
-        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid],
-        ["idd_user", [fields.idd_user.visible && fields.idd_user.required ? ew.Validators.required(fields.idd_user.caption) : null], fields.idd_user.isInvalid]
+        ["status", [fields.status.visible && fields.status.required ? ew.Validators.required(fields.status.caption) : null], fields.status.isInvalid]
     ]);
 
     // Set invalid fields
@@ -112,7 +109,6 @@ loadjs.ready("head", function () {
     fpertanggungjawaban2022edit.lists.idd_tahapan = <?= $Page->idd_tahapan->toClientList($Page) ?>;
     fpertanggungjawaban2022edit.lists.tahun_anggaran = <?= $Page->tahun_anggaran->toClientList($Page) ?>;
     fpertanggungjawaban2022edit.lists.status = <?= $Page->status->toClientList($Page) ?>;
-    fpertanggungjawaban2022edit.lists.idd_user = <?= $Page->idd_user->toClientList($Page) ?>;
     loadjs.done("fpertanggungjawaban2022edit");
 });
 </script>
@@ -135,37 +131,6 @@ $Page->showMessage();
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
 <div class="ew-edit-div"><!-- page* -->
-<?php if ($Page->idd_evaluasi->Visible) { // idd_evaluasi ?>
-    <div id="r_idd_evaluasi" class="form-group row">
-        <label id="elh_pertanggungjawaban2022_idd_evaluasi" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_evaluasi->caption() ?><?= $Page->idd_evaluasi->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_evaluasi->cellAttributes() ?>>
-<span id="el_pertanggungjawaban2022_idd_evaluasi">
-<span<?= $Page->idd_evaluasi->viewAttributes() ?>>
-<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_evaluasi->getDisplayValue($Page->idd_evaluasi->EditValue))) ?>"></span>
-</span>
-<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_evaluasi" data-hidden="1" name="x_idd_evaluasi" id="x_idd_evaluasi" value="<?= HtmlEncode($Page->idd_evaluasi->CurrentValue) ?>">
-</div></div>
-    </div>
-<?php } ?>
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-    <div id="r_tanggal" class="form-group row">
-        <label id="elh_pertanggungjawaban2022_tanggal" for="x_tanggal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal->caption() ?><?= $Page->tanggal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban2022_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban2022" data-field="x_tanggal" name="x_tanggal" id="x_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?> aria-describedby="x_tanggal_help">
-<?= $Page->tanggal->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawaban2022edit", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawaban2022edit", "x_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
-<?php } ?>
-</span>
-</div></div>
-    </div>
-<?php } ?>
 <?php if ($Page->kd_satker->Visible) { // kd_satker ?>
     <div id="r_kd_satker" class="form-group row">
         <label id="elh_pertanggungjawaban2022_kd_satker" for="x_kd_satker" class="<?= $Page->LeftColumnClass ?>"><?= $Page->kd_satker->caption() ?><?= $Page->kd_satker->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
@@ -673,48 +638,8 @@ loadjs.ready("head", function() {
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->idd_user->Visible) { // idd_user ?>
-    <div id="r_idd_user" class="form-group row">
-        <label id="elh_pertanggungjawaban2022_idd_user" for="x_idd_user" class="<?= $Page->LeftColumnClass ?>"><?= $Page->idd_user->caption() ?><?= $Page->idd_user->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->idd_user->cellAttributes() ?>>
-<?php if (!$Security->isAdmin() && $Security->isLoggedIn() && !$Page->userIDAllow("edit")) { // Non system admin ?>
-<span id="el_pertanggungjawaban2022_idd_user">
-<span<?= $Page->idd_user->viewAttributes() ?>>
-<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->idd_user->getDisplayValue($Page->idd_user->EditValue))) ?>"></span>
-</span>
-<input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_user" data-hidden="1" name="x_idd_user" id="x_idd_user" value="<?= HtmlEncode($Page->idd_user->CurrentValue) ?>">
-<?php } else { ?>
-<span id="el_pertanggungjawaban2022_idd_user">
-    <select
-        id="x_idd_user"
-        name="x_idd_user"
-        class="form-control ew-select<?= $Page->idd_user->isInvalidClass() ?>"
-        data-select2-id="pertanggungjawaban2022_x_idd_user"
-        data-table="pertanggungjawaban2022"
-        data-field="x_idd_user"
-        data-value-separator="<?= $Page->idd_user->displayValueSeparatorAttribute() ?>"
-        data-placeholder="<?= HtmlEncode($Page->idd_user->getPlaceHolder()) ?>"
-        <?= $Page->idd_user->editAttributes() ?>>
-        <?= $Page->idd_user->selectOptionListHtml("x_idd_user") ?>
-    </select>
-    <?= $Page->idd_user->getCustomMessage() ?>
-    <div class="invalid-feedback"><?= $Page->idd_user->getErrorMessage() ?></div>
-<?= $Page->idd_user->Lookup->getParamTag($Page, "p_x_idd_user") ?>
-<script>
-loadjs.ready("head", function() {
-    var el = document.querySelector("select[data-select2-id='pertanggungjawaban2022_x_idd_user']"),
-        options = { name: "x_idd_user", selectId: "pertanggungjawaban2022_x_idd_user", language: ew.LANGUAGE_ID, dir: ew.IS_RTL ? "rtl" : "ltr" };
-    options.dropdownParent = $(el).closest("#ew-modal-dialog, #ew-add-opt-dialog")[0];
-    Object.assign(options, ew.vars.tables.pertanggungjawaban2022.fields.idd_user.selectOptions);
-    ew.createSelect(options);
-});
-</script>
-</span>
-<?php } ?>
-</div></div>
-    </div>
-<?php } ?>
 </div><!-- /page* -->
+    <input type="hidden" data-table="pertanggungjawaban2022" data-field="x_idd_evaluasi" data-hidden="1" name="x_idd_evaluasi" id="x_idd_evaluasi" value="<?= HtmlEncode($Page->idd_evaluasi->CurrentValue) ?>">
 <?php if (!$Page->IsModal) { ?>
 <div class="form-group row"><!-- buttons .form-group -->
     <div class="<?= $Page->OffsetColumnClass ?>"><!-- buttons offset -->

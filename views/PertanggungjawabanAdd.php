@@ -20,7 +20,8 @@ loadjs.ready("head", function () {
     if (!ew.vars.tables.pertanggungjawaban)
         ew.vars.tables.pertanggungjawaban = currentTable;
     fpertanggungjawabanadd.addFields([
-        ["tanggal", [fields.tanggal.visible && fields.tanggal.required ? ew.Validators.required(fields.tanggal.caption) : null, ew.Validators.datetime(0)], fields.tanggal.isInvalid],
+        ["tanggal_upload", [fields.tanggal_upload.visible && fields.tanggal_upload.required ? ew.Validators.required(fields.tanggal_upload.caption) : null], fields.tanggal_upload.isInvalid],
+        ["tanggal_update", [fields.tanggal_update.visible && fields.tanggal_update.required ? ew.Validators.required(fields.tanggal_update.caption) : null], fields.tanggal_update.isInvalid],
         ["idd_wilayah", [fields.idd_wilayah.visible && fields.idd_wilayah.required ? ew.Validators.required(fields.idd_wilayah.caption) : null], fields.idd_wilayah.isInvalid],
         ["kd_satker", [fields.kd_satker.visible && fields.kd_satker.required ? ew.Validators.required(fields.kd_satker.caption) : null], fields.kd_satker.isInvalid],
         ["idd_tahapan", [fields.idd_tahapan.visible && fields.idd_tahapan.required ? ew.Validators.required(fields.idd_tahapan.caption) : null], fields.idd_tahapan.isInvalid],
@@ -136,21 +137,26 @@ $Page->showMessage();
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
 <div class="ew-add-div"><!-- page* -->
-<?php if ($Page->tanggal->Visible) { // tanggal ?>
-    <div id="r_tanggal" class="form-group row">
-        <label id="elh_pertanggungjawaban_tanggal" for="x_tanggal" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal->caption() ?><?= $Page->tanggal->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal->cellAttributes() ?>>
-<span id="el_pertanggungjawaban_tanggal">
-<input type="<?= $Page->tanggal->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal" name="x_tanggal" id="x_tanggal" placeholder="<?= HtmlEncode($Page->tanggal->getPlaceHolder()) ?>" value="<?= $Page->tanggal->EditValue ?>"<?= $Page->tanggal->editAttributes() ?> aria-describedby="x_tanggal_help">
-<?= $Page->tanggal->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->tanggal->getErrorMessage() ?></div>
-<?php if (!$Page->tanggal->ReadOnly && !$Page->tanggal->Disabled && !isset($Page->tanggal->EditAttrs["readonly"]) && !isset($Page->tanggal->EditAttrs["disabled"])) { ?>
-<script>
-loadjs.ready(["fpertanggungjawabanadd", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpertanggungjawabanadd", "x_tanggal", {"ignoreReadonly":true,"useCurrent":false,"format":0});
-});
-</script>
+<?php if ($Page->tanggal_upload->Visible) { // tanggal_upload ?>
+    <div id="r_tanggal_upload" class="form-group row">
+        <label id="elh_pertanggungjawaban_tanggal_upload" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal_upload->caption() ?><?= $Page->tanggal_upload->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal_upload->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_tanggal_upload">
+<input type="<?= $Page->tanggal_upload->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal_upload" data-format="1" name="x_tanggal_upload" id="x_tanggal_upload" placeholder="<?= HtmlEncode($Page->tanggal_upload->getPlaceHolder()) ?>" value="<?= $Page->tanggal_upload->EditValue ?>"<?= $Page->tanggal_upload->editAttributes() ?> aria-describedby="x_tanggal_upload_help">
+<?= $Page->tanggal_upload->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->tanggal_upload->getErrorMessage() ?></div>
+</span>
+</div></div>
+    </div>
 <?php } ?>
+<?php if ($Page->tanggal_update->Visible) { // tanggal_update ?>
+    <div id="r_tanggal_update" class="form-group row">
+        <label id="elh_pertanggungjawaban_tanggal_update" class="<?= $Page->LeftColumnClass ?>"><?= $Page->tanggal_update->caption() ?><?= $Page->tanggal_update->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->tanggal_update->cellAttributes() ?>>
+<span id="el_pertanggungjawaban_tanggal_update">
+<input type="<?= $Page->tanggal_update->getInputTextType() ?>" data-table="pertanggungjawaban" data-field="x_tanggal_update" data-format="1" name="x_tanggal_update" id="x_tanggal_update" placeholder="<?= HtmlEncode($Page->tanggal_update->getPlaceHolder()) ?>" value="<?= $Page->tanggal_update->EditValue ?>"<?= $Page->tanggal_update->editAttributes() ?> aria-describedby="x_tanggal_update_help">
+<?= $Page->tanggal_update->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->tanggal_update->getErrorMessage() ?></div>
 </span>
 </div></div>
     </div>
