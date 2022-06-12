@@ -924,7 +924,7 @@
   </global>
   <project>
     <phrase id="bodytitle" value="Sistem Informasi Layanan Pembinaan Anggaran (SILPA) " />
-    <phrase id="footertext" value="&amp;copy;2022 Aceh Creative Labs. All rights reserved." />
+    <phrase id="footertext" value="Dibuat dengan &lt;span class=&quot;text-pink-500&quot;&gt;❤️&lt;/span&gt; oleh &lt;a href=&quot;https://about.me/atoz.chevara&quot; target=&quot;_blank&quot; class=&quot;font-bold text-warning&quot;&gt;Izharul Haq&lt;/a&gt;." />
     <menu id="32">
       <phrase id="menutext" value="Home" />
     </menu>

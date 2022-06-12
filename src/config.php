@@ -171,7 +171,7 @@ $CONFIG = [
 
     // General
     "UNFORMAT_YEAR" => 50, // Unformat year
-    "RANDOM_KEY" => 'ReDF3g556a9Vb1Tr', // Random key for encryption
+    "RANDOM_KEY" => 'y6IBs5jmK4jRPJh8', // Random key for encryption
     "ENCRYPTION_KEY" => '', // Encryption key for data protection
     "PROJECT_STYLESHEET_FILENAME" => "css/silpa.css", // Project stylesheet file name
     "PROJECT_CHARSET" => "utf-8", // Project charset
